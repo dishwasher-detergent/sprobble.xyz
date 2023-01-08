@@ -1,11 +1,15 @@
-## Getting Started
+# Getting Started
 
-First, run the development server:
+After forking the repo.
 
-```bash
+```
+npm install
+
 npm run dev
-# or
-yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+To get your data in the tool, you will have to request a data dump from [Spotify](https://www.spotify.com/us/account/privacy/). 
+
+Add your StreamingHistory.json files to the data folder.
+
+That's it! 
