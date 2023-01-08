@@ -1,91 +1,104 @@
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from './page.module.css'
+import Display from "#/ui/display";
+import { Nunito } from "@next/font/google";
+import fs from "fs";
+import { join } from "path";
 
-const inter = Inter({ subsets: ['latin'] })
+const nunito = Nunito({
+  subsets: ["latin"],
+  variable: "--nunito-font",
+});
 
-export default function Home() {
+const basePath = join(process.cwd(), "data");
+
+export type StreamData = {
+  endTime: string;
+  artistName: string;
+  trackName: string;
+  msPlayed: number;
+};
+
+export type Artist = {
+  artist: {
+    name: string;
+    count: number;
+    msPlayed: number;
+  };
+  song: {
+    [key: string]: {
+      name: string;
+      count: number;
+      msPlayed: number;
+    };
+  };
+};
+
+type Counts = {
+  [key: string]: Artist;
+};
+
+async function getData(year: number) {
+  const streamData: StreamData[] = [];
+  const counts: Counts = {};
+  const files = fs.readdirSync(basePath, { withFileTypes: true });
+
+  files.forEach((file) => {
+    const data = JSON.parse(
+      fs.readFileSync(join(basePath, file.name), "utf-8")
+    );
+    streamData.push(...data);
+  });
+
+  const currentYearData = streamData.filter((item) => {
+    const date = new Date(item.endTime);
+    return date.getFullYear() === year;
+  });
+
+  currentYearData.forEach((item) => {
+    if (counts[item.artistName]) {
+      counts[item.artistName].artist.count += 1;
+      counts[item.artistName].artist.msPlayed += item.msPlayed;
+      if (counts[item.artistName].song[item.trackName]) {
+        counts[item.artistName].song[item.trackName].count += 1;
+        counts[item.artistName].song[item.trackName].msPlayed += item.msPlayed;
+      } else {
+        counts[item.artistName].song[item.trackName] = {
+          name: item.trackName,
+          count: 1,
+          msPlayed: item.msPlayed,
+        };
+      }
+    } else {
+      counts[item.artistName] = {
+        artist: {
+          name: item.artistName,
+          count: 1,
+          msPlayed: item.msPlayed,
+        },
+        song: {
+          [item.trackName]: {
+            name: item.trackName,
+            count: 1,
+            msPlayed: item.msPlayed,
+          },
+        },
+      };
+    }
+  });
+
+  const countsArray: Artist[] = Object.values(counts);
+
+  return countsArray;
+}
+
+export default async function Home() {
+  const files = await getData(2022);
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-        <div className={styles.thirteen}>
-          <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
-        </div>
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+    <main className="mx-auto w-full max-w-7xl h-full p-8">
+      <h1 className={`${nunito.variable} font-bold text-3xl pb-4`}>
+        Stats for Spotify Data Dump
+      </h1>
+      <Display files={files} />
     </main>
-  )
+  );
 }
