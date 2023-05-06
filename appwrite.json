@@ -1,0 +1,21 @@
+{
+    "projectId": "645691318f6cc28f1416",
+    "projectName": "spotify",
+    "functions": [
+        {
+            "$id": "6456925e017f0820505d",
+            "name": "spotify",
+            "runtime": "node-16.0",
+            "path": "functions/spotify",
+            "entrypoint": "src/index.js",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
+            "execute": [],
+            "events": [],
+            "schedule": "",
+            "timeout": 15
+        }
+    ]
+}
