@@ -17,9 +17,9 @@ interface SongProps {
 export default function Song({ content }: SongProps) {
   return (
     <Card>
-      <CardHeader className="flex flex-row gap-4">
+      <CardHeader className="flex flex-row gap-4 p-2">
         {content.album && content.album.images.length > 0 && (
-          <div className="aspect-square h-20 rounded-lg bg-slate-900 relative overflow-hidden">
+          <div className="aspect-square h-20 rounded-lg bg-slate-900 relative overflow-hidden flex-none">
             <Image
               alt={content.album?.name ?? "Album Cover"}
               src={content.album?.images[0].url}
@@ -27,24 +27,33 @@ export default function Song({ content }: SongProps) {
             />
           </div>
         )}
-        <div className="flex flex-col justify-start">
-          <CardTitle>{content.name}</CardTitle>
+        <div className="flex flex-col justify-start flex-1 overflow-hidden">
+          <CardTitle className="truncate">
+            {content.name}asdfasdfasdfasdfasdfasdf
+          </CardTitle>
           <CardDescription>
             You Have listened to this song x times.
           </CardDescription>
-          <div>
-            <Badge className="text-xs">Preview</Badge>
-          </div>
+          {content.explicit && (
+            <div>
+              <Badge className="text-xs bg-red-600">Explicit</Badge>
+            </div>
+          )}
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-2">
         {content?.preview_url && (
-          <AudioPlayer
-            track={{
-              preview: content.preview_url,
-              duration: content.duration_ms,
-            }}
-          />
+          <>
+            <p className="p-1 font-semibold text-xs text-slate-600">
+              Song Preview
+            </p>
+            <AudioPlayer
+              track={{
+                preview: content.preview_url,
+                duration: content.duration_ms,
+              }}
+            />
+          </>
         )}
       </CardContent>
     </Card>
