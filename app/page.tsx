@@ -1,5 +1,3 @@
-"use client";
-
 import Song from "@/components/Song";
 import { spotify } from "@/spotify";
 

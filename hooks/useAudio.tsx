@@ -1,9 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export const useAudio = (url: string | undefined) => {
-  const [audio] = useState(new Audio(url));
+  const audio = useRef<HTMLAudioElement | undefined>(
+    typeof Audio !== "undefined" ? new Audio(url) : undefined
+  );
   const [playing, setPlaying] = useState<boolean>(false);
   const [time, setCurrentTime] = useState<number>(0);
 
@@ -15,16 +17,20 @@ export const useAudio = (url: string | undefined) => {
   };
 
   useEffect(() => {
-    playing ? audio.play() : audio.pause();
-    audio.ontimeupdate = (e) => {
-      timeUpdate(e);
-    };
+    playing ? audio.current?.play() : audio.current?.pause();
+
+    if (audio.current) {
+      audio.current.ontimeupdate = (e) => {
+        timeUpdate(e);
+      };
+    }
   }, [playing]);
 
   useEffect(() => {
-    audio.addEventListener("ended", () => setPlaying(false));
+    const aud = audio?.current;
+    aud?.addEventListener("ended", () => setPlaying(false));
     return () => {
-      audio.removeEventListener("ended", () => setPlaying(false));
+      aud?.removeEventListener("ended", () => setPlaying(false));
     };
   }, []);
 
