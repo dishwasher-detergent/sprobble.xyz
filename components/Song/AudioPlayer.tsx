@@ -15,8 +15,6 @@ interface AudioPlayerProps {
 export default function AudioPlayer({ track }: AudioPlayerProps) {
   const { playing, toggle, time } = useAudio(track.preview);
 
-  if (!track.preview) return;
-
   return (
     <div className="w-full h-12 rounded-lg bg-slate-100 flex items-center gap-4 p-4">
       <button onClick={toggle}>
