@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Card,
   CardContent,
@@ -8,7 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Track } from "@/types/UsersTopItems";
-import AudioPlayer from "./AudioPlayer";
+import AudioPlayer from "@/components/Song/AudioPlayer";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 

@@ -1,3 +1,5 @@
+"use client";
+
 import { useAudio } from "@/hooks/useAudio";
 import { Progress } from "@/components/ui/progress";
 import { LucidePauseCircle, LucidePlayCircle } from "lucide-react";
