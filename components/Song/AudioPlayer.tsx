@@ -31,7 +31,7 @@ export default function AudioPlayer({ track }: AudioPlayerProps) {
           </p>
           <Progress
             className="h-2 bg-slate-300"
-            value={(time / track.duration) * 100}
+            value={Math.floor((time / track.duration) * 100)}
           />
           <p className="text-sm font-semibold text-slate-600">
             {formatTimeForAudioPlayer(track.duration)}

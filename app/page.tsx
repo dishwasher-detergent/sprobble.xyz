@@ -20,7 +20,6 @@ export default async function Home() {
             <Song content={item} key={item.id} />
           ))}
       </div>
-      <div>{<SpotifyAuth />}</div>
     </main>
   );
 }

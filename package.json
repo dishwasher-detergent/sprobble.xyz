@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.0.2",
+    "@radix-ui/react-navigation-menu": "^1.1.2",
     "@radix-ui/react-progress": "^1.0.2",
+    "@radix-ui/react-tooltip": "^1.0.5",
     "@types/node": "20.1.0",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",

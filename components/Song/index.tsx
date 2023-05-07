@@ -9,6 +9,7 @@ import { Track } from "@/types/UsersTopItems";
 import AudioPlayer from "@/components/Song/AudioPlayer";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
+import Popularity from "./popularity";
 
 interface SongProps {
   content: Track;
@@ -16,7 +17,11 @@ interface SongProps {
 
 export default function Song({ content }: SongProps) {
   return (
-    <Card>
+    <Card className="relative">
+      <Popularity
+        className="absolute -top-2 -left-2 z-10"
+        popularity={content.popularity}
+      />
       <a
         href={content?.external_urls?.spotify}
         target="_blank"
@@ -33,9 +38,7 @@ export default function Song({ content }: SongProps) {
             </div>
           )}
           <div className="flex flex-col justify-start flex-1 overflow-hidden">
-            <CardTitle className="truncate">
-              {content.name}asdfasdfasdfasdfasdfasdf
-            </CardTitle>
+            <CardTitle className="truncate">{content.name}</CardTitle>
             <CardDescription>
               You Have listened to this song x times.
             </CardDescription>
