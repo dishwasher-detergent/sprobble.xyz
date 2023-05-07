@@ -13,8 +13,8 @@ export default async function Home() {
   )) as UsersTopTracks;
 
   return (
-    <main className="flex min-h-screen flex-col p-24">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+    <main className="flex min-h-screen flex-col max-w-7xl mx-auto p-2 md:p-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 md:gap-4">
         {tracks.items &&
           tracks.items.map((item: Track) => (
             <Song content={item} key={item.id} />
