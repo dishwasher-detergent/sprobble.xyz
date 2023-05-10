@@ -5,7 +5,7 @@
         {
             "$id": "6456925e017f0820505d",
             "name": "spotify",
-            "runtime": "node-16.0",
+            "runtime": "node-18.0",
             "path": "functions/spotify",
             "entrypoint": "src/index.js",
             "ignore": [
