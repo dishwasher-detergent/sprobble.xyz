@@ -43,8 +43,6 @@ module.exports = async function (req, res) {
 
   const fetched_users = await users.list();
 
-  const temp = [];
-
   for (let i = 0; i < fetched_users.users.length; i++) {
     const spotifyAccessToken = await utils.getAccessToken(
       req.variables["SPOTIFY_CLIENT_ID"],
@@ -55,10 +53,14 @@ module.exports = async function (req, res) {
     const history = await utils.getPlayerHistory(
       spotifyAccessToken.access_token
     );
-    temp.push(history);
+
+    for (let i = 0; i < history.items.length; i++) {
+      await utils.addTrackToDatabase(history.items[i], database);
+      await utils.addListenToDatabase(history.items[i], database);
+    }
+
+    setTimeout(() => {}, 1000);
   }
 
-  res.json({
-    history: temp,
-  });
+  res.send("Complete!");
 };
