@@ -44,11 +44,15 @@ module.exports = async function (req, res) {
   const fetched_users = await users.list();
 
   for (let i = 0; i < fetched_users.users.length; i++) {
+    if (!fetched_users.users[i].prefs.refresh_token) continue;
+
     const spotifyAccessToken = await utils.getAccessToken(
       req.variables["SPOTIFY_CLIENT_ID"],
       req.variables["SPOTIFY_CLIENT_SECRET"],
       fetched_users.users[i].prefs.refresh_token
     );
+
+    if (!spotifyAccessToken.access_token) continue;
 
     const history = await utils.getPlayerHistory(
       spotifyAccessToken.access_token
