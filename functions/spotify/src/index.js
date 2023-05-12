@@ -64,10 +64,12 @@ module.exports = async function (req, res) {
         database
       );
 
+      if (!response) continue;
+
       await utils.addListenToDatabase(
         fetched_users.users[i].$id,
         history.items[i].played_at,
-        response.track.$id,
+        response.track[0].$id,
         database
       );
     }

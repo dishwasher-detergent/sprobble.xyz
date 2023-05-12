@@ -120,6 +120,7 @@ const addListenToDatabase = async (user_id, played_at, track_id, database) => {
     })
     .then(
       function (response) {
+        console.log(response);
         return response;
       },
       function (error) {
