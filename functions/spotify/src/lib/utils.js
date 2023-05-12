@@ -54,6 +54,7 @@ const getPlayerHistory = async (ACCESS_TOKEN) => {
 
 const addTrackToDatabase = async (item, database) => {
   const { track } = item;
+  const { artist, album } = track;
 
   const existing = await database
     .getDocument("645c032960cb9f95212b", "album", track.album.id)
@@ -68,12 +69,12 @@ const addTrackToDatabase = async (item, database) => {
 
   for (let i = 0; i < track.artists.length; i++) {
     artists.push({
-      id: track.artists[i].id,
-      name: track.artists[i].name,
-      href: track.artists[i].external_urls.spotify,
-      popularity: track.artists[i].popularity,
-      images: track.artists[i].images?.map((image) => image.url) ?? [],
-      genres: track.artists[i].genres ?? [],
+      id: artist[i].id,
+      name: artist[i].name,
+      href: artist[i].external_urls.spotify,
+      popularity: artist[i].popularity,
+      images: artist[i].images?.map((image) => image.url) ?? [],
+      genres: artist[i].genres ?? [],
     });
   }
 
@@ -90,12 +91,12 @@ const addTrackToDatabase = async (item, database) => {
   ];
 
   await database
-    .createDocument("645c032960cb9f95212b", "album", track.album.id, {
-      id: track.album.id,
-      name: track.album.name,
-      href: track.album.external_urls.spotify,
-      popularity: track.album.popularity,
-      images: track.album.images?.map((image) => image.url) ?? [],
+    .createDocument("645c032960cb9f95212b", "album", album.id, {
+      id: album.id,
+      name: album.name,
+      href: album.external_urls.spotify,
+      popularity: album.popularity,
+      images: album.images?.map((image) => image.url) ?? [],
       artist: artists,
       track: song,
     })
