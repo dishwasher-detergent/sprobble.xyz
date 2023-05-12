@@ -47,7 +47,7 @@ module.exports = async function (req, res) {
     const spotifyAccessToken = await utils.getAccessToken(
       req.variables["SPOTIFY_CLIENT_ID"],
       req.variables["SPOTIFY_CLIENT_SECRET"],
-      fetched_users.users[0].prefs.refresh_token
+      fetched_users.users[i].prefs.refresh_token
     );
 
     const history = await utils.getPlayerHistory(
@@ -55,8 +55,16 @@ module.exports = async function (req, res) {
     );
 
     for (let i = 0; i < history.items.length; i++) {
-      await utils.addTrackToDatabase(history.items[i], database);
-      await utils.addListenToDatabase(history.items[i], database);
+      const response = await utils.addTrackToDatabase(
+        history.items[i],
+        database
+      );
+      await utils.addListenToDatabase(
+        fetched_users.users[i].$id,
+        history.items[i].item.played_at,
+        response.track.$id,
+        database
+      );
     }
 
     setTimeout(() => {}, 1000);

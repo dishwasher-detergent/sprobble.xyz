@@ -110,14 +110,12 @@ const addTrackToDatabase = async (item, database) => {
     );
 };
 
-const addListenToDatabase = async (item, database) => {
-  const { played_at, track } = item;
-
+const addListenToDatabase = async (user_id, played_at, track_id, database) => {
   await database
     .createDocument("645c032960cb9f95212b", "plays", ID.unique(), {
-      user_id: "123ABC",
-      played_at: "2023-05-10T22:37:58.373Z",
-      track: "645d904f272ec27dc198",
+      user_id: user_id,
+      played_at: played_at,
+      track: track_id,
     })
     .then(
       function (response) {
