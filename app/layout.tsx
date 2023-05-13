@@ -1,7 +1,7 @@
 import { Nav } from "@/components/Nav";
-import { NextAuthProvider } from "@/providers/auth";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import AppWriteWrapper from "@/context/appwriteWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,13 +16,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <NextAuthProvider>
+    <AppWriteWrapper>
+      <html lang="en">
+        <body className={inter.className}>
           <Nav />
           {children}
-        </NextAuthProvider>
-      </body>
-    </html>
+        </body>
+      </html>
+    </AppWriteWrapper>
   );
 }

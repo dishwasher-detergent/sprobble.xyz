@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Track } from "@/types/UsersTopItems";
+import { Track } from "@/types/Types";
 import AudioPlayer from "@/components/Song/AudioPlayer";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
@@ -16,10 +16,11 @@ interface SongProps {
 }
 
 export default function Song({ content }: SongProps) {
+  const album = content.album[0];
   return (
     <Card className="relative">
       <Popularity
-        className="absolute -top-2 -left-2 z-10"
+        className="absolute -top-2 -right-2 z-10"
         popularity={content.popularity}
       />
       <a
@@ -28,11 +29,11 @@ export default function Song({ content }: SongProps) {
         rel="noreferrer"
       >
         <CardHeader className="flex flex-row gap-4 p-2 hover:cursor-pointer hover:bg-slate-50">
-          {content.album && content.album.images.length > 0 && (
+          {album && album.images.length > 0 && (
             <div className="aspect-square h-20 rounded-lg bg-slate-900 relative overflow-hidden flex-none">
               <Image
-                alt={content.album?.name ?? "Album Cover"}
-                src={content.album?.images[0].url}
+                alt={album?.name ?? "Album Cover"}
+                src={album?.images[0]}
                 fill={true}
               />
             </div>
@@ -51,15 +52,15 @@ export default function Song({ content }: SongProps) {
         </CardHeader>
       </a>
       <CardContent className="p-2">
-        {content?.preview_url && (
+        {content?.preview && (
           <>
             <p className="p-1 font-semibold text-xs text-slate-600">
               Song Preview
             </p>
             <AudioPlayer
               track={{
-                preview: content.preview_url,
-                duration: content.duration_ms,
+                preview: content.preview,
+                duration: content.duration,
               }}
             />
           </>

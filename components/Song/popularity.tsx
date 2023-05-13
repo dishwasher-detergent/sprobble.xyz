@@ -16,7 +16,7 @@ export default function Popularity({
   className,
   popularity = 0,
 }: PopularityProps) {
-  const popCalc = (popularity - 70) * 3;
+  const popCalc = (popularity - 80) * 3;
 
   if (popularity < 70) return null;
 
