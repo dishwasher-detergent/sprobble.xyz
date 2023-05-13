@@ -23,7 +23,6 @@
     "eslint-config-next": "13.4.1",
     "lucide-react": "^0.214.0",
     "next": "13.4.1",
-    "next-auth": "^4.22.1",
     "postcss": "8.4.23",
     "react": "18.2.0",
     "react-appwrite": "^0.4.1",
