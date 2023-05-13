@@ -58,18 +58,13 @@ module.exports = async function (req, res) {
       spotifyAccessToken.access_token
     );
 
-    for (let i = 0; i < history.items.length; i++) {
-      const response = await utils.addTrackToDatabase(
-        history.items[i],
-        database
-      );
-
-      if (!response) continue;
+    for (let j = 0; j < history.items.length; j++) {
+      await utils.addToDatabase(history.items[j], database);
 
       await utils.addListenToDatabase(
         fetched_users.users[i].$id,
-        history.items[i].played_at,
-        response.track[0].$id,
+        history.items[j].played_at,
+        history.items[j].track.id,
         database
       );
     }

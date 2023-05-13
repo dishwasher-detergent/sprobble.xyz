@@ -1,4 +1,4 @@
-const { ID } = require("node-appwrite");
+const { ID, Query } = require("node-appwrite");
 
 const PLAYER_HISTORY_ENDPOINT = `https://api.spotify.com/v1/me/player/recently-played?limit=5`;
 const REFRESH_TOKEN_ENDPOINT = "https://accounts.spotify.com/api/token";
@@ -52,34 +52,35 @@ const getPlayerHistory = async (ACCESS_TOKEN) => {
   return body;
 };
 
-const addTrackToDatabase = async (item, database) => {
+const addToDatabase = async (item, database) => {
   const { track } = item;
-  const { artist, album } = track;
+
+  await addAlbumToDatabase(track, database);
+  await addTrackToDatabase(track, database);
+  await addArtistToDatabase(track, database);
+};
+
+const addTrackToDatabase = async (track, database) => {
+  const { album, artists } = track;
 
   const existing = await database
-    .getDocument("645c032960cb9f95212b", "album", track.album.id)
+    .getDocument("645c032960cb9f95212b", "track", track.id)
     .then(
-      () => true,
+      (response) => response,
       () => false
     );
 
-  if (existing) return;
+  if (existing) {
+    if (existing.album.filter((x) => x.id == album.id) > 0) return;
 
-  const artists = [];
-
-  for (let i = 0; i < track.artists.length; i++) {
-    artists.push({
-      id: artist[i].id,
-      name: artist[i].name,
-      href: artist[i].external_urls.spotify,
-      popularity: artist[i].popularity,
-      images: artist[i].images?.map((image) => image.url) ?? [],
-      genres: artist[i].genres ?? [],
+    await database.updateDocument("645c032960cb9f95212b", "track", track.id, {
+      album: [...existing.album, album.id],
     });
+    return;
   }
 
-  const song = [
-    {
+  await database
+    .createDocument("645c032960cb9f95212b", "track", track.id, {
       id: track.id,
       name: track.name,
       href: track.external_urls.spotify,
@@ -87,8 +88,73 @@ const addTrackToDatabase = async (item, database) => {
       preview: track.preview_url,
       explicit: track.explicit,
       duration: track.duration_ms,
-    },
-  ];
+      album: [album.id],
+    })
+    .then(
+      (response) => response,
+      (error) => {
+        console.log("error: ", error);
+        throw new Error(error);
+      }
+    );
+};
+
+const addArtistToDatabase = async (item, database) => {
+  const { artists, album } = item;
+
+  for (let i = 0; i < artists.length; i++) {
+    const existing = await database
+      .getDocument("645c032960cb9f95212b", "artist", artists[i].id)
+      .then(
+        (response) => response,
+        () => false
+      );
+
+    if (existing) {
+      if (existing.album.filter((x) => x.id == album.id) > 0) continue;
+
+      await database.updateDocument(
+        "645c032960cb9f95212b",
+        "artist",
+        artists[i].id,
+        {
+          album: [...existing.album, album.id],
+        }
+      );
+      continue;
+    }
+
+    await database
+      .createDocument("645c032960cb9f95212b", "artist", artists[i].id, {
+        id: artists[i].id,
+        name: artists[i].name,
+        href: artists[i].external_urls.spotify,
+        popularity: artists[i].popularity,
+        images: artists[i].images?.map((image) => image.url) ?? [],
+        genres: artists[i].genres ?? [],
+        album: [item.album.id],
+      })
+      .then(
+        (response) => response,
+        (error) => {
+          console.log("error: ", error);
+          throw new Error(error);
+        }
+      );
+  }
+};
+
+const addAlbumToDatabase = async (item, database) => {
+  const { artist, album } = item;
+
+  const existing = await database
+    .getDocument("645c032960cb9f95212b", "album", album.id)
+    .then(
+      () => true,
+      () => false
+    );
+
+  if (existing) return;
 
   await database
     .createDocument("645c032960cb9f95212b", "album", album.id, {
@@ -97,14 +163,10 @@ const addTrackToDatabase = async (item, database) => {
       href: album.external_urls.spotify,
       popularity: album.popularity,
       images: album.images?.map((image) => image.url) ?? [],
-      artist: artists,
-      track: song,
     })
     .then(
-      function (response) {
-        return response;
-      },
-      function (error) {
+      (response) => response,
+      (error) => {
         console.log("error: ", error);
         throw new Error(error);
       }
@@ -112,18 +174,27 @@ const addTrackToDatabase = async (item, database) => {
 };
 
 const addListenToDatabase = async (user_id, played_at, track_id, database) => {
+  const existing = await database
+    .listDocuments("645c032960cb9f95212b", "plays", [
+      Query.equal("user_id", user_id),
+      Query.equal("played_at", played_at),
+    ])
+    .then(
+      (response) => response,
+      () => false
+    );
+
+  if (existing.total >= 1) return;
+
   await database
     .createDocument("645c032960cb9f95212b", "plays", ID.unique(), {
       user_id: user_id,
       played_at: played_at,
-      track: track_id,
+      track: [track_id],
     })
     .then(
-      function (response) {
-        console.log(response);
-        return response;
-      },
-      function (error) {
+      (response) => response,
+      (error) => {
         console.log("error: ", error);
         throw new Error(error);
       }
@@ -133,6 +204,6 @@ const addListenToDatabase = async (user_id, played_at, track_id, database) => {
 module.exports = {
   getAccessToken,
   getPlayerHistory,
-  addTrackToDatabase,
+  addToDatabase,
   addListenToDatabase,
 };
