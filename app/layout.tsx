@@ -18,10 +18,7 @@ export default function RootLayout({
   return (
     <AppWriteWrapper>
       <html lang="en">
-        <body className={nunito.className}>
-          <Nav />
-          {children}
-        </body>
+        <body className={nunito.className}>{children}</body>
       </html>
     </AppWriteWrapper>
   );
