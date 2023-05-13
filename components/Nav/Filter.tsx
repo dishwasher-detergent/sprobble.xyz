@@ -1,4 +1,9 @@
-import { LucideArrowDown01, LucideArrowUp01 } from "lucide-react";
+import {
+  LucideArrowDown01,
+  LucideArrowUp01,
+  LucideLayoutGrid,
+  LucideLayoutList,
+} from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -10,9 +15,16 @@ import { Query } from "appwrite";
 interface FilterBarProps {
   sort: () => void;
   sortValue: string;
+  layout: () => void;
+  layoutValue: string;
 }
 
-export default function FilterBar({ sort, sortValue }: FilterBarProps) {
+export default function FilterBar({
+  sort,
+  sortValue,
+  layout,
+  layoutValue,
+}: FilterBarProps) {
   return (
     <NavigationMenu className="p-1 flex-none h-12 rounded-lg border-slate-200 border justify-between">
       <NavigationMenuList>
@@ -27,6 +39,15 @@ export default function FilterBar({ sort, sortValue }: FilterBarProps) {
               <LucideArrowUp01 />
             ) : (
               <LucideArrowDown01 />
+            )}
+          </Button>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <Button variant="ghost" onClick={layout}>
+            {layoutValue == "grid" ? (
+              <LucideLayoutGrid />
+            ) : (
+              <LucideLayoutList />
             )}
           </Button>
         </NavigationMenuItem>

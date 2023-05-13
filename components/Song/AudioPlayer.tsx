@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { useAudio } from "@/hooks/useAudio";
 import { formatTimeForAudioPlayer } from "@/lib/utils";
-import { LucidePause, LucidePlay } from "lucide-react";
+import { LucidePauseCircle, LucidePlayCircle } from "lucide-react";
 
 interface AudioPlayerProps {
   track: {
@@ -19,10 +19,14 @@ export default function AudioPlayer({ track }: AudioPlayerProps) {
   return (
     <div className="w-full h-12 rounded-lg bg-slate-100 flex items-center gap-2 p-4">
       <Button
-        className="aspect-square p-2 rounded-full h-8 grid place-items-center"
+        className="aspect-square p-0 rounded-full h-8 grid place-items-center"
         onClick={toggle}
       >
-        {playing ? <LucidePlay size={16} /> : <LucidePause size={16} />}
+        {playing ? (
+          <LucidePlayCircle size={28} />
+        ) : (
+          <LucidePauseCircle size={28} />
+        )}
       </Button>
       {track.duration && (
         <div className="w-full flex flex-row gap-2 items-center">
