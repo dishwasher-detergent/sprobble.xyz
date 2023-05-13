@@ -17,7 +17,7 @@ export default function FilterBar({ sort, sortValue }: FilterBarProps) {
     <NavigationMenu className="p-1 flex-none h-12 rounded-lg border-slate-200 border justify-between">
       <NavigationMenuList>
         <NavigationMenuItem>
-          <h1 className="px-2 font-bold">Sproggle.xyz</h1>
+          <h1 className="px-2 font-bold">Sprobble.xyz</h1>
         </NavigationMenuItem>
       </NavigationMenuList>
       <NavigationMenuList>
