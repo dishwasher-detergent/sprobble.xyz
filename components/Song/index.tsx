@@ -29,11 +29,7 @@ export default function Song({ content }: SongProps) {
         className="absolute -top-2 -right-2 z-10"
         popularity={track[0].popularity}
       />
-      <a
-        href={track[0]?.external_urls?.spotify}
-        target="_blank"
-        rel="noreferrer"
-      >
+      <a href={track[0]?.href} target="_blank" rel="noreferrer">
         <CardHeader className="flex flex-row gap-4 p-2 hover:cursor-pointer hover:bg-slate-50">
           {album[0] && album[0].images.length > 0 && (
             <div className="aspect-square h-20 rounded-lg bg-slate-900 relative overflow-hidden flex-none">
