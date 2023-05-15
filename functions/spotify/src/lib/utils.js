@@ -111,14 +111,21 @@ const addArtistToDatabase = async (item, database) => {
       );
 
     if (existing) {
-      if (existing.album.filter((x) => x.id == album.id) > 0) continue;
+      let albums = [];
+      let tracks = [];
+      
+      if (existing.track.filter((x) => x.id == item.id) == 0) tracks = [...existing.track, item.id]
+      if (existing.album.filter((x) => x.id == album.id) == 0) albums = [...existing.album, album.id]
 
+      if(albums.length == 0 && tracks.length == 0) continue;
+      
       await database.updateDocument(
         "645c032960cb9f95212b",
         "artist",
         artists[i].id,
         {
-          album: [...existing.album, album.id],
+          track: tracks,
+          albums: albums,
         }
       );
       continue;
@@ -133,6 +140,7 @@ const addArtistToDatabase = async (item, database) => {
         images: artists[i].images?.map((image) => image.url) ?? [],
         genres: artists[i].genres ?? [],
         album: [item.album.id],
+        track: [item.id],
       })
       .then(
         (response) => response,
