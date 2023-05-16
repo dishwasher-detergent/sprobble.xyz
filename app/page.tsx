@@ -9,19 +9,20 @@ import Loader from "@/components/Loader";
 import { Query } from "appwrite";
 
 export default function Home() {
-  const { data: account } = useAccount();
-
   const [formattedPlays, setFormattedPlays] = useState<any>([]);
 
   const databaseId = "645c032960cb9f95212b";
   const collectionId = "plays";
+
+  const { data: account } = useAccount();
 
   const { data: plays, isLoading } = useCollection<Play>(
     databaseId,
     collectionId,
     [
       Query.orderDesc("played_at"),
-      Query.limit(50)
+      Query.limit(50),
+      Query.equal("user_id", [account?.$id ?? ""]),
     ]
   );
 
@@ -29,13 +30,16 @@ export default function Home() {
     if (!data) return;
 
     return data.reduce((acc: any, val: any) => {
-      const date = new Date(val.played_at).toLocaleString("en-US", {
-        month: "2-digit",
-        day: "2-digit",
-        year: "numeric"
-      }).match(/\d{2}\/\d{2}\/\d{4}/g)?.toString();
+      const date = new Date(val.played_at)
+        .toLocaleString("en-US", {
+          month: "2-digit",
+          day: "2-digit",
+          year: "numeric",
+        })
+        .match(/\d{2}\/\d{2}\/\d{4}/g)
+        ?.toString();
 
-      if(!date) return;
+      if (!date) return;
 
       const item = acc.find((item: any) =>
         item.date.match(new RegExp(date, "g"))
