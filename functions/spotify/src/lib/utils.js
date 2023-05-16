@@ -71,10 +71,10 @@ const addTrackToDatabase = async (track, database) => {
     );
 
   if (existing) {
-    if (existing.album.filter((x) => x.id == album.id) > 0) return;
+    if (existing.album.filter((x) => x.id == album.id).length > 0) return;
 
     await database.updateDocument("645c032960cb9f95212b", "track", track.id, {
-      album: [...existing.album, album.id],
+      album: [...existing.album.map((x) => x.id), album.id],
     });
     return;
   }
@@ -111,21 +111,22 @@ const addArtistToDatabase = async (item, database) => {
       );
 
     if (existing) {
-      let albums = [];
-      let tracks = [];
-      
-      if (existing.track.filter((x) => x.id == item.id) == 0) tracks = [...existing.track, item.id]
-      if (existing.album.filter((x) => x.id == album.id) == 0) albums = [...existing.album, album.id]
+      const tracks = [...existing.track.map((x) => x.id)];
+      const albums = [...existing.album.map((x) => x.id)];
 
-      if(albums.length == 0 && tracks.length == 0) continue;
-      
+      if (existing.album.filter((x) => x.id == album.id).length == 0)
+        albums.push(album.id);
+
+      if (existing.track.filter((x) => x.id == item.id).length == 0)
+        tracks.push(item.id);
+
       await database.updateDocument(
         "645c032960cb9f95212b",
         "artist",
         artists[i].id,
         {
           track: tracks,
-          albums: albums,
+          album: albums,
         }
       );
       continue;
