@@ -1,6 +1,9 @@
+"use client";
+
 import Logo from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { LucideLogOut, LucideUser } from "lucide-react";
+import Link from "next/link";
 
 export default function Sidebar() {
   return (
@@ -55,9 +58,15 @@ export default function Sidebar() {
           <p className="font-bold uppercase text-slate-400 text-sm">Settings</p>
         </li>
         <li>
-          <Button variant="ghost" className="w-full justify-start text-base">
-            <LucideUser className="mr-2 h-4 w-4" />
-            Account
+          <Button
+            variant="ghost"
+            className="w-full justify-start text-base"
+            asChild
+          >
+            <Link href="/account">
+              <LucideUser className="mr-2 h-4 w-4" />
+              Account
+            </Link>
           </Button>
         </li>
         <li>
