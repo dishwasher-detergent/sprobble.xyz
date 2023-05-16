@@ -18,7 +18,7 @@ export default function Home() {
     databaseId,
     collectionId,
     [
-      Query.orderDesc("played_at"),
+      Query.orderDesc("$createdAt"),
       Query.limit(50)
     ]
   );
