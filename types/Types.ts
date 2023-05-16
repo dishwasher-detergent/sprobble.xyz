@@ -15,6 +15,7 @@ export type Track = {
   duration: number;
   preview: string;
   album: Album[];
+  artists: Artist[];
 } & Models.Document;
 
 export type Album = {

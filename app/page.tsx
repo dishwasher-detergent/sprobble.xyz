@@ -1,64 +1,79 @@
 "use client";
 
-import Song from "@/components/Song";
 import { useCollection } from "react-appwrite";
-import { Query } from "appwrite";
-import { Play } from "@/types/Types";
-import FilterBar from "@/components/Nav/Filter";
-import { useState } from "react";
+import { Play, Track } from "@/types/Types";
+import { useEffect, useState } from "react";
+import HistoryItem from "@/components/history/item";
+import { LucideCalendarClock } from "lucide-react";
 import Loader from "@/components/Loader";
-import Grid from "@/components/Layout/Grid";
-import List from "@/components/Layout/List";
 
 export default function Home() {
-  const [sortValue, setSortValue] = useState<string>(
-    Query.orderDesc("played_at")
-  );
-
-  const [layoutValue, setLayoutValue] = useState<string>("grid");
+  const [formattedPlays, setFormattedPlays] = useState<any>([]);
 
   const databaseId = "645c032960cb9f95212b";
   const collectionId = "plays";
 
   const { data: plays, isLoading } = useCollection<Play>(
     databaseId,
-    collectionId,
-    [sortValue]
+    collectionId
   );
 
-  const sort = () => {
-    if (sortValue === Query.orderDesc("played_at")) {
-      setSortValue(Query.orderAsc("played_at"));
-    } else {
-      setSortValue(Query.orderDesc("played_at"));
-    }
+  const groupByDate = (data: any) => {
+    if (!data) return;
+
+    return data.reduce((acc: any, val: any) => {
+      const date = val.played_at.match(/\d{4}-\d{2}-\d{2}/g).toString();
+      const item = acc.find((item: any) =>
+        item.date.match(new RegExp(date, "g"))
+      );
+
+      if (!item) acc.push({ date: val.played_at, tracks: [val] });
+      else item.tracks.push(val);
+
+      return acc;
+    }, []);
   };
 
-  const layout = () => {
-    if (layoutValue === "grid") {
-      setLayoutValue("list");
-    } else {
-      setLayoutValue("grid");
-    }
-  };
+  useEffect(() => {
+    if (isLoading) return;
+    setFormattedPlays(groupByDate(plays));
+    console.log(formattedPlays);
+  }, [plays]);
 
   return (
-    <main className="flex min-h-screen flex-col max-w-7xl mx-auto p-2 md:p-8 gap-4">
-      <FilterBar
-        sort={() => sort()}
-        sortValue={sortValue}
-        layout={() => layout()}
-        layoutValue={layoutValue}
-      />
+    <>
+      <h2 className="font-black text-3xl sticky top-0 z-10 px-4 py-2 rounded-lg bg-white/60 backdrop-blur-md mb-4">
+        Recently Played
+      </h2>
       {isLoading ? (
-        <div className="p-10 flex-1 flex justify-center">
-          <Loader />
-        </div>
-      ) : layoutValue == "grid" ? (
-        <Grid plays={plays ?? []} />
+        <Loader />
       ) : (
-        <List plays={plays ?? []} />
+        <ul className="flex flex-col gap-10">
+          {formattedPlays.map((play: any) => (
+            <div key={play.date}>
+              <h3 className="font-bold text-base text-slate-400 flex items-center pb-4">
+                <LucideCalendarClock className="mr-2 w-4 h-4" />
+                {new Date(play.date).toLocaleDateString("en-us", {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}
+              </h3>
+              <ul className="flex flex-col gap-2 pl-4 border-l ml-1.5">
+                {play.tracks.map((track: Play) => (
+                  <li key={track.$id}>
+                    <HistoryItem
+                      played_at={track.played_at}
+                      track={track.track}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </ul>
       )}
-    </main>
+    </>
   );
 }
