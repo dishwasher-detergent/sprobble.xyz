@@ -1,9 +1,12 @@
+import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 
-export default function Loader() {
+interface LoaderProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+export default function Loader({ className, ...props }: LoaderProps) {
   return (
-    <div className="w-full h-full grid place-items-center">
-      <Loader2 size={36} className="text-blue-600 animate-spin" />
+    <div className={cn("text-blue-600", className)} {...props}>
+      <Loader2 className="animate-spin max-h-16 aspect-square" />
       <p className="sr-only">Loading</p>
     </div>
   );

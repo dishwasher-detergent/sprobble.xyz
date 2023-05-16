@@ -1,13 +1,16 @@
 "use client";
 
-import { useCollection } from "react-appwrite";
+import { useAccount, useCollection } from "react-appwrite";
 import { Play, Track } from "@/types/Types";
 import { useEffect, useState } from "react";
 import HistoryItem from "@/components/history/item";
 import { LucideCalendarClock } from "lucide-react";
 import Loader from "@/components/Loader";
+import { Query } from "appwrite";
 
 export default function Home() {
+  const { data: account } = useAccount();
+
   const [formattedPlays, setFormattedPlays] = useState<any>([]);
 
   const databaseId = "645c032960cb9f95212b";
@@ -44,6 +47,7 @@ export default function Home() {
     <>
       <h2 className="font-black text-3xl sticky top-0 z-10 px-4 py-2 rounded-lg bg-white/60 backdrop-blur-md mb-4">
         Recently Played
+        {account && <> By {account.name}</>}
       </h2>
       {isLoading ? (
         <Loader />

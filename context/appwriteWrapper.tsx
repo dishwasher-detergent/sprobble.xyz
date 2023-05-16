@@ -3,7 +3,7 @@
 import { Client } from "appwrite";
 import { AppwriteProvider } from "react-appwrite";
 
-const appwrite = new Client()
+export const appwrite = new Client()
   .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT as string)
   .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID as string);
 
