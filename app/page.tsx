@@ -27,7 +27,7 @@ export default function Home() {
     if (!data) return;
 
     return data.reduce((acc: any, val: any) => {
-      const date = new Date(val.played_at).toLocaleString("en-US"); 
+      let date = new Date(val.played_at).toLocaleString("en-US"); 
       date = date.match(/\d{2}\/\d{2}\/\d{4}/g).toString();
       const item = acc.find((item: any) =>
         item.date.match(new RegExp(date, "g"))
