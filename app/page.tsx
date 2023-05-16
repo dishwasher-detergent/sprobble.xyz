@@ -27,14 +27,19 @@ export default function Home() {
     if (!data) return;
 
     return data.reduce((acc: any, val: any) => {
-      const date = new Date(val.played_at).toLocaleString("en-US").toString().match(/\d{4}-\d{2}-\d{2}/g)?.toString();
+      const date = new Date(val.played_at).toLocaleString("en-US", {
+        month: "2-digit",
+        day: "2-digit",
+        year: "numeric"
+      }).match(/\d{2}\/\d{2}\/\d{4}/g)?.toString();
+
       if(!date) return;
 
       const item = acc.find((item: any) =>
         item.date.match(new RegExp(date, "g"))
       );
 
-      if (!item) acc.push({ date: val.played_at, tracks: [val] });
+      if (!item) acc.push({ date: date, tracks: [val] });
       else item.tracks.push(val);
 
       return acc;
