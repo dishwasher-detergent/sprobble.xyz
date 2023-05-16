@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import HistoryItem from "@/components/history/item";
 import { LucideCalendarClock } from "lucide-react";
 import Loader from "@/components/Loader";
+import { Query } from "appwrite";
 
 export default function Home() {
   const [formattedPlays, setFormattedPlays] = useState<any>([]);
@@ -15,7 +16,11 @@ export default function Home() {
 
   const { data: plays, isLoading } = useCollection<Play>(
     databaseId,
-    collectionId
+    collectionId,
+    [
+      Query.orderDesc("played_at"),
+      Query.limit(50)
+    ]
   );
 
   const groupByDate = (data: any) => {
@@ -37,7 +42,6 @@ export default function Home() {
   useEffect(() => {
     if (isLoading) return;
     setFormattedPlays(groupByDate(plays));
-    console.log(formattedPlays);
   }, [plays]);
 
   return (

@@ -33,6 +33,8 @@ export default function HistoryItem({ track, played_at }: HistoryItemProps) {
             year: "numeric",
             month: "short",
             day: "numeric",
+            hour: "numeric",
+            minute: "numeric",
           })}
         </p>
         <p className="font-bold">{track[0].name}</p>
