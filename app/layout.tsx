@@ -20,7 +20,7 @@ export default function RootLayout({
     <AppWriteWrapper>
       <html lang="en">
         <body
-          className={`${nunito.className} w-screen h-screen overflow-hidden flex flex-row flex-nowrap`}
+          className={`${nunito.className} full-screen overflow-hidden flex flex-row flex-nowrap`}
         >
           <Sidebar />
           <main className="flex-1 p-8 relative overflow-y-auto">
