@@ -2,9 +2,7 @@
 
 import { LinkToSpotify } from "@/components/link-to-spotify";
 import { UnlinkFromSpotify } from "@/components/unlink-from-spotify";
-import axios from "axios";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useAccount } from "react-appwrite";
 
 const REFRESH_TOKEN_ENDPOINT = "https://accounts.spotify.com/api/token";

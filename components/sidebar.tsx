@@ -20,7 +20,7 @@ export default function Sidebar() {
           <ul className="pb-4">
             <li className="w-full py-2 px-4">
               <p className="font-bold uppercase text-slate-400 text-sm">
-                {account.name}
+                {account?.name}
               </p>
             </li>
             <li className="w-full">
