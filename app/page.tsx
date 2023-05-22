@@ -10,27 +10,18 @@ import { Query } from "appwrite";
 
 export default function Home() {
   const [formattedPlays, setFormattedPlays] = useState<any>([]);
-  const [queries, setQueries] = useState([
-    Query.orderDesc("played_at"),
-    Query.limit(50),
-  ]);
 
   const databaseId = "645c032960cb9f95212b";
   const collectionId = "plays";
-
-  const { data: account } = useAccount();
 
   const {
     data: plays,
     isLoading,
     refetch,
-  } = useCollection<Play>(databaseId, collectionId, queries);
-
-  useEffect(() => {
-    if (!account) return;
-    setQueries([...queries, Query.equal("user_id", [account?.$id])]);
-    refetch();
-  }, [account]);
+  } = useCollection<Play>(databaseId, collectionId, [
+    Query.orderDesc("played_at"),
+    Query.limit(50),
+  ]);
 
   const groupByDate = (data: any) => {
     if (!data) return;
@@ -67,7 +58,6 @@ export default function Home() {
     <>
       <h2 className="font-black text-3xl sticky top-0 z-10 px-4 py-2 rounded-lg bg-white/60 backdrop-blur-md mb-4">
         Recently Played
-        {account && <> By {account?.name}</>}
       </h2>
       {isLoading ? (
         <Loader />
