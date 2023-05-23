@@ -1,18 +1,36 @@
 {
-  "projectId": "645c030f40139ed1edbb",
-  "projectName": "spotify",
-  "functions": [
-    {
-      "$id": "645d657ac813f9c519d0",
-      "name": "spotify",
-      "runtime": "node-18.0",
-      "path": "functions/spotify",
-      "entrypoint": "src/index.js",
-      "ignore": ["node_modules", ".npm"],
-      "execute": [],
-      "events": [],
-      "schedule": "",
-      "timeout": 30
-    }
-  ]
+    "projectId": "645c030f40139ed1edbb",
+    "projectName": "spotify",
+    "functions": [
+        {
+            "$id": "645d657ac813f9c519d0",
+            "name": "spotify",
+            "runtime": "node-18.0",
+            "path": "functions/spotify",
+            "entrypoint": "src/index.js",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
+            "execute": [],
+            "events": [],
+            "schedule": "",
+            "timeout": 30
+        },
+        {
+            "$id": "646c12d4952b8b29e4db",
+            "name": "stats",
+            "runtime": "node-18.0",
+            "path": "functions/stats",
+            "entrypoint": "src/index.js",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
+            "execute": [],
+            "events": [],
+            "schedule": "",
+            "timeout": 60
+        }
+    ]
 }
