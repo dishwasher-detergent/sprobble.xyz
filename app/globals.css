@@ -82,6 +82,7 @@
 
 .full-screen {
   height: 100vh;
+  height: 100dvh;
   height: -webkit-fill-available;
  
   width: 100vw;
