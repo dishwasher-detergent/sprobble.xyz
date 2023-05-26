@@ -15,7 +15,7 @@ export default function Sidebar() {
       <div className="w-full flex items-center justify-center pb-8">
         <Logo />
       </div>
-<!--  <nav className="flex-1">
+{/*   <nav className="flex-1">
         <ul>
           <li className="w-full py-2 px-4">
             <p className="font-bold uppercase text-slate-400 text-sm">Global</p>
@@ -36,7 +36,7 @@ export default function Sidebar() {
             </Button>
           </li>
         </ul>
-      </nav> -->
+      </nav> */}
       <ul>
         <li className="w-full py-2 px-4">
           <p className="font-bold uppercase text-slate-400 text-sm">General</p>
