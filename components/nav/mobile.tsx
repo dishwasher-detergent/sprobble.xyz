@@ -12,7 +12,7 @@ export function MobileNav() {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" className="">
+        <Button variant="ghost" className="w-10 p-0">
           <SidebarOpen className="h-6 w-6" />
           <span className="sr-only">Toggle Menu</span>
         </Button>
