@@ -1,4 +1,4 @@
-import { SidebarContent } from "./content";
+import { SidebarContent } from "@/components/sidebar/content";
 
 export function Sidebar() {
   return (

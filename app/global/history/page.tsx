@@ -1,5 +1,5 @@
 import { History } from "@/components/history";
 
-export default function Home() {
+export default function HistoryPage() {
   return <History />;
 }
