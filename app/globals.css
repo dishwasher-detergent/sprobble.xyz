@@ -80,10 +80,15 @@
   }
 }
 
+html {
+  height: -webkit-fill-available;
+}
+
 .full-screen {
-  height: 100vh;
-  height: 100dvh;
+  min-height: 100vh;
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
  
-  width: 100vw;
-  width: 100dvw;
+  min-width: 100vw;
+  min-width: 100dvw;
 }
