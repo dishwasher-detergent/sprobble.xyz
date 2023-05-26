@@ -1,10 +1,10 @@
 import { LucideDisc2 } from "lucide-react";
 import Link from "next/link";
 
-export default function Logo() {
+export function Logo() {
   return (
     <Link href={"/"}>
-      <h1 className="font-black text-xl flex flex-row items-center gap-2 uppercase">
+      <h1 className="flex flex-row items-center gap-2 text-xl font-black uppercase">
         <LucideDisc2 size={24} className="text-blue-600" />
         Sprobble
       </h1>

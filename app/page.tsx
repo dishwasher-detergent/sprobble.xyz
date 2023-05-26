@@ -56,17 +56,17 @@ export default function Home() {
 
   return (
     <>
-      <h2 className="font-black text-3xl sticky top-0 z-10 px-4 py-2 rounded-lg bg-white/60 backdrop-blur-md mb-4">
-        Recently Played
-      </h2>
+      <div>
+        <h2 className="mb-6 text-3xl font-black">Recently Played</h2>
+      </div>
       {isLoading ? (
         <Loader />
       ) : (
         <ul className="flex flex-col gap-10">
           {formattedPlays.map((play: any) => (
             <div key={play.date}>
-              <h3 className="font-bold text-base text-slate-400 flex items-center pb-4">
-                <LucideCalendarClock className="mr-2 w-4 h-4" />
+              <h3 className="flex items-center pb-4 text-base font-bold text-slate-400">
+                <LucideCalendarClock size={16} className="mr-2" />
                 {new Date(play.date).toLocaleDateString("en-us", {
                   weekday: "long",
                   year: "numeric",
@@ -74,7 +74,7 @@ export default function Home() {
                   day: "numeric",
                 })}
               </h3>
-              <ul className="flex flex-col gap-2 pl-4 border-l ml-1.5">
+              <ul className="ml-1.5 flex flex-col gap-2 border-l pl-4">
                 {play.tracks.map((track: Play) => (
                   <li key={track.$id}>
                     <HistoryItem

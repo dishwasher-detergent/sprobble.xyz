@@ -63,7 +63,7 @@ export function LinkToSpotify({
             <a
               href={`https://accounts.spotify.com/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID}&scope=user-read-recently-played+user-read-playback-state+user-top-read+user-modify-playback-state+user-read-currently-playing+user-follow-read+playlist-read-private+user-read-email+user-read-private+user-library-read+playlist-read-collaborative&redirect_uri=${process.env.NEXT_PUBLIC_SPOTIFY_REDIRECT_URL}`}
             >
-              {loading && <Loader className="text-white h-full mr-4" />}
+              {loading && <Loader className="mr-4 h-full text-white" />}
               Link To Spotify
             </a>
           </Button>

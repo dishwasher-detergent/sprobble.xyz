@@ -1,8 +1,8 @@
 import AppWriteWrapper from "@/context/appwriteWrapper";
-import { Nav } from "@/components/Nav";
+import { Nav } from "@/components/nav";
 import { Nunito } from "next/font/google";
 import "./globals.css";
-import Sidebar from "@/components/sidebar";
+import { Sidebar } from "@/components/sidebar";
 
 const nunito = Nunito({ subsets: ["latin"] });
 
@@ -20,11 +20,12 @@ export default function RootLayout({
     <AppWriteWrapper>
       <html lang="en">
         <body
-          className={`${nunito.className} full-screen overflow-hidden flex flex-row flex-nowrap`}
+          className={`${nunito.className} full-screen flex flex-row flex-nowrap overflow-hidden`}
         >
           <Sidebar />
-          <main className="flex-1 p-8 relative overflow-y-auto">
-            {children}
+          <main className="relative flex flex-1 flex-col">
+            <Nav />
+            <div className="flex-1 overflow-y-auto p-8">{children}</div>
           </main>
         </body>
       </html>
