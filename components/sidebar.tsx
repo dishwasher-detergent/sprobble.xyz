@@ -11,7 +11,7 @@ export default function Sidebar() {
   const signOut = useSignOut();
 
   return (
-    <aside className="flex-none flex flex-col w-64 h-screen px-4 py-8 bg-white border-r shadow-sm overflow-y-auto">
+    <aside className="flex-none flex flex-col w-64 h-full px-4 py-8 bg-white border-r shadow-sm overflow-y-auto">
       <div className="w-full flex items-center justify-center pb-8">
         <Logo />
       </div>
