@@ -15,40 +15,7 @@ export default function Sidebar() {
       <div className="w-full flex items-center justify-center pb-8">
         <Logo />
       </div>
-<!--       <nav className="flex-1">
-        {account && (
-          <ul className="pb-4">
-            <li className="w-full py-2 px-4">
-              <p className="font-bold uppercase text-slate-400 text-sm">
-                {account?.name}
-              </p>
-            </li>
-            <li className="w-full">
-              <Button
-                variant="ghost"
-                className="w-full justify-start text-base"
-              >
-                Track
-              </Button>
-            </li>
-            <li className="w-full">
-              <Button
-                variant="ghost"
-                className="w-full justify-start text-base"
-              >
-                Artist
-              </Button>
-            </li>
-            <li className="w-full">
-              <Button
-                variant="ghost"
-                className="w-full justify-start text-base"
-              >
-                Album
-              </Button>
-            </li>
-          </ul>
-        )}
+<!--  <nav className="flex-1">
         <ul>
           <li className="w-full py-2 px-4">
             <p className="font-bold uppercase text-slate-400 text-sm">Global</p>
