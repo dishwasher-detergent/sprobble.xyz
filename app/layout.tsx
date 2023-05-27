@@ -1,3 +1,4 @@
+import { AudioPlayer } from "@/components/audio/player";
 import { Nav } from "@/components/nav";
 import { Sidebar } from "@/components/sidebar";
 import AppWriteWrapper from "@/context/appwriteWrapper";
@@ -30,6 +31,7 @@ export default function RootLayout({
               <div className="flex-1 overflow-y-auto p-4 md:p-8">
                 {children}
               </div>
+              <AudioPlayer />
             </main>
           </body>
         </html>

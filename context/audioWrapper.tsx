@@ -2,12 +2,20 @@
 
 import React, { createContext, useEffect, useRef, useState } from "react";
 
+export type SongType = {
+  artist: string;
+  title: string;
+  artwork: string;
+  song: string;
+  duration: number;
+};
+
 export type AudioContextType = {
   playing: boolean;
   time: number;
-  file: string;
+  file: SongType | undefined;
   toggle: () => void;
-  setSong: (newFile: string) => void;
+  setSong: (song: SongType) => void;
 };
 
 /* @ts-ignore */
@@ -18,7 +26,7 @@ interface ProviderProps {
 }
 
 const AudioProvider = ({ children }: ProviderProps) => {
-  const [file, setFile] = useState<string>("");
+  const [file, setFile] = useState<SongType>();
 
   const audio = useRef<HTMLAudioElement | undefined>(
     (typeof Audio !== "undefined") != undefined ? new Audio() : undefined
@@ -28,11 +36,11 @@ const AudioProvider = ({ children }: ProviderProps) => {
 
   const toggle = () => setPlaying(!playing);
 
-  const setSong = (newFile: string) => {
+  const setSong = (song: SongType) => {
     if (audio.current) {
-      audio.current.src = newFile;
+      audio.current.src = song.song;
       audio.current?.play();
-      setFile(newFile);
+      setFile(song);
       setPlaying(true);
     }
   };
