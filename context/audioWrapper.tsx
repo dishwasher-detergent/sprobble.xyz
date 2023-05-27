@@ -29,7 +29,7 @@ const AudioProvider = ({ children }: ProviderProps) => {
   const [file, setFile] = useState<SongType>();
 
   const audio = useRef<HTMLAudioElement | undefined>(
-    (typeof Audio !== "undefined") != undefined ? new Audio() : undefined
+    typeof Audio !== "undefined" ? new Audio() : undefined
   );
   const [playing, setPlaying] = useState<boolean>(false);
   const [time, setCurrentTime] = useState<number>(0);
