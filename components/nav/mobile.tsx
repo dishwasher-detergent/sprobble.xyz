@@ -17,7 +17,7 @@ export function MobileNav() {
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent size="full" position="left" className="flex flex-col">
+      <SheetContent size="full" position="right" className="flex flex-col">
         <SidebarContent onOpenChange={setOpen} />
       </SheetContent>
     </Sheet>
