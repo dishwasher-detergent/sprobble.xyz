@@ -30,8 +30,6 @@ export function History({ user }: HistoryProps) {
     query
   );
 
-  console.log(plays);
-
   const groupByDate = (data: any) => {
     if (!data) return;
 
@@ -89,6 +87,7 @@ export function History({ user }: HistoryProps) {
                     <HistoryItem
                       played_at={track.played_at}
                       track={track.track}
+                      user_id={user ? "" : track.user_id}
                     />
                   </li>
                 ))}

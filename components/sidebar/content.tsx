@@ -7,7 +7,11 @@ import { LucideLogIn, LucideLogOut, LucideUser } from "lucide-react";
 import Link from "next/link";
 import { useAccount, useSignOut } from "react-appwrite";
 
-export function SidebarContent() {
+interface SidebarContentProps {
+  onOpenChange?: (open: boolean) => void;
+}
+
+export function SidebarContent({ onOpenChange }: SidebarContentProps) {
   const { data: account } = useAccount();
   const signOut = useSignOut();
 
@@ -25,7 +29,12 @@ export function SidebarContent() {
               </p>
             </li>
             <li className="w-full">
-              <ContentItem href={"/global/history"}>History</ContentItem>
+              <ContentItem
+                href={"/global/history"}
+                onClick={() => onOpenChange?.(false)}
+              >
+                History
+              </ContentItem>
             </li>
             {/* <li className="w-full">
               <Button
@@ -60,7 +69,10 @@ export function SidebarContent() {
                 </p>
               </li>
               <li className="w-full">
-                <ContentItem href={`/${account.$id}/history`}>
+                <ContentItem
+                  href={`/${account.$id}/history`}
+                  onClick={() => onOpenChange?.(false)}
+                >
                   History
                 </ContentItem>
               </li>
@@ -98,7 +110,10 @@ export function SidebarContent() {
         </li>
         {account && (
           <li>
-            <ContentItem href="/account/preferences">
+            <ContentItem
+              href="/account/preferences"
+              onClick={() => onOpenChange?.(false)}
+            >
               <LucideUser className="mr-2 h-4 w-4" />
               Account
             </ContentItem>
@@ -110,13 +125,17 @@ export function SidebarContent() {
               href="/account/login"
               onClick={() => {
                 signOut.mutateAsync();
+                onOpenChange?.(false);
               }}
             >
               <LucideLogIn className="mr-2 h-4 w-4" />
               Logout
             </ContentItem>
           ) : (
-            <ContentItem href="/account/login">
+            <ContentItem
+              href="/account/login"
+              onClick={() => onOpenChange?.(false)}
+            >
               <LucideLogOut className="mr-2 h-4 w-4" />
               Login
             </ContentItem>

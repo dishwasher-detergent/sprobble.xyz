@@ -18,7 +18,7 @@ export function MobileNav() {
         </Button>
       </SheetTrigger>
       <SheetContent size="full" position="left" className="flex flex-col">
-        <SidebarContent />
+        <SidebarContent onOpenChange={setOpen} />
       </SheetContent>
     </Sheet>
   );
