@@ -21,20 +21,22 @@ export function Pagination({
   return (
     <div className="flex items-center justify-between bg-white px-4 py-6 sm:px-6">
       <div className="flex flex-1 justify-between sm:hidden">
-        <button
+        <Button
           disabled={page === 1}
           onClick={previous}
-          className="relative inline-flex items-center rounded-lg border  bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+          variant="ghost"
+          className="border"
         >
           Previous
-        </button>
-        <button
+        </Button>
+        <Button
           disabled={page === pageCount}
           onClick={next}
-          className="relative ml-3 inline-flex items-center rounded-lg border  bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+          variant="ghost"
+          className="border"
         >
           Next
-        </button>
+        </Button>
       </div>
       <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
         <div>
