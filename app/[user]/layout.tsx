@@ -7,7 +7,7 @@ export default function LayoutUser({
 }) {
   return (
     <>
-      <h4 className="text-sm text-slate-600">@{params.user}'s</h4>
+      <h4 className="text-sm text-slate-600">@{params.user}&apos;s</h4>
       {children}
     </>
   );
