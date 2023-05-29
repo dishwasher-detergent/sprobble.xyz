@@ -1,6 +1,6 @@
 const { ID, Query } = require("node-appwrite");
 
-const PLAYER_HISTORY_ENDPOINT = `https://api.spotify.com/v1/me/player/recently-played?limit=5`;
+const PLAYER_HISTORY_ENDPOINT = `https://api.spotify.com/v1/me/player/recently-played?limit=10`;
 const REFRESH_TOKEN_ENDPOINT = "https://accounts.spotify.com/api/token";
 
 const getAccessToken = async (

@@ -16,13 +16,13 @@ interface HistoryProps {
 }
 
 export function History({ user }: HistoryProps) {
-  const [formattedPlays, setFormattedPlays] = useState<any>([]);
-
   const query = [
     Query.orderDesc("played_at"),
     Query.limit(50),
     ...(user ? [Query.equal("user_id", user)] : []),
   ];
+
+  const [formattedPlays, setFormattedPlays] = useState<any>([]);
 
   const { data: plays, isLoading } = useCollection<Play>(
     databaseId,
@@ -69,32 +69,34 @@ export function History({ user }: HistoryProps) {
       {isLoading ? (
         <Loader />
       ) : (
-        <ul className="flex flex-col gap-10">
-          {formattedPlays.map((play: any) => (
-            <div key={play.date}>
-              <h3 className="flex items-center pb-4 text-base font-bold text-slate-400">
-                <LucideCalendarClock size={16} className="mr-2" />
-                {new Date(play.date).toLocaleDateString("en-us", {
-                  weekday: "long",
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })}
-              </h3>
-              <ul className="ml-1.5 flex flex-col gap-2 border-l pl-4">
-                {play.tracks.map((item: Play) => (
-                  <li key={item.$id}>
-                    <HistoryItem
-                      played_at={item.played_at}
-                      track={item.track}
-                      user_id={user ? "" : item.user_id}
-                    />
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </ul>
+        <>
+          <ul className="flex flex-col gap-10">
+            {formattedPlays.map((play: any) => (
+              <div key={play.date}>
+                <h3 className="flex items-center pb-4 text-base font-bold text-slate-400">
+                  <LucideCalendarClock size={16} className="mr-2" />
+                  {new Date(play.date).toLocaleDateString("en-us", {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </h3>
+                <ul className="ml-1.5 flex flex-col gap-2 border-l pl-4">
+                  {play.tracks.map((item: Play) => (
+                    <li key={item.$id}>
+                      <HistoryItem
+                        played_at={item.played_at}
+                        track={item.track}
+                        user_id={user ? "" : item.user_id}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </ul>
+        </>
       )}
     </>
   );
