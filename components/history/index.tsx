@@ -3,10 +3,11 @@
 import Loader from "@/components/Loader";
 import HistoryItem from "@/components/history/item";
 import { Play } from "@/types/Types";
-import { Query } from "appwrite";
+import { Models, Query } from "appwrite";
 import { LucideCalendarClock } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useCollection } from "react-appwrite";
+import { useAppwrite, useCollection } from "react-appwrite";
+import { Pagination } from "./pagination";
 
 const databaseId = "645c032960cb9f95212b";
 const collectionId = "plays";
@@ -16,19 +17,57 @@ interface HistoryProps {
 }
 
 export function History({ user }: HistoryProps) {
+  const itemCount = 25;
   const query = [
     Query.orderDesc("played_at"),
-    Query.limit(50),
+    Query.limit(itemCount),
     ...(user ? [Query.equal("user_id", user)] : []),
   ];
 
-  const [formattedPlays, setFormattedPlays] = useState<any>([]);
+  const { databases } = useAppwrite();
 
-  const { data: plays, isLoading } = useCollection<Play>(
+  const [formattedPlays, setFormattedPlays] = useState<any>([]);
+  const [queries, setQueries] = useState<any>(query);
+  const [pageCount, setPageCount] = useState<number>(0);
+  const [page, setPage] = useState<number>(1);
+
+  const { data: plays, isLoading } = useCollection(
     databaseId,
     collectionId,
-    query
+    queries,
+    {
+      // @ts-ignore
+      queryFn: async (): Promise<Models.DocumentList<Models.Document>> => {
+        const response = await databases.listDocuments<any>(
+          databaseId,
+          collectionId,
+          queries
+        );
+
+        return response;
+      },
+      keepPreviousData: true,
+    }
   );
+
+  const nextPage = () => {
+    if (!plays) return;
+    if (page == pageCount) return;
+    setPage(page + 1);
+    setQueries([
+      ...query,
+      // @ts-ignore
+      Query.cursorAfter(plays.documents[plays.documents.length - 1].$id),
+    ]);
+  };
+
+  const prevPage = () => {
+    if (!plays) return;
+    if (page == 1) return;
+    setPage(page - 1);
+    // @ts-ignore
+    setQueries([...query, Query.cursorBefore(plays.documents[0].$id)]);
+  };
 
   const groupByDate = (data: any) => {
     if (!data) return;
@@ -58,7 +97,10 @@ export function History({ user }: HistoryProps) {
 
   useEffect(() => {
     if (isLoading) return;
-    setFormattedPlays(groupByDate(plays));
+    // @ts-ignore
+    setPageCount(plays.total / itemCount);
+    // @ts-ignore
+    setFormattedPlays(groupByDate(plays.documents));
   }, [plays]);
 
   return (
@@ -96,6 +138,15 @@ export function History({ user }: HistoryProps) {
               </div>
             ))}
           </ul>
+          <Pagination
+            next={() => nextPage()}
+            previous={() => prevPage()}
+            page={page}
+            pageCount={pageCount}
+            // @ts-ignore
+            resultCount={plays.total}
+            itemCount={itemCount}
+          />
         </>
       )}
     </>
