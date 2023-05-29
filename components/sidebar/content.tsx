@@ -122,7 +122,7 @@ export function SidebarContent({ onOpenChange }: SidebarContentProps) {
         <li>
           {account ? (
             <ContentItem
-              href="/account/login"
+              href="/"
               onClick={() => {
                 signOut.mutateAsync();
                 onOpenChange?.(false);

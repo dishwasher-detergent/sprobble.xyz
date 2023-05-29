@@ -1,7 +1,6 @@
 import { Audio } from "@/components/audio";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Track } from "@/types/Types";
-import { LucideLink } from "lucide-react";
 
 interface HistoryItemProps {
   track: Track[];
@@ -47,12 +46,11 @@ export default function HistoryItem({
         </div>
       </div>
       {user_id && (
-        <a
-          href={`/${user_id}/history`}
-          className="flex flex-row items-center text-sm text-slate-600 hover:text-blue-600"
-        >
-          Listened by {user_id}
-          <LucideLink className="ml-2 h-3 w-3" />
+        <a href={`/${user_id}/history`} className="text-sm text-slate-400">
+          Listened by&nbsp;
+          <span className="inline-flex flex-row items-center text-blue-500">
+            @{user_id}
+          </span>
         </a>
       )}
     </article>
