@@ -56,133 +56,111 @@ const addToDatabase = async (item, database) => {
   const { track } = item;
 
   await addAlbumToDatabase(track, database);
-  await addTrackToDatabase(track, database);
   await addArtistToDatabase(track, database);
+  await addTrackToDatabase(track, database);
 };
 
-const addTrackToDatabase = async (track, database) => {
-  const { album, artists } = track;
+const addAlbumToDatabase = async (item, database) => {
+  const { album } = item;
 
-  const existing = await database
-    .getDocument("645c032960cb9f95212b", "track", track.id)
-    .then(
-      (response) => response,
-      () => false
-    );
-
-  if (existing) {
-    if (existing.album.filter((x) => x.id == album.id).length > 0) return;
-
-    await database.updateDocument("645c032960cb9f95212b", "track", track.id, {
-      album: [...existing.album.map((x) => x.id), album.id],
-    });
-    return;
-  }
-
-  await database
-    .createDocument("645c032960cb9f95212b", "track", track.id, {
-      id: track.id,
-      name: track.name,
-      href: track.external_urls.spotify,
-      popularity: track.popularity,
-      preview: track.preview_url,
-      explicit: track.explicit,
-      duration: track.duration_ms,
-      album: [album.id],
-    })
-    .then(
-      (response) => response,
-      (error) => {
-        console.log("error: ", error);
-        throw new Error(error);
-      }
-    );
+  await database.getDocument("645c032960cb9f95212b", "album", album.id).then(
+    () => {
+      return;
+    },
+    async () => {
+      await database
+        .createDocument("645c032960cb9f95212b", "album", album.id, {
+          name: album.name,
+          href: album.external_urls.spotify,
+          popularity: album.popularity,
+          images: album.images?.map((image) => image.url) ?? [],
+        })
+        .then(
+          (response) => response,
+          (error) => {
+            console.log("error: ", error);
+            throw new Error(error);
+          }
+        );
+    }
+  );
 };
 
 const addArtistToDatabase = async (item, database) => {
   const { artists, album } = item;
 
   for (let i = 0; i < artists.length; i++) {
-    const existing = await database
+    await database
       .getDocument("645c032960cb9f95212b", "artist", artists[i].id)
       .then(
-        (response) => response,
-        () => false
-      );
+        async (response) => {
+          const albums = [...response.album.map((x) => x.$id)];
 
-    if (existing) {
-      const tracks = [...existing.track.map((x) => x.id)];
-      const albums = [...existing.album.map((x) => x.id)];
-
-      if (existing.album.filter((x) => x.id == album.id).length == 0)
-        albums.push(album.id);
-
-      if (existing.track.filter((x) => x.id == item.id).length == 0)
-        tracks.push(item.id);
-
-      await database.updateDocument(
-        "645c032960cb9f95212b",
-        "artist",
-        artists[i].id,
-        {
-          track: tracks,
-          album: albums,
-        }
-      );
-      continue;
-    }
-
-    await database
-      .createDocument("645c032960cb9f95212b", "artist", artists[i].id, {
-        id: artists[i].id,
-        name: artists[i].name,
-        href: artists[i].external_urls.spotify,
-        popularity: artists[i].popularity,
-        images: artists[i].images?.map((image) => image.url) ?? [],
-        genres: artists[i].genres ?? [],
-        album: [item.album.id],
-        track: [item.id],
-      })
-      .then(
-        (response) => response,
-        (error) => {
-          console.log("error: ", error);
-          throw new Error(error);
+          if (response.album.filter((x) => x.$id == album.id).length == 0)
+            await database.updateDocument(
+              "645c032960cb9f95212b",
+              "artist",
+              artists[i].id,
+              {
+                album: albums,
+              }
+            );
+        },
+        async () => {
+          await database
+            .createDocument("645c032960cb9f95212b", "artist", artists[i].id, {
+              name: artists[i].name,
+              href: artists[i].external_urls.spotify,
+              popularity: artists[i].popularity,
+              images: artists[i].images?.map((image) => image.url) ?? [],
+              genres: artists[i].genres ?? [],
+              album: [album.id],
+            })
+            .then(
+              (response) => response,
+              (error) => {
+                console.log("error: ", error);
+                throw new Error(error);
+              }
+            );
         }
       );
   }
 };
 
-const addAlbumToDatabase = async (item, database) => {
-  const { artist, album } = item;
+const addTrackToDatabase = async (item, database) => {
+  const { artists, album } = item;
 
-  const existing = await database
-    .getDocument("645c032960cb9f95212b", "album", album.id)
-    .then(
-      () => true,
-      () => false
-    );
-
-  if (existing) return;
-
-  await database
-    .createDocument("645c032960cb9f95212b", "album", album.id, {
-      id: album.id,
-      name: album.name,
-      href: album.external_urls.spotify,
-      popularity: album.popularity,
-      images: album.images?.map((image) => image.url) ?? [],
-    })
-    .then(
-      (response) => response,
-      (error) => {
-        console.log("error: ", error);
-        throw new Error(error);
-      }
-    );
+  await database.getDocument("645c032960cb9f95212b", "track", item.id).then(
+    () => {
+      return;
+    },
+    async () => {
+      await database
+        .createDocument("645c032960cb9f95212b", "track", item.id, {
+          name: item.name,
+          href: item.external_urls.spotify,
+          popularity: item.popularity,
+          preview: item.preview_url,
+          explicit: item.explicit,
+          duration: item.duration_ms,
+          album: album.id,
+          artist: [...artists.map((x) => x.id)],
+        })
+        .then(
+          (response) => response,
+          (error) => {
+            console.log("error: ", error);
+            throw new Error(error);
+          }
+        );
+    }
+  );
 };
 
-const addListenToDatabase = async (user_id, played_at, track_id, database) => {
+const addListenToDatabase = async (user_id, item, database) => {
+  const { played_at, track } = item;
+
   const existing = await database
     .listDocuments("645c032960cb9f95212b", "plays", [
       Query.equal("user_id", user_id),
@@ -199,7 +177,9 @@ const addListenToDatabase = async (user_id, played_at, track_id, database) => {
     .createDocument("645c032960cb9f95212b", "plays", ID.unique(), {
       user_id: user_id,
       played_at: played_at,
-      track: [track_id],
+      track: track.id,
+      artist: [...track.artists.map((x) => x.id)],
+      album: track.album.id,
     })
     .then(
       (response) => response,

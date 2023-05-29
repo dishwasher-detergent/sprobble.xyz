@@ -3,7 +3,9 @@ import { Models } from "appwrite";
 export type Play = {
   user_id: string;
   played_at: string;
-  track: Track[];
+  track: Track;
+  album: Album;
+  artist: Artist[];
 } & Models.Document;
 
 export type Track = {
@@ -14,8 +16,8 @@ export type Track = {
   explicit: boolean;
   duration: number;
   preview: string;
-  album: Album[];
-  artists: Artist[];
+  album: Album;
+  artist: Artist[];
 } & Models.Document;
 
 export type Album = {

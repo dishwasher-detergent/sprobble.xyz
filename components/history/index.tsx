@@ -82,12 +82,12 @@ export function History({ user }: HistoryProps) {
                 })}
               </h3>
               <ul className="ml-1.5 flex flex-col gap-2 border-l pl-4">
-                {play.tracks.map((track: Play) => (
-                  <li key={track.$id}>
+                {play.tracks.map((item: Play) => (
+                  <li key={item.$id}>
                     <HistoryItem
-                      played_at={track.played_at}
-                      track={track.track}
-                      user_id={user ? "" : track.user_id}
+                      played_at={item.played_at}
+                      track={item.track}
+                      user_id={user ? "" : item.user_id}
                     />
                   </li>
                 ))}
