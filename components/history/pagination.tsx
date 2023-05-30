@@ -19,7 +19,7 @@ export function Pagination({
   itemCount,
 }: PaginationProps) {
   return (
-    <div className="flex items-center justify-between bg-white px-4 py-6 sm:px-6">
+    <footer className="flex items-center justify-between bg-white px-4 py-6 sm:px-6">
       <div className="flex flex-1 justify-between sm:hidden">
         <Button
           disabled={page === 1}
@@ -45,6 +45,7 @@ export function Pagination({
             aria-label="Pagination"
           >
             <Button
+              size="sm"
               disabled={page === 1}
               onClick={previous}
               variant="ghost"
@@ -54,6 +55,7 @@ export function Pagination({
               <LucideChevronLeft className="h-5 w-5" aria-hidden="true" />
             </Button>
             <Button
+              size="sm"
               disabled={page === pageCount}
               onClick={next}
               variant="ghost"
@@ -70,11 +72,11 @@ export function Pagination({
             <span className="font-medium">
               {page * itemCount - (itemCount - 1)}
             </span>{" "}
-            to <span className="font-medium">{page * itemCount}</span> of{" "}
+            to <span className="font-medium">{page === pageCount ? resultCount : page * itemCount}</span> of{" "}
             <span className="font-medium">{resultCount}</span> results
           </p>
         </div>
       </div>
-    </div>
+    </footer>
   );
 }

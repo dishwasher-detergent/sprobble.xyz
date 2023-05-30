@@ -51,6 +51,7 @@ export function History({ user }: HistoryProps) {
   );
 
   const nextPage = () => {
+    console.log(pageCount)
     if (!plays) return;
     if (page == pageCount) return;
     setPage(page + 1);
@@ -62,6 +63,7 @@ export function History({ user }: HistoryProps) {
   };
 
   const prevPage = () => {
+    console.log(pageCount)
     if (!plays) return;
     if (page == 1) return;
     setPage(page - 1);
@@ -98,13 +100,13 @@ export function History({ user }: HistoryProps) {
   useEffect(() => {
     if (isLoading) return;
     // @ts-ignore
-    setPageCount(plays.total / itemCount);
+    setPageCount(Math.ceil(plays.total / itemCount));
     // @ts-ignore
     setFormattedPlays(groupByDate(plays.documents));
   }, [plays]);
 
   return (
-    <>
+    <section>
       <div>
         <h2 className="mb-6 text-xl font-black md:text-3xl">Recently Played</h2>
       </div>
@@ -149,6 +151,6 @@ export function History({ user }: HistoryProps) {
           />
         </>
       )}
-    </>
+    </section>
   );
 }
