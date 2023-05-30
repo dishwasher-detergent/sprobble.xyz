@@ -111,7 +111,7 @@ export function History({ user }: HistoryProps) {
         <h2 className="mb-6 text-xl font-black md:text-3xl">Recently Played</h2>
       </div>
       {isLoading ? (
-        <Loader />
+        <Loader className="w-32 flex justify-center" />
       ) : (
         <>
           <ul className="flex flex-col gap-10">
