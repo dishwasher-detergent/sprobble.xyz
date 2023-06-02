@@ -73,8 +73,8 @@ export function UserAuthForm() {
             onClick={() =>
               oAuthSignIn.mutateAsync({
                 provider: "spotify",
-                successUrl: "http://localhost:3000/account/preferences",
-                failureUrl: "http://localhost:3000/account/login",
+                successUrl: "https://sprobble.xyz/account/preferences",
+                failureUrl: "https://sprobble.xyz/account/login",
                 scopes: [
                   "user-read-currently-playing",
                   "user-read-recently-played",
