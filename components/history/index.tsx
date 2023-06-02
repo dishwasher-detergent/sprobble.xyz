@@ -1,6 +1,6 @@
 "use client";
 
-import Loader from "@/components/Loader";
+import { Loader } from "@/components/loading/loader";
 import HistoryItem from "@/components/history/item";
 import { Play } from "@/types/Types";
 import { LucideCalendarClock } from "lucide-react";

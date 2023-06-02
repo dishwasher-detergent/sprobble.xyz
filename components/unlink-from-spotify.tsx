@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import Loader from "@/components/Loader";
+import { Loader } from "@/components/loading/loader";
 import { useAppwrite } from "react-appwrite";
 import { LucideAlertCircle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

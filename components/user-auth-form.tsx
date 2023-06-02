@@ -1,6 +1,6 @@
 "use client";
 
-import Loader from "@/components/Loader";
+import { Loader } from "@/components/loading/loader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
