@@ -51,7 +51,7 @@ export function LinkToSpotify({
     const session = await accountService.getSession("current");
 
     if (!session) {
-      location.href = `https://accounts.spotify.com/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID}&scope=user-read-recently-played+user-read-playback-state+user-top-read+user-modify-playback-state+user-read-currently-playing+user-follow-read+playlist-read-private+user-read-email+user-read-private+user-library-read+playlist-read-collaborative&redirect_uri=${process.env.NEXT_PUBLIC_SPOTIFY_REDIRECT_URL}`;
+      location.href = `https://accounts.spotify.com/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID}&scope=user-read-currently-playing+user-read-recently-played&redirect_uri=${process.env.NEXT_PUBLIC_SPOTIFY_REDIRECT_URL}`;
     }
 
     if (session.provider === "spotify") {

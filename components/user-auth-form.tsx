@@ -76,17 +76,8 @@ export function UserAuthForm() {
                 successUrl: "http://localhost:3000/account/preferences",
                 failureUrl: "http://localhost:3000/account/login",
                 scopes: [
-                  "user-read-recently-played",
-                  "user-read-playback-state",
-                  "user-top-read",
-                  "user-modify-playback-state",
                   "user-read-currently-playing",
-                  "user-follow-read",
-                  "playlist-read-private",
-                  "user-read-email",
-                  "user-read-private",
-                  "user-library-read",
-                  "playlist-read-collaborative",
+                  "user-read-recently-played",
                 ],
               })
             }
