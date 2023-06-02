@@ -1,7 +1,7 @@
 "use client";
 
-import { Loader } from "@/components/loading/loader";
 import HistoryItem from "@/components/history/item";
+import { HistoryLoading } from "@/components/loading/history";
 import { Play } from "@/types/Types";
 import { LucideCalendarClock } from "lucide-react";
 import { Pagination } from "./pagination";
@@ -34,7 +34,7 @@ export function History({
         </div>
       )}
       {isLoading ? (
-        <Loader className="flex w-32 justify-center" />
+        <HistoryLoading />
       ) : (
         <>
           <ul className="flex flex-col gap-10">
