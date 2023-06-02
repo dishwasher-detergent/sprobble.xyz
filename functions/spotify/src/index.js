@@ -50,7 +50,7 @@ module.exports = async function (req, res) {
 
   for (let i = 0; i < fetched_users.users.length; i++) {
     if (!fetched_users.users[i].prefs.refresh_token) {
-      console.log(`No refresh token for ${fetched_users.users[i].name}`);
+      console.timeStamp(`No refresh token for ${fetched_users.users[i].name}`);
       continue;
     }
 
@@ -61,15 +61,17 @@ module.exports = async function (req, res) {
     );
 
     if (!spotifyAccessToken.access_token) {
-      console.log(`No access token for ${fetched_users.users[i].name}`);
+      console.lotimeStampg(`No access token for ${fetched_users.users[i].name}`);
       continue;
     }
 
-    console.log(`Fetching history for ${fetched_users.users[i].name}`);
+    console.timeStamp(`Fetching history for ${fetched_users.users[i].name}`);
 
     const history = await utils.getPlayerHistory(
       spotifyAccessToken.access_token
     );
+
+    console.timeStamp("User history fetched");
 
     for (let j = 0; j < history.items.length; j++) {
       await utils.addToDatabase(history.items[j], database);
@@ -80,8 +82,6 @@ module.exports = async function (req, res) {
         database
       );
     }
-
-    setTimeout(() => {}, 1000);
   }
 
   res.send("Complete!");

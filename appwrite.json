@@ -14,23 +14,8 @@
             ],
             "execute": [],
             "events": [],
-            "schedule": "",
+            "schedule": "*/10 * * * *",
             "timeout": 120
-        },
-        {
-            "$id": "646c12d4952b8b29e4db",
-            "name": "stats",
-            "runtime": "node-18.0",
-            "path": "functions/stats",
-            "entrypoint": "src/index.js",
-            "ignore": [
-                "node_modules",
-                ".npm"
-            ],
-            "execute": [],
-            "events": [],
-            "schedule": "",
-            "timeout": 60
         }
     ]
 }

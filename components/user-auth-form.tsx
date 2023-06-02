@@ -78,6 +78,7 @@ export function UserAuthForm() {
                 scopes: [
                   "user-read-currently-playing",
                   "user-read-recently-played",
+                  "user-read-email"
                 ],
               })
             }
