@@ -1,5 +1,6 @@
 const sdk = require("node-appwrite");
 const utils = require("./lib/utils");
+require('./lib/console')();
 
 /*
   'req' variable has:
@@ -50,7 +51,7 @@ module.exports = async function (req, res) {
 
   for (let i = 0; i < fetched_users.users.length; i++) {
     if (!fetched_users.users[i].prefs.refresh_token) {
-      console.timeStamp(`No refresh token for ${fetched_users.users[i].name}`);
+      console.log(`No refresh token for ${fetched_users.users[i].name}`);
       continue;
     }
 
@@ -61,17 +62,17 @@ module.exports = async function (req, res) {
     );
 
     if (!spotifyAccessToken.access_token) {
-      console.lotimeStampg(`No access token for ${fetched_users.users[i].name}`);
+      console.log(`No access token for ${fetched_users.users[i].name}`);
       continue;
     }
 
-    console.timeStamp(`Fetching history for ${fetched_users.users[i].name}`);
+    console.log(`Fetching history for ${fetched_users.users[i].name}`);
 
     const history = await utils.getPlayerHistory(
       spotifyAccessToken.access_token
     );
 
-    console.timeStamp("User history fetched");
+    console.log("User history fetched");
 
     for (let j = 0; j < history.items.length; j++) {
       await utils.addToDatabase(history.items[j], database);

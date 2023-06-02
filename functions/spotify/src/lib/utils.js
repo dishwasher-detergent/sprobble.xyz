@@ -28,8 +28,8 @@ const getAccessToken = async (
 
   const body = await response.json();
   if (!response.ok) {
-    console.timeStamp("Spotify fetcher response was not ok", response.status);
-    console.timeStamp(body);
+    console.log("Spotify fetcher response was not ok", response.status);
+    console.log(body);
     return;
   }
 
@@ -46,8 +46,8 @@ const getPlayerHistory = async (ACCESS_TOKEN) => {
 
   const body = await response.json();
   if (!response.ok) {
-    console.timeStamp("Spotify fetcher response was not ok", response.status);
-    console.timeStamp(body);
+    console.log("Spotify fetcher response was not ok", response.status);
+    console.log(body);
     return;
   }
 
@@ -56,7 +56,7 @@ const getPlayerHistory = async (ACCESS_TOKEN) => {
 
 const addToDatabase = async (item, database) => {
   const { track } = item;
-  console.timeStamp("Adding song data to database.");
+  console.log("Adding song data to database.");
   await addAlbumToDatabase(track, database);
   await addArtistToDatabase(track, database);
   await addTrackToDatabase(track, database);
@@ -65,7 +65,7 @@ const addToDatabase = async (item, database) => {
 const addAlbumToDatabase = async (item, database) => {
   const { album } = item;
 
-  console.timeStamp("Adding album.");
+  console.log("Adding album.");
 
   await database.getDocument("645c032960cb9f95212b", "album", album.id).then(
     () => {
@@ -89,13 +89,13 @@ const addAlbumToDatabase = async (item, database) => {
     }
   );
 
-  console.timeStamp("Album added.");
+  console.log("Album added.");
 };
 
 const addArtistToDatabase = async (item, database) => {
   const { artists, album } = item;
 
-  console.timeStamp("Adding artist.");
+  console.log("Adding artist.");
 
   for (let i = 0; i < artists.length; i++) {
     await database
@@ -135,13 +135,13 @@ const addArtistToDatabase = async (item, database) => {
       );
   }
 
-  console.timeStamp("Artist added.");
+  console.log("Artist added.");
 };
 
 const addTrackToDatabase = async (item, database) => {
   const { artists, album } = item;
 
-  console.timeStamp("Adding track.");
+  console.log("Adding track.");
 
   await database.getDocument("645c032960cb9f95212b", "track", item.id).then(
     () => {
@@ -169,13 +169,13 @@ const addTrackToDatabase = async (item, database) => {
     }
   );
 
-  console.timeStamp("Track added.");
+  console.log("Track added.");
 };
 
 const addListenToDatabase = async (user_id, item, database) => {
   const { played_at, track } = item;
 
-  console.timeStamp("Adding listen.");
+  console.log("Adding listen.");
 
   const existing = await database
     .listDocuments("645c032960cb9f95212b", "plays", [
@@ -205,7 +205,7 @@ const addListenToDatabase = async (user_id, item, database) => {
       }
     );
 
-  console.timeStamp("Listen added.");
+  console.log("Listen added.");
 };
 
 module.exports = {
