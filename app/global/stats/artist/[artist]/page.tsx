@@ -91,15 +91,15 @@ export default function ArtistStatsPage({
           {/* @ts-ignore */}
           {plays.documents[0].name}
         </h2>
-        <div className="grid h-52 w-full grid-cols-1 gap-4 py-6 md:grid-cols-3">
+        <div className="grid w-full grid-cols-1 gap-4 py-6 md:grid-cols-3">
           <Card className="flex-1">
             <CardHeader>
-              <CardTitle className="text-sm font-medium tracking-tight">
+              <CardTitle className="h-6 text-sm font-medium tracking-tight">
                 Total Listens
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-2xl font-bold">
+              <p className="text-4xl font-bold">
                 {/* @ts-ignore */}
                 {plays.documents[0].plays.length}
               </p>
@@ -107,12 +107,12 @@ export default function ArtistStatsPage({
           </Card>
           <Card className="flex-1">
             <CardHeader>
-              <CardTitle className="text-sm font-medium tracking-tight">
+              <CardTitle className="h-6 text-sm font-medium tracking-tight">
                 Total Unique Tracks Listened To
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-2xl font-bold">
+              <p className="text-4xl font-bold">
                 {/* @ts-ignore */}
                 {plays.documents[0].track.length}
               </p>
