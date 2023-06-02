@@ -41,7 +41,12 @@ module.exports = async function (req, res) {
     throw new Error("Spotify variables are not set.");
   }
 
-  const fetched_users = await users.list();
+  const queries = [];
+  if (req.payload["user"]) {
+    //{"user":"645c06ddde2c729ce205"}
+    queries.push(sdk.Query.equal("$id", req.payload["user"]));
+  }
+  const fetched_users = await users.list(queries);
 
   for (let i = 0; i < fetched_users.users.length; i++) {
     if (!fetched_users.users[i].prefs.refresh_token) {
@@ -59,6 +64,8 @@ module.exports = async function (req, res) {
       console.log(`No access token for ${fetched_users.users[i].name}`);
       continue;
     }
+
+    console.log(`Fetching history for ${fetched_users.users[i].name}`);
 
     const history = await utils.getPlayerHistory(
       spotifyAccessToken.access_token

@@ -1,17 +1,17 @@
 "use client";
 
-import React, { useState } from "react";
-import { useEmailSignIn } from "react-appwrite/account";
-import { cn } from "@/lib/utils";
+import Loader from "@/components/Loader";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import Loader from "@/components/Loader";
+import { Separator } from "@/components/ui/separator";
+import React, { useState } from "react";
+import { useEmailSignIn, useOAuth2SignIn } from "react-appwrite/account";
 
-interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
-
-export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
+export function UserAuthForm() {
   const signIn = useEmailSignIn();
+  const oAuthSignIn = useOAuth2SignIn();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -25,41 +25,76 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   }
 
   return (
-    <div className={cn("grid gap-6", className)} {...props}>
-      <form onSubmit={onSubmit} className="w-72 max-w-full">
-        <div className="grid gap-4">
-          <div className="grid gap-1">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              placeholder="name@example.com"
-              type="email"
-              autoCapitalize="none"
-              autoComplete="email"
-              autoCorrect="off"
-              disabled={signIn.isLoading}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </div>
-          <div className="grid gap-1">
-            <Label htmlFor="password">Password</Label>
-            <Input
-              id="password"
-              placeholder="abc123"
-              type="password"
-              autoCapitalize="none"
-              autoComplete="off"
-              autoCorrect="off"
-              disabled={signIn.isLoading}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <Button disabled={signIn.isLoading}>
-            {signIn.isLoading && <Loader className="text-white h-full mr-4" />}
-            Sign In with Email
+    <div className="grid h-full w-full place-items-center">
+      <Card>
+        <CardHeader>
+          <CardTitle>Login</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={onSubmit} className="w-72 max-w-full">
+            <div className="grid gap-4">
+              <div className="grid gap-1">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  placeholder="name@example.com"
+                  type="email"
+                  autoCapitalize="none"
+                  autoComplete="email"
+                  autoCorrect="off"
+                  disabled={signIn.isLoading}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </div>
+              <div className="grid gap-1">
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  id="password"
+                  placeholder="abc123"
+                  type="password"
+                  autoCapitalize="none"
+                  autoComplete="off"
+                  autoCorrect="off"
+                  disabled={signIn.isLoading}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <Button disabled={signIn.isLoading}>
+                {signIn.isLoading && (
+                  <Loader className="mr-4 h-full text-white" />
+                )}
+                Sign In with Email
+              </Button>
+            </div>
+          </form>
+          <Separator orientation="horizontal" className="my-4" />
+          <Button
+            className="w-full bg-green-500 text-white"
+            onClick={() =>
+              oAuthSignIn.mutateAsync({
+                provider: "spotify",
+                successUrl: "http://localhost:3000/account/preferences",
+                failureUrl: "http://localhost:3000/account/login",
+                scopes: [
+                  "user-read-recently-played",
+                  "user-read-playback-state",
+                  "user-top-read",
+                  "user-modify-playback-state",
+                  "user-read-currently-playing",
+                  "user-follow-read",
+                  "playlist-read-private",
+                  "user-read-email",
+                  "user-read-private",
+                  "user-library-read",
+                  "playlist-read-collaborative",
+                ],
+              })
+            }
+          >
+            Login with Spotify
           </Button>
-        </div>
-      </form>
+        </CardContent>
+      </Card>
     </div>
   );
 }

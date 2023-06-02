@@ -8,6 +8,8 @@ const getAccessToken = async (
   SPOTIFY_CLIENT_SECRET,
   SPOTIFY_REFRESH_TOKEN
 ) => {
+  console.log("Fetching access token.");
+
   const params = new URLSearchParams({
     grant_type: "refresh_token",
     refresh_token: SPOTIFY_REFRESH_TOKEN,

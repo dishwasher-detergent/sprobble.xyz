@@ -15,7 +15,7 @@
             "execute": [],
             "events": [],
             "schedule": "",
-            "timeout": 30
+            "timeout": 120
         },
         {
             "$id": "646c12d4952b8b29e4db",

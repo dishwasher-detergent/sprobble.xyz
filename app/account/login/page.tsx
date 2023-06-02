@@ -12,5 +12,5 @@ export default function Page() {
     router.push("/account/preferences");
   }
 
-  return <UserAuthForm className="w-full h-full grid place-items-center" />;
+  return <UserAuthForm />;
 }

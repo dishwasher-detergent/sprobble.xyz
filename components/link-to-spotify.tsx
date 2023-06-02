@@ -1,11 +1,10 @@
 "use client";
 
-import { useAppwrite } from "react-appwrite";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
-import Loader from "@/components/Loader";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useAppwrite } from "react-appwrite";
 
 interface UnlinkFromSpotifyFormProps
   extends React.HTMLAttributes<HTMLDivElement> {}
@@ -47,6 +46,22 @@ export function LinkToSpotify({
     }
   }, [searchParams]);
 
+  const linkToSpotify = async () => {
+    isLoading(true);
+    const session = await accountService.getSession("current");
+
+    if (!session) {
+      location.href = `https://accounts.spotify.com/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID}&scope=user-read-recently-played+user-read-playback-state+user-top-read+user-modify-playback-state+user-read-currently-playing+user-follow-read+playlist-read-private+user-read-email+user-read-private+user-library-read+playlist-read-collaborative&redirect_uri=${process.env.NEXT_PUBLIC_SPOTIFY_REDIRECT_URL}`;
+    }
+
+    if (session.provider === "spotify") {
+      await accountService.updatePrefs({
+        refresh_token: session.providerRefreshToken,
+      });
+    }
+    isLoading(false);
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -58,14 +73,9 @@ export function LinkToSpotify({
             disabled={loading}
             variant="default"
             className="bg-green-500 hover:bg-green-600"
-            asChild
+            onClick={() => linkToSpotify()}
           >
-            <a
-              href={`https://accounts.spotify.com/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID}&scope=user-read-recently-played+user-read-playback-state+user-top-read+user-modify-playback-state+user-read-currently-playing+user-follow-read+playlist-read-private+user-read-email+user-read-private+user-library-read+playlist-read-collaborative&redirect_uri=${process.env.NEXT_PUBLIC_SPOTIFY_REDIRECT_URL}`}
-            >
-              {loading && <Loader className="mr-4 h-full text-white" />}
-              Link To Spotify
-            </a>
+            Link To Spotify
           </Button>
         </form>
       </CardContent>
