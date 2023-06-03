@@ -22,7 +22,7 @@ export function SidebarContent({ onOpenChange }: SidebarContentProps) {
       <ScrollArea className="flex-1">
         <nav className="flex flex-col gap-4">
           <ul>
-            <li className="w-full px-4 py-2">
+            <li className="w-full px-0 py-2">
               <p className="text-sm font-bold uppercase text-slate-400">
                 Global
               </p>
@@ -35,34 +35,41 @@ export function SidebarContent({ onOpenChange }: SidebarContentProps) {
                 History
               </ContentItem>
             </li>
-            {/* <li className="w-full">
-              <Button
-                variant="ghost"
-                className="w-full justify-start text-base"
-              >
-                Track
-              </Button>
-            </li>
-            <li className="w-full">
-              <Button
-                variant="ghost"
-                className="w-full justify-start text-base"
-              >
-                Artist
-              </Button>
-            </li>
-            <li className="w-full">
-              <Button
-                variant="ghost"
-                className="w-full justify-start text-base"
-              >
-                Album
-              </Button>
-            </li> */}
+            <ul>
+              <li className="w-full px-1 py-2">
+                <p className="text-xs font-bold uppercase text-slate-400">
+                  Stats
+                </p>
+              </li>
+              <li className="w-full">
+                <ContentItem
+                  href={"/global/stats/track"}
+                  onClick={() => onOpenChange?.(false)}
+                >
+                  Tracks
+                </ContentItem>
+              </li>
+              <li className="w-full">
+                <ContentItem
+                  href={"/global/stats/album"}
+                  onClick={() => onOpenChange?.(false)}
+                >
+                  Albums
+                </ContentItem>
+              </li>
+              <li className="w-full">
+                <ContentItem
+                  href={"/global/stats/artist"}
+                  onClick={() => onOpenChange?.(false)}
+                >
+                  Artists
+                </ContentItem>
+              </li>
+            </ul>
           </ul>
           {account?.name && (
             <ul>
-              <li className="w-full px-4 py-2">
+              <li className="w-full px-0 py-2">
                 <p className="text-sm font-bold uppercase text-slate-400">
                   {account.name}
                 </p>
@@ -75,30 +82,6 @@ export function SidebarContent({ onOpenChange }: SidebarContentProps) {
                   History
                 </ContentItem>
               </li>
-              {/* <li className="w-full">
-                <Button
-                  variant="ghost"
-                  className="w-full justify-start text-base"
-                >
-                  Track
-                </Button>
-              </li>
-              <li className="w-full">
-                <Button
-                  variant="ghost"
-                  className="w-full justify-start text-base"
-                >
-                  Artist
-                </Button>
-              </li>
-              <li className="w-full">
-                <Button
-                  variant="ghost"
-                  className="w-full justify-start text-base"
-                >
-                  Album
-                </Button>
-              </li> */}
             </ul>
           )}
         </nav>
@@ -125,7 +108,8 @@ function ContentItem({ href, children, onClick }: ContentItemProps) {
   return (
     <Button
       variant="ghost"
-      className="flex w-full flex-row justify-start text-base"
+      size={"sm"}
+      className="flex w-full flex-row justify-start"
       asChild
       onClick={onClick}
     >

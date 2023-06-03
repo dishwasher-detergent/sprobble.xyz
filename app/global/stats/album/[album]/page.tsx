@@ -11,7 +11,7 @@ import { useAppwrite, useCollection } from "react-appwrite";
 const databaseId = "645c032960cb9f95212b";
 const collectionId = "album";
 
-export default function ArtistStatsPage({
+export default function AlbumStatsPage({
   params,
 }: {
   params: { album: string };
@@ -97,7 +97,7 @@ export default function ArtistStatsPage({
           {plays?.documents[0].name}
         </h2>
       )}
-      <div className="grid w-full grid-cols-1 gap-4 py-6 md:grid-cols-3">
+      <section className="grid w-full grid-cols-1 gap-4 py-6 md:grid-cols-3">
         <Card className="flex-1">
           <CardHeader>
             <CardTitle className="h-6 text-sm font-medium tracking-tight">
@@ -115,7 +115,7 @@ export default function ArtistStatsPage({
             )}
           </CardContent>
         </Card>
-      </div>
+      </section>
 
       <History
         title="Recent Plays"
