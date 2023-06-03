@@ -62,7 +62,7 @@ export default function HistoryItem({ track }: HistoryItemProps) {
       </div>
       {track.user_id && (
         <a
-          href={`/${track.user_id}/history`}
+          href={`/user/${track.user_id}/history`}
           className="text-sm text-slate-400"
         >
           Listened by&nbsp;
