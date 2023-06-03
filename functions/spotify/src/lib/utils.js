@@ -1,6 +1,6 @@
 const { ID, Query } = require("node-appwrite");
 
-const PLAYER_HISTORY_ENDPOINT = `https://api.spotify.com/v1/me/player/recently-played?limit=10`;
+const PLAYER_HISTORY_ENDPOINT = `https://api.spotify.com/v1/me/player/recently-played`;
 const REFRESH_TOKEN_ENDPOINT = "https://accounts.spotify.com/api/token";
 
 const getAccessToken = async (
@@ -37,7 +37,15 @@ const getAccessToken = async (
 };
 
 const getPlayerHistory = async (ACCESS_TOKEN) => {
-  const response = await fetch(PLAYER_HISTORY_ENDPOINT, {
+  const date = Date.now() - 900000;
+  console.log("After: ", date);
+
+  const params = new URLSearchParams({
+    after: date,
+    limit: 10,
+  });
+
+  const response = await fetch(`${PLAYER_HISTORY_ENDPOINT}?${params}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${ACCESS_TOKEN}`,
@@ -65,7 +73,7 @@ const addToDatabase = async (item, database) => {
 const addAlbumToDatabase = async (item, database) => {
   const { album } = item;
 
-  console.log("Adding album.");
+  console.log(`Adding album, ${album.name}`);
 
   await database.getDocument("645c032960cb9f95212b", "album", album.id).then(
     () => {
@@ -95,9 +103,8 @@ const addAlbumToDatabase = async (item, database) => {
 const addArtistToDatabase = async (item, database) => {
   const { artists, album } = item;
 
-  console.log("Adding artist.");
-
   for (let i = 0; i < artists.length; i++) {
+    console.log(`Adding artist, ${artists[i].name}`);
     await database
       .getDocument("645c032960cb9f95212b", "artist", artists[i].id)
       .then(
@@ -141,7 +148,7 @@ const addArtistToDatabase = async (item, database) => {
 const addTrackToDatabase = async (item, database) => {
   const { artists, album } = item;
 
-  console.log("Adding track.");
+  console.log(`Adding track, ${item.name}`);
 
   await database.getDocument("645c032960cb9f95212b", "track", item.id).then(
     () => {

@@ -1,6 +1,6 @@
 const sdk = require("node-appwrite");
 const utils = require("./lib/utils");
-require('./lib/console')();
+require("./lib/console")();
 
 /*
   'req' variable has:
@@ -71,6 +71,8 @@ module.exports = async function (req, res) {
     const history = await utils.getPlayerHistory(
       spotifyAccessToken.access_token
     );
+
+    console.log(history);
 
     console.log("User history fetched");
 
