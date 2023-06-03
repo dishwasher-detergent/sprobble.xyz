@@ -15,11 +15,11 @@ export default function HistoryItem({ track }: HistoryItemProps) {
             <AvatarImage src={track.album.images[0]} />
             <Audio
               file={{
-                song: track.preview,
-                title: track.name,
+                song: track.track.preview,
+                title: track.track.name,
                 artist: track.artist[0].name,
                 artwork: track.album.images[0],
-                duration: track.duration,
+                duration: track.track.duration,
               }}
             />
           </Avatar>

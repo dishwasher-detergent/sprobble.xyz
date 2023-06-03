@@ -14,14 +14,15 @@ export function Audio({ file }: { file: SongType }) {
     toggle,
     setSong,
   } = useContext<AudioContextType>(AudioContext);
-  const [clientPlaying, togglePlaying] = useState(false);
+  const [firstPlay, setFirstPlay] = useState<boolean>(true);
+  const [clientPlaying, togglePlaying] = useState(true);
 
   const toggleSong = () => {
-    if (song?.song != file.song) {
+    if (firstPlay || file.song != song?.song) {
       setSong(file);
-    }
-
-    if (clientPlaying) {
+      setFirstPlay(false);
+      console.log("first play");
+    } else {
       toggle();
     }
 
@@ -37,7 +38,7 @@ export function Audio({ file }: { file: SongType }) {
       className="absolute inset-0 z-10 flex cursor-pointer items-center justify-center bg-slate-900/40 text-white opacity-0 transition-opacity hover:opacity-100"
       onClick={() => toggleSong()}
     >
-      {clientPlaying ? <LucidePlayCircle /> : <LucidePauseCircle />}
+      {clientPlaying ? <LucidePauseCircle /> : <LucidePlayCircle />}
     </button>
   );
 }
