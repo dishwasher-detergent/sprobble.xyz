@@ -44,7 +44,7 @@ async function getUserData(id: string) {
 
 async function getData(id: string) {
   const plays: Models.DocumentList<Models.Document> = await fetch(
-    `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/v1/databases/645c032960cb9f95212b/collections/plays/documents?query[0]=equal("user_id", ["${id}"])`,
+    `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/v1/databases/645c032960cb9f95212b/collections/plays/documents?queries[0]=equal("user_id", ["${id}"])`,
     {
       headers: {
         "X-Appwrite-Project": process.env
@@ -76,7 +76,7 @@ export default async function UserPage({
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-4xl font-bold">{plays.total}</p>
+            <p className="text-4xl font-bold">{plays.documents.length}</p>
           </CardContent>
         </Card>
       </section>
@@ -84,3 +84,5 @@ export default async function UserPage({
     </>
   );
 }
+
+export const revalidate = 60;

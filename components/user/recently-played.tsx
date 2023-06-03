@@ -100,6 +100,15 @@ export function UserRecentlyPlayed({ user }: { user: string }) {
       title="Recent Plays"
       isLoading={isLoading}
       formattedPlays={formattedPlays}
+      paginationProps={{
+        nextPage: nextPage,
+        prevPage: prevPage,
+        page: page,
+        pageCount: pageCount,
+        itemCount: itemCount,
+        // @ts-ignore
+        totalPlays: plays?.total,
+      }}
     />
   );
 }

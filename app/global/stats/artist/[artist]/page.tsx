@@ -84,3 +84,5 @@ export default async function ArtistStatsPage({
     </>
   );
 }
+
+export const revalidate = 60;
