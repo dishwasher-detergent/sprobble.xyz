@@ -17,16 +17,6 @@ const columns: ColumnDef<any>[] = [
   {
     accessorKey: "name",
     header: "Name",
-    cell(props) {
-      return (
-        <Link
-          href={`/global/stats/artist/${props.row.original.id}`}
-          className="flex flex-row items-center gap-2 hover:text-blue-600"
-        >
-          {props.row.original.name}
-        </Link>
-      );
-    },
   },
   {
     accessorKey: "album",
