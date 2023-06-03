@@ -13,7 +13,7 @@ import { useAppwrite, useCollection } from "react-appwrite";
 const databaseId = "645c032960cb9f95212b";
 const collectionId = "artist";
 
-export const columns: ColumnDef<any>[] = [
+const columns: ColumnDef<any>[] = [
   {
     accessorKey: "name",
     header: "Name",

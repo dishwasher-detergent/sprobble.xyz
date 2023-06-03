@@ -14,7 +14,7 @@ import { useAppwrite, useCollection } from "react-appwrite";
 const databaseId = "645c032960cb9f95212b";
 const collectionId = "album";
 
-export const columns: ColumnDef<any>[] = [
+const columns: ColumnDef<any>[] = [
   {
     accessorKey: "album_art",
     header: "Album Cover",
