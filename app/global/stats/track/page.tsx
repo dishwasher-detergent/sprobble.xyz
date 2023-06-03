@@ -49,6 +49,7 @@ export const columns: ColumnDef<any>[] = [
       return props.row.original.artists.map((artist: Artist, index: number) => {
         return (
           <Link
+            key={artist.$id}
             href={`/global/stats/artist/${artist.$id}`}
             className="flex flex-row items-center gap-2 hover:text-blue-600"
           >
