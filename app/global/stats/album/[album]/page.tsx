@@ -2,7 +2,8 @@
 
 import { History } from "@/components/history";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Query } from "appwrite";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Models, Query } from "appwrite";
 import { useEffect, useState } from "react";
 import { useAppwrite, useCollection } from "react-appwrite";
 
@@ -28,15 +29,14 @@ export default function ArtistStatsPage({
     collectionId,
     queries,
     {
-      // @ts-ignore
-      queryFn: async (): Promise<Models.DocumentList<Models.Document>> => {
+      queryFn: async (): Promise<any> => {
         const response = await databases.listDocuments<any>(
           databaseId,
           collectionId,
           queries
         );
 
-        return response;
+        return response as Models.DocumentList<Models.Document>;
       },
       keepPreviousData: true,
     }
@@ -86,35 +86,41 @@ export default function ArtistStatsPage({
   console.log(formattedPlays);
 
   return (
-    !isLoading && (
-      <>
-        <h3 className="font-bold">Album Stats</h3>
+    <>
+      <h3 className="font-bold">Album Stats</h3>
+      {isLoading ? (
+        <Skeleton className="h-10 w-[250px] max-w-full" />
+      ) : (
         <h2 className="text-xl font-black md:text-3xl">
           {/* @ts-ignore */}
-          {plays.documents[0].name}
+          {plays?.documents[0].name}
         </h2>
-        <div className="grid w-full grid-cols-1 gap-4 py-6 md:grid-cols-3">
-          <Card className="flex-1">
-            <CardHeader>
-              <CardTitle className="h-6 text-sm font-medium tracking-tight">
-                Total Plays From This Album
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
+      )}
+      <div className="grid w-full grid-cols-1 gap-4 py-6 md:grid-cols-3">
+        <Card className="flex-1">
+          <CardHeader>
+            <CardTitle className="h-6 text-sm font-medium tracking-tight">
+              Total Plays From This Album
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {isLoading ? (
+              <Skeleton className="h-10 w-full" />
+            ) : (
               <p className="text-4xl font-bold">
                 {/* @ts-ignore */}
-                {plays.documents[0].plays.length}
+                {plays?.documents[0].plays.length}
               </p>
-            </CardContent>
-          </Card>
-        </div>
+            )}
+          </CardContent>
+        </Card>
+      </div>
 
-        <History
-          title="Recent Plays"
-          isLoading={isLoading}
-          formattedPlays={formattedPlays}
-        />
-      </>
-    )
+      <History
+        title="Recent Plays"
+        isLoading={isLoading}
+        formattedPlays={formattedPlays}
+      />
+    </>
   );
 }

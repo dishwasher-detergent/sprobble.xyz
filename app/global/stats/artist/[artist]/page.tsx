@@ -2,6 +2,7 @@
 
 import { History } from "@/components/history";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Query } from "appwrite";
 import { useEffect, useState } from "react";
 import { useAppwrite, useCollection } from "react-appwrite";
@@ -84,48 +85,58 @@ export default function ArtistStatsPage({
   }, [plays]);
 
   return (
-    !isLoading && (
-      <>
-        <h3 className="font-bold">Artist Stats</h3>
+    <>
+      <h3 className="font-bold">Artist Stats</h3>
+      {isLoading ? (
+        <Skeleton className="h-10 w-[250px] max-w-full" />
+      ) : (
         <h2 className="text-xl font-black md:text-3xl">
           {/* @ts-ignore */}
-          {plays.documents[0].name}
+          {plays?.documents[0].name}
         </h2>
-        <div className="grid w-full grid-cols-1 gap-4 py-6 md:grid-cols-3">
-          <Card className="flex-1">
-            <CardHeader>
-              <CardTitle className="h-6 text-sm font-medium tracking-tight">
-                Total Listens
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
+      )}
+      <div className="grid w-full grid-cols-1 gap-4 py-6 md:grid-cols-3">
+        <Card className="flex-1">
+          <CardHeader>
+            <CardTitle className="h-6 text-sm font-medium tracking-tight">
+              Total Listens
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {isLoading ? (
+              <Skeleton className="h-10 w-full" />
+            ) : (
               <p className="text-4xl font-bold">
                 {/* @ts-ignore */}
-                {plays.documents[0].plays.length}
+                {plays?.documents[0].plays.length}
               </p>
-            </CardContent>
-          </Card>
-          <Card className="flex-1">
-            <CardHeader>
-              <CardTitle className="h-6 text-sm font-medium tracking-tight">
-                Total Unique Tracks Listened To
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
+            )}
+          </CardContent>
+        </Card>
+        <Card className="flex-1">
+          <CardHeader>
+            <CardTitle className="h-6 text-sm font-medium tracking-tight">
+              Total Unique Tracks Listened To
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {isLoading ? (
+              <Skeleton className="h-10 w-full" />
+            ) : (
               <p className="text-4xl font-bold">
                 {/* @ts-ignore */}
-                {plays.documents[0].track.length}
+                {plays?.documents[0].track.length}
               </p>
-            </CardContent>
-          </Card>
-        </div>
+            )}
+          </CardContent>
+        </Card>
+      </div>
 
-        <History
-          title="Recent Plays"
-          isLoading={isLoading}
-          formattedPlays={formattedPlays}
-        />
-      </>
-    )
+      <History
+        title="Recent Plays"
+        isLoading={isLoading}
+        formattedPlays={formattedPlays}
+      />
+    </>
   );
 }
