@@ -1,104 +1,63 @@
-"use client";
-
-import { History } from "@/components/history";
+import { ArtistsRecentlyPlayed } from "@/components/artist/recently-played";
+import { Header } from "@/components/header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { custom_sort } from "@/lib/utils";
-import { Query } from "appwrite";
-import { useEffect, useState } from "react";
-import { useAppwrite, useCollection } from "react-appwrite";
+import { Artist } from "@/types/Types";
+import { Models } from "appwrite";
 
-const databaseId = "645c032960cb9f95212b";
-const collectionId = "artist";
+export async function generateMetadata({
+  params,
+}: {
+  params: { artist: string };
+}) {
+  const id = params.artist;
 
-export default function ArtistStatsPage({
+  // fetch data
+  const artist = await getData(id);
+
+  return {
+    title: artist.name,
+    description: `Stats for ${artist.name}`,
+    openGraph: {
+      title: artist.name,
+      description: `Stats for ${artist.name}`,
+      url: "https://sprobble.xyz/global/stats/artist/" + artist.$id,
+      siteName: "sprobble.xyz",
+      locale: "en_US",
+      type: "website",
+    },
+  };
+}
+
+async function getData(id: string) {
+  const artist: Models.Document & Artist = await fetch(
+    `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/v1/databases/645c032960cb9f95212b/collections/artist/documents/${id}`,
+    {
+      headers: {
+        "X-Appwrite-Project": process.env
+          .NEXT_PUBLIC_APPWRITE_PROJECT_ID as string,
+      },
+    }
+  ).then((res) => res.json());
+
+  return artist;
+}
+
+export default async function ArtistStatsPage({
   params,
 }: {
   params: { artist: string };
 }) {
   const { artist } = params;
-  const itemCount = 10;
-  const query = [Query.limit(itemCount), Query.equal("$id", artist)];
-
-  const { databases } = useAppwrite();
-
-  const [formattedPlays, setFormattedPlays] = useState<any>([]);
-  const [queries, setQueries] = useState<any>(query);
-
-  const { data: plays, isLoading } = useCollection(
-    databaseId,
-    collectionId,
-    queries,
-    {
-      // @ts-ignore
-      queryFn: async (): Promise<Models.DocumentList<Models.Document>> => {
-        const response = await databases.listDocuments<any>(
-          databaseId,
-          collectionId,
-          queries
-        );
-
-        return response;
-      },
-      keepPreviousData: true,
-    }
-  );
-
-  const groupByDate = (data: any) => {
-    if (!data) return;
-
-    const formatted = data.reduce((acc: any, val: any) => {
-      const date = new Date(val.played_at)
-        .toLocaleString("en-US", {
-          month: "2-digit",
-          day: "2-digit",
-          year: "numeric",
-        })
-        .match(/\d{2}\/\d{2}\/\d{4}/g)
-        ?.toString();
-
-      val["artist"] = [
-        {
-          // @ts-ignore
-          name: plays.documents[0].name,
-          // @ts-ignore
-          $id: plays.documents[0].$id,
-        },
-      ];
-
-      if (!date) return;
-
-      const item = acc.find((item: any) =>
-        item.date.match(new RegExp(date, "g"))
-      );
-
-      if (!item) acc.push({ date: date, tracks: [val] });
-      else item.tracks.push(val);
-
-      return acc;
-    }, []);
-
-    return formatted.sort(custom_sort).reverse();
-  };
-
-  useEffect(() => {
-    if (isLoading) return;
-    // @ts-ignore
-    setFormattedPlays(groupByDate(plays.documents[0].plays));
-  }, [plays]);
-
+  const document = await getData(artist);
   return (
     <>
       <h3 className="font-bold">Artist Stats</h3>
-      {isLoading ? (
-        <Skeleton className="h-10 w-[250px] max-w-full" />
-      ) : (
-        <h2 className="text-xl font-black md:text-3xl">
-          {/* @ts-ignore */}
-          {plays?.documents[0].name}
-        </h2>
-      )}
-      <div className="grid w-full grid-cols-1 gap-4 py-6 md:grid-cols-3">
+      <Header
+        title={document.name}
+        artwork={document.album[0].images[0]}
+        artwork_name={document.album[0].name}
+      />
+      <section className="grid w-full grid-cols-1 gap-4 py-6 md:grid-cols-3">
         <Card className="flex-1">
           <CardHeader>
             <CardTitle className="h-6 text-sm font-medium tracking-tight">
@@ -106,14 +65,7 @@ export default function ArtistStatsPage({
             </CardTitle>
           </CardHeader>
           <CardContent>
-            {isLoading ? (
-              <Skeleton className="h-10 w-full" />
-            ) : (
-              <p className="text-4xl font-bold">
-                {/* @ts-ignore */}
-                {plays?.documents[0].plays.length}
-              </p>
-            )}
+            <p className="text-4xl font-bold">{document.plays.length}</p>
           </CardContent>
         </Card>
         <Card className="flex-1">
@@ -123,23 +75,12 @@ export default function ArtistStatsPage({
             </CardTitle>
           </CardHeader>
           <CardContent>
-            {isLoading ? (
-              <Skeleton className="h-10 w-full" />
-            ) : (
-              <p className="text-4xl font-bold">
-                {/* @ts-ignore */}
-                {plays?.documents[0].track.length}
-              </p>
-            )}
+            <p className="text-4xl font-bold">{document.track.length}</p>
           </CardContent>
         </Card>
-      </div>
+      </section>
 
-      <History
-        title="Recent Plays"
-        isLoading={isLoading}
-        formattedPlays={formattedPlays}
-      />
+      <ArtistsRecentlyPlayed artist={artist} />
     </>
   );
 }

@@ -1,102 +1,73 @@
-"use client";
-
-import { History } from "@/components/history";
+import { AlbumRecentlyPlayed } from "@/components/album/recently-played";
+import { Header } from "@/components/header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { custom_sort } from "@/lib/utils";
-import { Models, Query } from "appwrite";
-import { useEffect, useState } from "react";
-import { useAppwrite, useCollection } from "react-appwrite";
+import { Album, Artist } from "@/types/Types";
+import { Models } from "appwrite";
 
-const databaseId = "645c032960cb9f95212b";
-const collectionId = "album";
+export async function generateMetadata({
+  params,
+}: {
+  params: { album: string };
+}) {
+  const id = params.album;
 
-export default function AlbumStatsPage({
+  // fetch data
+  const album = await getData(id);
+
+  return {
+    title: album.name,
+    description: `Stats for ${album.name} by ${album.artist
+      .map((x: Artist) => x.name)
+      .join(", ")}`,
+    openGraph: {
+      title: album.name,
+      description: `Stats for ${album.name} by ${album.artist
+        .map((x: Artist) => x.name)
+        .join(", ")}`,
+      url: "https://sprobble.xyz/global/stats/album/" + album.$id,
+      siteName: "sprobble.xyz",
+      images: [
+        {
+          url: album.images[0],
+          width: 800,
+          height: 800,
+        },
+      ],
+      locale: "en_US",
+      type: "website",
+    },
+  };
+}
+
+async function getData(id: string) {
+  const album: Models.Document & Album = await fetch(
+    `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/v1/databases/645c032960cb9f95212b/collections/album/documents/${id}`,
+    {
+      headers: {
+        "X-Appwrite-Project": process.env
+          .NEXT_PUBLIC_APPWRITE_PROJECT_ID as string,
+      },
+    }
+  ).then((res) => res.json());
+
+  return album;
+}
+
+export default async function AlbumStatsPage({
   params,
 }: {
   params: { album: string };
 }) {
   const { album } = params;
-  const itemCount = 10;
-  const query = [Query.limit(itemCount), Query.equal("$id", album)];
-
-  const { databases } = useAppwrite();
-
-  const [formattedPlays, setFormattedPlays] = useState<any>([]);
-  const [queries, setQueries] = useState<any>(query);
-
-  const { data: plays, isLoading } = useCollection(
-    databaseId,
-    collectionId,
-    queries,
-    {
-      queryFn: async (): Promise<any> => {
-        const response = await databases.listDocuments<any>(
-          databaseId,
-          collectionId,
-          queries
-        );
-
-        return response as Models.DocumentList<Models.Document>;
-      },
-      keepPreviousData: true,
-    }
-  );
-
-  const groupByDate = (data: any) => {
-    if (!data) return;
-
-    const formatted = data.reduce((acc: any, val: any) => {
-      const date = new Date(val.played_at)
-        .toLocaleString("en-US", {
-          month: "2-digit",
-          day: "2-digit",
-          year: "numeric",
-        })
-        .match(/\d{2}\/\d{2}\/\d{4}/g)
-        ?.toString();
-
-      val["album"] = {
-        // @ts-ignore
-        name: plays.documents[0].name,
-        // @ts-ignore
-        $id: plays.documents[0].$id,
-        // @ts-ignore
-        images: plays.documents[0].images,
-      };
-
-      if (!date) return;
-
-      const item = acc.find((item: any) =>
-        item.date.match(new RegExp(date, "g"))
-      );
-
-      if (!item) acc.push({ date: date, tracks: [val] });
-      else item.tracks.push(val);
-
-      return acc;
-    }, []);
-
-    return formatted.sort(custom_sort).reverse();
-  };
-
-  useEffect(() => {
-    if (isLoading) return;
-    // @ts-ignore
-    setFormattedPlays(groupByDate(plays.documents[0].plays));
-  }, [plays]);
-
+  const document = await getData(album);
   return (
     <>
       <h3 className="font-bold">Album Stats</h3>
-      {isLoading ? (
-        <Skeleton className="h-10 w-[250px] max-w-full" />
-      ) : (
-        <h2 className="text-xl font-black md:text-3xl">
-          {/* @ts-ignore */}
-          {plays?.documents[0].name}
-        </h2>
-      )}
+      <Header
+        title={document.name}
+        artwork={document.images[0]}
+        artwork_name={document.name}
+      />
       <section className="grid w-full grid-cols-1 gap-4 py-6 md:grid-cols-3">
         <Card className="flex-1">
           <CardHeader>
@@ -105,23 +76,12 @@ export default function AlbumStatsPage({
             </CardTitle>
           </CardHeader>
           <CardContent>
-            {isLoading ? (
-              <Skeleton className="h-10 w-full" />
-            ) : (
-              <p className="text-4xl font-bold">
-                {/* @ts-ignore */}
-                {plays?.documents[0].plays.length}
-              </p>
-            )}
+            <p className="text-4xl font-bold">{document.plays.length}</p>
           </CardContent>
         </Card>
       </section>
 
-      <History
-        title="Recent Plays"
-        isLoading={isLoading}
-        formattedPlays={formattedPlays}
-      />
+      <AlbumRecentlyPlayed album={album} />
     </>
   );
 }

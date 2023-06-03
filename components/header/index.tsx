@@ -8,7 +8,7 @@ interface HeaderProps {
 
 export function Header({ artwork, artwork_name, title }: HeaderProps) {
   return (
-    <div className="relative flex flex-row overflow-hidden rounded-lg bg-slate-900 text-white">
+    <div className="relative flex flex-row overflow-hidden rounded-lg bg-slate-900 text-white shadow-sm">
       <div className="relative h-64 w-64 bg-slate-300">
         <div className="absolute right-0 z-20 h-full w-1/2 bg-gradient-to-l from-slate-900 to-transparent" />
         <div className="absolute inset-0 z-10 bg-slate-900/50" />
