@@ -21,7 +21,6 @@ export function Audio({ file }: { file: SongType }) {
     if (firstPlay || file.song != song?.song) {
       setSong(file);
       setFirstPlay(false);
-      console.log("first play");
     } else {
       toggle();
     }

@@ -37,7 +37,7 @@ export default function HistoryItem({ track }: HistoryItemProps) {
           </p>
           <p className="font-bold">{track.track.name}</p>
           <a
-            href={`/global/stats/album/${track.album.$id.replace(/\s/g, "")}`}
+            href={`/global/stats/album/${track.album.$id}`}
             className="text-sm text-slate-400 hover:text-blue-500"
           >
             {track.album.name}
@@ -47,7 +47,7 @@ export default function HistoryItem({ track }: HistoryItemProps) {
               {track.artist.map((item: Artist, index: number) => (
                 <a
                   key={item.$id}
-                  href={`/global/stats/artist/${item.$id.replace(/\s/g, "")}`}
+                  href={`/global/stats/artist/${item.$id}`}
                   className="hover:text-blue-500"
                 >
                   {item.name}

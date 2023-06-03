@@ -76,7 +76,7 @@ export function SidebarContent({ onOpenChange }: SidebarContentProps) {
               </li>
               <li className="w-full">
                 <ContentItem
-                  href={`/${account.$id}/history`}
+                  href={`/user/${account.$id}/history`}
                   onClick={() => onOpenChange?.(false)}
                 >
                   History
