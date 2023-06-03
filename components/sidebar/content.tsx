@@ -1,11 +1,11 @@
 "use client";
 
+import { LoginWithSpotify } from "@/components/login-with-spotify";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { LucideLogIn, LucideLogOut, LucideUser } from "lucide-react";
 import Link from "next/link";
-import { useAccount, useSignOut } from "react-appwrite";
+import { useAccount } from "react-appwrite";
 
 interface SidebarContentProps {
   onOpenChange?: (open: boolean) => void;
@@ -13,7 +13,6 @@ interface SidebarContentProps {
 
 export function SidebarContent({ onOpenChange }: SidebarContentProps) {
   const { data: account } = useAccount();
-  const signOut = useSignOut();
 
   return (
     <>
@@ -61,7 +60,7 @@ export function SidebarContent({ onOpenChange }: SidebarContentProps) {
               </Button>
             </li> */}
           </ul>
-          {account && (
+          {account?.name && (
             <ul>
               <li className="w-full px-4 py-2">
                 <p className="text-sm font-bold uppercase text-slate-400">
@@ -108,38 +107,8 @@ export function SidebarContent({ onOpenChange }: SidebarContentProps) {
         <li className="w-full px-4 py-2">
           <p className="text-sm font-bold uppercase text-slate-400">General</p>
         </li>
-        {account && (
-          <li>
-            <ContentItem
-              href="/account/preferences"
-              onClick={() => onOpenChange?.(false)}
-            >
-              <LucideUser className="mr-2 h-4 w-4" />
-              Account
-            </ContentItem>
-          </li>
-        )}
         <li>
-          {account ? (
-            <ContentItem
-              href="/account/login"
-              onClick={() => {
-                signOut.mutateAsync();
-                onOpenChange?.(false);
-              }}
-            >
-              <LucideLogIn className="mr-2 h-4 w-4" />
-              Logout
-            </ContentItem>
-          ) : (
-            <ContentItem
-              href="/account/login"
-              onClick={() => onOpenChange?.(false)}
-            >
-              <LucideLogOut className="mr-2 h-4 w-4" />
-              Login
-            </ContentItem>
-          )}
+          <LoginWithSpotify />
         </li>
       </ul>
     </>

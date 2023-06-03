@@ -7,6 +7,7 @@ import { AudioContext, AudioContextType } from "@/context/audioWrapper";
 import { formatTimeForAudioPlayer } from "@/lib/utils";
 import { LucidePauseCircle, LucidePlayCircle } from "lucide-react";
 import { useContext } from "react";
+import { Badge } from "../ui/badge";
 
 export function AudioPlayer() {
   const {
@@ -28,7 +29,9 @@ export function AudioPlayer() {
       <div className="flex flex-1 flex-col">
         <div className="flex flex-1 flex-row">
           <div className="flex-1">
-            <p className="font-bold">{song?.title}</p>
+            <p className="flex items-center gap-2 font-bold">
+              {song?.title} <Badge variant="outline">Preview</Badge>
+            </p>
             <p className="text-sm text-slate-400">{song?.artist}</p>
           </div>
           <Button
