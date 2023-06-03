@@ -3,6 +3,7 @@
 import { History } from "@/components/history";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { custom_sort } from "@/lib/utils";
 import { Query } from "appwrite";
 import { useEffect, useState } from "react";
 import { useAppwrite, useCollection } from "react-appwrite";
@@ -46,7 +47,7 @@ export default function ArtistStatsPage({
   const groupByDate = (data: any) => {
     if (!data) return;
 
-    return data.reduce((acc: any, val: any) => {
+    const formatted = data.reduce((acc: any, val: any) => {
       const date = new Date(val.played_at)
         .toLocaleString("en-US", {
           month: "2-digit",
@@ -76,6 +77,8 @@ export default function ArtistStatsPage({
 
       return acc;
     }, []);
+
+    return formatted.sort(custom_sort).reverse();
   };
 
   useEffect(() => {
