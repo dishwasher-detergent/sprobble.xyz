@@ -2,6 +2,7 @@ import { Audio } from "@/components/audio";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Artist, Play } from "@/types/Types";
 import Image from "next/image";
+import { Badge } from "../ui/badge";
 
 interface HistoryItemProps {
   track: Play;
@@ -36,7 +37,7 @@ export default function HistoryItem({ track }: HistoryItemProps) {
               minute: "numeric",
             })}
           </p>
-          <p className="font-bold">{track.track.name}</p>
+          <p className="font-bold">{track.track.name} <Badge variant="destructive">Explicit</Badge></p>
           <a
             href={`/global/stats/album/${track.album.$id}`}
             className="text-sm text-slate-400 hover:text-blue-500"

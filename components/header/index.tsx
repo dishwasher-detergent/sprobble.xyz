@@ -16,7 +16,7 @@ export function Header({ artwork, artwork_name, title }: HeaderProps) {
       )}
       <div className="flex flex-col p-6 flex-1">
         <div className="flex-1">
-          <h2 className="h-full text-5xl font-black md:text-8xl">{title}</h2>
+          <h2 className="h-full text-3xl font-black md:text-8xl">{title}</h2>
         </div>
         <p className="w-full text-xs md:text-end">
           Stats are based on data collected by Sprobble.xyz
