@@ -10,7 +10,7 @@ interface HistoryItemProps {
 
 export default function HistoryItem({ track }: HistoryItemProps) {
   return (
-    <article className="max-w-full w-96">
+    <article className="w-full max-w-md">
       <div className="relative flex flex-row items-start gap-2 rounded-lg p-1">
         {track.album?.images && (
           <Avatar className="relative h-24 w-24 rounded-lg">
