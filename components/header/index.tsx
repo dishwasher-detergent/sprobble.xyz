@@ -10,7 +10,7 @@ export function Header({ artwork, artwork_name, title }: HeaderProps) {
   return (
     <div className="relative flex md:h-64 flex-col md:flex-row overflow-hidden rounded-lg bg-slate-900 text-white shadow-sm">
       {artwork && artwork_name && (
-        <div className="relative h-64 w-64 bg-slate-300">
+        <div className="relative md:h-64 md:w-64 w-full aspect-square bg-slate-300">
           <Image src={artwork} fill alt={artwork_name} />
         </div>
       )}
