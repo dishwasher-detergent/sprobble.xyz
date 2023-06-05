@@ -1,6 +1,7 @@
 import { Audio } from "@/components/audio";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Artist, Play } from "@/types/Types";
+import Image from "next/image";
 
 interface HistoryItemProps {
   track: Play;
@@ -8,11 +9,11 @@ interface HistoryItemProps {
 
 export default function HistoryItem({ track }: HistoryItemProps) {
   return (
-    <article>
+    <article className="max-w-full w-96">
       <div className="relative flex flex-row items-start gap-2 rounded-lg p-1">
         {track.album?.images && (
           <Avatar className="relative h-24 w-24 rounded-lg">
-            <AvatarImage src={track.album.images[0]} />
+            <AvatarImage src={track.album.images[2]} />
             <Audio
               file={{
                 song: track.track.preview,
@@ -24,7 +25,7 @@ export default function HistoryItem({ track }: HistoryItemProps) {
             />
           </Avatar>
         )}
-        <div className="flex flex-col">
+        <div className="flex flex-col flex-1">
           <p className="text-sm text-slate-400">
             {new Date(track.played_at).toLocaleDateString("en-us", {
               weekday: "long",
@@ -58,6 +59,11 @@ export default function HistoryItem({ track }: HistoryItemProps) {
               ))}
             </p>
           )}
+        </div>
+        <div>
+          <a href={track.track.href} target="_blank">
+            <Image src="/spotify/icon/Spotify_Icon_RGB_Black.png" alt="Spotify Icon Logo" width={21} height={21} />
+          </a>
         </div>
       </div>
       {track.user_id && (

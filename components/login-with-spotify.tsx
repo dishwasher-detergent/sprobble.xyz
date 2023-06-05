@@ -12,7 +12,8 @@ export function LoginWithSpotify() {
   return account?.name ? (
     <Button
       variant="ghost"
-      className="flex w-full flex-row justify-start text-base"
+      size="sm"
+      className="flex w-full flex-row justify-start"
       onClick={() => {
         signOut.mutateAsync();
       }}
@@ -22,7 +23,9 @@ export function LoginWithSpotify() {
     </Button>
   ) : (
     <Button
-      className="flex w-full flex-row justify-start bg-[#1DB954] text-base hover:bg-green-500"
+      variant="ghost"
+      size="sm"
+      className="flex w-full flex-row justify-start"
       onClick={() =>
         oAuthSignIn.mutateAsync({
           provider: "spotify",
