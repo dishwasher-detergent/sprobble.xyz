@@ -29,8 +29,6 @@ export default async function TrackPage() {
     <section className="space-y-6">
       <Header
         title="Global Track Statistics"
-        artwork={documents[0].album.images[0]}
-        artwork_name={documents[0].album.name}
       />
       <ArtistStats />
     </section>
