@@ -29,8 +29,6 @@ export default async function ArtistPage() {
     <section className="space-y-6">
       <Header
         title="Global Artist Statistics"
-        artwork={documents[0].album[0].images[0]}
-        artwork_name={documents[0].album[0].name}
       />
       <ArtistStats />
     </section>
