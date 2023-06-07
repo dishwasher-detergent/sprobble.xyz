@@ -27,9 +27,7 @@ export default async function ArtistPage() {
 
   return (
     <section className="space-y-6">
-      <Header
-        title="Global Artist Statistics"
-      />
+      <Header subTitle="Global" title="Artist Statistics" />
       <ArtistStats />
     </section>
   );

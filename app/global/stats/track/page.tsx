@@ -1,5 +1,5 @@
-import { ArtistStats } from "@/components/artist/artist-stats";
 import { Header } from "@/components/header";
+import TrackStats from "@/components/track/track-stats";
 import { Track } from "@/types/Types";
 import { Models } from "appwrite";
 
@@ -27,10 +27,8 @@ export default async function TrackPage() {
 
   return (
     <section className="space-y-6">
-      <Header
-        title="Global Track Statistics"
-      />
-      <ArtistStats />
+      <Header subTitle="Global" title="Track Statistics" />
+      <TrackStats />
     </section>
   );
 }

@@ -62,9 +62,9 @@ export default async function AlbumStatsPage({
   const document = await getData(album);
   return (
     <>
-      <h3 className="font-bold">Album Stats</h3>
       <Header
         title={document.name}
+        subTitle="Album"
         artwork={document.images[0]}
         artwork_name={document.name}
       />

@@ -19,62 +19,32 @@ export function Pagination({
   itemCount,
 }: PaginationProps) {
   return (
-    <footer className="flex items-center justify-between bg-white px-4 py-6 sm:px-6">
-      <div className="flex flex-1 justify-between sm:hidden">
-        <Button
-          disabled={page === 1}
-          onClick={previous}
-          variant="ghost"
-          className="border"
-        >
-          Previous
-        </Button>
-        <Button
-          disabled={page === pageCount}
-          onClick={next}
-          variant="ghost"
-          className="border"
-        >
-          Next
-        </Button>
-      </div>
-      <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
-        <div>
-          <nav
-            className="isolate inline-flex -space-x-px rounded-lg shadow-sm"
-            aria-label="Pagination"
-          >
+    <footer className="flex justify-end">
+      <div className="flex items-center justify-between px-2">
+        <div className="flex items-center space-x-6 lg:space-x-8">
+          <div className="flex w-[100px] items-center justify-center text-sm font-medium">
+            Page {page} of {pageCount}
+          </div>
+          <div className="flex items-center space-x-2">
             <Button
-              size="sm"
+              variant="outline"
+              className="h-8 w-8 p-0"
+              onClick={() => previous()}
               disabled={page === 1}
-              onClick={previous}
-              variant="ghost"
-              className="rounded-r-none border"
             >
-              <span className="sr-only">Previous</span>
-              <LucideChevronLeft className="h-5 w-5" aria-hidden="true" />
+              <span className="sr-only">Go to previous page</span>
+              <LucideChevronLeft className="h-4 w-4" />
             </Button>
             <Button
-              size="sm"
+              variant="outline"
+              className="h-8 w-8 p-0"
+              onClick={() => next()}
               disabled={page === pageCount}
-              onClick={next}
-              variant="ghost"
-              className="rounded-l-none border"
             >
-              <span className="sr-only">Next</span>
-              <LucideChevronRight className="h-5 w-5" aria-hidden="true" />
+              <span className="sr-only">Go to next page</span>
+              <LucideChevronRight className="h-4 w-4" />
             </Button>
-          </nav>
-        </div>
-        <div>
-          <p className="text-sm text-slate-700">
-            Showing{" "}
-            <span className="font-medium">
-              {page * itemCount - (itemCount - 1)}
-            </span>{" "}
-            to <span className="font-medium">{page === pageCount ? resultCount : page * itemCount}</span> of{" "}
-            <span className="font-medium">{resultCount}</span> results
-          </p>
+          </div>
         </div>
       </div>
     </footer>

@@ -4,7 +4,7 @@ export default function HistoryItemLoading() {
   return (
     <article>
       <div className="relative flex flex-row items-start gap-2 rounded-lg p-1">
-        <Skeleton className="h-24 w-24 rounded-lg" />
+        <Skeleton className="h-16 w-16 rounded-lg md:h-24 md:w-24" />
         <div className="flex h-24 flex-col gap-1">
           <Skeleton className="h-4 w-full max-w-[200px]" />
           <Skeleton className="h-6 w-full max-w-[250px]" />

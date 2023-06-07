@@ -54,6 +54,7 @@ export default async function ArtistStatsPage({
       <h3 className="font-bold">Artist Stats</h3>
       <Header
         title={document.name}
+        subTitle="Artist"
         artwork={document.album[0].images[0]}
         artwork_name={document.album[0].name}
       />

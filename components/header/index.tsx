@@ -1,26 +1,28 @@
 import Image from "next/image";
 
 interface HeaderProps {
+  title: string;
+  subTitle?: string;
   artwork?: string;
   artwork_name?: string;
-  title: string;
 }
 
-export function Header({ artwork, artwork_name, title }: HeaderProps) {
+export function Header({
+  artwork,
+  artwork_name,
+  title,
+  subTitle,
+}: HeaderProps) {
   return (
-    <div className="relative flex md:h-64 flex-col md:flex-row overflow-hidden rounded-lg bg-slate-900 text-white shadow-sm">
+    <div className="relative flex flex-col gap-6 md:flex-row">
       {artwork && artwork_name && (
-        <div className="relative md:h-64 md:w-64 w-full aspect-square bg-slate-300">
+        <div className="relative aspect-square w-full overflow-hidden rounded-lg bg-slate-300 md:h-64 md:w-64">
           <Image src={artwork} fill alt={artwork_name} />
         </div>
       )}
-      <div className="flex flex-col p-6 flex-1">
-        <div className="flex-1">
-          <h2 className="h-full text-3xl font-black md:text-8xl">{title}</h2>
-        </div>
-        <p className="w-full text-xs md:text-end">
-          Stats are based on data collected by Sprobble.xyz
-        </p>
+      <div className="flex-1">
+        <p className="text-lg font-bold">{subTitle}</p>
+        <h2 className="text-3xl font-black md:text-8xl">{title}</h2>
       </div>
     </div>
   );
