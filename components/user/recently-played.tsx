@@ -1,16 +1,20 @@
 "use client";
 
 import { History } from "@/components/history";
-import { Query } from "appwrite";
+import { Models, Query } from "appwrite";
 import { useEffect, useState } from "react";
 import { useAppwrite, useCollection } from "react-appwrite";
 
 const databaseId = "645c032960cb9f95212b";
 const collectionId = "plays";
 
-export default function Home() {
-  const itemCount = 25;
-  const query = [Query.orderDesc("played_at"), Query.limit(itemCount)];
+export function UserRecentlyPlayed({ user }: { user: string }) {
+  const itemCount = 10;
+  const query = [
+    Query.orderDesc("played_at"),
+    Query.limit(itemCount),
+    Query.equal("user_id", user),
+  ];
 
   const { databases } = useAppwrite();
 
