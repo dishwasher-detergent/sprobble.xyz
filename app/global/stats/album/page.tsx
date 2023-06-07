@@ -28,7 +28,8 @@ export default async function AlbumPage() {
   return (
     <section className="space-y-6">
       <Header
-        title="Global Album Statistics"
+        subTitle="Global"
+        title="Album Statistics"
         artwork={documents[0].images[0]}
         artwork_name={documents[0].name}
       />
