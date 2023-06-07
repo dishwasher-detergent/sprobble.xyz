@@ -13,7 +13,7 @@ export default function HistoryItem({ track }: HistoryItemProps) {
     <article className="w-full max-w-md">
       <div className="relative flex flex-row items-start gap-2 rounded-lg p-1">
         {track.album?.images && (
-          <Avatar className="relative h-24 w-24 rounded-lg">
+          <Avatar className="relative h-16 w-16 rounded-lg md:h-24 md:w-24">
             <AvatarImage src={track.album.images[2]} />
             <Audio
               file={{
@@ -26,7 +26,7 @@ export default function HistoryItem({ track }: HistoryItemProps) {
             />
           </Avatar>
         )}
-        <div className="flex flex-col flex-1">
+        <div className="flex flex-1 flex-col">
           <p className="text-sm text-slate-400">
             {new Date(track.played_at).toLocaleDateString("en-us", {
               weekday: "long",
@@ -37,7 +37,15 @@ export default function HistoryItem({ track }: HistoryItemProps) {
               minute: "numeric",
             })}
           </p>
-          <p className="font-bold">{track.track.name} <Badge variant="destructive">Explicit</Badge></p>
+          <p className="flex items-center gap-2 font-bold">
+            {track.track.name}
+            <Badge
+              variant="outline"
+              className="border-destructive px-1.5 py-0 text-destructive"
+            >
+              Explicit
+            </Badge>
+          </p>
           <a
             href={`/global/stats/album/${track.album.$id}`}
             className="text-sm text-slate-400 hover:text-blue-500"
@@ -63,7 +71,12 @@ export default function HistoryItem({ track }: HistoryItemProps) {
         </div>
         <div>
           <a href={track.track.href} target="_blank">
-            <Image src="/spotify/icon/Spotify_Icon_RGB_Black.png" alt="Spotify Icon Logo" width={21} height={21} />
+            <Image
+              src="/spotify/icon/Spotify_Icon_RGB_Black.png"
+              alt="Spotify Icon Logo"
+              width={21}
+              height={21}
+            />
           </a>
         </div>
       </div>
