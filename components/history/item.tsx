@@ -39,12 +39,14 @@ export default function HistoryItem({ track }: HistoryItemProps) {
           </p>
           <p className="flex items-center gap-2 font-bold">
             {track.track.name}
-            <Badge
-              variant="outline"
-              className="border-destructive px-1.5 py-0 text-destructive"
-            >
-              Explicit
-            </Badge>
+            {track.track.explicit && (
+              <Badge
+                variant="outline"
+                className="border-destructive px-1.5 py-0 text-destructive"
+              >
+                Explicit
+              </Badge>
+            )}
           </p>
           <a
             href={`/global/stats/album/${track.album.$id}`}
