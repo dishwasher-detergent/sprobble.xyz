@@ -4,6 +4,7 @@ import { History } from "@/components/history";
 import { Query } from "appwrite";
 import { useEffect, useState } from "react";
 import { useAppwrite, useCollection } from "react-appwrite";
+import { DateRange } from "react-day-picker";
 
 const databaseId = "645c032960cb9f95212b";
 const collectionId = "plays";
@@ -16,6 +17,12 @@ export default function Home() {
 
   const [formattedPlays, setFormattedPlays] = useState<any>([]);
   const [queries, setQueries] = useState<any>(query);
+
+  const [date, setDate] = useState<DateRange | undefined>({
+    from: new Date(),
+    to: new Date(),
+  });
+
   const [pageCount, setPageCount] = useState<number>(0);
   const [page, setPage] = useState<number>(1);
 
@@ -91,20 +98,54 @@ export default function Home() {
     setFormattedPlays(groupByDate(plays.documents));
   }, [plays]);
 
+  useEffect(() => {
+    if (!date) return;
+
+    if (date.from && date.to) {
+      setQueries([
+        ...query,
+        Query.between(
+          "$createdAt",
+          date.from.toISOString(),
+          date.to.toISOString()
+        ),
+      ]);
+    } else if (date.from && !date.to) {
+      setQueries([
+        ...query,
+        Query.greaterThan("$createdAt", date.from.toISOString()),
+      ]);
+    } else if (date.to && !date.from) {
+      setQueries([
+        ...query,
+        Query.lessThan("$createdAt", date.to.toISOString()),
+      ]);
+    }
+
+    console.log(queries);
+  }, [date]);
+
   return (
-    <History
-      title="Recent Plays"
-      isLoading={isLoading}
-      formattedPlays={formattedPlays}
-      paginationProps={{
-        nextPage: nextPage,
-        prevPage: prevPage,
-        page: page,
-        pageCount: pageCount,
-        itemCount: itemCount,
-        // @ts-ignore
-        totalPlays: plays?.total,
-      }}
-    />
+    <>
+      {date.from?.getTime()}
+      <History
+        title="Recent Plays"
+        isLoading={isLoading}
+        formattedPlays={formattedPlays}
+        paginationProps={{
+          nextPage: nextPage,
+          prevPage: prevPage,
+          page: page,
+          pageCount: pageCount,
+          itemCount: itemCount,
+          // @ts-ignore
+          totalPlays: plays?.total,
+        }}
+        dateProps={{
+          setDate: setDate,
+          date: date,
+        }}
+      />
+    </>
   );
 }
