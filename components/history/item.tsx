@@ -1,8 +1,8 @@
 import { Audio } from "@/components/audio";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { Artist, Play } from "@/types/Types";
 import Image from "next/image";
-import { Badge } from "../ui/badge";
 
 interface HistoryItemProps {
   track: Play;
@@ -14,7 +14,7 @@ export default function HistoryItem({ track }: HistoryItemProps) {
       <div className="relative flex flex-row items-start gap-2 rounded-lg p-1">
         {track.album?.images && (
           <Avatar className="relative h-16 w-16 rounded-lg md:h-24 md:w-24">
-            <AvatarImage src={track.album.images[2]} />
+            <AvatarImage src={track.album.images[1]} />
             <Audio
               file={{
                 song: track.track.preview,

@@ -1,5 +1,5 @@
+import { Button } from "@/components/ui/button";
 import { LucideChevronLeft, LucideChevronRight } from "lucide-react";
-import { Button } from "../ui/button";
 
 interface PaginationProps {
   next: () => void;

@@ -1,10 +1,12 @@
 "use client";
 
 import HistoryItem from "@/components/history/item";
+import { Pagination } from "@/components/history/pagination";
 import { HistoryLoading } from "@/components/loading/history";
+import { DatePickerWithRange } from "@/components/ui/date-range-picker";
 import { Play } from "@/types/Types";
 import { LucideCalendarClock } from "lucide-react";
-import { Pagination } from "./pagination";
+import { DateRange, SelectRangeEventHandler } from "react-day-picker";
 
 interface HistoryProps {
   title?: string;
@@ -18,6 +20,10 @@ interface HistoryProps {
     itemCount: number;
     totalPlays: number;
   };
+  dateProps?: {
+    setDate: SelectRangeEventHandler;
+    date: DateRange | undefined;
+  };
 }
 
 export function History({
@@ -25,6 +31,7 @@ export function History({
   isLoading,
   formattedPlays,
   paginationProps,
+  dateProps,
 }: HistoryProps) {
   return (
     <section>
@@ -37,6 +44,14 @@ export function History({
         <HistoryLoading />
       ) : (
         <>
+          {dateProps && (
+            <nav className="pb-6">
+              <DatePickerWithRange
+                date={dateProps.date}
+                setDate={dateProps.setDate}
+              />
+            </nav>
+          )}
           <ul className="flex flex-col gap-10">
             {formattedPlays.map((play: any) => (
               <div key={play.date}>

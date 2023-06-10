@@ -1,7 +1,9 @@
 "use client";
 
 import { Pagination } from "@/components/history/pagination";
+import { Loader } from "@/components/loading/loader";
 import { DataTable } from "@/components/ui/data-table";
+import { Input } from "@/components/ui/input";
 import { Album } from "@/types/Types";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { ColumnDef } from "@tanstack/react-table";
@@ -9,7 +11,6 @@ import { Models, Query } from "appwrite";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAppwrite, useCollection } from "react-appwrite";
-import { Loader } from "../loading/loader";
 
 const databaseId = "645c032960cb9f95212b";
 const collectionId = "album";
@@ -79,7 +80,7 @@ export function AlbumStats() {
 
   // @ts-ignore
   const data = plays?.documents.map((album: Album) => ({
-    album_art: album.images[0],
+    album_art: album.images[1],
     name: album.name,
     id: album.$id,
     url: album.href,
@@ -118,6 +119,20 @@ export function AlbumStats() {
     <Loader className="grid h-48 w-full place-items-center" />
   ) : (
     <>
+      <nav>
+        <Input
+          className="max-w-xs"
+          placeholder="Search Albums"
+          onChange={(e) => {
+            e.target.value.length == 0
+              ? setQueries(query)
+              : setQueries([
+                  ...query,
+                  Query.search("name", `'${e.target.value}'`),
+                ]);
+          }}
+        />
+      </nav>
       <DataTable columns={columns} data={data} />
       <Pagination
         next={() => nextPage()}

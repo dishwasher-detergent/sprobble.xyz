@@ -2,7 +2,9 @@
 
 import { Pagination } from "@/components/history/pagination";
 import { Loader } from "@/components/loading/loader";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { DataTable } from "@/components/ui/data-table";
+import { Input } from "@/components/ui/input";
 import { Artist, Track } from "@/types/Types";
 import { ColumnDef } from "@tanstack/react-table";
 import { Models, Query } from "appwrite";
@@ -14,6 +16,17 @@ const databaseId = "645c032960cb9f95212b";
 const collectionId = "track";
 
 const columns: ColumnDef<any>[] = [
+  {
+    accessorKey: "album_art",
+    header: "Album Cover",
+    cell(props) {
+      return (
+        <Avatar className="block h-14 w-14 overflow-hidden rounded-lg">
+          <AvatarImage src={props.row.original.album_art} />
+        </Avatar>
+      );
+    },
+  },
   {
     accessorKey: "name",
     header: "Name",
@@ -85,6 +98,7 @@ export default function TrackStats() {
 
   // @ts-ignore
   const data = plays?.documents.map((track: Track) => ({
+    album_art: track.album.images[1],
     name: track.name,
     id: track.$id,
     url: track.href,
@@ -124,6 +138,20 @@ export default function TrackStats() {
     <Loader className="grid h-48 w-full place-items-center" />
   ) : (
     <>
+      <nav>
+        <Input
+          className="max-w-xs"
+          placeholder="Search Tracks"
+          onChange={(e) => {
+            e.target.value.length == 0
+              ? setQueries(query)
+              : setQueries([
+                  ...query,
+                  Query.search("name", `'${e.target.value}'`),
+                ]);
+          }}
+        />
+      </nav>
       <DataTable columns={columns} data={data} />
       <Pagination
         next={() => nextPage()}
