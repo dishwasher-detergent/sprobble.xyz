@@ -2,6 +2,7 @@
 
 import { History } from "@/components/history";
 import { Query } from "appwrite";
+import { addDays } from "date-fns";
 import { useEffect, useState } from "react";
 import { useAppwrite, useCollection } from "react-appwrite";
 import { DateRange } from "react-day-picker";
@@ -19,8 +20,8 @@ export default function Home() {
   const [queries, setQueries] = useState<any>(query);
 
   const [date, setDate] = useState<DateRange | undefined>({
-    from: new Date(),
-    to: new Date(),
+    from: undefined,
+    to: undefined,
   });
 
   const [pageCount, setPageCount] = useState<number>(0);
@@ -104,30 +105,24 @@ export default function Home() {
     if (date.from && date.to) {
       setQueries([
         ...query,
-        Query.between(
-          "$createdAt",
-          date.from.toISOString(),
-          date.to.toISOString()
-        ),
+        Query.greaterThanEqual("$createdAt", date.from.toISOString()),
+        Query.lessThanEqual("$createdAt", addDays(date.to, 1).toISOString()),
       ]);
     } else if (date.from && !date.to) {
       setQueries([
         ...query,
-        Query.greaterThan("$createdAt", date.from.toISOString()),
+        Query.greaterThanEqual("$createdAt", date.from.toISOString()),
       ]);
     } else if (date.to && !date.from) {
       setQueries([
         ...query,
-        Query.lessThan("$createdAt", date.to.toISOString()),
+        Query.lessThanEqual("$createdAt", date.to.toISOString()),
       ]);
     }
-
-    console.log(queries);
   }, [date]);
 
   return (
     <>
-      {date.from?.getTime()}
       <History
         title="Recent Plays"
         isLoading={isLoading}

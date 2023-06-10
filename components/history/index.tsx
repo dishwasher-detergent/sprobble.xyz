@@ -45,10 +45,12 @@ export function History({
       ) : (
         <>
           {dateProps && (
-            <DatePickerWithRange
-              date={dateProps.date}
-              setDate={dateProps.setDate}
-            />
+            <nav className="pb-6">
+              <DatePickerWithRange
+                date={dateProps.date}
+                setDate={dateProps.setDate}
+              />
+            </nav>
           )}
           <ul className="flex flex-col gap-10">
             {formattedPlays.map((play: any) => (
