@@ -76,7 +76,7 @@ export default async function UserPage({
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-4xl font-bold">{plays.documents.length}</p>
+            <p className="text-4xl font-bold">{plays.total}</p>
           </CardContent>
         </Card>
       </section>
