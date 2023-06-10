@@ -2,6 +2,7 @@
 
 import { Pagination } from "@/components/history/pagination";
 import { Loader } from "@/components/loading/loader";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { DataTable } from "@/components/ui/data-table";
 import { Artist, Track } from "@/types/Types";
 import { ColumnDef } from "@tanstack/react-table";
@@ -14,6 +15,17 @@ const databaseId = "645c032960cb9f95212b";
 const collectionId = "track";
 
 const columns: ColumnDef<any>[] = [
+  {
+    accessorKey: "album_art",
+    header: "Album Cover",
+    cell(props) {
+      return (
+        <Avatar className="block h-14 w-14 overflow-hidden rounded-lg">
+          <AvatarImage src={props.row.original.album_art} />
+        </Avatar>
+      );
+    },
+  },
   {
     accessorKey: "name",
     header: "Name",
@@ -85,6 +97,7 @@ export default function TrackStats() {
 
   // @ts-ignore
   const data = plays?.documents.map((track: Track) => ({
+    album_art: track.album.images[1],
     name: track.name,
     id: track.$id,
     url: track.href,

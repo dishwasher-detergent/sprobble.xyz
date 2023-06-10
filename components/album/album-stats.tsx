@@ -79,7 +79,7 @@ export function AlbumStats() {
 
   // @ts-ignore
   const data = plays?.documents.map((album: Album) => ({
-    album_art: album.images[0],
+    album_art: album.images[1],
     name: album.name,
     id: album.$id,
     url: album.href,

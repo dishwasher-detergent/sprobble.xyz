@@ -14,7 +14,7 @@ export default function HistoryItem({ track }: HistoryItemProps) {
       <div className="relative flex flex-row items-start gap-2 rounded-lg p-1">
         {track.album?.images && (
           <Avatar className="relative h-16 w-16 rounded-lg md:h-24 md:w-24">
-            <AvatarImage src={track.album.images[2]} />
+            <AvatarImage src={track.album.images[1]} />
             <Audio
               file={{
                 song: track.track.preview,
