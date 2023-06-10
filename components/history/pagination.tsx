@@ -20,7 +20,7 @@ export function Pagination({
 }: PaginationProps) {
   return (
     <footer className="flex justify-end">
-      <div className="flex items-center justify-between px-2">
+      <div className="flex items-center justify-between px-2 py-4">
         <div className="flex items-center space-x-6 lg:space-x-8">
           <div className="flex w-[100px] items-center justify-center text-sm font-medium">
             Page {page} of {pageCount}
