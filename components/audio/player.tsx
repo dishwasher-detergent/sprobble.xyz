@@ -1,13 +1,13 @@
 "use client";
 
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { AudioContext, AudioContextType } from "@/context/audioWrapper";
 import { formatTimeForAudioPlayer } from "@/lib/utils";
 import { LucidePauseCircle, LucidePlayCircle } from "lucide-react";
 import { useContext } from "react";
-import { Badge } from "../ui/badge";
 
 export function AudioPlayer() {
   const {

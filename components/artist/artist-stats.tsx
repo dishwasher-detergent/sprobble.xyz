@@ -3,6 +3,7 @@
 import { Pagination } from "@/components/history/pagination";
 import { Loader } from "@/components/loading/loader";
 import { DataTable } from "@/components/ui/data-table";
+import { Input } from "@/components/ui/input";
 import { Artist } from "@/types/Types";
 import { ColumnDef } from "@tanstack/react-table";
 import { Models, Query } from "appwrite";
@@ -110,6 +111,20 @@ export function ArtistStats() {
     <Loader className="grid h-48 w-full place-items-center" />
   ) : (
     <>
+      <nav>
+        <Input
+          className="max-w-xs"
+          placeholder="Search Artists"
+          onChange={(e) => {
+            e.target.value.length == 0
+              ? setQueries(query)
+              : setQueries([
+                  ...query,
+                  Query.search("name", `'${e.target.value}'`),
+                ]);
+          }}
+        />
+      </nav>
       <DataTable columns={columns} data={data} />
       <Pagination
         next={() => nextPage()}

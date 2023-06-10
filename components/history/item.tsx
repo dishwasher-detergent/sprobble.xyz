@@ -1,8 +1,8 @@
 import { Audio } from "@/components/audio";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { Artist, Play } from "@/types/Types";
 import Image from "next/image";
-import { Badge } from "../ui/badge";
 
 interface HistoryItemProps {
   track: Play;

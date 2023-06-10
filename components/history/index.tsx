@@ -1,12 +1,12 @@
 "use client";
 
 import HistoryItem from "@/components/history/item";
+import { Pagination } from "@/components/history/pagination";
 import { HistoryLoading } from "@/components/loading/history";
+import { DatePickerWithRange } from "@/components/ui/date-range-picker";
 import { Play } from "@/types/Types";
 import { LucideCalendarClock } from "lucide-react";
 import { DateRange, SelectRangeEventHandler } from "react-day-picker";
-import { DatePickerWithRange } from "../ui/date-range-picker";
-import { Pagination } from "./pagination";
 
 interface HistoryProps {
   title?: string;

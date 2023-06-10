@@ -1,8 +1,8 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { LucideLogIn } from "lucide-react";
 import { useAccount, useOAuth2SignIn, useSignOut } from "react-appwrite";
-import { Button } from "./ui/button";
 
 export function LoginWithSpotify() {
   const oAuthSignIn = useOAuth2SignIn();
