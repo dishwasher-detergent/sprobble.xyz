@@ -24,7 +24,7 @@ export default function RootLayout({
       <AppWriteWrapper>
         <html lang="en">
           <body
-            className={`${nunito.className} full-screen dark flex flex-row flex-nowrap overflow-hidden`}
+            className={`${nunito.className} full-screen flex flex-row flex-nowrap overflow-hidden`}
           >
             <Sidebar />
             <main className="relative flex flex-1 flex-col">
