@@ -27,7 +27,7 @@ export default function HistoryItem({ track }: HistoryItemProps) {
           </Avatar>
         )}
         <div className="flex flex-1 flex-col">
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-foreground">
             {new Date(track.played_at).toLocaleDateString("en-us", {
               weekday: "long",
               year: "numeric",
@@ -50,12 +50,12 @@ export default function HistoryItem({ track }: HistoryItemProps) {
           </p>
           <a
             href={`/global/stats/album/${track.album.$id}`}
-            className="text-sm text-slate-400 hover:text-blue-500"
+            className="text-sm text-foreground hover:text-blue-500"
           >
             {track.album.name}
           </a>
           {track.artist && (
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-foreground">
               {track.artist.map((item: Artist, index: number) => (
                 <a
                   key={item.$id}
@@ -83,7 +83,7 @@ export default function HistoryItem({ track }: HistoryItemProps) {
         </div>
       </div>
       {track.user_id && (
-        <a href={`/user/${track.user_id}`} className="text-sm text-slate-400">
+        <a href={`/user/${track.user_id}`} className="text-sm text-foreground">
           Listened by&nbsp;
           <span className="inline-flex flex-row items-center text-blue-500">
             @{track.user_id}
