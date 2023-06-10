@@ -1,4 +1,5 @@
 import { AudioPlayer } from "@/components/audio/player";
+import { Logo } from "@/components/logo";
 import { Nav } from "@/components/nav";
 import { Sidebar } from "@/components/sidebar";
 import AppWriteWrapper from "@/context/appwriteWrapper";
@@ -30,6 +31,18 @@ export default function RootLayout({
               <Nav />
               <div className="w-screen flex-1 overflow-y-auto overflow-x-hidden p-4 md:w-full md:p-8">
                 {children}
+                <footer className="mt-4 w-full rounded-lg bg-slate-900 p-4 text-white">
+                  <div className="pb-4">
+                    <Logo />
+                  </div>
+                  <div className="text-sm">
+                    <p>
+                      All track/artist/album data is sourced from the Spotify
+                      API.
+                    </p>
+                    <p>All statistics are sourced from Sprobble users.</p>
+                  </div>
+                </footer>
               </div>
               <AudioPlayer />
             </main>
