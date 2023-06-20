@@ -31,6 +31,12 @@ export function LoginWithSpotify() {
           provider: "spotify",
           successUrl: `${window.location.origin}/account`,
           failureUrl: `${window.location.origin}`,
+          scopes: [
+            "user-read-currently-playing",
+            "user-read-recently-played",
+            "user-read-email",
+            "user-read-private  
+          ]
         })
       }
     >
