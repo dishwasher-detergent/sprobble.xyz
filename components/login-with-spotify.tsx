@@ -35,7 +35,7 @@ export function LoginWithSpotify() {
             "user-read-currently-playing",
             "user-read-recently-played",
             "user-read-email",
-            "user-read-private  
+            "user-read-private" 
           ]
         })
       }
