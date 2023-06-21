@@ -31,6 +31,9 @@ async function getUserData(id: string) {
   const user: Models.User<any> = await fetch(
     `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/users/${id}`,
     {
+      next: {
+        revalidate: 60
+      },
       headers: {
         "X-Appwrite-Project": process.env
           .NEXT_PUBLIC_APPWRITE_PROJECT_ID as string,
@@ -46,6 +49,9 @@ async function getData(id: string) {
   const plays: Models.DocumentList<Models.Document> = await fetch(
     `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/databases/645c032960cb9f95212b/collections/plays/documents?queries[0]=equal("user_id", ["${id}"])`,
     {
+      next: {
+        revalidate: 60
+      },
       headers: {
         "X-Appwrite-Project": process.env
           .NEXT_PUBLIC_APPWRITE_PROJECT_ID as string,

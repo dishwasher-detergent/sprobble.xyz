@@ -32,6 +32,9 @@ async function getData(id: string) {
   const artist: Models.Document & Artist = await fetch(
     `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/databases/645c032960cb9f95212b/collections/artist/documents/${id}`,
     {
+      next: {
+        revalidate: 60
+      },
       headers: {
         "X-Appwrite-Project": process.env
           .NEXT_PUBLIC_APPWRITE_PROJECT_ID as string,

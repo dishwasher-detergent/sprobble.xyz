@@ -12,6 +12,9 @@ async function getTop() {
   const artist: Models.Document & Artist = await fetch(
     `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/databases/645c032960cb9f95212b/collections/artist/documents?queries[0]=limit(1)&queries[1]=orderDesc($createdAt)`,
     {
+      next: {
+        revalidate: 60
+      },
       headers: {
         "X-Appwrite-Project": process.env
           .NEXT_PUBLIC_APPWRITE_PROJECT_ID as string,
