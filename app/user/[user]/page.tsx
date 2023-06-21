@@ -29,7 +29,7 @@ export async function generateMetadata({
 
 async function getUserData(id: string) {
   const user: Models.User<any> = await fetch(
-    `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/v1/users/${id}`,
+    `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/users/${id}`,
     {
       headers: {
         "X-Appwrite-Project": process.env
@@ -44,7 +44,7 @@ async function getUserData(id: string) {
 
 async function getData(id: string) {
   const plays: Models.DocumentList<Models.Document> = await fetch(
-    `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/v1/databases/645c032960cb9f95212b/collections/plays/documents?queries[0]=equal("user_id", ["${id}"])`,
+    `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/databases/645c032960cb9f95212b/collections/plays/documents?queries[0]=equal("user_id", ["${id}"])`,
     {
       headers: {
         "X-Appwrite-Project": process.env
