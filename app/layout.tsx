@@ -23,7 +23,7 @@ export default function RootLayout({
       <AppWriteWrapper>
         <html lang="en">
           <body
-            className={`${font.className} full-screen flex flex-row flex-nowrap overflow-hidden bg-slate-50`}
+            className={`${font.className} full-screen flex flex-row flex-nowrap overflow-hidden`}
           >
             {/* <Sidebar /> */}
             <main className="relative flex flex-1 flex-col">

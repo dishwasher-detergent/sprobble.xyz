@@ -29,8 +29,8 @@ export default function HistoryItem({ track }: HistoryItemProps) {
     <Card
       className="w-full rounded-lg border-none p-2"
       style={{
-        backgroundColor: data && lightenHSL(data, 30),
-        color: data && textColorBasedOnBackground(lightenHSL(data, 30)),
+        backgroundColor: data && lightenHSL(data, 40),
+        color: data && textColorBasedOnBackground(lightenHSL(data, 40)),
       }}
     >
       <div className="relative flex flex-row items-start gap-2 rounded-lg p-1">
@@ -72,12 +72,12 @@ export default function HistoryItem({ track }: HistoryItemProps) {
           </div>
           <a
             href={`/global/stats/album/${track.album.$id}`}
-            className="text-sm  hover:text-blue-500"
+            className="text-base  hover:text-blue-500"
           >
             {track.album.name}
           </a>
           {track.artist && (
-            <p className="text-sm ">
+            <p className="text-base">
               {track.artist.map((item: Artist, index: number) => (
                 <a
                   key={item.$id}
