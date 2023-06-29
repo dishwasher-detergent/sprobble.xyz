@@ -1,7 +1,7 @@
 import { AlbumRecentlyPlayed } from "@/components/album/recently-played";
 import { Header } from "@/components/header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Album, Artist } from "@/types/Types";
+import { Album, Artist, Play } from "@/types/Types";
 import { Models } from "appwrite";
 
 export async function generateMetadata({
@@ -63,6 +63,7 @@ export default async function AlbumStatsPage({
 }) {
   const { album } = params;
   const document = await getData(album);
+
   return (
     <>
       <Header
@@ -80,6 +81,26 @@ export default async function AlbumStatsPage({
           </CardHeader>
           <CardContent>
             <p className="text-4xl font-bold">{document.plays.length}</p>
+          </CardContent>
+        </Card>
+        <Card className="flex-1">
+          <CardHeader>
+            <CardTitle className="h-6 text-sm font-medium tracking-tight">
+              Time spent listening
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-4xl font-bold">
+              {(
+                document.plays
+                  .map((x: Play) => x.track.duration)
+                  .reduce((a: any, b: any) => a + b, 0) /
+                1000 /
+                60 /
+                60
+              ).toFixed(2)}{" "}
+              hours
+            </p>
           </CardContent>
         </Card>
       </section>

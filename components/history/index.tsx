@@ -55,7 +55,7 @@ export function History({
           <ul className="flex flex-col gap-10">
             {formattedPlays.map((play: any) => (
               <div key={play.date}>
-                <h3 className="flex items-center pb-4 text-base font-bold text-slate-400">
+                <h3 className="flex items-center pb-4 text-base font-bold text-slate-500">
                   <LucideCalendarClock size={16} className="mr-2" />
                   {new Date(play.date).toLocaleDateString("en-us", {
                     weekday: "long",

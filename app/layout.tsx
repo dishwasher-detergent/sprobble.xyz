@@ -23,14 +23,14 @@ export default function RootLayout({
       <AppWriteWrapper>
         <html lang="en">
           <body
-            className={`${font.className} full-screen flex flex-row flex-nowrap overflow-hidden`}
+            className={`${font.className} full-screen flex flex-row flex-nowrap overflow-hidden bg-slate-50`}
           >
             {/* <Sidebar /> */}
             <main className="relative flex flex-1 flex-col">
               <Nav />
               <div className="w-screen flex-1 overflow-y-auto overflow-x-hidden md:w-full">
                 {children}
-                <footer className="mt-4 w-full rounded-lg bg-slate-900 p-4 text-white">
+                <footer className="mt-4 w-full bg-black p-4 text-white">
                   <div className="pb-4">
                     <Logo />
                   </div>

@@ -29,7 +29,7 @@ export async function generateMetadata({
 
 async function getUserData(id: string) {
   const user: Models.User<any> = await fetch(
-    `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/v1/users/${id}`,
+    `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/users/${id}`,
     {
       next: {
         revalidate: 60,
@@ -47,7 +47,7 @@ async function getUserData(id: string) {
 
 async function getData(id: string) {
   const plays: Models.DocumentList<Models.Document> = await fetch(
-    `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/v1/databases/645c032960cb9f95212b/collections/plays/documents?queries[0]=equal("user_id", ["${id}"])`,
+    `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/databases/645c032960cb9f95212b/collections/plays/documents?queries[0]=equal("user_id", ["${id}"])`,
     {
       next: {
         revalidate: 60,
@@ -67,15 +67,16 @@ export default async function UserPage({
 }: {
   params: { user: string };
 }) {
-  const { user } = params;
-  const [document, plays] = await Promise.all([
-    getUserData(user),
-    getData(user),
+  const [user, plays] = await Promise.all([
+    getUserData(params.user),
+    getData(params.user),
   ]);
+
+  console.log(plays);
 
   return (
     <div className="mx-auto max-w-7xl">
-      <Header title={document.name} />
+      <Header title={user.name} />
       <section className="grid w-full grid-cols-1 gap-4 py-6 md:grid-cols-3">
         <Card className="flex-1">
           <CardHeader>
@@ -87,8 +88,28 @@ export default async function UserPage({
             <p className="text-4xl font-bold">{plays.total}</p>
           </CardContent>
         </Card>
+        <Card className="flex-1">
+          <CardHeader>
+            <CardTitle className="h-6 text-sm font-medium tracking-tight">
+              Time spent listening
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-4xl font-bold">
+              {(
+                plays.documents
+                  .map((x) => x.track.duration)
+                  .reduce((a: any, b: any) => a + b, 0) /
+                1000 /
+                60 /
+                60
+              ).toFixed(2)}{" "}
+              hours
+            </p>
+          </CardContent>
+        </Card>
       </section>
-      <UserRecentlyPlayed user={user} />
+      <UserRecentlyPlayed user={params.user} />
     </div>
   );
 }

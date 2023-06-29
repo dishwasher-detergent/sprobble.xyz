@@ -32,7 +32,7 @@ export function AudioPlayer() {
             <p className="flex items-center gap-2 font-bold">
               {song?.title} <Badge variant="outline">Preview</Badge>
             </p>
-            <p className="text-sm text-slate-400">{song?.artist}</p>
+            <p className="text-sm text-slate-500">{song?.artist}</p>
           </div>
           <Button
             className="grid aspect-square h-8 place-items-center rounded-full p-0"

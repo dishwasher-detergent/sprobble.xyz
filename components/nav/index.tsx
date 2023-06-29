@@ -1,6 +1,6 @@
+import { LoginWithSpotify } from "@/components/login-with-spotify";
 import { Logo } from "@/components/logo";
 import { NavMenu } from "@/components/nav/menu";
-import { LoginWithSpotify } from "../login-with-spotify";
 
 export function Nav() {
   return (
