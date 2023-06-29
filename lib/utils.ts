@@ -65,10 +65,10 @@ export function textColorBasedOnBackground(color: string) {
   else return "hsl(0,0%,100%)"
 }
 
-export function lightenHSL(color: string, lightenBy: number) {
+export function getHSL(color: string, alpha: number = 1) {
   const hue = color.match(/\d+/g)?.[0];
   const saturation = color.match(/\d+/g)?.[1];
   const lightness = color.match(/\d+/g)?.[2];
   // return the hsl string with the lightness increased by 10%
-  return `hsl(${hue}, ${saturation}%, ${Number(lightness) + lightenBy}%)`;
+  return `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`;
 }
