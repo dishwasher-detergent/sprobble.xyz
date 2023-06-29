@@ -1,6 +1,7 @@
 import { Audio } from "@/components/audio";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import UserTag from "@/components/user/tag";
 import { Artist, Play } from "@/types/Types";
 import Image from "next/image";
 
@@ -10,10 +11,10 @@ interface HistoryItemProps {
 
 export default function HistoryItem({ track }: HistoryItemProps) {
   return (
-    <article className="w-full max-w-md">
+    <article className="w-full">
       <div className="relative flex flex-row items-start gap-2 rounded-lg p-1">
         {track.album?.images && (
-          <Avatar className="relative h-16 w-16 rounded-lg md:h-24 md:w-24">
+          <Avatar className="relative h-16 w-16 rounded-lg md:h-28 md:w-28">
             <AvatarImage src={track.album.images[1]} />
             <Audio
               file={{
@@ -26,7 +27,7 @@ export default function HistoryItem({ track }: HistoryItemProps) {
             />
           </Avatar>
         )}
-        <div className="flex flex-1 flex-col">
+        <div className="flex flex-1 flex-col overflow-hidden">
           <p className="text-sm text-foreground">
             {new Date(track.played_at).toLocaleDateString("en-us", {
               weekday: "long",
@@ -37,17 +38,17 @@ export default function HistoryItem({ track }: HistoryItemProps) {
               minute: "numeric",
             })}
           </p>
-          <p className="flex items-center gap-2 font-bold">
-            {track.track.name}
+          <div className="flex flex-row gap-2">
+            <p className="truncate text-xl font-bold">{track.track.name}</p>
             {track.track.explicit && (
               <Badge
                 variant="outline"
-                className="border-destructive px-1.5 py-0 text-destructive"
+                className="flex-none border-destructive px-1.5 py-0 text-destructive"
               >
                 Explicit
               </Badge>
             )}
-          </p>
+          </div>
           <a
             href={`/global/stats/album/${track.album.$id}`}
             className="text-sm text-foreground hover:text-blue-500"
@@ -71,25 +72,32 @@ export default function HistoryItem({ track }: HistoryItemProps) {
             </p>
           )}
         </div>
-        <div>
-          <a href={track.track.href} target="_blank">
+      </div>
+      <div className="flex flex-col items-end gap-2 text-sm text-foreground">
+        {track.user_id && (
+          <a
+            href={`/user/${track.user_id}`}
+            className="flex flex-row items-center gap-2"
+          >
+            Listened By
+            <UserTag userId={track.user_id} />
+          </a>
+        )}
+        <a
+          href={track.track.href}
+          target="_blank"
+          className="flex flex-row items-center gap-2"
+        >
+          Listen on Spotify
+          <div className="relative h-4 w-4 flex-none">
             <Image
               src="/spotify/icon/Spotify_Icon_RGB_Black.png"
               alt="Spotify Icon Logo"
-              width={21}
-              height={21}
+              fill
             />
-          </a>
-        </div>
-      </div>
-      {track.user_id && (
-        <a href={`/user/${track.user_id}`} className="text-sm text-foreground">
-          Listened by&nbsp;
-          <span className="inline-flex flex-row items-center text-blue-500">
-            @{track.user_id}
-          </span>
+          </div>
         </a>
-      )}
+      </div>
     </article>
   );
 }

@@ -1,11 +1,15 @@
 import { Logo } from "@/components/logo";
-import { MobileNav } from "@/components/nav/mobile";
+import { NavMenu } from "@/components/nav/menu";
+import { LoginWithSpotify } from "../login-with-spotify";
 
 export function Nav() {
   return (
-    <header className="flex h-16 w-full items-center justify-between border-b px-4 shadow-sm md:hidden">
+    <header className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-2 px-4">
       <Logo />
-      <MobileNav />
+      <div className="flex">
+        <LoginWithSpotify />
+        <NavMenu />
+      </div>
     </header>
   );
 }

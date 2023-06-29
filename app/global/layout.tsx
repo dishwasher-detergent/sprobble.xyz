@@ -3,5 +3,5 @@ export default function LayoutGlobal({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return <div className="mx-auto max-w-7xl">{children}</div>;
 }

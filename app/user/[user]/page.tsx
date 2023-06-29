@@ -62,11 +62,13 @@ export default async function UserPage({
   params: { user: string };
 }) {
   const { user } = params;
-  const document = await getUserData(user);
-  const plays = await getData(user);
+  const [document, plays] = await Promise.all([
+    getUserData(user),
+    getData(user),
+  ]);
 
   return (
-    <>
+    <div className="mx-auto max-w-7xl">
       <Header title={document.name} />
       <section className="grid w-full grid-cols-1 gap-4 py-6 md:grid-cols-3">
         <Card className="flex-1">
@@ -81,7 +83,7 @@ export default async function UserPage({
         </Card>
       </section>
       <UserRecentlyPlayed user={user} />
-    </>
+    </div>
   );
 }
 

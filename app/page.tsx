@@ -123,24 +123,24 @@ export default function Home() {
 
   return (
     <>
-      <History
-        title="Recent Plays"
-        isLoading={isLoading}
-        formattedPlays={formattedPlays}
-        paginationProps={{
-          nextPage: nextPage,
-          prevPage: prevPage,
-          page: page,
-          pageCount: pageCount,
-          itemCount: itemCount,
-          // @ts-ignore
-          totalPlays: plays?.total,
-        }}
-        dateProps={{
-          setDate: setDate,
-          date: date,
-        }}
-      />
+      <section className="mb-6 h-96 w-full bg-slate-900"></section>
+
+      <div className="mx-auto max-w-7xl p-4">
+        <History
+          title="Recent Plays"
+          isLoading={isLoading}
+          formattedPlays={formattedPlays}
+          paginationProps={{
+            nextPage: nextPage,
+            prevPage: prevPage,
+            page: page,
+            pageCount: pageCount,
+            itemCount: itemCount,
+            // @ts-ignore
+            totalPlays: plays?.total,
+          }}
+        />
+      </div>
     </>
   );
 }

@@ -14,6 +14,9 @@ export async function generateMetadata({
   // fetch data
   const album = await getData(id);
 
+  if (!album) return;
+  console.log(album);
+
   return {
     title: album.name,
     description: `Stats for ${album.name} by ${album.artist
@@ -59,7 +62,9 @@ export default async function AlbumStatsPage({
   params: { album: string };
 }) {
   const { album } = params;
+
   const document = await getData(album);
+  console.log(document);
   return (
     <>
       <Header

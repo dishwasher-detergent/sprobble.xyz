@@ -64,7 +64,7 @@ export function History({
                     day: "numeric",
                   })}
                 </h3>
-                <ul className="ml-1.5 flex flex-col gap-2 border-l pl-4">
+                <ul className="ml-1.5 grid grid-cols-1 gap-4 border-l pl-4 md:grid-cols-2 lg:grid-cols-2">
                   {play.tracks.map((item: Play) => (
                     <li key={item.$id}>
                       <HistoryItem track={item} />
