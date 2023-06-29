@@ -14,9 +14,6 @@ export async function generateMetadata({
   // fetch data
   const album = await getData(id);
 
-  if (!album) return;
-  console.log(album);
-
   return {
     title: album.name,
     description: `Stats for ${album.name} by ${album.artist
@@ -44,8 +41,11 @@ export async function generateMetadata({
 
 async function getData(id: string) {
   const album: Models.Document & Album = await fetch(
-    `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/v1/databases/645c032960cb9f95212b/collections/album/documents/${id}`,
+    `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/databases/645c032960cb9f95212b/collections/album/documents/${id}`,
     {
+      next: {
+        revalidate: 60,
+      },
       headers: {
         "X-Appwrite-Project": process.env
           .NEXT_PUBLIC_APPWRITE_PROJECT_ID as string,
@@ -62,9 +62,7 @@ export default async function AlbumStatsPage({
   params: { album: string };
 }) {
   const { album } = params;
-
   const document = await getData(album);
-  console.log(document);
   return (
     <>
       <Header
