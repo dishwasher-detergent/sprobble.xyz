@@ -1,5 +1,4 @@
 import { AudioPlayer } from "@/components/audio/player";
-import { Logo } from "@/components/logo";
 import { Nav } from "@/components/nav";
 import AppWriteWrapper from "@/context/appwriteWrapper";
 import { AudioProvider } from "@/context/audioWrapper";
@@ -30,7 +29,7 @@ export default function RootLayout({
               <Nav />
               <div className="w-screen flex-1 overflow-y-auto overflow-x-hidden md:w-full">
                 {children}
-                <footer className="mt-4 w-full bg-black p-4 text-white">
+                {/* <footer className="mt-4 w-full bg-black p-4 text-white">
                   <div className="pb-4">
                     <Logo />
                   </div>
@@ -41,7 +40,7 @@ export default function RootLayout({
                     </p>
                     <p>All statistics are sourced from Sprobble users.</p>
                   </div>
-                </footer>
+                </footer> */}
               </div>
               <AudioPlayer />
             </main>

@@ -2,30 +2,20 @@
 
 import { History } from "@/components/history";
 import { Query } from "appwrite";
-import { addDays } from "date-fns";
 import { useEffect, useState } from "react";
 import { useAppwrite, useCollection } from "react-appwrite";
-import { DateRange } from "react-day-picker";
 
 const databaseId = "645c032960cb9f95212b";
 const collectionId = "plays";
 
 export default function Home() {
-  const itemCount = 25;
+  const itemCount = 10;
   const query = [Query.orderDesc("played_at"), Query.limit(itemCount)];
 
   const { databases } = useAppwrite();
 
   const [formattedPlays, setFormattedPlays] = useState<any>([]);
   const [queries, setQueries] = useState<any>(query);
-
-  const [date, setDate] = useState<DateRange | undefined>({
-    from: undefined,
-    to: undefined,
-  });
-
-  const [pageCount, setPageCount] = useState<number>(0);
-  const [page, setPage] = useState<number>(1);
 
   const { data: plays, isLoading } = useCollection(
     databaseId,
@@ -45,25 +35,6 @@ export default function Home() {
       keepPreviousData: true,
     }
   );
-
-  const nextPage = () => {
-    if (!plays) return;
-    if (page == pageCount) return;
-    setPage(page + 1);
-    setQueries([
-      ...query,
-      // @ts-ignore
-      Query.cursorAfter(plays.documents[plays.documents.length - 1].$id),
-    ]);
-  };
-
-  const prevPage = () => {
-    if (!plays) return;
-    if (page == 1) return;
-    setPage(page - 1);
-    // @ts-ignore
-    setQueries([...query, Query.cursorBefore(plays.documents[0].$id)]);
-  };
 
   const groupByDate = (data: any) => {
     if (!data) return;
@@ -94,32 +65,8 @@ export default function Home() {
   useEffect(() => {
     if (isLoading) return;
     // @ts-ignore
-    setPageCount(Math.ceil(plays.total / itemCount));
-    // @ts-ignore
     setFormattedPlays(groupByDate(plays.documents));
   }, [plays]);
-
-  useEffect(() => {
-    if (!date) return;
-
-    if (date.from && date.to) {
-      setQueries([
-        ...query,
-        Query.greaterThanEqual("$createdAt", date.from.toISOString()),
-        Query.lessThanEqual("$createdAt", addDays(date.to, 1).toISOString()),
-      ]);
-    } else if (date.from && !date.to) {
-      setQueries([
-        ...query,
-        Query.greaterThanEqual("$createdAt", date.from.toISOString()),
-      ]);
-    } else if (date.to && !date.from) {
-      setQueries([
-        ...query,
-        Query.lessThanEqual("$createdAt", date.to.toISOString()),
-      ]);
-    }
-  }, [date]);
 
   return (
     <>
@@ -130,15 +77,6 @@ export default function Home() {
           title="Recent Plays"
           isLoading={isLoading}
           formattedPlays={formattedPlays}
-          paginationProps={{
-            nextPage: nextPage,
-            prevPage: prevPage,
-            page: page,
-            pageCount: pageCount,
-            itemCount: itemCount,
-            // @ts-ignore
-            totalPlays: plays?.total,
-          }}
         />
       </div>
     </>

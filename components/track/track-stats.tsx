@@ -3,71 +3,22 @@
 import { Pagination } from "@/components/history/pagination";
 import { Loader } from "@/components/loading/loader";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { DataTable } from "@/components/ui/data-table";
 import { Input } from "@/components/ui/input";
+import { formatTimeForAudioPlayer } from "@/lib/utils";
 import { Artist, Track } from "@/types/Types";
-import { ColumnDef } from "@tanstack/react-table";
 import { Models, Query } from "appwrite";
+import {
+  LucideClock,
+  LucideDisc2,
+  LucideMusic2,
+  LucidePersonStanding,
+} from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAppwrite, useCollection } from "react-appwrite";
 
 const databaseId = "645c032960cb9f95212b";
 const collectionId = "track";
-
-const columns: ColumnDef<any>[] = [
-  {
-    accessorKey: "album_art",
-    header: "Album Cover",
-    cell(props) {
-      return (
-        <Avatar className="block h-14 w-14 overflow-hidden rounded-lg">
-          <AvatarImage src={props.row.original.album_art} />
-        </Avatar>
-      );
-    },
-  },
-  {
-    accessorKey: "name",
-    header: "Name",
-  },
-  {
-    accessorKey: "album",
-    header: "Album",
-    cell(props) {
-      return (
-        <Link
-          href={`/global/stats/album/${props.row.original.album.$id}`}
-          className="flex flex-row items-center gap-2 hover:text-blue-600"
-        >
-          {props.row.original.album.name}
-        </Link>
-      );
-    },
-  },
-  {
-    accessorKey: "artists",
-    header: "Artist",
-    cell(props) {
-      return props.row.original.artists.map((artist: Artist, index: number) => {
-        return (
-          <Link
-            key={artist.$id}
-            href={`/global/stats/artist/${artist.$id}`}
-            className="flex flex-row items-center gap-2 hover:text-blue-600"
-          >
-            {artist.name}
-            {index < props.row.original.artists.length - 1 && ", "}
-          </Link>
-        );
-      });
-    },
-  },
-  {
-    accessorKey: "plays",
-    header: "Number of Plays",
-  },
-];
 
 export default function TrackStats() {
   const itemCount = 10;
@@ -95,17 +46,6 @@ export default function TrackStats() {
     },
     keepPreviousData: true,
   });
-
-  // @ts-ignore
-  const data = plays?.documents.map((track: Track) => ({
-    album_art: track.album.images[1],
-    name: track.name,
-    id: track.$id,
-    url: track.href,
-    artists: track.artist,
-    album: track.album,
-    plays: track.plays.length,
-  }));
 
   const nextPage = () => {
     if (!plays) return;
@@ -152,7 +92,52 @@ export default function TrackStats() {
           }}
         />
       </nav>
-      <DataTable columns={columns} data={data} />
+      <div className="w-full overflow-auto rounded-lg border p-1 shadow">
+        <ul className="min-w-[40rem]">
+          {/* @ts-ignore */}
+          {plays?.documents.map((track: Track) => {
+            return (
+              <li className="flex flex-row gap-2 rounded-lg p-2 px-4 text-slate-600 hover:bg-slate-50">
+                <p
+                  className="flex w-16 flex-none flex-row items-center gap-2 truncate"
+                  title="Plays"
+                >
+                  <LucideMusic2 size={16} />
+                  {track.plays.length}
+                </p>
+                <Avatar className="block h-14 w-14 flex-none overflow-hidden rounded-lg bg-slate-900">
+                  <AvatarImage src={track.album.images[1]} />
+                </Avatar>
+                <div className="flex flex-1 flex-col">
+                  <p className="flex flex-row items-center gap-2">
+                    <LucidePersonStanding size={16} />
+                    {track.artist.map((artist: Artist, index: number) => (
+                      <Link
+                        key={artist.$id}
+                        href={`/global/stats/artist/${artist.$id}`}
+                      >
+                        {index != 0 && ", "}
+                        {artist.name}
+                      </Link>
+                    ))}
+                  </p>
+                  <p className="flex flex-row items-center gap-2">
+                    <LucideDisc2 size={16} />
+                    <Link href={`/global/stats/album/${track.album.$id}`}>
+                      {track.album.name}
+                    </Link>
+                  </p>
+                </div>
+
+                <p className="flex flex-row items-center gap-2">
+                  <LucideClock size={16} />
+                  {formatTimeForAudioPlayer(track.duration)}
+                </p>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
       <Pagination
         next={() => nextPage()}
         previous={() => prevPage()}

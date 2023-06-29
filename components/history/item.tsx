@@ -1,7 +1,6 @@
 "use client";
 
 import { Audio } from "@/components/audio";
-import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import UserTag from "@/components/user/tag";
 import { getHSL } from "@/lib/utils";
@@ -20,7 +19,7 @@ export default function HistoryItem({ track }: HistoryItemProps) {
 
   return (
     <Card
-      className="w-72 rounded-lg border-none p-2 text-slate-900"
+      className="w-full rounded-lg border-none p-2 text-slate-900 md:w-72"
       style={{
         background:
           data &&
@@ -45,25 +44,25 @@ export default function HistoryItem({ track }: HistoryItemProps) {
         </div>
       )}
       <div className="flex flex-1 flex-col overflow-hidden pb-6 pt-2">
-        <div className="flex flex-row gap-2">
+        <div className="flex flex-row items-center gap-2">
           <p className="truncate text-xl font-bold">{track.track.name}</p>
           {track.track.explicit && (
-            <Badge
-              variant="outline"
-              className="flex-none border-destructive px-1.5 py-0 text-destructive"
+            <div
+              className="grid h-5 w-5 place-items-center rounded-md border border-destructive text-xs text-destructive"
+              title="explicit"
             >
-              Explicit
-            </Badge>
+              E
+            </div>
           )}
         </div>
         <a
           href={`/global/stats/album/${track.album.$id}`}
-          className="text-sm  hover:text-blue-500"
+          className="truncate text-sm hover:text-blue-500"
         >
           {track.album.name}
         </a>
         {track.artist && (
-          <p className="text-sm">
+          <p className="truncate text-sm">
             {track.artist.map((item: Artist, index: number) => (
               <a
                 key={item.$id}

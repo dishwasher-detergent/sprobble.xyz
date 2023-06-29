@@ -66,9 +66,7 @@ export function History({
                 </h3>
                 <ul className="ml-1.5 flex flex-row flex-wrap gap-4">
                   {play.tracks.map((item: Play) => (
-                    <li key={item.$id}>
-                      <HistoryItem track={item} />
-                    </li>
+                    <HistoryItem key={item.$id} track={item} />
                   ))}
                 </ul>
               </div>

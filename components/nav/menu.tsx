@@ -23,7 +23,7 @@ export function NavMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon">
+        <Button variant="ghost" size="icon" className="md:hidden">
           <LucideMoreVertical className="h-5 w-5" />
           <span className="sr-only">Toggle Menu</span>
         </Button>

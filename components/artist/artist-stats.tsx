@@ -2,46 +2,21 @@
 
 import { Pagination } from "@/components/history/pagination";
 import { Loader } from "@/components/loading/loader";
-import { DataTable } from "@/components/ui/data-table";
 import { Input } from "@/components/ui/input";
 import { Artist } from "@/types/Types";
-import { ColumnDef } from "@tanstack/react-table";
 import { Models, Query } from "appwrite";
+import {
+  LucideCassetteTape,
+  LucideDisc2,
+  LucideMusic2,
+  LucidePersonStanding,
+} from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAppwrite, useCollection } from "react-appwrite";
 
 const databaseId = "645c032960cb9f95212b";
 const collectionId = "artist";
-
-const columns: ColumnDef<any>[] = [
-  {
-    accessorKey: "name",
-    header: "Name",
-    cell(props) {
-      return (
-        <Link
-          href={`/global/stats/artist/${props.row.original.id}`}
-          className="flex flex-row items-center gap-2 hover:text-blue-600"
-        >
-          {props.row.original.name}
-        </Link>
-      );
-    },
-  },
-  {
-    accessorKey: "albums",
-    header: "Number of Albums",
-  },
-  {
-    accessorKey: "songs",
-    header: "Number of Songs",
-  },
-  {
-    accessorKey: "plays",
-    header: "Number of Plays",
-  },
-];
 
 export function ArtistStats() {
   const itemCount = 10;
@@ -69,16 +44,6 @@ export function ArtistStats() {
     },
     keepPreviousData: true,
   });
-
-  // @ts-ignore
-  const data = plays?.documents.map((artist: Artist) => ({
-    name: artist.name,
-    id: artist.$id,
-    url: artist.href,
-    plays: artist.plays.length,
-    songs: artist.track.length,
-    albums: artist.album.length,
-  }));
 
   const nextPage = () => {
     if (!plays) return;
@@ -125,7 +90,46 @@ export function ArtistStats() {
           }}
         />
       </nav>
-      <DataTable columns={columns} data={data} />
+      <div className="w-full overflow-auto rounded-lg border p-1 shadow">
+        <ul className="min-w-[40rem]">
+          {/* @ts-ignore */}
+          {plays?.documents.map((artist: Artist) => {
+            return (
+              <li className="flex flex-row gap-2 rounded-lg p-2 px-4 text-slate-600 hover:bg-slate-50">
+                <Link
+                  className="flex flex-1 flex-row items-center gap-2 truncate pr-4"
+                  title="Plays"
+                  href={`/global/stats/artist/${artist.$id}`}
+                >
+                  <LucidePersonStanding size={16} />
+                  {artist.name}
+                </Link>
+                <p
+                  className="flex w-16 flex-row items-center justify-center gap-2 truncate"
+                  title="Plays"
+                >
+                  <LucideMusic2 size={16} />
+                  {artist.plays.length}
+                </p>
+                <p
+                  className="flex w-16 flex-row items-center justify-center gap-2 truncate"
+                  title="Tracks"
+                >
+                  <LucideCassetteTape size={16} />
+                  {artist.track.length}
+                </p>
+                <p
+                  className="flex w-16 flex-row items-center justify-center gap-2 truncate"
+                  title="Albums"
+                >
+                  <LucideDisc2 size={16} />
+                  {artist.album.length}
+                </p>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
       <Pagination
         next={() => nextPage()}
         previous={() => prevPage()}
