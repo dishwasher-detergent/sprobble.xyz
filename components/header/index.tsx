@@ -20,17 +20,9 @@ export function Header({
   subTitle,
   ...props
 }: HeaderProps) {
-  let background = "";
-
-  if (artwork) {
-    const { data } = useColor(artwork, "hslString", {
-      crossOrigin: "Anonymous",
-    });
-
-    if (data) {
-      background = data;
-    }
-  }
+  const { data } = useColor(artwork ?? "", "hslString", {
+    crossOrigin: "Anonymous",
+  });
 
   return (
     <div
@@ -40,10 +32,12 @@ export function Header({
       )}
       {...props}
       style={{
-        background: `radial-gradient(circle farthest-corner at top left, ${getHSL(
-          background,
-          0.3
-        )} 0%, transparent 50%)`,
+        background:
+          data &&
+          `radial-gradient(circle farthest-corner at top left, ${getHSL(
+            data,
+            0.3
+          )} 0%, transparent 50%)`,
       }}
     >
       {artwork && artwork_name && (
