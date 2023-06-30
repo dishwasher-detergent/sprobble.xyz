@@ -2,22 +2,75 @@
 
 import { Pagination } from "@/components/history/pagination";
 import { Loader } from "@/components/loading/loader";
+import { DataTable } from "@/components/ui/data-table";
 import { Input } from "@/components/ui/input";
-import { Album, Artist } from "@/types/Types";
+import { Album } from "@/types/Types";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
+import { ColumnDef } from "@tanstack/react-table";
 import { Models, Query } from "appwrite";
-import {
-  LucideCassetteTape,
-  LucideDisc2,
-  LucideMusic2,
-  LucidePersonStanding,
-} from "lucide-react";
+import { LucideCassetteTape, LucideDisc2, LucideMusic2 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAppwrite, useCollection } from "react-appwrite";
 
 const databaseId = "645c032960cb9f95212b";
 const collectionId = "album";
+
+const columns: ColumnDef<any>[] = [
+  {
+    accessorKey: "album_art",
+    header: "Album Cover",
+    cell(props) {
+      return (
+        <Avatar className="block h-14 w-14 overflow-hidden rounded-lg">
+          <AvatarImage
+            src={props.row.original.album_art}
+            alt={props.row.original.name}
+          />
+        </Avatar>
+      );
+    },
+  },
+  {
+    accessorKey: "name",
+    header: "Name",
+    cell(props) {
+      return (
+        <Link
+          href={`/global/stats/album/${props.row.original.id}`}
+          className="flex flex-row items-center gap-2 hover:text-blue-600"
+        >
+          <LucideDisc2 size={16} />
+          {props.row.original.name}
+        </Link>
+      );
+    },
+  },
+  {
+    accessorKey: "songs",
+    header: "Number of Songs",
+    cell(props) {
+      return (
+        <span className="flex flex-row items-center gap-2">
+          <LucideCassetteTape size={16} />
+          {props.row.original.songs}
+        </span>
+      );
+    },
+  },
+  {
+    accessorKey: "plays",
+    header: "Number of Plays",
+    cell(props) {
+      return (
+        <span className="flex flex-row items-center gap-2">
+          <LucideMusic2 size={16} />
+          {props.row.original.plays}
+        </span>
+      );
+    },
+  },
+];
 
 export function AlbumStats() {
   const itemCount = 10;
@@ -45,6 +98,16 @@ export function AlbumStats() {
     },
     keepPreviousData: true,
   });
+
+  // @ts-ignore
+  const data = plays?.documents.map((album: Album) => ({
+    album_art: album.images[1],
+    name: album.name,
+    id: album.$id,
+    url: album.href,
+    plays: album.plays.length,
+    songs: album.track.length,
+  }));
 
   const nextPage = () => {
     if (!plays) return;
@@ -91,56 +154,7 @@ export function AlbumStats() {
           }}
         />
       </nav>
-      <div className="w-full overflow-auto rounded-lg border p-1 shadow">
-        <ul className="min-w-[40rem]">
-          {/* @ts-ignore */}
-          {plays?.documents.map((album: Album) => {
-            return (
-              <li
-                key={album.$id}
-                className="flex flex-row gap-2 rounded-lg p-2 px-4 text-slate-600 hover:bg-slate-50"
-              >
-                <Avatar className="block h-14 w-14 flex-none overflow-hidden rounded-lg bg-slate-900">
-                  <AvatarImage src={album.images[1]} />
-                </Avatar>
-                <Link
-                  className="flex flex-1 flex-row items-center gap-2 truncate px-4"
-                  href={`/global/stats/album/${album.$id}`}
-                >
-                  <LucideDisc2 size={16} />
-                  {album.name}
-                </Link>
-                <p className="flex flex-row items-center gap-2 truncate">
-                  <LucidePersonStanding size={16} />
-                  {album.artist.map((artist: Artist, index: number) => (
-                    <Link
-                      key={artist.$id}
-                      href={`/global/stats/artist/${artist.$id}`}
-                    >
-                      {index != 0 && ", "}
-                      {artist.name}
-                    </Link>
-                  ))}
-                </p>
-                <p
-                  className="flex w-16 flex-row items-center justify-center gap-2 truncate"
-                  title="Plays"
-                >
-                  <LucideMusic2 size={16} />
-                  {album.plays.length}
-                </p>
-                <p
-                  className="flex w-16 flex-row items-center justify-center gap-2 truncate"
-                  title="Tracks"
-                >
-                  <LucideCassetteTape size={16} />
-                  {album.track.length}
-                </p>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      <DataTable columns={columns} data={data} />
       <Pagination
         next={() => nextPage()}
         previous={() => prevPage()}

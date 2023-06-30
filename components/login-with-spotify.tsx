@@ -23,7 +23,6 @@ export function LoginWithSpotify() {
     <Button
       variant="ghost"
       size="sm"
-      className="flex w-full flex-row justify-start"
       onClick={() =>
         oAuthSignIn.mutateAsync({
           provider: "spotify",

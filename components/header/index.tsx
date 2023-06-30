@@ -1,20 +1,51 @@
+"use client";
+
+import { cn, getHSL } from "@/lib/utils";
+import { useColor } from "color-thief-react";
 import Image from "next/image";
 
-interface HeaderProps {
+interface HeaderProps extends React.AllHTMLAttributes<HTMLDivElement> {
   title: string;
   subTitle?: string;
   artwork?: string;
   artwork_name?: string;
+  className?: string;
 }
 
 export function Header({
+  className,
   artwork,
   artwork_name,
   title,
   subTitle,
+  ...props
 }: HeaderProps) {
+  let background = "";
+
+  if (artwork) {
+    const { data } = useColor(artwork, "hslString", {
+      crossOrigin: "Anonymous",
+    });
+
+    if (data) {
+      background = data;
+    }
+  }
+
   return (
-    <div className="relative flex flex-col gap-6 md:flex-row">
+    <div
+      className={cn(
+        "relative flex flex-col gap-6 rounded-lg p-2 md:flex-row",
+        className
+      )}
+      {...props}
+      style={{
+        background: `radial-gradient(circle farthest-corner at top left, ${getHSL(
+          background,
+          0.3
+        )} 0%, transparent 50%)`,
+      }}
+    >
       {artwork && artwork_name && (
         <div className="relative aspect-square w-full overflow-hidden rounded-lg bg-slate-300 md:h-64 md:w-64">
           <Image src={artwork} fill alt={artwork_name} />
