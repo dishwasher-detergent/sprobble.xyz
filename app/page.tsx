@@ -70,8 +70,6 @@ export default function Home() {
 
   return (
     <>
-      <section className="mb-6 h-96 w-full bg-slate-900"></section>
-
       <div className="mx-auto max-w-7xl p-4">
         <History
           title="Recent Plays"
