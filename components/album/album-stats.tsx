@@ -95,16 +95,11 @@ export function AlbumStats() {
         <ul className="min-w-[40rem]">
           {/* @ts-ignore */}
           {plays?.documents.map((album: Album) => {
-            {
-              /* album_art: album.images[1],
-              name: album.name,
-              id: album.$id,
-              url: album.href,
-              plays: album.plays.length,
-              songs: album.track.length, */
-            }
             return (
-              <li className="flex flex-row gap-2 rounded-lg p-2 px-4 text-slate-600 hover:bg-slate-50">
+              <li
+                key={album.$id}
+                className="flex flex-row gap-2 rounded-lg p-2 px-4 text-slate-600 hover:bg-slate-50"
+              >
                 <Avatar className="block h-14 w-14 flex-none overflow-hidden rounded-lg bg-slate-900">
                   <AvatarImage src={album.images[1]} />
                 </Avatar>

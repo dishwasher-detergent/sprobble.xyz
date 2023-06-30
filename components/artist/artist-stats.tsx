@@ -95,7 +95,10 @@ export function ArtistStats() {
           {/* @ts-ignore */}
           {plays?.documents.map((artist: Artist) => {
             return (
-              <li className="flex flex-row gap-2 rounded-lg p-2 px-4 text-slate-600 hover:bg-slate-50">
+              <li
+                key={artist.$id}
+                className="flex flex-row gap-2 rounded-lg p-2 px-4 text-slate-600 hover:bg-slate-50"
+              >
                 <Link
                   className="flex flex-1 flex-row items-center gap-2 truncate pr-4"
                   title="Plays"

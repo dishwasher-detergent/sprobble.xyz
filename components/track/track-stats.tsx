@@ -97,7 +97,10 @@ export default function TrackStats() {
           {/* @ts-ignore */}
           {plays?.documents.map((track: Track) => {
             return (
-              <li className="flex flex-row gap-2 rounded-lg p-2 px-4 text-slate-600 hover:bg-slate-50">
+              <li
+                key={track.$id}
+                className="flex flex-row gap-2 rounded-lg p-2 px-4 text-slate-600 hover:bg-slate-50"
+              >
                 <p
                   className="flex w-16 flex-none flex-row items-center gap-2 truncate"
                   title="Plays"
