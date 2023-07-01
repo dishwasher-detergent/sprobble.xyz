@@ -16,6 +16,23 @@
             "events": [],
             "schedule": "*/10 * * * *",
             "timeout": 120
+        },
+        {
+            "$id": "64a0668240fd417ee848",
+            "name": "stats",
+            "runtime": "node-18.0",
+            "path": "functions/stats",
+            "entrypoint": "src/index.js",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
+            "execute": [],
+            "events": [
+                "databases.*.collections.plays.documents.*.create"
+            ],
+            "schedule": "",
+            "timeout": 15
         }
     ]
 }
