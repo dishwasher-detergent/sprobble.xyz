@@ -99,7 +99,7 @@ export default function HistoryItem({ track }: HistoryItemProps) {
           </span>
         </a>
       </div>
-      <div className="text-sm">
+      <div className="text-sm flex flex-col items-end">
         {track.user_id && (
           <a
             href={`/user/${track.user_id}`}
