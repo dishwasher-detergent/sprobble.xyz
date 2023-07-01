@@ -72,11 +72,13 @@ export default async function UserPage({
     getData(params.user),
   ]);
 
-  console.log(plays);
-
   return (
     <div className="mx-auto max-w-7xl">
-      <Header title={user.name} />
+      <Header
+        title={user.name}
+        artwork={`https://api.dicebear.com/6.x/thumbs/svg?seed=${user.$id}`}
+        artwork_name={user.name + "'s avatar"}
+      />
       <section className="grid w-full grid-cols-1 gap-4 py-6 md:grid-cols-3">
         <Card className="flex-1">
           <CardHeader>

@@ -31,7 +31,13 @@ export default function HistoryItem({ track }: HistoryItemProps) {
     >
       {track.album?.images && (
         <div className="relative aspect-square w-full overflow-hidden rounded-lg">
-          <Image alt={track.album.name} src={track.album.images[1]} fill />
+          <Image
+            alt={track.album.name}
+            src={track.album.images[1]}
+            fill
+            sizes="(max-width: 256px) 100vw"
+            priority={true}
+          />
           <Audio
             file={{
               song: track.track.preview,
@@ -88,6 +94,7 @@ export default function HistoryItem({ track }: HistoryItemProps) {
               src="/spotify/icon/Spotify_Icon_RGB_Black.png"
               alt="Spotify Icon Logo"
               fill
+              sizes="(max-width: 16px) 100vw"
             />
           </span>
         </a>
