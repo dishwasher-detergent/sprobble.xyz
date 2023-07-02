@@ -19,7 +19,7 @@ export default function HistoryItem({ track }: HistoryItemProps) {
 
   return (
     <Card
-      className="w-full rounded-lg border-none p-2 text-slate-900 md:w-72"
+      className="w-full rounded-lg border-none p-2 text-slate-900 dark:text-white md:w-72"
       style={{
         background:
           data &&
