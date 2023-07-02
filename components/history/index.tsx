@@ -40,7 +40,7 @@ export function History({
           <h2 className="mb-6 text-xl font-black md:text-3xl">{title}</h2>
         </div>
       )}
-      {isLoading ? (
+      {!isLoading ? (
         <HistoryLoading />
       ) : (
         <>

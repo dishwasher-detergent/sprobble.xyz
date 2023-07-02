@@ -13,11 +13,9 @@ export function HistoryLoading() {
             <LucideCalendarClock size={16} className="mr-2" />
             <Skeleton className="h-6 w-full max-w-[150px]" />
           </h3>
-          <ul className="ml-1.5 flex flex-col gap-2 border-l pl-4">
+          <ul className="ml-1.5 flex flex-row flex-wrap gap-4">
             {[...new Array(5)].map((val: any, index: number) => (
-              <li key={index}>
-                <HistoryItemLoading />
-              </li>
+              <HistoryItemLoading key={index} />
             ))}
           </ul>
         </div>

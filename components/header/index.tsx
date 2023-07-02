@@ -50,7 +50,7 @@ export function Header({
       )}
       <div className="flex-1">
         <p className="text-lg font-bold">{subTitle}</p>
-        <h2 className="text-3xl font-black dark:text-white md:text-8xl">
+        <h2 className="text-5xl font-black dark:text-white md:text-8xl">
           {title}
         </h2>
       </div>

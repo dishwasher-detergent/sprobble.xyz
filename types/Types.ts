@@ -36,3 +36,17 @@ export type Artist = {
   images: string[];
   genres: string[];
 } & Models.Document;
+
+export type Stat = {
+  number_of_plays: number;
+  time_spent_listening: string;
+  week_of_year: number;
+  user_id: string;
+  user: User;
+} & Models.Document;
+
+export type User = {
+  user_id: string;
+  name: string;
+  stats: Stat[];
+} & Models.Document;
