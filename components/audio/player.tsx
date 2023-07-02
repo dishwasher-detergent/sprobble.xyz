@@ -1,12 +1,12 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
 import { AudioContext, AudioContextType } from "@/context/audioWrapper";
 import { formatTimeForAudioPlayer } from "@/lib/utils";
 import { LucideX } from "lucide-react";
 import { useContext } from "react";
-import { Button } from "../ui/button";
-import { Progress } from "../ui/progress";
 
 export function AudioPlayer() {
   const {

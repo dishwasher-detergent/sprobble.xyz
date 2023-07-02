@@ -1,10 +1,10 @@
 "use client";
 
+import { AudioPlayer } from "@/components/audio/player";
 import { LoginWithSpotify } from "@/components/login-with-spotify";
 import { NavMenu } from "@/components/nav/menu";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { AudioPlayer } from "../audio/player";
 
 export function Nav() {
   return (
