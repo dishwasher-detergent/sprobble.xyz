@@ -1,8 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { LucideLogIn } from "lucide-react";
-import { useAccount, useOAuth2SignIn, useSignOut } from "react-appwrite";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,8 +8,11 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import UserTag from "./user/tag";
+} from "@/components/ui/dropdown-menu";
+import UserTag from "@/components/user/tag";
+import { LucideLogIn } from "lucide-react";
+import Image from "next/image";
+import { useAccount, useOAuth2SignIn, useSignOut } from "react-appwrite";
 
 export function LoginWithSpotify() {
   const oAuthSignIn = useOAuth2SignIn();
@@ -21,6 +22,7 @@ export function LoginWithSpotify() {
     <UserDropDown userId={account.$id} />
   ) : (
     <Button
+      className="flex flex-row items-center gap-2"
       variant="ghost"
       size="sm"
       onClick={() =>
@@ -32,12 +34,19 @@ export function LoginWithSpotify() {
             "user-read-currently-playing",
             "user-read-recently-played",
             "user-read-email",
-            "user-read-private" 
-          ]
+            "user-read-private",
+          ],
         })
       }
     >
-      Login with Spotify
+      Login
+      <Image
+        src="/spotify/icon/Spotify_Icon_RGB_Black.png"
+        alt="Spotify Icon Logo"
+        width={16}
+        height={16}
+        sizes="(max-width: 16px) 100vw"
+      />
     </Button>
   );
 }
