@@ -5,7 +5,7 @@ import {
   AudioContextType,
   SongType,
 } from "@/context/audioWrapper";
-import { LucidePauseCircle, LucidePlayCircle } from "lucide-react";
+import { LucidePause, LucidePlay } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 
 export function Audio({ file }: { file: SongType }) {
@@ -37,7 +37,7 @@ export function Audio({ file }: { file: SongType }) {
       className="absolute inset-0 z-10 flex cursor-pointer items-center justify-center bg-slate-900/40 text-white opacity-0 transition-opacity hover:opacity-100"
       onClick={() => toggleSong()}
     >
-      {clientPlaying ? <LucidePauseCircle /> : <LucidePlayCircle />}
+      {clientPlaying ? <LucidePause size={24} /> : <LucidePlay size={24} />}
     </button>
   );
 }

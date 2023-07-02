@@ -8,6 +8,7 @@ import { Album } from "@/types/Types";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { ColumnDef } from "@tanstack/react-table";
 import { Models, Query } from "appwrite";
+import { LucideCassetteTape, LucideDisc2, LucideMusic2 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAppwrite, useCollection } from "react-appwrite";
@@ -22,7 +23,10 @@ const columns: ColumnDef<any>[] = [
     cell(props) {
       return (
         <Avatar className="block h-14 w-14 overflow-hidden rounded-lg">
-          <AvatarImage src={props.row.original.album_art} />
+          <AvatarImage
+            src={props.row.original.album_art}
+            alt={props.row.original.name}
+          />
         </Avatar>
       );
     },
@@ -36,6 +40,7 @@ const columns: ColumnDef<any>[] = [
           href={`/global/stats/album/${props.row.original.id}`}
           className="flex flex-row items-center gap-2 hover:text-blue-600"
         >
+          <LucideDisc2 size={16} />
           {props.row.original.name}
         </Link>
       );
@@ -44,10 +49,26 @@ const columns: ColumnDef<any>[] = [
   {
     accessorKey: "songs",
     header: "Number of Songs",
+    cell(props) {
+      return (
+        <span className="flex flex-row items-center gap-2">
+          <LucideCassetteTape size={16} />
+          {props.row.original.songs}
+        </span>
+      );
+    },
   },
   {
     accessorKey: "plays",
     header: "Number of Plays",
+    cell(props) {
+      return (
+        <span className="flex flex-row items-center gap-2">
+          <LucideMusic2 size={16} />
+          {props.row.original.plays}
+        </span>
+      );
+    },
   },
 ];
 

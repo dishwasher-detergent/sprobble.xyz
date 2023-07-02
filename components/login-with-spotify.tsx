@@ -1,31 +1,30 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import UserTag from "@/components/user/tag";
 import { LucideLogIn } from "lucide-react";
+import Image from "next/image";
 import { useAccount, useOAuth2SignIn, useSignOut } from "react-appwrite";
 
 export function LoginWithSpotify() {
   const oAuthSignIn = useOAuth2SignIn();
-  const signOut = useSignOut();
   const { data: account, status } = useAccount();
 
   return account?.name ? (
-    <Button
-      variant="ghost"
-      size="sm"
-      className="flex w-full flex-row justify-start"
-      onClick={() => {
-        signOut.mutateAsync();
-      }}
-    >
-      <LucideLogIn className="mr-2 h-4 w-4" />
-      Logout
-    </Button>
+    <UserDropDown userId={account.$id} />
   ) : (
     <Button
+      className="flex flex-row items-center gap-2"
       variant="ghost"
       size="sm"
-      className="flex w-full flex-row justify-start"
       onClick={() =>
         oAuthSignIn.mutateAsync({
           provider: "spotify",
@@ -35,12 +34,48 @@ export function LoginWithSpotify() {
             "user-read-currently-playing",
             "user-read-recently-played",
             "user-read-email",
-            "user-read-private" 
-          ]
+            "user-read-private",
+          ],
         })
       }
     >
-      Login with Spotify
+      Login
+      <Image
+        src="/spotify/icon/Spotify_Icon_RGB_Black.png"
+        alt="Spotify Icon Logo"
+        width={16}
+        height={16}
+        sizes="(max-width: 16px) 100vw"
+      />
     </Button>
+  );
+}
+
+function UserDropDown({ userId }: { userId: string }) {
+  const signOut = useSignOut();
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" className="font-bold">
+          <UserTag userId={userId} />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-56">
+        <DropdownMenuLabel className="text-base">Account</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>
+          <button
+            className="flex w-full flex-row justify-between text-base"
+            onClick={() => {
+              signOut.mutateAsync();
+            }}
+          >
+            Logout
+            <LucideLogIn className="mr-2 h-4 w-4" />
+          </button>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }

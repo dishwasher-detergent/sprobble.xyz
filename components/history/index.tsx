@@ -55,7 +55,7 @@ export function History({
           <ul className="flex flex-col gap-10">
             {formattedPlays.map((play: any) => (
               <div key={play.date}>
-                <h3 className="flex items-center pb-4 text-base font-bold text-slate-400">
+                <h3 className="flex items-center pb-4 text-base font-bold text-slate-500 dark:text-slate-300">
                   <LucideCalendarClock size={16} className="mr-2" />
                   {new Date(play.date).toLocaleDateString("en-us", {
                     weekday: "long",
@@ -64,11 +64,9 @@ export function History({
                     day: "numeric",
                   })}
                 </h3>
-                <ul className="ml-1.5 flex flex-col gap-2 border-l pl-4">
+                <ul className="ml-1.5 flex flex-row flex-wrap gap-4">
                   {play.tracks.map((item: Play) => (
-                    <li key={item.$id}>
-                      <HistoryItem track={item} />
-                    </li>
+                    <HistoryItem key={item.$id} track={item} />
                   ))}
                 </ul>
               </div>

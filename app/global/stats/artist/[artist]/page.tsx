@@ -1,7 +1,7 @@
 import { ArtistsRecentlyPlayed } from "@/components/artist/recently-played";
 import { Header } from "@/components/header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Artist } from "@/types/Types";
+import { Artist, Play } from "@/types/Types";
 import { Models } from "appwrite";
 
 export async function generateMetadata({
@@ -33,7 +33,7 @@ async function getData(id: string) {
     `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/databases/645c032960cb9f95212b/collections/artist/documents/${id}`,
     {
       next: {
-        revalidate: 60
+        revalidate: 60,
       },
       headers: {
         "X-Appwrite-Project": process.env
@@ -54,7 +54,6 @@ export default async function ArtistStatsPage({
   const document = await getData(artist);
   return (
     <>
-      <h3 className="font-bold">Artist Stats</h3>
       <Header
         title={document.name}
         subTitle="Artist"
@@ -80,6 +79,26 @@ export default async function ArtistStatsPage({
           </CardHeader>
           <CardContent>
             <p className="text-4xl font-bold">{document.track.length}</p>
+          </CardContent>
+        </Card>
+        <Card className="flex-1">
+          <CardHeader>
+            <CardTitle className="h-6 text-sm font-medium tracking-tight">
+              Time spent listening
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-4xl font-bold">
+              {(
+                document.plays
+                  .map((x: Play) => x.track.duration)
+                  .reduce((a: any, b: any) => a + b, 0) /
+                1000 /
+                60 /
+                60
+              ).toFixed(2)}{" "}
+              hours
+            </p>
           </CardContent>
         </Card>
       </section>

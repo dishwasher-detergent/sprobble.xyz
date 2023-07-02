@@ -15,7 +15,7 @@ export type AudioContextType = {
   time: number;
   file: SongType | undefined;
   toggle: () => void;
-  setSong: (song: SongType) => void;
+  setSong: (song: SongType | null) => void;
 };
 
 /* @ts-ignore */
@@ -36,7 +36,14 @@ const AudioProvider = ({ children }: ProviderProps) => {
 
   const toggle = () => setPlaying(!playing);
 
-  const setSong = (song: SongType) => {
+  const setSong = (song: SongType | null) => {
+    if (!song) {
+      setPlaying(false);
+      setFile(undefined);
+      setCurrentTime(0);
+      return;
+    }
+
     if (audio.current) {
       audio.current.src = song.song;
       audio.current?.play();
@@ -75,4 +82,4 @@ const AudioProvider = ({ children }: ProviderProps) => {
   );
 };
 
-export { AudioProvider, AudioContext };
+export { AudioContext, AudioProvider };

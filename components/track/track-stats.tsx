@@ -8,6 +8,12 @@ import { Input } from "@/components/ui/input";
 import { Artist, Track } from "@/types/Types";
 import { ColumnDef } from "@tanstack/react-table";
 import { Models, Query } from "appwrite";
+import {
+  LucideCassetteTape,
+  LucideDisc2,
+  LucideMusic2,
+  LucidePersonStanding,
+} from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAppwrite, useCollection } from "react-appwrite";
@@ -30,6 +36,14 @@ const columns: ColumnDef<any>[] = [
   {
     accessorKey: "name",
     header: "Name",
+    cell(props) {
+      return (
+        <span className="flex flex-row items-center gap-2">
+          <LucideCassetteTape size={16} />
+          {props.row.original.name}
+        </span>
+      );
+    },
   },
   {
     accessorKey: "album",
@@ -40,6 +54,7 @@ const columns: ColumnDef<any>[] = [
           href={`/global/stats/album/${props.row.original.album.$id}`}
           className="flex flex-row items-center gap-2 hover:text-blue-600"
         >
+          <LucideDisc2 size={16} />
           {props.row.original.album.name}
         </Link>
       );
@@ -49,23 +64,36 @@ const columns: ColumnDef<any>[] = [
     accessorKey: "artists",
     header: "Artist",
     cell(props) {
-      return props.row.original.artists.map((artist: Artist, index: number) => {
-        return (
-          <Link
-            key={artist.$id}
-            href={`/global/stats/artist/${artist.$id}`}
-            className="flex flex-row items-center gap-2 hover:text-blue-600"
-          >
-            {artist.name}
-            {index < props.row.original.artists.length - 1 && ", "}
-          </Link>
-        );
-      });
+      return (
+        <span className="flex flex-row items-center gap-2">
+          <LucidePersonStanding size={16} />
+          {props.row.original.artists.map((artist: Artist, index: number) => {
+            return (
+              <Link
+                key={artist.$id}
+                href={`/global/stats/artist/${artist.$id}`}
+                className="flex flex-row items-center gap-2 hover:text-blue-600"
+              >
+                {artist.name}
+                {index < props.row.original.artists.length - 1 && ", "}
+              </Link>
+            );
+          })}
+        </span>
+      );
     },
   },
   {
     accessorKey: "plays",
     header: "Number of Plays",
+    cell(props) {
+      return (
+        <span className="flex flex-row items-center gap-2">
+          <LucideMusic2 size={16} />
+          {props.row.original.plays}
+        </span>
+      );
+    },
   },
 ];
 

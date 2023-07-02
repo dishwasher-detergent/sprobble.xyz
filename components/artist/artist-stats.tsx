@@ -7,6 +7,12 @@ import { Input } from "@/components/ui/input";
 import { Artist } from "@/types/Types";
 import { ColumnDef } from "@tanstack/react-table";
 import { Models, Query } from "appwrite";
+import {
+  LucideCassetteTape,
+  LucideDisc2,
+  LucideMusic2,
+  LucidePersonStanding,
+} from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAppwrite, useCollection } from "react-appwrite";
@@ -20,26 +26,53 @@ const columns: ColumnDef<any>[] = [
     header: "Name",
     cell(props) {
       return (
-        <Link
-          href={`/global/stats/artist/${props.row.original.id}`}
-          className="flex flex-row items-center gap-2 hover:text-blue-600"
-        >
-          {props.row.original.name}
-        </Link>
+        <span className="flex flex-row items-center gap-2">
+          <LucidePersonStanding size={16} />
+          <Link
+            href={`/global/stats/artist/${props.row.original.id}`}
+            className="flex flex-row items-center gap-2 hover:text-blue-600"
+          >
+            {props.row.original.name}
+          </Link>
+        </span>
       );
     },
   },
   {
     accessorKey: "albums",
     header: "Number of Albums",
+    cell(props) {
+      return (
+        <span className="flex flex-row items-center gap-2">
+          <LucideDisc2 size={16} />
+          {props.row.original.albums}
+        </span>
+      );
+    },
   },
   {
     accessorKey: "songs",
     header: "Number of Songs",
+    cell(props) {
+      return (
+        <span className="flex flex-row items-center gap-2">
+          <LucideCassetteTape size={16} />
+          {props.row.original.songs}
+        </span>
+      );
+    },
   },
   {
     accessorKey: "plays",
     header: "Number of Plays",
+    cell(props) {
+      return (
+        <span className="flex flex-row items-center gap-2">
+          <LucideMusic2 size={16} />
+          {props.row.original.plays}
+        </span>
+      );
+    },
   },
 ];
 
