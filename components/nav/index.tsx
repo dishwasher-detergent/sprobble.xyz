@@ -1,9 +1,9 @@
 "use client";
 
+import { LoginWithSpotify } from "@/components/login-with-spotify";
+import { NavMenu } from "@/components/nav/menu";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { LoginWithSpotify } from "../login-with-spotify";
-import { Button } from "../ui/button";
-import { NavMenu } from "./menu";
 
 export function Nav() {
   return (

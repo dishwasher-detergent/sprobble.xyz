@@ -1,17 +1,17 @@
 "use client";
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 import { User } from "@/types/Types";
 import { getISOWeek } from "date-fns";
 import { LucideCalendarDays } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { useAppwrite } from "react-appwrite";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "../ui/hover-card";
 
 interface UserTagProps {
   userId: string;
