@@ -52,8 +52,6 @@ export default async function UserPage({
 }) {
   const user = await getUserData(params.user);
 
-  console.log(user);
-
   // Get the current week stats.
   const current_week_stats = user.stats.filter(
     (x) => x.week_of_year == getISOWeek(new Date())

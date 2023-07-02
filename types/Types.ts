@@ -49,4 +49,5 @@ export type User = {
   user_id: string;
   name: string;
   stats: Stat[];
+  created_at: string;
 } & Models.Document;

@@ -99,15 +99,8 @@ export default function HistoryItem({ track }: HistoryItemProps) {
           </span>
         </a>
       </div>
-      <div className="text-sm flex flex-col items-end">
-        {track.user_id && (
-          <a
-            href={`/user/${track.user_id}`}
-            className="flex flex-row items-center gap-2"
-          >
-            <UserTag userId={track.user_id} />
-          </a>
-        )}
+      <div className="flex flex-col items-end text-sm">
+        {track.user_id && <UserTag userId={track.user_id} />}
         <p className="text-sm">
           {new Date(track.played_at).toLocaleDateString("en-us", {
             weekday: "long",
