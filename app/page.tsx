@@ -70,13 +70,11 @@ export default function Home() {
 
   return (
     <>
-      <div className="mx-auto max-w-7xl p-4">
-        <History
-          title="Recent Plays"
-          isLoading={isLoading}
-          formattedPlays={formattedPlays}
-        />
-      </div>
+      <History
+        title="Recent Plays"
+        isLoading={isLoading}
+        formattedPlays={formattedPlays}
+      />
     </>
   );
 }

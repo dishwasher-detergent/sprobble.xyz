@@ -1,4 +1,4 @@
-import { AudioPlayer } from "@/components/audio/player";
+import { Logo } from "@/components/logo";
 import { Nav } from "@/components/nav";
 import AppWriteWrapper from "@/context/appwriteWrapper";
 import { AudioProvider } from "@/context/audioWrapper";
@@ -24,12 +24,13 @@ export default function RootLayout({
           <body
             className={`${font.className} full-screen flex flex-row flex-nowrap overflow-hidden`}
           >
-            {/* <Sidebar /> */}
             <main className="relative flex flex-1 flex-col">
               <Nav />
-              <div className="w-screen flex-1 overflow-y-auto overflow-x-hidden md:w-full">
-                {children}
-                {/* <footer className="mt-4 w-full bg-black p-4 text-white">
+              <div className="flex w-screen flex-1 flex-col overflow-y-auto overflow-x-hidden md:w-full">
+                <div className="relative mx-auto w-full max-w-7xl flex-1 p-4">
+                  {children}
+                </div>
+                <footer className="mt-4 w-full bg-black p-4 text-white">
                   <div className="pb-4">
                     <Logo />
                   </div>
@@ -40,9 +41,8 @@ export default function RootLayout({
                     </p>
                     <p>All statistics are sourced from Sprobble users.</p>
                   </div>
-                </footer> */}
+                </footer>
               </div>
-              <AudioPlayer />
             </main>
           </body>
         </html>
