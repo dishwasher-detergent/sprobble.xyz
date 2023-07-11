@@ -33,7 +33,7 @@ async function getUserData(id: string) {
     `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/databases/645c032960cb9f95212b/collections/user/documents/${id}`,
     {
       next: {
-        revalidate: 60,
+        revalidate: 0,
       },
       headers: {
         "X-Appwrite-Project": process.env
@@ -134,5 +134,3 @@ export default async function UserPage({
     </div>
   );
 }
-
-export const revalidate = 60;
