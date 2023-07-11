@@ -44,7 +44,7 @@ async function getData(id: string) {
     `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/databases/645c032960cb9f95212b/collections/album/documents/${id}`,
     {
       next: {
-        revalidate: 0,
+        revalidate: 60,
       },
       headers: {
         "X-Appwrite-Project": process.env
