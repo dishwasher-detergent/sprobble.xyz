@@ -7,7 +7,7 @@ import { DataTable } from "@/components/ui/data-table";
 import { Input } from "@/components/ui/input";
 import { Artist, Track } from "@/types/Types";
 import { ColumnDef } from "@tanstack/react-table";
-import { Models, Query } from "appwrite";
+import { Query } from "appwrite";
 import {
   LucideCassetteTape,
   LucideDisc2,
@@ -15,8 +15,9 @@ import {
   LucidePersonStanding,
 } from "lucide-react";
 import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useAppwrite, useCollection } from "react-appwrite";
+import { useCollection } from "react-appwrite";
 
 const databaseId = "645c032960cb9f95212b";
 const collectionId = "track";
@@ -98,67 +99,77 @@ const columns: ColumnDef<any>[] = [
 ];
 
 export default function TrackStats() {
-  const itemCount = 10;
-  const query = [Query.limit(itemCount)];
+  const query = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
 
-  const { databases } = useAppwrite();
+  const page = query.get("page") ? parseInt(query.get("page") as string) : 1;
+  const limit = query.get("limit")
+    ? parseInt(query.get("limit") as string)
+    : 12;
 
-  const [queries, setQueries] = useState<any>(query);
+  const baseQuery = [Query.orderDesc("$createdAt")];
+  const [queries, setQueries] = useState<any>([
+    ...baseQuery,
+    Query.limit(limit),
+    Query.offset(0),
+  ]);
   const [pageCount, setPageCount] = useState<number>(0);
-  const [page, setPage] = useState<number>(1);
 
   const {
     data: plays,
     isLoading,
     isError,
   } = useCollection(databaseId, collectionId, queries, {
-    queryFn: async (): Promise<any> => {
-      const response = await databases.listDocuments<any>(
-        databaseId,
-        collectionId,
-        queries
-      );
-
-      return response as Models.DocumentList<Models.Document>;
-    },
     keepPreviousData: true,
   });
 
-  // @ts-ignore
-  const data = plays?.documents.map((track: Track) => ({
-    album_art: track.album.images[1],
-    name: track.name,
-    id: track.$id,
-    url: track.href,
-    artists: track.artist,
-    album: track.album,
-    plays: track.plays.length,
-  }));
-
-  const nextPage = () => {
-    if (!plays) return;
-    if (page == pageCount) return;
-    setPage(page + 1);
-    setQueries([
-      ...query,
-      // @ts-ignore
-      Query.cursorAfter(plays.documents[plays.documents.length - 1].$id),
-    ]);
-  };
-
-  const prevPage = () => {
-    if (!plays) return;
-    if (page == 1) return;
-    setPage(page - 1);
-    // @ts-ignore
-    setQueries([...query, Query.cursorBefore(plays.documents[0].$id)]);
-  };
+  const data = plays
+    ? plays?.documents.map((track: Track) => ({
+        album_art: track.album.images[1],
+        name: track.name,
+        id: track.$id,
+        url: track.href,
+        artists: track.artist,
+        album: track.album,
+        plays: track.plays.length,
+      }))
+    : [];
 
   useEffect(() => {
     if (isLoading) return;
-    // @ts-ignore
-    setPageCount(Math.ceil(plays.total / itemCount));
+    if (!plays) return;
+    setPageCount(Math.ceil(plays.total / limit));
   }, [plays]);
+
+  useEffect(() => {
+    const queries = Array.from(query.entries());
+
+    if (queries.length == 0) return;
+
+    const newQueries = [...baseQuery];
+    queries.forEach((query) => {
+      switch (query[0]) {
+        case "page":
+          newQueries.push(Query.offset((parseInt(query[1]) - 1) * limit));
+          break;
+        case "limit":
+          newQueries.push(Query.limit(parseInt(query[1])));
+          break;
+        case "search":
+          newQueries.push(Query.search("name", query[1]));
+          break;
+      }
+    });
+
+    setQueries(newQueries);
+  }, [query]);
+
+  const setSearch = (search: string) => {
+    const params = new URLSearchParams(Array.from(query.entries()));
+    params.set("search", search);
+    router.push(`${pathname}?${params.toString()}`);
+  };
 
   if (isError) return <div>Something went wrong</div>;
 
@@ -170,26 +181,11 @@ export default function TrackStats() {
         <Input
           className="max-w-xs"
           placeholder="Search Tracks"
-          onChange={(e) => {
-            e.target.value.length == 0
-              ? setQueries(query)
-              : setQueries([
-                  ...query,
-                  Query.search("name", `'${e.target.value}'`),
-                ]);
-          }}
+          onChange={(e) => setSearch(e.target.value)}
         />
       </nav>
       <DataTable columns={columns} data={data} />
-      <Pagination
-        next={() => nextPage()}
-        previous={() => prevPage()}
-        page={page}
-        pageCount={pageCount}
-        // @ts-ignore
-        resultCount={plays?.total}
-        itemCount={itemCount}
-      />
+      <Pagination page={page} pageCount={pageCount} isLoading={isLoading} />
     </>
   );
 }
