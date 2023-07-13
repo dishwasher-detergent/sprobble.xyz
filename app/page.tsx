@@ -22,16 +22,6 @@ export default function Home() {
     collectionId,
     queries,
     {
-      // @ts-ignore
-      queryFn: async (): Promise<Models.DocumentList<Models.Document>> => {
-        const response = await databases.listDocuments<any>(
-          databaseId,
-          collectionId,
-          queries
-        );
-
-        return response;
-      },
       keepPreviousData: true,
     }
   );

@@ -2,9 +2,9 @@
 
 import { History } from "@/components/history";
 import { custom_sort } from "@/lib/utils";
-import { Models, Query } from "appwrite";
+import { Query } from "appwrite";
 import { useEffect, useState } from "react";
-import { useAppwrite, useCollection } from "react-appwrite";
+import { useCollection } from "react-appwrite";
 
 const databaseId = "645c032960cb9f95212b";
 const collectionId = "album";
@@ -12,8 +12,6 @@ const collectionId = "album";
 export function AlbumRecentlyPlayed({ album }: { album: string }) {
   const itemCount = 10;
   const query = [Query.limit(itemCount), Query.equal("$id", album)];
-
-  const { databases } = useAppwrite();
 
   const [formattedPlays, setFormattedPlays] = useState<any>([]);
   const [queries, setQueries] = useState<any>(query);
@@ -23,15 +21,6 @@ export function AlbumRecentlyPlayed({ album }: { album: string }) {
     collectionId,
     queries,
     {
-      queryFn: async (): Promise<any> => {
-        const response = await databases.listDocuments<any>(
-          databaseId,
-          collectionId,
-          queries
-        );
-
-        return response as Models.DocumentList<Models.Document>;
-      },
       keepPreviousData: true,
     }
   );
@@ -75,7 +64,8 @@ export function AlbumRecentlyPlayed({ album }: { album: string }) {
 
   useEffect(() => {
     if (isLoading) return;
-    // @ts-ignore
+    if (!plays) return;
+
     setFormattedPlays(groupByDate(plays.documents[0].plays));
   }, [plays]);
 

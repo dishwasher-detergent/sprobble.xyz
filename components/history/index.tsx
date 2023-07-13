@@ -13,12 +13,10 @@ interface HistoryProps {
   isLoading: boolean;
   formattedPlays: any;
   paginationProps?: {
-    nextPage: () => void;
-    prevPage: () => void;
     page: number;
     pageCount: number;
     itemCount: number;
-    totalPlays: number;
+    totalPlays?: number;
   };
   dateProps?: {
     setDate: SelectRangeEventHandler;
@@ -65,22 +63,19 @@ export function History({
                   })}
                 </h3>
                 <ul className="ml-1.5 flex flex-row flex-wrap gap-4">
-                  {play.tracks.map((item: Play) => (
-                    <HistoryItem key={item.$id} track={item} />
-                  ))}
+                  {play.tracks.map(
+                    (item: Play) =>
+                      item.track && <HistoryItem key={item.$id} track={item} />
+                  )}
                 </ul>
               </div>
             ))}
           </ul>
           {paginationProps && (
             <Pagination
-              next={() => paginationProps.nextPage()}
-              previous={() => paginationProps.prevPage()}
               page={paginationProps.page}
               pageCount={paginationProps.pageCount}
-              // @ts-ignore
-              resultCount={paginationProps.totalPlays}
-              itemCount={paginationProps.itemCount}
+              isLoading={isLoading}
             />
           )}
         </>
