@@ -109,5 +109,3 @@ export default async function AlbumStatsPage({
     </>
   );
 }
-
-export const revalidate = 60;

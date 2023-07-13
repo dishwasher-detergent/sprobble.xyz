@@ -134,5 +134,3 @@ export default async function UserPage({
     </div>
   );
 }
-
-export const revalidate = 60;
