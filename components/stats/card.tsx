@@ -23,7 +23,7 @@ export default function StatsCard({
       </CardHeader>
       <CardContent className="px-4 pb-2 pt-0">
         {loading ? (
-          <Skeleton className="h-8 w-full" />
+          <Skeleton className="h-6 w-full bg-slate-200 dark:bg-slate-800" />
         ) : (
           <p className="text-xl font-bold">{value}</p>
         )}

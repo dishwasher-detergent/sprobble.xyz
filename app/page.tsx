@@ -35,19 +35,23 @@ export default function Home() {
 
   const { data: tracks, isLoading: trackLoading } = useCollection(
     databaseId,
-    "track"
+    "track",
+    [Query.limit(1)]
   );
   const { data: albums, isLoading: albumLoading } = useCollection(
     databaseId,
-    "album"
+    "album",
+    [Query.limit(1)]
   );
   const { data: artists, isLoading: artistLoading } = useCollection(
     databaseId,
-    "artist"
+    "artist",
+    [Query.limit(1)]
   );
   const { data: users, isLoading: userLoading } = useCollection(
     databaseId,
-    "user"
+    "user",
+    [Query.limit(1)]
   );
   const { data: stats, isLoading: statsLoading } = useCollection(
     databaseId,
