@@ -167,7 +167,11 @@ export default function TrackStats() {
 
   const setSearch = (search: string) => {
     const params = new URLSearchParams(Array.from(query.entries()));
-    params.set("search", search);
+    if (search.length > 0) {
+      params.set("search", search);
+    } else {
+      params.delete("search");
+    }
     router.push(`${pathname}?${params.toString()}`);
   };
 
