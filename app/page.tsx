@@ -130,7 +130,7 @@ export default function Home() {
       <section className="flex flex-col gap-4 py-4">
         <h2 className="text-xl font-black md:text-3xl">Users Stats</h2>
         <div className="flex w-full flex-row flex-nowrap gap-4 overflow-x-auto">
-          <Card className="flex-1">
+          <Card className="min-w-[20rem] flex-1">
             <CardHeader>
               <CardTitle className="h-6 text-sm font-medium tracking-tight">
                 Total Users
@@ -225,7 +225,7 @@ export default function Home() {
         </div>
         <h2 className="text-xl font-black md:text-3xl">Music Stats</h2>
         <div className="flex w-full flex-row flex-nowrap gap-4 overflow-x-auto">
-          <Card className="flex-1">
+          <Card className="min-w-[20rem] flex-1">
             <CardHeader>
               <CardTitle className="h-6 text-sm font-medium tracking-tight">
                 Total Unique Artists
@@ -239,7 +239,7 @@ export default function Home() {
               )}
             </CardContent>
           </Card>
-          <Card className="flex-1">
+          <Card className="min-w-[20rem] flex-1">
             <CardHeader>
               <CardTitle className="h-6 text-sm font-medium tracking-tight">
                 Total Unique Albums
@@ -253,7 +253,7 @@ export default function Home() {
               )}
             </CardContent>
           </Card>
-          <Card className="flex-1">
+          <Card className="min-w-[20rem] flex-1">
             <CardHeader>
               <CardTitle className="h-6 text-sm font-medium tracking-tight">
                 Total Unique Tracks
