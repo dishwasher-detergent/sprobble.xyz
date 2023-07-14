@@ -1,8 +1,9 @@
 import { Header } from "@/components/header";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import StatsCard from "@/components/stats/card";
 import { UserRecentlyPlayed } from "@/components/user/recently-played";
 import { User } from "@/types/Types";
-import { getISOWeek } from "date-fns";
+import { eachWeekOfInterval, getISOWeek } from "date-fns";
+import { LucideClock5, LucideTrendingUp } from "lucide-react";
 
 export async function generateMetadata({
   params,
@@ -73,6 +74,24 @@ export default async function UserPage({
     60
   ).toFixed(2);
 
+  const weeksInMonth = eachWeekOfInterval({
+    start: new Date(),
+    end: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0),
+  });
+
+  const current_month_duration = (
+    user.stats
+      .filter(
+        (x) =>
+          x.week_of_year >= getISOWeek(weeksInMonth[0]) &&
+          x.week_of_year <= getISOWeek(weeksInMonth[weeksInMonth.length - 1])
+      )
+      .reduce((a, b) => a + Number(b.time_spent_listening), 0) /
+    1000 /
+    60 /
+    60
+  ).toFixed(2);
+
   return (
     <div className="mx-auto max-w-7xl">
       <Header
@@ -82,52 +101,40 @@ export default async function UserPage({
       />
       <section className="flex flex-col gap-4 py-4">
         <div className="flex w-full flex-row flex-nowrap gap-2 overflow-x-auto">
-          <Card className="min-w-[20rem] flex-1">
-            <CardHeader>
-              <CardTitle className="h-6 text-sm font-medium tracking-tight">
-                Week To Date Scrobbles
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-4xl font-bold">
-                {current_week_stats.number_of_plays}
-              </p>
-            </CardContent>
-          </Card>
-          <Card className="min-w-[20rem] flex-1">
-            <CardHeader>
-              <CardTitle className="h-6 text-sm font-medium tracking-tight">
-                Year To Date Scrobbles
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-4xl font-bold">{year_plays}</p>
-            </CardContent>
-          </Card>
+          <StatsCard
+            value={current_week_stats.number_of_plays.toLocaleString()}
+          >
+            <>
+              <span>Week To Date</span>
+              <LucideTrendingUp size={16} />
+            </>
+          </StatsCard>
+          <StatsCard value={year_plays.toLocaleString()}>
+            <>
+              <span>Year To Date Scrobbles</span>
+              <LucideTrendingUp size={16} />
+            </>
+          </StatsCard>
         </div>
         <div className="flex w-full flex-row flex-nowrap gap-2 overflow-x-auto">
-          <Card className="min-w-[20rem] flex-1">
-            <CardHeader>
-              <CardTitle className="h-6 text-sm font-medium tracking-tight">
-                Week To Date Time spent listening
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-4xl font-bold">
-                {current_week_duration}&nbsp;hours
-              </p>
-            </CardContent>
-          </Card>
-          <Card className="min-w-[20rem] flex-1">
-            <CardHeader>
-              <CardTitle className="h-6 text-sm font-medium tracking-tight">
-                Year To Date Time spent listening
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-4xl font-bold">{year_duration}&nbsp;hours</p>
-            </CardContent>
-          </Card>
+          <StatsCard value={`${current_week_duration} hours`}>
+            <>
+              <span>Week To Date Time spent listening</span>
+              <LucideClock5 size={16} />
+            </>
+          </StatsCard>
+          <StatsCard value={`${current_month_duration} hours`}>
+            <>
+              <span>Month To Date Time spent listening</span>
+              <LucideClock5 size={16} />
+            </>
+          </StatsCard>
+          <StatsCard value={`${year_duration} hours`}>
+            <>
+              <span>Year To Date Time spent listening</span>
+              <LucideClock5 size={16} />
+            </>
+          </StatsCard>
         </div>
       </section>
       <UserRecentlyPlayed user={params.user} />

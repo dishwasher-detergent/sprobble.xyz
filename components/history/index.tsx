@@ -35,7 +35,7 @@ export function History({
     <section>
       {title && (
         <div>
-          <h2 className="mb-6 text-xl font-black md:text-3xl">{title}</h2>
+          <h2 className="mb-4 text-xl font-black md:text-3xl">{title}</h2>
         </div>
       )}
       {isLoading ? (
