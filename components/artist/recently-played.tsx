@@ -2,7 +2,7 @@
 
 import { History } from "@/components/history";
 import { custom_sort } from "@/lib/utils";
-import { Models, Query } from "appwrite";
+import { Query } from "appwrite";
 import { useEffect, useState } from "react";
 import { useAppwrite, useCollection } from "react-appwrite";
 
@@ -23,16 +23,6 @@ export function ArtistsRecentlyPlayed({ artist }: { artist: string }) {
     collectionId,
     queries,
     {
-      // @ts-ignore
-      queryFn: async (): Promise<Models.DocumentList<Models.Document>> => {
-        const response = await databases.listDocuments<any>(
-          databaseId,
-          collectionId,
-          queries
-        );
-
-        return response;
-      },
       keepPreviousData: true,
     }
   );
