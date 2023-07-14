@@ -5,11 +5,11 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import UserTag from "@/components/user/tag";
-import { LucideLogIn, LucideUser } from "lucide-react";
+import { LucideLogIn, LucideMoon, LucideSun, LucideUser } from "lucide-react";
+import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 import { useAccount, useOAuth2SignIn, useSignOut } from "react-appwrite";
@@ -52,6 +52,7 @@ export function LoginWithSpotify() {
 }
 
 function UserDropDown({ userId }: { userId: string }) {
+  const { theme, setTheme } = useTheme();
   const signOut = useSignOut();
 
   return (
@@ -65,22 +66,34 @@ function UserDropDown({ userId }: { userId: string }) {
         <DropdownMenuItem>
           <Link
             href={`/user/${userId}`}
-            className="flex w-full flex-row justify-between text-base"
+            className="flex w-full flex-row items-center justify-between text-base"
           >
             Account
             <LucideUser className="mr-2 h-4 w-4" />
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuSeparator />
         <DropdownMenuItem>
           <button
-            className="flex w-full flex-row justify-between text-base"
+            className="flex w-full flex-row items-center justify-between text-base"
             onClick={() => {
               signOut.mutateAsync();
             }}
           >
             Logout
             <LucideLogIn className="mr-2 h-4 w-4" />
+          </button>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <button
+            className="flex w-full flex-row items-center justify-between text-base"
+            onClick={() => setTheme(theme == "dark" ? "light" : "dark")}
+          >
+            {theme}
+            {theme == "dark" ? (
+              <LucideSun className="mr-2 h-4 w-4" />
+            ) : (
+              <LucideMoon className="mr-2 h-4 w-4" />
+            )}
           </button>
         </DropdownMenuItem>
       </DropdownMenuContent>

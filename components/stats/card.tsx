@@ -15,17 +15,17 @@ export default function StatsCard({
   loading,
 }: StatsCardProps) {
   return (
-    <Card className="min-w-[20rem] flex-1">
-      <CardHeader>
-        <CardTitle className="flex h-6 flex-row items-center gap-2 text-sm font-medium tracking-tight">
+    <Card className="min-w-[20rem] flex-1 bg-slate-100 dark:bg-slate-900 dark:text-white">
+      <CardHeader className="px-4 pb-0 pt-2">
+        <CardTitle className="flex h-6 flex-row items-center gap-2 text-xs font-medium tracking-tight">
           {children}
         </CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="px-4 pb-2 pt-0">
         {loading ? (
-          <Skeleton className="h-10 w-full" />
+          <Skeleton className="h-8 w-full" />
         ) : (
-          <p className="text-4xl font-bold">{value}</p>
+          <p className="text-xl font-bold">{value}</p>
         )}
       </CardContent>
     </Card>
