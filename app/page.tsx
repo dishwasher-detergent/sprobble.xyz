@@ -156,7 +156,7 @@ export default function Home() {
               </>
             </StatsCard>
             <StatsCard
-              value={year_plays.toLocaleString()}
+              value={year_plays?.toLocaleString()}
               loading={statsLoading}
             >
               <>
