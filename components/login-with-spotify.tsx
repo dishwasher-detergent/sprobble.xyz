@@ -59,7 +59,7 @@ function UserDropDown({ userId }: { userId: string }) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="font-bold">
-          <UserTag userId={userId} />
+          <UserTag userId={userId} hover={false} />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
