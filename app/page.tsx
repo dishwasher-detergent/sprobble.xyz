@@ -133,89 +133,96 @@ export default function Home() {
 
   return (
     <>
-      <section className="flex flex-col gap-4 py-4">
-        <h2 className="text-xl font-black md:text-3xl">Users Stats</h2>
-        <div className="flex w-full flex-row flex-nowrap gap-4 overflow-x-auto">
-          <StatsCard
-            value={users?.total.toLocaleString()}
-            loading={userLoading}
-          >
-            <>
-              <span>Total Users</span>
-              <LucideTrendingUp size={16} />
-            </>
-          </StatsCard>
-          <StatsCard
-            value={current_week_stats?.number_of_plays.toLocaleString()}
-            loading={statsLoading}
-          >
-            <>
-              <span>Week To Date</span>
-              <LucideTrendingUp size={16} />
-            </>
-          </StatsCard>
-          <StatsCard value={year_plays.toLocaleString()} loading={statsLoading}>
-            <>
-              <span>Year To Date Scrobbles</span>
-              <LucideTrendingUp size={16} />
-            </>
-          </StatsCard>
+      <section className="flex flex-col gap-10 pb-10">
+        <div className="flex flex-col gap-4">
+          <h2 className="text-xl font-black md:text-3xl">Users Stats</h2>
+          <div className="flex w-full flex-row flex-nowrap gap-4 overflow-x-auto">
+            <StatsCard
+              value={users?.total.toLocaleString()}
+              loading={userLoading}
+            >
+              <>
+                <span>Total Users</span>
+                <LucideTrendingUp size={16} />
+              </>
+            </StatsCard>
+            <StatsCard
+              value={current_week_stats?.number_of_plays.toLocaleString()}
+              loading={statsLoading}
+            >
+              <>
+                <span>Week To Date</span>
+                <LucideTrendingUp size={16} />
+              </>
+            </StatsCard>
+            <StatsCard
+              value={year_plays.toLocaleString()}
+              loading={statsLoading}
+            >
+              <>
+                <span>Year To Date Scrobbles</span>
+                <LucideTrendingUp size={16} />
+              </>
+            </StatsCard>
+          </div>
+          <div className="flex w-full flex-row flex-nowrap gap-4 overflow-x-auto">
+            <StatsCard
+              value={`${current_week_duration} hours`}
+              loading={statsLoading}
+            >
+              <>
+                <span>Week To Date Time spent listening</span>
+                <LucideClock5 size={16} />
+              </>
+            </StatsCard>
+            <StatsCard
+              value={`${current_month_duration} hours`}
+              loading={statsLoading}
+            >
+              <>
+                <span>Month To Date Time spent listening</span>
+                <LucideClock5 size={16} />
+              </>
+            </StatsCard>
+            <StatsCard value={`${year_duration} hours`} loading={statsLoading}>
+              <>
+                <span>Year To Date Time spent listening</span>
+                <LucideClock5 size={16} />
+              </>
+            </StatsCard>
+          </div>
         </div>
-        <div className="flex w-full flex-row flex-nowrap gap-4 overflow-x-auto">
-          <StatsCard
-            value={`${current_week_duration} hours`}
-            loading={statsLoading}
-          >
-            <>
-              <span>Week To Date Time spent listening</span>
-              <LucideClock5 size={16} />
-            </>
-          </StatsCard>
-          <StatsCard
-            value={`${current_month_duration} hours`}
-            loading={statsLoading}
-          >
-            <>
-              <span>Month To Date Time spent listening</span>
-              <LucideClock5 size={16} />
-            </>
-          </StatsCard>
-          <StatsCard value={`${year_duration} hours`} loading={statsLoading}>
-            <>
-              <span>Year To Date Time spent listening</span>
-              <LucideClock5 size={16} />
-            </>
-          </StatsCard>
-        </div>
-        <h2 className="text-xl font-black md:text-3xl">Music Stats</h2>
-        <div className="flex w-full flex-row flex-nowrap gap-4 overflow-x-auto">
-          <StatsCard
-            value={artists?.total.toLocaleString()}
-            loading={artistLoading}
-          >
-            <>
-              <span>Total Unique Artists</span>
-              <LucidePersonStanding size={16} />
-            </>
-          </StatsCard>
-          <StatsCard
-            value={albums?.total.toLocaleString()}
-            loading={albumLoading}
-          >
-            <>
-              <span>Total Unique Albums</span>
-              <LucideDisc2 size={16} />
-            </>
-          </StatsCard>
-          <StatsCard
-            value={tracks?.total.toLocaleString()}
-            loading={trackLoading}
-          >
-            <>
-              <span>Total Unique Tracks</span>
-              <LucideCassetteTape size={16} />
-            </>
-          </StatsCard>
+        <div className="flex flex-col gap-4">
+          <h2 className="text-xl font-black md:text-3xl">Music Stats</h2>
+          <div className="flex w-full flex-row flex-nowrap gap-4 overflow-x-auto">
+            <StatsCard
+              value={artists?.total.toLocaleString()}
+              loading={artistLoading}
+            >
+              <>
+                <span>Total Unique Artists</span>
+                <LucidePersonStanding size={16} />
+              </>
+            </StatsCard>
+            <StatsCard
+              value={albums?.total.toLocaleString()}
+              loading={albumLoading}
+            >
+              <>
+                <span>Total Unique Albums</span>
+                <LucideDisc2 size={16} />
+              </>
+            </StatsCard>
+            <StatsCard
+              value={tracks?.total.toLocaleString()}
+              loading={trackLoading}
+            >
+              <>
+                <span>Total Unique Tracks</span>
+                <LucideCassetteTape size={16} />
+              </>
+            </StatsCard>
+          </div>
         </div>
       </section>
       <History
