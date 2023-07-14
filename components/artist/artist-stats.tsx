@@ -28,7 +28,7 @@ const columns: ColumnDef<any>[] = [
     cell(props) {
       return (
         <span className="flex flex-row items-center gap-2">
-          <LucidePersonStanding size={16} />
+          <LucidePersonStanding className="flex-none" size={16} />
           <Link
             href={`/global/stats/artist/${props.row.original.id}`}
             className="flex flex-row items-center gap-2 hover:text-blue-600"
@@ -45,7 +45,7 @@ const columns: ColumnDef<any>[] = [
     cell(props) {
       return (
         <span className="flex flex-row items-center gap-2">
-          <LucideDisc2 size={16} />
+          <LucideDisc2 className="flex-none" size={16} />
           {props.row.original.albums}
         </span>
       );
@@ -57,7 +57,7 @@ const columns: ColumnDef<any>[] = [
     cell(props) {
       return (
         <span className="flex flex-row items-center gap-2">
-          <LucideCassetteTape size={16} />
+          <LucideCassetteTape className="flex-none" size={16} />
           {props.row.original.songs}
         </span>
       );
@@ -69,7 +69,7 @@ const columns: ColumnDef<any>[] = [
     cell(props) {
       return (
         <span className="flex flex-row items-center gap-2">
-          <LucideMusic2 size={16} />
+          <LucideMusic2 className="flex-none" size={16} />
           {props.row.original.plays}
         </span>
       );

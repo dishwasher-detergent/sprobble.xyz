@@ -28,7 +28,7 @@ const columns: ColumnDef<any>[] = [
     header: "Album Cover",
     cell(props) {
       return (
-        <Avatar className="block h-14 w-14 overflow-hidden rounded-lg">
+        <Avatar className="block h-14 w-14 flex-none overflow-hidden rounded-lg">
           <AvatarImage src={props.row.original.album_art} />
         </Avatar>
       );
@@ -40,7 +40,7 @@ const columns: ColumnDef<any>[] = [
     cell(props) {
       return (
         <span className="flex flex-row items-center gap-2">
-          <LucideCassetteTape size={16} />
+          <LucideCassetteTape className="flex-none" size={16} />
           {props.row.original.name}
         </span>
       );
@@ -55,7 +55,7 @@ const columns: ColumnDef<any>[] = [
           href={`/global/stats/album/${props.row.original.album.$id}`}
           className="flex flex-row items-center gap-2 hover:text-blue-600"
         >
-          <LucideDisc2 size={16} />
+          <LucideDisc2 size={16} className="flex-none" />
           {props.row.original.album.name}
         </Link>
       );
@@ -67,7 +67,7 @@ const columns: ColumnDef<any>[] = [
     cell(props) {
       return (
         <span className="flex flex-row items-center gap-2">
-          <LucidePersonStanding size={16} />
+          <LucidePersonStanding size={16} className="flex-none" />
           {props.row.original.artists.map((artist: Artist, index: number) => {
             return (
               <Link
@@ -90,7 +90,7 @@ const columns: ColumnDef<any>[] = [
     cell(props) {
       return (
         <span className="flex flex-row items-center gap-2">
-          <LucideMusic2 size={16} />
+          <LucideMusic2 size={16} className="flex-none" />
           {props.row.original.plays}
         </span>
       );

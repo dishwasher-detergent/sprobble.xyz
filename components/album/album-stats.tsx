@@ -23,7 +23,7 @@ const columns: ColumnDef<any>[] = [
     header: "Album Cover",
     cell(props) {
       return (
-        <Avatar className="block h-14 w-14 overflow-hidden rounded-lg">
+        <Avatar className="block h-14 w-14 flex-none overflow-hidden rounded-lg">
           <AvatarImage
             src={props.row.original.album_art}
             alt={props.row.original.name}
@@ -41,7 +41,7 @@ const columns: ColumnDef<any>[] = [
           href={`/global/stats/album/${props.row.original.id}`}
           className="flex flex-row items-center gap-2 hover:text-blue-600"
         >
-          <LucideDisc2 size={16} />
+          <LucideDisc2 className="flex-none" size={16} />
           {props.row.original.name}
         </Link>
       );
@@ -53,7 +53,7 @@ const columns: ColumnDef<any>[] = [
     cell(props) {
       return (
         <span className="flex flex-row items-center gap-2">
-          <LucideCassetteTape size={16} />
+          <LucideCassetteTape className="flex-none" size={16} />
           {props.row.original.songs}
         </span>
       );
@@ -65,7 +65,7 @@ const columns: ColumnDef<any>[] = [
     cell(props) {
       return (
         <span className="flex flex-row items-center gap-2">
-          <LucideMusic2 size={16} />
+          <LucideMusic2 className="flex-none" size={16} />
           {props.row.original.plays}
         </span>
       );
