@@ -1,10 +1,16 @@
 "use client";
 
 import { History } from "@/components/history";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
+import StatsCard from "@/components/stats/card";
 import { Query } from "appwrite";
 import { eachWeekOfInterval, getISOWeek } from "date-fns";
+import {
+  LucideCassetteTape,
+  LucideClock5,
+  LucideDisc2,
+  LucidePersonStanding,
+  LucideTrendingUp,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { useCollection } from "react-appwrite";
 
@@ -130,143 +136,86 @@ export default function Home() {
       <section className="flex flex-col gap-4 py-4">
         <h2 className="text-xl font-black md:text-3xl">Users Stats</h2>
         <div className="flex w-full flex-row flex-nowrap gap-4 overflow-x-auto">
-          <Card className="min-w-[20rem] flex-1">
-            <CardHeader>
-              <CardTitle className="h-6 text-sm font-medium tracking-tight">
-                Total Users
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {!userLoading ? (
-                <p className="text-4xl font-bold">{users?.total}</p>
-              ) : (
-                <Skeleton className="h-10 w-full" />
-              )}
-            </CardContent>
-          </Card>
-          <Card className="min-w-[20rem] flex-1">
-            <CardHeader>
-              <CardTitle className="h-6 text-sm font-medium tracking-tight">
-                Week To Date Scrobbles
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {!statsLoading ? (
-                <p className="text-4xl font-bold">
-                  {current_week_stats.number_of_plays}
-                </p>
-              ) : (
-                <Skeleton className="h-10 w-full" />
-              )}
-            </CardContent>
-          </Card>
-          <Card className="min-w-[20rem] flex-1">
-            <CardHeader>
-              <CardTitle className="h-6 text-sm font-medium tracking-tight">
-                Year To Date Scrobbles
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {!statsLoading ? (
-                <p className="text-4xl font-bold">{year_plays}</p>
-              ) : (
-                <Skeleton className="h-10 w-full" />
-              )}
-            </CardContent>
-          </Card>
+          <StatsCard
+            value={users?.total.toLocaleString()}
+            loading={userLoading}
+          >
+            <>
+              <span>Total Users</span>
+              <LucideTrendingUp size={16} />
+            </>
+          </StatsCard>
+          <StatsCard
+            value={current_week_stats?.number_of_plays.toLocaleString()}
+            loading={statsLoading}
+          >
+            <>
+              <span>Week To Date</span>
+              <LucideTrendingUp size={16} />
+            </>
+          </StatsCard>
+          <StatsCard value={year_plays.toLocaleString()} loading={statsLoading}>
+            <>
+              <span>Year To Date Scrobbles</span>
+              <LucideTrendingUp size={16} />
+            </>
+          </StatsCard>
         </div>
         <div className="flex w-full flex-row flex-nowrap gap-4 overflow-x-auto">
-          <Card className="min-w-[20rem] flex-1">
-            <CardHeader>
-              <CardTitle className="h-6 text-sm font-medium tracking-tight">
-                Week To Date Time spent listening
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {!statsLoading ? (
-                <p className="text-4xl font-bold">
-                  {current_week_duration}&nbsp;hours
-                </p>
-              ) : (
-                <Skeleton className="h-10 w-full" />
-              )}
-            </CardContent>
-          </Card>
-          <Card className="min-w-[20rem] flex-1">
-            <CardHeader>
-              <CardTitle className="h-6 text-sm font-medium tracking-tight">
-                Month To Date Time spent listening
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {!statsLoading ? (
-                <p className="text-4xl font-bold">
-                  {current_month_duration}&nbsp;hours
-                </p>
-              ) : (
-                <Skeleton className="h-10 w-full" />
-              )}
-            </CardContent>
-          </Card>
-          <Card className="min-w-[20rem] flex-1">
-            <CardHeader>
-              <CardTitle className="h-6 text-sm font-medium tracking-tight">
-                Year To Date Time spent listening
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {!statsLoading ? (
-                <p className="text-4xl font-bold">{year_duration}&nbsp;hours</p>
-              ) : (
-                <Skeleton className="h-10 w-full" />
-              )}
-            </CardContent>
-          </Card>
+          <StatsCard
+            value={`${current_week_duration} hours`}
+            loading={statsLoading}
+          >
+            <>
+              <span>Week To Date Time spent listening</span>
+              <LucideClock5 size={16} />
+            </>
+          </StatsCard>
+          <StatsCard
+            value={`${current_month_duration} hours`}
+            loading={statsLoading}
+          >
+            <>
+              <span>Month To Date Time spent listening</span>
+              <LucideClock5 size={16} />
+            </>
+          </StatsCard>
+          <StatsCard value={`${year_duration} hours`} loading={statsLoading}>
+            <>
+              <span>Year To Date Time spent listening</span>
+              <LucideClock5 size={16} />
+            </>
+          </StatsCard>
         </div>
         <h2 className="text-xl font-black md:text-3xl">Music Stats</h2>
         <div className="flex w-full flex-row flex-nowrap gap-4 overflow-x-auto">
-          <Card className="min-w-[20rem] flex-1">
-            <CardHeader>
-              <CardTitle className="h-6 text-sm font-medium tracking-tight">
-                Total Unique Artists
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {!artistLoading ? (
-                <p className="text-4xl font-bold">{artists?.total}</p>
-              ) : (
-                <Skeleton className="h-10 w-full" />
-              )}
-            </CardContent>
-          </Card>
-          <Card className="min-w-[20rem] flex-1">
-            <CardHeader>
-              <CardTitle className="h-6 text-sm font-medium tracking-tight">
-                Total Unique Albums
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {!albumLoading ? (
-                <p className="text-4xl font-bold">{albums?.total}</p>
-              ) : (
-                <Skeleton className="h-10 w-full" />
-              )}
-            </CardContent>
-          </Card>
-          <Card className="min-w-[20rem] flex-1">
-            <CardHeader>
-              <CardTitle className="h-6 text-sm font-medium tracking-tight">
-                Total Unique Tracks
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {!trackLoading ? (
-                <p className="text-4xl font-bold">{tracks?.total}</p>
-              ) : (
-                <Skeleton className="h-10 w-full" />
-              )}
-            </CardContent>
-          </Card>
+          <StatsCard
+            value={artists?.total.toLocaleString()}
+            loading={artistLoading}
+          >
+            <>
+              <span>Total Unique Artists</span>
+              <LucidePersonStanding size={16} />
+            </>
+          </StatsCard>
+          <StatsCard
+            value={albums?.total.toLocaleString()}
+            loading={albumLoading}
+          >
+            <>
+              <span>Total Unique Albums</span>
+              <LucideDisc2 size={16} />
+            </>
+          </StatsCard>
+          <StatsCard
+            value={tracks?.total.toLocaleString()}
+            loading={trackLoading}
+          >
+            <>
+              <span>Total Unique Tracks</span>
+              <LucideCassetteTape size={16} />
+            </>
+          </StatsCard>
         </div>
       </section>
       <History
