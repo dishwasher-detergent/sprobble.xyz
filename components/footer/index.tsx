@@ -3,6 +3,7 @@
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { LucideGithub } from "lucide-react";
+import DarkToggle from "../darkToggle";
 
 export default function Footer() {
   return (
@@ -16,6 +17,7 @@ export default function Footer() {
           <p>All statistics are sourced from Sprobble users.</p>
         </div>
         <div className="flex flex-row">
+          <DarkToggle />
           <Button asChild size="icon" variant="ghost">
             <a
               href="https://github.com/dishwasher-detergent/sprobble.xyz"
