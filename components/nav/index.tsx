@@ -26,7 +26,9 @@ export function Nav() {
             <Link href="/global/history">History</Link>
           </Button>
         </nav>
-        <Logo className="flex gap-2 md:flex-row md:items-center md:justify-center " />
+        <div className="order-1 lg:order-2">
+          <Logo className="flex gap-2 md:flex-row md:items-center md:justify-center " />
+        </div>
         <div className="order-3 flex justify-end">
           <LoginWithSpotify />
           <NavMenu />

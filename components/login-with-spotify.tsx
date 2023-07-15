@@ -8,8 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import UserTag from "@/components/user/tag";
-import { LucideLogIn, LucideMoon, LucideSun, LucideUser } from "lucide-react";
-import { useTheme } from "next-themes";
+import { LucideLogIn, LucideUser } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useAccount, useOAuth2SignIn, useSignOut } from "react-appwrite";
@@ -52,7 +51,6 @@ export function LoginWithSpotify() {
 }
 
 function UserDropDown({ userId }: { userId: string }) {
-  const { theme, setTheme } = useTheme();
   const signOut = useSignOut();
 
   return (
@@ -81,19 +79,6 @@ function UserDropDown({ userId }: { userId: string }) {
           >
             Logout
             <LucideLogIn className="mr-2 h-4 w-4" />
-          </button>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <button
-            className="flex w-full flex-row items-center justify-between text-base"
-            onClick={() => setTheme(theme == "dark" ? "light" : "dark")}
-          >
-            {theme}
-            {theme == "dark" ? (
-              <LucideSun className="mr-2 h-4 w-4" />
-            ) : (
-              <LucideMoon className="mr-2 h-4 w-4" />
-            )}
           </button>
         </DropdownMenuItem>
       </DropdownMenuContent>
