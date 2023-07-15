@@ -1,6 +1,6 @@
 import { ArtistsRecentlyPlayed } from "@/components/artist/recently-played";
 import { Header } from "@/components/header";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import StatsCard from "@/components/stats/card";
 import { Artist, Play } from "@/types/Types";
 import { Models } from "appwrite";
 
@@ -61,46 +61,24 @@ export default async function ArtistStatsPage({
         artwork_name={document.album[0].name}
       />
       <section className="grid w-full grid-cols-1 gap-4 py-6 md:grid-cols-3">
-        <Card className="flex-1">
-          <CardHeader>
-            <CardTitle className="h-6 text-sm font-medium tracking-tight">
-              Total Listens
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-4xl font-bold">{document.plays.length}</p>
-          </CardContent>
-        </Card>
-        <Card className="flex-1">
-          <CardHeader>
-            <CardTitle className="h-6 text-sm font-medium tracking-tight">
-              Total Unique Tracks Listened To
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-4xl font-bold">{document.track.length}</p>
-          </CardContent>
-        </Card>
-        <Card className="flex-1">
-          <CardHeader>
-            <CardTitle className="h-6 text-sm font-medium tracking-tight">
-              Time spent listening
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-4xl font-bold">
-              {(
-                document.plays
-                  .map((x: Play) => x.track.duration)
-                  .reduce((a: any, b: any) => a + b, 0) /
-                1000 /
-                60 /
-                60
-              ).toFixed(2)}{" "}
-              hours
-            </p>
-          </CardContent>
-        </Card>
+        <StatsCard value={document.plays.length}>
+          <>Total Listens</>
+        </StatsCard>
+        <StatsCard value={document.track.length}>
+          <>Total Unique Tracks Listened To</>
+        </StatsCard>
+        <StatsCard
+          value={`${(
+            document.plays
+              .map((x: Play) => x.track.duration)
+              .reduce((a: any, b: any) => a + b, 0) /
+            1000 /
+            60 /
+            60
+          ).toFixed(2)} hours`}
+        >
+          <>Time spent listening</>
+        </StatsCard>
       </section>
 
       <ArtistsRecentlyPlayed artist={artist} />
