@@ -26,7 +26,7 @@ module.exports = async function (req, res) {
 
   let done = false;
   let lastId = null;
-  let mainQueries = [sdk.Query.limit(25)];
+  let mainQueries = [sdk.Query.limit(25), sdk.Query.orderDesc("$createdAt")];
 
   while (!done) {
     let queries = [...mainQueries];
@@ -48,47 +48,55 @@ module.exports = async function (req, res) {
           new Date(data.documents[i].played_at)
         );
 
+        if (week_of_year < 27) continue;
+
         console.log("Checking if stat exists in the database.");
         // check if the item already exists in the database
-        const fetched_items = await database.listDocuments(
-          "645c032960cb9f95212b",
-          "stats",
-          [
+        const fetched_items = await database
+          .listDocuments("645c032960cb9f95212b", "stats", [
             sdk.Query.equal("user_id", data.documents[i].user_id),
             sdk.Query.equal("week_of_year", week_of_year),
-          ]
-        );
+          ])
+          .then(
+            (response) => response,
+            () => false
+          );
 
         if (fetched_items.documents.length > 0) {
           console.log("Updating stats.");
           // if it does, update the count
-          await database.updateDocument(
-            "645c032960cb9f95212b",
-            "stats",
-            fetched_items.documents[0].$id,
-            {
-              number_of_plays: fetched_items.documents[0].number_of_plays + 1,
-              time_spent_listening: (
-                Number(fetched_items.documents[0].time_spent_listening) +
-                data.documents[i].track.duration
-              ).toString(),
-            }
-          );
+          await database
+            .updateDocument(
+              "645c032960cb9f95212b",
+              "stats",
+              fetched_items.documents[0].$id,
+              {
+                number_of_plays: fetched_items.documents[0].number_of_plays + 1,
+                time_spent_listening: (
+                  Number(fetched_items.documents[0].time_spent_listening) +
+                  data.documents[i].track.duration
+                ).toString(),
+              }
+            )
+            .then(
+              (response) => console.log("Updated stat."),
+              (error) => console.log("error: ", error)
+            );
         } else {
           console.log("Creating new stat.");
           // if it doesn't, add it to the database
-          await database.createDocument(
-            "645c032960cb9f95212b",
-            "stats",
-            sdk.ID.unique(),
-            {
+          await database
+            .createDocument("645c032960cb9f95212b", "stats", sdk.ID.unique(), {
               user: data.documents[i].user_id,
               user_id: data.documents[i].user_id,
               number_of_plays: 1,
               time_spent_listening: data.documents[i].track.duration,
               week_of_year: week_of_year,
-            }
-          );
+            })
+            .then(
+              (response) => console.log("Created stat."),
+              (error) => console.log("error: ", error)
+            );
         }
       }
     }

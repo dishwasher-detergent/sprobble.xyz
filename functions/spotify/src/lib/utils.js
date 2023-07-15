@@ -37,12 +37,12 @@ const getAccessToken = async (
 };
 
 const getPlayerHistory = async (ACCESS_TOKEN) => {
-  const date = Date.now() - 900000;
+  const date = Date.now() - 1800000;
   console.log("After: ", date);
 
   const params = new URLSearchParams({
     after: date,
-    limit: 10,
+    limit: 25,
   });
 
   const response = await fetch(`${PLAYER_HISTORY_ENDPOINT}?${params}`, {
@@ -77,6 +77,7 @@ const addAlbumToDatabase = async (item, database) => {
 
   await database.getDocument("645c032960cb9f95212b", "album", album.id).then(
     () => {
+      console.log("Album already exists.");
       return;
     },
     async () => {
@@ -88,16 +89,11 @@ const addAlbumToDatabase = async (item, database) => {
           images: album.images?.map((image) => image.url) ?? [],
         })
         .then(
-          (response) => response,
-          (error) => {
-            console.log("error: ", error);
-            throw new Error(error);
-          }
+          (response) => "Album Created",
+          (error) => console.log("error: ", error)
         );
     }
   );
-
-  console.log("Album added.");
 };
 
 const addArtistToDatabase = async (item, database) => {
@@ -110,16 +106,18 @@ const addArtistToDatabase = async (item, database) => {
       .then(
         async (response) => {
           const albums = [...response.album.map((x) => x.$id)];
+          if (albums.length == 1 && albums[0] == album.id) return;
 
-          if (response.album.filter((x) => x.$id == album.id).length == 0)
-            await database.updateDocument(
-              "645c032960cb9f95212b",
-              "artist",
-              artists[i].id,
-              {
+          if (response.album.some((x) => x.$id == album.id)) {
+            await database
+              .updateDocument("645c032960cb9f95212b", "artist", artists[i].id, {
                 album: albums,
-              }
-            );
+              })
+              .then(
+                (response) => "Artist Updated",
+                (error) => console.log("error: ", error)
+              );
+          }
         },
         async () => {
           await database
@@ -132,17 +130,12 @@ const addArtistToDatabase = async (item, database) => {
               album: [album.id],
             })
             .then(
-              (response) => response,
-              (error) => {
-                console.log("error: ", error);
-                throw new Error(error);
-              }
+              (response) => "Artist Created",
+              (error) => console.log("error: ", error)
             );
         }
       );
   }
-
-  console.log("Artist added.");
 };
 
 const addTrackToDatabase = async (item, database) => {
@@ -152,6 +145,7 @@ const addTrackToDatabase = async (item, database) => {
 
   await database.getDocument("645c032960cb9f95212b", "track", item.id).then(
     () => {
+      console.log("Track already exists.");
       return;
     },
     async () => {
@@ -167,16 +161,11 @@ const addTrackToDatabase = async (item, database) => {
           artist: [...artists.map((x) => x.id)],
         })
         .then(
-          (response) => response,
-          (error) => {
-            console.log("error: ", error);
-            throw new Error(error);
-          }
+          (response) => "Track Created",
+          (error) => console.log("error: ", error)
         );
     }
   );
-
-  console.log("Track added.");
 };
 
 const addListenToDatabase = async (user_id, item, database) => {
@@ -205,14 +194,9 @@ const addListenToDatabase = async (user_id, item, database) => {
       album: track.album.id,
     })
     .then(
-      (response) => response,
-      (error) => {
-        console.log("error: ", error);
-        throw new Error(error);
-      }
+      (response) => "Play Created",
+      (error) => console.log("error: ", error)
     );
-
-  console.log("Listen added.");
 };
 
 module.exports = {
