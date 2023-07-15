@@ -1,7 +1,9 @@
 "use client";
 
 import { AudioPlayer } from "@/components/audio/player";
+import DarkToggle from "@/components/darkToggle";
 import { LoginWithSpotify } from "@/components/login-with-spotify";
+import { Logo } from "@/components/logo";
 import { NavMenu } from "@/components/nav/menu";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -24,14 +26,11 @@ export function Nav() {
             <Link href="/global/history">History</Link>
           </Button>
         </nav>
-        <Link href={"/"} className="order-1 lg:order-2">
-          <h1 className="flex flex-row items-center justify-center gap-2 text-xl font-black uppercase text-blue-600">
-            Sprobble
-          </h1>
-        </Link>
+        <Logo className="flex gap-2 md:flex-row md:items-center md:justify-center " />
         <div className="order-3 flex justify-end">
           <LoginWithSpotify />
           <NavMenu />
+          <DarkToggle />
         </div>
       </div>
       <AudioPlayer />

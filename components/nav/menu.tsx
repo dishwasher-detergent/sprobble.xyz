@@ -32,7 +32,7 @@ export function NavMenu() {
         <DropdownMenuLabel className="text-base">Global</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
+          <DropdownMenuItem asChild>
             <Link
               href={"/global/history"}
               className="flex w-full flex-row items-center gap-2 text-base"
@@ -41,7 +41,7 @@ export function NavMenu() {
               History
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem asChild>
             <Link
               href={"/global/stats/track"}
               className="flex w-full flex-row items-center gap-2 text-base"
@@ -50,7 +50,7 @@ export function NavMenu() {
               Tracks
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem asChild>
             <Link
               href={"/global/stats/album"}
               className="flex w-full flex-row items-center gap-2 text-base"
@@ -59,7 +59,7 @@ export function NavMenu() {
               Albums
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem asChild>
             <Link
               href={"/global/stats/artist"}
               className="flex w-full flex-row items-center gap-2 text-base"
