@@ -91,7 +91,15 @@ export default function HistoryItem({ track }: HistoryItemProps) {
           Listen on Spotify
           <span className="relative h-4 w-4 flex-none">
             <Image
+              className="block dark:hidden"
               src="/spotify/icon/Spotify_Icon_RGB_Black.png"
+              alt="Spotify Icon Logo"
+              fill
+              sizes="(max-width: 16px) 100vw"
+            />
+            <Image
+              className="hidden dark:block"
+              src="/spotify/icon/Spotify_Icon_RGB_White.png"
               alt="Spotify Icon Logo"
               fill
               sizes="(max-width: 16px) 100vw"

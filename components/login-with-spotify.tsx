@@ -40,7 +40,16 @@ export function LoginWithSpotify() {
     >
       Login
       <Image
+        className="block dark:hidden"
         src="/spotify/icon/Spotify_Icon_RGB_Black.png"
+        alt="Spotify Icon Logo"
+        width={16}
+        height={16}
+        sizes="(max-width: 16px) 100vw"
+      />
+      <Image
+        className="hidden dark:block"
+        src="/spotify/icon/Spotify_Icon_RGB_White.png"
         alt="Spotify Icon Logo"
         width={16}
         height={16}
