@@ -60,11 +60,16 @@ export default function Home() {
 
   const current_week_stats = stats?.documents.filter(
     (x) => x.week_of_year == getISOWeek(new Date())
-  )[0];
+  );
 
   const current_week_duration = current_week_stats
     ? (
-        Number(current_week_stats.time_spent_listening) /
+        Number(
+          current_week_stats.reduce(
+            (a, b) => a + Number(b.time_spent_listening),
+            0
+          )
+        ) /
         1000 /
         60 /
         60
@@ -151,7 +156,9 @@ export default function Home() {
               </>
             </StatsCard>
             <StatsCard
-              value={current_week_stats?.number_of_plays.toLocaleString()}
+              value={current_week_stats
+                ?.reduce((a, b) => a + Number(b.number_of_plays), 0)
+                ?.toLocaleString()}
               loading={statsLoading}
             >
               <>

@@ -47,6 +47,21 @@
             "execute": [],
             "events": [],
             "schedule": "",
+            "timeout": 600
+        },
+        {
+            "$id": "64b2f36d7fe9a6a4889c",
+            "name": "clear",
+            "runtime": "node-18.0",
+            "path": "functions/clear",
+            "entrypoint": "src/index.js",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
+            "execute": [],
+            "events": [],
+            "schedule": "",
             "timeout": 15
         }
     ]
