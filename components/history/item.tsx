@@ -50,7 +50,7 @@ export default function HistoryItem({ track }: HistoryItemProps) {
         </div>
       )}
       <div className="flex flex-1 flex-col overflow-hidden pb-6 pt-2">
-        <div className="flex flex-row items-center gap-2">
+        <div className="flex flex-row items-center gap-4">
           <p className="truncate text-xl font-bold">{track.track.name}</p>
           {track.track.explicit && (
             <div
@@ -86,7 +86,7 @@ export default function HistoryItem({ track }: HistoryItemProps) {
         <a
           href={track.track.href}
           target="_blank"
-          className="flex flex-row items-center gap-2 text-sm"
+          className="flex flex-row items-center gap-4 text-sm"
         >
           Listen on Spotify
           <span className="relative h-4 w-4 flex-none">

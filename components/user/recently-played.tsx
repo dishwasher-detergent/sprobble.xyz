@@ -1,6 +1,7 @@
 "use client";
 
 import { History } from "@/components/history";
+import { groupByDate } from "@/lib/utils";
 import { Query } from "appwrite";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -21,13 +22,11 @@ export function UserRecentlyPlayed({ user }: { user: string }) {
     Query.orderDesc("played_at"),
     Query.equal("user_id", user),
   ];
-  const [formattedPlays, setFormattedPlays] = useState<any>([]);
   const [queries, setQueries] = useState<any>([
     ...baseQuery,
     Query.limit(limit),
     Query.offset(0),
   ]);
-  const [pageCount, setPageCount] = useState<number>(0);
 
   const { data: plays, isLoading } = useCollection(
     databaseId,
@@ -35,39 +34,8 @@ export function UserRecentlyPlayed({ user }: { user: string }) {
     queries
   );
 
-  const groupByDate = (data: any) => {
-    if (!data) return;
-
-    return data.reduce((acc: any, val: any) => {
-      const date = new Date(val.played_at)
-        .toLocaleString("en-US", {
-          month: "2-digit",
-          day: "2-digit",
-          year: "numeric",
-        })
-        .match(/\d{2}\/\d{2}\/\d{4}/g)
-        ?.toString();
-
-      if (!date) return;
-
-      const item = acc.find((item: any) =>
-        item.date.match(new RegExp(date, "g"))
-      );
-
-      if (!item) acc.push({ date: date, tracks: [val] });
-      else item.tracks.push(val);
-
-      return acc;
-    }, []);
-  };
-
-  useEffect(() => {
-    if (isLoading) return;
-    if (!plays) return;
-
-    setPageCount(Math.ceil(plays.total / limit));
-    setFormattedPlays(groupByDate(plays.documents));
-  }, [plays]);
+  const formattedPlays = groupByDate(plays?.documents);
+  const pageCount = plays ? Math.ceil(plays.total / limit) : 1;
 
   useEffect(() => {
     const queries = Array.from(query.entries());

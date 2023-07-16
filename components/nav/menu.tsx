@@ -35,7 +35,7 @@ export function NavMenu() {
           <DropdownMenuItem asChild>
             <Link
               href={"/global/history"}
-              className="flex w-full flex-row items-center gap-2 text-base"
+              className="flex w-full flex-row items-center gap-4 text-base"
             >
               <LucideFileClock size={16} />
               History
@@ -44,7 +44,7 @@ export function NavMenu() {
           <DropdownMenuItem asChild>
             <Link
               href={"/global/stats/track"}
-              className="flex w-full flex-row items-center gap-2 text-base"
+              className="flex w-full flex-row items-center gap-4 text-base"
             >
               <LucideCassetteTape size={16} />
               Tracks
@@ -53,7 +53,7 @@ export function NavMenu() {
           <DropdownMenuItem asChild>
             <Link
               href={"/global/stats/album"}
-              className="flex w-full flex-row items-center gap-2 text-base"
+              className="flex w-full flex-row items-center gap-4 text-base"
             >
               <LucideDisc2 size={16} />
               Albums
@@ -62,7 +62,7 @@ export function NavMenu() {
           <DropdownMenuItem asChild>
             <Link
               href={"/global/stats/artist"}
-              className="flex w-full flex-row items-center gap-2 text-base"
+              className="flex w-full flex-row items-center gap-4 text-base"
             >
               <LucidePersonStanding size={16} />
               Artists

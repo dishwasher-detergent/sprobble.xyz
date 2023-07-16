@@ -29,7 +29,7 @@ export default function RootLayout({
               <main className="relative flex flex-1 flex-col">
                 <Nav />
                 <div className="flex w-screen flex-1 flex-col overflow-y-auto overflow-x-hidden md:w-full">
-                  <div className="relative mx-auto w-full max-w-7xl flex-1 p-4">
+                  <div className="relative mx-auto w-full max-w-screen-2xl flex-1 p-4">
                     {children}
                   </div>
                   <Footer />

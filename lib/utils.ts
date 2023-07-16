@@ -21,7 +21,7 @@ function str_pad_left(string: number, pad: string, length: number) {
 export function groupByDate(data: any) {
   if (!data) return;
 
-  const formatted = data.reduce((acc: any, val: any) => {
+  return data.reduce((acc: any, val: any) => {
     const date = new Date(val.played_at)
       .toLocaleString("en-US", {
         month: "2-digit",
@@ -30,15 +30,6 @@ export function groupByDate(data: any) {
       })
       .match(/\d{2}\/\d{2}\/\d{4}/g)
       ?.toString();
-
-    val["album"] = {
-      // @ts-ignore
-      name: plays.documents[0].name,
-      // @ts-ignore
-      $id: plays.documents[0].$id,
-      // @ts-ignore
-      images: plays.documents[0].images,
-    };
 
     if (!date) return;
 
@@ -51,8 +42,6 @@ export function groupByDate(data: any) {
 
     return acc;
   }, []);
-
-  return formatted.sort(custom_sort).reverse();
 };
 
 export function custom_sort(a: any, b: any) {

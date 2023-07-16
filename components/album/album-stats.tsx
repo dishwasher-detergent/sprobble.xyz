@@ -39,7 +39,7 @@ const columns: ColumnDef<any>[] = [
       return (
         <Link
           href={`/global/stats/album/${props.row.original.id}`}
-          className="flex flex-row items-center gap-2 hover:text-blue-600"
+          className="flex flex-row items-center gap-4 hover:text-blue-600"
         >
           <LucideDisc2 className="flex-none" size={16} />
           {props.row.original.name}
@@ -52,7 +52,7 @@ const columns: ColumnDef<any>[] = [
     header: "Number of Songs",
     cell(props) {
       return (
-        <span className="flex flex-row items-center gap-2">
+        <span className="flex flex-row items-center gap-4">
           <LucideCassetteTape className="flex-none" size={16} />
           {props.row.original.songs}
         </span>
@@ -64,7 +64,7 @@ const columns: ColumnDef<any>[] = [
     header: "Number of Plays",
     cell(props) {
       return (
-        <span className="flex flex-row items-center gap-2">
+        <span className="flex flex-row items-center gap-4">
           <LucideMusic2 className="flex-none" size={16} />
           {props.row.original.plays}
         </span>
@@ -89,7 +89,6 @@ export function AlbumStats() {
     Query.limit(limit),
     Query.offset(0),
   ]);
-  const [pageCount, setPageCount] = useState<number>(0);
 
   const {
     data: plays,
@@ -110,11 +109,7 @@ export function AlbumStats() {
       }))
     : [];
 
-  useEffect(() => {
-    if (isLoading) return;
-    if (!plays) return;
-    setPageCount(Math.ceil(plays.total / limit));
-  }, [plays]);
+  const pageCount = plays ? Math.ceil(plays.total / limit) : 1;
 
   useEffect(() => {
     const queries = Array.from(query.entries());

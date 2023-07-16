@@ -93,14 +93,22 @@ export default async function UserPage({
   ).toFixed(2);
 
   return (
-    <div className="mx-auto max-w-7xl">
+    <>
       <Header
         title={user.name}
+        subTitle={`Created ${new Date(user.created_at).toLocaleDateString(
+          "en-us",
+          {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+          }
+        )}`}
         artwork={`https://api.dicebear.com/6.x/thumbs/svg?seed=${user.$id}`}
         artwork_name={user.name + "'s avatar"}
       />
       <section className="flex flex-col gap-4 py-4">
-        <div className="flex w-full flex-row flex-nowrap gap-2 overflow-x-auto">
+        <div className="flex w-full flex-row flex-nowrap gap-4 overflow-x-auto">
           <StatsCard
             value={current_week_stats.number_of_plays.toLocaleString()}
           >
@@ -116,7 +124,7 @@ export default async function UserPage({
             </>
           </StatsCard>
         </div>
-        <div className="flex w-full flex-row flex-nowrap gap-2 overflow-x-auto">
+        <div className="flex w-full flex-row flex-nowrap gap-4 overflow-x-auto">
           <StatsCard value={`${current_week_duration} hours`}>
             <>
               <span>Week To Date Time spent listening</span>
@@ -138,6 +146,6 @@ export default async function UserPage({
         </div>
       </section>
       <UserRecentlyPlayed user={params.user} />
-    </div>
+    </>
   );
 }

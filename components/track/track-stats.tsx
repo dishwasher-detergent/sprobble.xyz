@@ -39,7 +39,7 @@ const columns: ColumnDef<any>[] = [
     header: "Name",
     cell(props) {
       return (
-        <span className="flex flex-row items-center gap-2">
+        <span className="flex flex-row items-center gap-4">
           <LucideCassetteTape className="flex-none" size={16} />
           {props.row.original.name}
         </span>
@@ -53,7 +53,7 @@ const columns: ColumnDef<any>[] = [
       return (
         <Link
           href={`/global/stats/album/${props.row.original.album.$id}`}
-          className="flex flex-row items-center gap-2 hover:text-blue-600"
+          className="flex flex-row items-center gap-4 hover:text-blue-600"
         >
           <LucideDisc2 size={16} className="flex-none" />
           {props.row.original.album.name}
@@ -66,14 +66,14 @@ const columns: ColumnDef<any>[] = [
     header: "Artist",
     cell(props) {
       return (
-        <span className="flex flex-row items-center gap-2">
+        <span className="flex flex-row items-center gap-4">
           <LucidePersonStanding size={16} className="flex-none" />
           {props.row.original.artists.map((artist: Artist, index: number) => {
             return (
               <Link
                 key={artist.$id}
                 href={`/global/stats/artist/${artist.$id}`}
-                className="flex flex-row items-center gap-2 hover:text-blue-600"
+                className="flex flex-row items-center gap-4 hover:text-blue-600"
               >
                 {artist.name}
                 {index < props.row.original.artists.length - 1 && ", "}
@@ -89,7 +89,7 @@ const columns: ColumnDef<any>[] = [
     header: "Number of Plays",
     cell(props) {
       return (
-        <span className="flex flex-row items-center gap-2">
+        <span className="flex flex-row items-center gap-4">
           <LucideMusic2 size={16} className="flex-none" />
           {props.row.original.plays}
         </span>
@@ -114,7 +114,6 @@ export default function TrackStats() {
     Query.limit(limit),
     Query.offset(0),
   ]);
-  const [pageCount, setPageCount] = useState<number>(0);
 
   const {
     data: plays,
@@ -136,11 +135,7 @@ export default function TrackStats() {
       }))
     : [];
 
-  useEffect(() => {
-    if (isLoading) return;
-    if (!plays) return;
-    setPageCount(Math.ceil(plays.total / limit));
-  }, [plays]);
+  const pageCount = plays ? Math.ceil(plays.total / limit) : 1;
 
   useEffect(() => {
     const queries = Array.from(query.entries());

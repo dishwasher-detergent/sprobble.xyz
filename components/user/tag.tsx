@@ -53,7 +53,7 @@ export default function UserTag({ userId, hover = true }: UserTagProps) {
   return profile ? (
     <HoverCard>
       <HoverCardTrigger asChild>
-        <Link href={`/user/${userId}`} className="flex items-center gap-2">
+        <Link href={`/user/${userId}`} className="flex items-center gap-4">
           <Avatar className="h-6 w-6">
             <AvatarImage
               src={`https://api.dicebear.com/6.x/thumbs/svg?seed=${userId}`}
@@ -82,8 +82,9 @@ export default function UserTag({ userId, hover = true }: UserTagProps) {
                 <LucideCalendarDays className="mr-2 h-4 w-4 opacity-70" />{" "}
                 <span className="text-xs text-muted-foreground">
                   Joined{" "}
-                  {new Date().toLocaleDateString("en-us", {
+                  {new Date(profile.created_at).toLocaleDateString("en-us", {
                     month: "long",
+                    day: "numeric",
                     year: "numeric",
                   })}
                 </span>

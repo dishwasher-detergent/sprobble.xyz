@@ -2,6 +2,7 @@
 
 import { History } from "@/components/history";
 import StatsCard from "@/components/stats/card";
+import { groupByDate } from "@/lib/utils";
 import { Query } from "appwrite";
 import { eachWeekOfInterval, getISOWeek } from "date-fns";
 import {
@@ -11,7 +12,7 @@ import {
   LucidePersonStanding,
   LucideTrendingUp,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useCollection } from "react-appwrite";
 
 const databaseId = "645c032960cb9f95212b";
@@ -21,7 +22,6 @@ export default function Home() {
   const itemCount = 10;
   const query = [Query.orderDesc("played_at"), Query.limit(itemCount)];
 
-  const [formattedPlays, setFormattedPlays] = useState<any>([]);
   const [queries, setQueries] = useState<any>(query);
 
   const { data: plays, isLoading } = useCollection(
@@ -108,37 +108,7 @@ export default function Home() {
     60
   ).toFixed(2);
 
-  const groupByDate = (data: any) => {
-    if (!data) return;
-
-    return data.reduce((acc: any, val: any) => {
-      const date = new Date(val.played_at)
-        .toLocaleString("en-US", {
-          month: "2-digit",
-          day: "2-digit",
-          year: "numeric",
-        })
-        .match(/\d{2}\/\d{2}\/\d{4}/g)
-        ?.toString();
-
-      if (!date) return;
-
-      const item = acc.find((item: any) =>
-        item.date.match(new RegExp(date, "g"))
-      );
-
-      if (!item) acc.push({ date: date, tracks: [val] });
-      else item.tracks.push(val);
-
-      return acc;
-    }, []);
-  };
-
-  useEffect(() => {
-    if (isLoading) return;
-    // @ts-ignore
-    setFormattedPlays(groupByDate(plays.documents));
-  }, [plays]);
+  const formattedPlays = groupByDate(plays?.documents);
 
   return (
     <>
