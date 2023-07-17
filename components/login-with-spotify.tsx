@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import UserTag from "@/components/user/tag";
 import { LucideLogIn, LucideUser } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useAccount, useOAuth2SignIn, useSignOut } from "react-appwrite";
 
@@ -39,21 +38,19 @@ export function LoginWithSpotify() {
       }
     >
       Login
-      <Image
+      <img
         className="block dark:hidden"
         src="/spotify/icon/Spotify_Icon_RGB_Black.png"
         alt="Spotify Icon Logo"
         width={16}
         height={16}
-        sizes="(max-width: 16px) 100vw"
       />
-      <Image
+      <img
         className="hidden dark:block"
         src="/spotify/icon/Spotify_Icon_RGB_White.png"
         alt="Spotify Icon Logo"
         width={16}
         height={16}
-        sizes="(max-width: 16px) 100vw"
       />
     </Button>
   );

@@ -1,5 +1,4 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import Image from "next/image";
 
 export default function HistoryItemLoading() {
   return (
@@ -17,11 +16,10 @@ export default function HistoryItemLoading() {
           <p className="flex flex-row items-center gap-4 text-sm">
             Listen on Spotify
             <span className="relative h-4 w-4 flex-none">
-              <Image
+              <img
+                className="h-4 w-4"
                 src="/spotify/icon/Spotify_Icon_RGB_Black.png"
                 alt="Spotify Icon Logo"
-                fill
-                sizes="(max-width: 16px) 100vw"
               />
             </span>
           </p>

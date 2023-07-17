@@ -6,7 +6,6 @@ import UserTag from "@/components/user/tag";
 import { getHSL } from "@/lib/utils";
 import { Artist, Play } from "@/types/Types";
 import { useColor } from "color-thief-react";
-import Image from "next/image";
 
 interface HistoryItemProps {
   track: Play;
@@ -31,12 +30,10 @@ export default function HistoryItem({ track }: HistoryItemProps) {
     >
       {track.album?.images && (
         <div className="relative aspect-square w-full overflow-hidden rounded-lg">
-          <Image
+          <img
             alt={track.album.name}
             src={track.album.images[1]}
-            fill
-            sizes="(max-width: 256px) 100vw"
-            priority={true}
+            className="absolute inset-0 h-full w-full object-cover"
           />
           <Audio
             file={{
@@ -90,19 +87,15 @@ export default function HistoryItem({ track }: HistoryItemProps) {
         >
           Listen on Spotify
           <span className="relative h-4 w-4 flex-none">
-            <Image
-              className="block dark:hidden"
+            <img
+              className="block h-4 w-4 dark:hidden"
               src="/spotify/icon/Spotify_Icon_RGB_Black.png"
               alt="Spotify Icon Logo"
-              fill
-              sizes="(max-width: 16px) 100vw"
             />
-            <Image
-              className="hidden dark:block"
+            <img
+              className="hidden h-4 w-4 dark:block"
               src="/spotify/icon/Spotify_Icon_RGB_White.png"
               alt="Spotify Icon Logo"
-              fill
-              sizes="(max-width: 16px) 100vw"
             />
           </span>
         </a>
