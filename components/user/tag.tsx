@@ -38,7 +38,7 @@ export default function UserTag({ userId, hover = true }: UserTagProps) {
   return profile ? (
     <HoverCard>
       <HoverCardTrigger asChild>
-        <Link href={`/user/${userId}`} className="flex items-center gap-4">
+        <Link href={`/user/${userId}`} className="flex items-center gap-2">
           <Avatar className="h-6 w-6">
             <AvatarImage
               src={`https://api.dicebear.com/6.x/thumbs/svg?seed=${userId}`}
