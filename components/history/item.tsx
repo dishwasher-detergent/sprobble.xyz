@@ -83,7 +83,7 @@ export default function HistoryItem({ track }: HistoryItemProps) {
         <a
           href={track.track.href}
           target="_blank"
-          className="flex flex-row items-center gap-4 text-sm"
+          className="flex flex-row items-center gap-2 text-sm"
         >
           Listen on Spotify
           <span className="relative h-4 w-4 flex-none">

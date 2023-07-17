@@ -13,7 +13,7 @@ export default function HistoryItemLoading() {
             <Skeleton className="h-4 w-[75px]" />
             <Skeleton className="h-4 w-[75px]" />
           </div>
-          <p className="flex flex-row items-center gap-4 text-sm">
+          <p className="flex flex-row items-center gap-2 text-sm">
             Listen on Spotify
             <span className="relative h-4 w-4 flex-none">
               <img
