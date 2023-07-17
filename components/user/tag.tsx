@@ -10,8 +10,7 @@ import { User } from "@/types/Types";
 import { getISOWeek } from "date-fns";
 import { LucideCalendarDays } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
-import { useAppwrite } from "react-appwrite";
+import { useDocument } from "react-appwrite";
 
 interface UserTagProps {
   userId: string;
@@ -19,36 +18,22 @@ interface UserTagProps {
 }
 
 export default function UserTag({ userId, hover = true }: UserTagProps) {
-  const [profile, setProfile] = useState<User>();
-  const { databases } = useAppwrite();
-
-  useEffect(() => {
-    databases
-      .getDocument<User>("645c032960cb9f95212b", "user", userId)
-      .then((response) => {
-        setProfile(response);
-      })
-      .catch(() => {
-        setProfile(undefined);
-      });
-  }, []);
-
-  const current_week_stats = useMemo(
-    () =>
-      profile?.stats.filter((x) => x.week_of_year == getISOWeek(new Date()))[0],
-    [profile]
+  const { data: profile } = useDocument<User>(
+    "645c032960cb9f95212b",
+    "user",
+    userId
   );
 
-  const current_week_duration = useMemo(
-    () =>
-      (
-        Number(current_week_stats?.time_spent_listening) /
-        1000 /
-        60 /
-        60
-      ).toFixed(2),
-    [current_week_stats]
-  );
+  const current_week_stats = profile?.stats.filter(
+    (x) => x.week_of_year == getISOWeek(new Date())
+  )[0];
+
+  const current_week_duration = (
+    Number(current_week_stats?.time_spent_listening) /
+    1000 /
+    60 /
+    60
+  ).toFixed(2);
 
   return profile ? (
     <HoverCard>
