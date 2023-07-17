@@ -13,8 +13,12 @@ export default function Footer() {
       </div>
       <div className="flex flex-row flex-wrap items-start justify-between">
         <div className="text-sm">
-          <p>All track/artist/album data is sourced from the Spotify API.</p>
-          <p>All statistics are sourced from Sprobble users.</p>
+          <p>© {new Date().getFullYear()} - Sprobble.xyz</p>
+          <p>
+            All copyrighted content (i.e. album artwork) on sprobble.xyz are
+            owned by their respective owners. Data is provided by Spotify AB.
+            sprobble.xyz is in no way affiliated with Spotify AB.
+          </p>
         </div>
         <div className="flex flex-row">
           <DarkToggle />
