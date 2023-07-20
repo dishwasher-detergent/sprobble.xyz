@@ -109,39 +109,34 @@ export default async function UserPage({
       />
       <section className="flex flex-col gap-4 py-4">
         <div className="flex w-full flex-row flex-nowrap gap-4 overflow-x-auto">
-          <StatsCard
-            value={current_week_stats.number_of_plays.toLocaleString()}
-          >
-            <>
-              <span>Week To Date</span>
-              <LucideTrendingUp size={16} />
-            </>
+          <StatsCard title="Week To Date" icon={<LucideTrendingUp size={16} />}>
+            {current_week_stats.number_of_plays.toLocaleString()}
           </StatsCard>
-          <StatsCard value={year_plays.toLocaleString()}>
-            <>
-              <span>Year To Date Scrobbles</span>
-              <LucideTrendingUp size={16} />
-            </>
+          <StatsCard
+            title="Year To Date Scrobbles"
+            icon={<LucideTrendingUp size={16} />}
+          >
+            {year_plays.toLocaleString()}
           </StatsCard>
         </div>
         <div className="flex w-full flex-row flex-nowrap gap-4 overflow-x-auto">
-          <StatsCard value={`${current_week_duration} hours`}>
-            <>
-              <span>Week To Date Time spent listening</span>
-              <LucideClock5 size={16} />
-            </>
+          <StatsCard
+            title="Week To Date Time spent listening"
+            icon={<LucideClock5 size={16} />}
+          >
+            {`${current_week_duration} hours`}
           </StatsCard>
-          <StatsCard value={`${current_month_duration} hours`}>
-            <>
-              <span>Month To Date Time spent listening</span>
-              <LucideClock5 size={16} />
-            </>
+          <StatsCard
+            title="Month To Date Time spent listening"
+            icon={<LucideClock5 size={16} />}
+          >
+            {`${current_month_duration} hours`}
           </StatsCard>
-          <StatsCard value={`${year_duration} hours`}>
-            <>
-              <span>Year To Date Time spent listening</span>
-              <LucideClock5 size={16} />
-            </>
+          <StatsCard
+            title="Year To Date Time spent listening"
+            icon={<LucideClock5 size={16} />}
+          >
+            {`${year_duration} hours`}
           </StatsCard>
         </div>
       </section>

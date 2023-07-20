@@ -73,11 +73,11 @@ export default async function AlbumStatsPage({
         artwork_name={document.name}
       />
       <section className="grid w-full grid-cols-1 gap-4 py-6 md:grid-cols-3">
-        <StatsCard value={document.plays.length}>
-          <>Total Plays From This Album</>
+        <StatsCard title="Total Plays From This Album">
+          {document.plays.length}
         </StatsCard>
-        <StatsCard
-          value={`${(
+        <StatsCard title="Time spent listening">
+          {`${(
             document.plays
               .map((x: Play) => x.track.duration)
               .reduce((a: any, b: any) => a + b, 0) /
@@ -85,8 +85,6 @@ export default async function AlbumStatsPage({
             60 /
             60
           ).toFixed(2)} hours`}
-        >
-          <>Time spent listening</>
         </StatsCard>
       </section>
       <AlbumRecentlyPlayed album={album} />

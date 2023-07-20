@@ -2,9 +2,10 @@
 
 import { History } from "@/components/history";
 import StatsCard from "@/components/stats/card";
+import CustomTooltip from "@/components/stats/tooltips";
 import { groupByDate } from "@/lib/utils";
+import { Stat } from "@/types/Types";
 import { Query } from "appwrite";
-import { eachWeekOfInterval, getISOWeek } from "date-fns";
 import {
   LucideCassetteTape,
   LucideClock5,
@@ -12,8 +13,10 @@ import {
   LucidePersonStanding,
   LucideTrendingUp,
 } from "lucide-react";
+import { useTheme } from "next-themes";
 import { useState } from "react";
 import { useCollection } from "react-appwrite";
+import { Area, AreaChart, ResponsiveContainer, Tooltip } from "recharts";
 
 const databaseId = "645c032960cb9f95212b";
 const collectionId = "plays";
@@ -22,6 +25,7 @@ export default function Home() {
   const itemCount = 10;
   const query = [Query.orderDesc("played_at"), Query.limit(itemCount)];
 
+  const { theme, setTheme } = useTheme();
   const [queries, setQueries] = useState<any>(query);
 
   const { data: plays, isLoading } = useCollection(
@@ -53,62 +57,19 @@ export default function Home() {
     "user",
     [Query.limit(1)]
   );
-  const { data: stats, isLoading: statsLoading } = useCollection(
+  const { data: stats, isLoading: statsLoading } = useCollection<Stat>(
     databaseId,
-    "stats"
+    "stats",
+    [Query.orderAsc("week_of_year")]
   );
-
-  const current_week_stats = stats?.documents.filter(
-    (x) => x.week_of_year == getISOWeek(new Date())
-  );
-
-  const current_week_duration = current_week_stats
-    ? (
-        Number(
-          current_week_stats.reduce(
-            (a, b) => a + Number(b.time_spent_listening),
-            0
-          )
-        ) /
-        1000 /
-        60 /
-        60
-      ).toFixed(2)
-    : "";
-
-  const year_plays = stats?.documents.reduce(
-    (a, b) => a + b.number_of_plays,
-    0
-  );
-
-  const year_duration = (
-    Number(
-      stats?.documents.reduce((a, b) => a + Number(b.time_spent_listening), 0)
-    ) /
-    1000 /
-    60 /
-    60
-  ).toFixed(2);
-
-  const weeksInMonth = eachWeekOfInterval({
-    start: new Date(),
-    end: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0),
-  });
-
-  const current_month_duration = (
-    stats?.documents
-      .filter(
-        (x) =>
-          x.week_of_year >= getISOWeek(weeksInMonth[0]) &&
-          x.week_of_year <= getISOWeek(weeksInMonth[weeksInMonth.length - 1])
-      )
-      .reduce((a, b) => a + Number(b.time_spent_listening), 0) /
-    1000 /
-    60 /
-    60
-  ).toFixed(2);
 
   const formattedPlays = groupByDate(plays?.documents);
+
+  const year_to_date = stats?.documents.map((stat: Stat) => ({
+    name: `Week ${stat.week_of_year}`,
+    plays: stat.number_of_plays,
+    duration: (Number(stat.time_spent_listening) / 1000 / 60 / 60).toFixed(2),
+  }));
 
   return (
     <>
@@ -117,59 +78,76 @@ export default function Home() {
           <h2 className="text-xl font-black md:text-3xl">Users Stats</h2>
           <div className="flex w-full flex-row flex-nowrap gap-4 overflow-x-auto">
             <StatsCard
-              value={users?.total.toLocaleString()}
-              loading={userLoading}
-            >
-              <>
-                <span>Total Users</span>
-                <LucideTrendingUp size={16} />
-              </>
-            </StatsCard>
-            <StatsCard
-              value={current_week_stats
-                ?.reduce((a, b) => a + Number(b.number_of_plays), 0)
-                ?.toLocaleString()}
+              title="Year To Date Scrobbles"
+              icon={<LucideTrendingUp size={16} />}
               loading={statsLoading}
             >
-              <>
-                <span>Week To Date</span>
-                <LucideTrendingUp size={16} />
-              </>
+              {year_to_date?.reduce((a, b) => a + b.plays, 0).toLocaleString()}
+              <ResponsiveContainer width={"100%"} height={100}>
+                <AreaChart data={year_to_date}>
+                  <Tooltip content={<CustomTooltip />} />
+                  <defs>
+                    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                      <stop
+                        offset="5%"
+                        stopColor={theme == "dark" ? "#dbeafe" : "#2563eb"}
+                        stopOpacity={0.8}
+                      />
+                      <stop
+                        offset="95%"
+                        stopColor={theme == "dark" ? "#dbeafe" : "#2563eb"}
+                        stopOpacity={0}
+                      />
+                    </linearGradient>
+                  </defs>
+                  <Area
+                    unit={"Scrobbles"}
+                    type="basis"
+                    dataKey="plays"
+                    stroke={theme == "dark" ? "#dbeafe" : "#2563eb"}
+                    fill="url(#colorUv)"
+                    strokeWidth={5}
+                    dot={false}
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
             </StatsCard>
             <StatsCard
-              value={year_plays?.toLocaleString()}
+              title="Year To Date Time spent listening"
+              icon={<LucideClock5 size={16} />}
               loading={statsLoading}
             >
-              <>
-                <span>Year To Date Scrobbles</span>
-                <LucideTrendingUp size={16} />
-              </>
-            </StatsCard>
-          </div>
-          <div className="flex w-full flex-row flex-nowrap gap-4 overflow-x-auto">
-            <StatsCard
-              value={`${current_week_duration} hours`}
-              loading={statsLoading}
-            >
-              <>
-                <span>Week To Date Time spent listening</span>
-                <LucideClock5 size={16} />
-              </>
-            </StatsCard>
-            <StatsCard
-              value={`${current_month_duration} hours`}
-              loading={statsLoading}
-            >
-              <>
-                <span>Month To Date Time spent listening</span>
-                <LucideClock5 size={16} />
-              </>
-            </StatsCard>
-            <StatsCard value={`${year_duration} hours`} loading={statsLoading}>
-              <>
-                <span>Year To Date Time spent listening</span>
-                <LucideClock5 size={16} />
-              </>
+              {year_to_date
+                ?.reduce((a, b) => a + Number(b.duration), 0)
+                .toLocaleString() + " Hours"}
+              <ResponsiveContainer width={"100%"} height={100}>
+                <AreaChart data={year_to_date}>
+                  <Tooltip content={<CustomTooltip />} />
+                  <defs>
+                    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                      <stop
+                        offset="5%"
+                        stopColor={theme == "dark" ? "#dbeafe" : "#2563eb"}
+                        stopOpacity={0.8}
+                      />
+                      <stop
+                        offset="95%"
+                        stopColor={theme == "dark" ? "#dbeafe" : "#2563eb"}
+                        stopOpacity={0}
+                      />
+                    </linearGradient>
+                  </defs>
+                  <Area
+                    unit={"Hours"}
+                    type="basis"
+                    dataKey="duration"
+                    stroke={theme == "dark" ? "#dbeafe" : "#2563eb"}
+                    fill="url(#colorUv)"
+                    strokeWidth={5}
+                    dot={false}
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
             </StatsCard>
           </div>
         </div>
@@ -177,31 +155,25 @@ export default function Home() {
           <h2 className="text-xl font-black md:text-3xl">Music Stats</h2>
           <div className="flex w-full flex-row flex-nowrap gap-4 overflow-x-auto">
             <StatsCard
-              value={artists?.total.toLocaleString()}
+              title="Total Unique Artists"
+              icon={<LucidePersonStanding size={16} />}
               loading={artistLoading}
             >
-              <>
-                <span>Total Unique Artists</span>
-                <LucidePersonStanding size={16} />
-              </>
+              {artists?.total.toLocaleString()}
             </StatsCard>
             <StatsCard
-              value={albums?.total.toLocaleString()}
+              title="Total Unique Albums"
+              icon={<LucideDisc2 size={16} />}
               loading={albumLoading}
             >
-              <>
-                <span>Total Unique Albums</span>
-                <LucideDisc2 size={16} />
-              </>
+              {albums?.total.toLocaleString()}
             </StatsCard>
             <StatsCard
-              value={tracks?.total.toLocaleString()}
+              title="Total Unique Tracks"
+              icon={<LucideCassetteTape size={16} />}
               loading={trackLoading}
             >
-              <>
-                <span>Total Unique Tracks</span>
-                <LucideCassetteTape size={16} />
-              </>
+              {tracks?.total.toLocaleString()}
             </StatsCard>
           </div>
         </div>
