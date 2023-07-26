@@ -87,6 +87,7 @@ const addAlbumToDatabase = async (item, database) => {
           href: album.external_urls.spotify,
           popularity: album.popularity,
           images: album.images?.map((image) => image.url) ?? [],
+          genres: album.genres,
         })
         .then(
           (response) => "Album Created",
