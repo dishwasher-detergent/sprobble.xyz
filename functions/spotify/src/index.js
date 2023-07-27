@@ -71,18 +71,25 @@ module.exports = async function (req, res) {
     const history = await utils.getPlayerHistory(
       spotifyAccessToken.access_token
     );
-
+    
     console.log("User history fetched");
 
-    for (let j = 0; j < history.items.length; j++) {
-      await utils.addToDatabase(history.items[j], database);
+    const albumIds = history.items.map(item => item.track.album.id);
+    const albums = await utils.getSeveralTracks(spotifyAccessToken.access_token, albumIds);
+    await utils.addAlbumToDatabase(albums, database);
 
-      await utils.addListenToDatabase(
-        fetched_users.users[i].$id,
-        history.items[j],
-        database
-      );
-    }
+    const artistIds = history.items.map(item => item.track.artists.map(artist => artist.id)).flat();
+    const artists = await utils.getSeveralTracks(spotifyAccessToken.access_token, artistIds);
+    await utils.addArtistToDatabase(artists, database);
+
+    const trackIds = history.items.map(item => item.track.id);
+    const tracks = await utils.getSeveralTracks(spotifyAccessToken.access_token, trackIds);
+    await utils.addTrackToDatabase(tracks, database);
+    await utils.addListenToDatabase(
+      fetched_users.users[i].$id,
+      tracks,
+      database
+    );
   }
 
   res.send("Complete!");
