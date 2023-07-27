@@ -8,7 +8,6 @@ import { Stat } from "@/types/Types";
 import { Query } from "appwrite";
 import {
   LucideCassetteTape,
-  LucideClock5,
   LucideDisc2,
   LucidePersonStanding,
   LucideTrendingUp,
@@ -52,11 +51,6 @@ export default function Home() {
     "artist",
     [Query.limit(1)]
   );
-  const { data: users, isLoading: userLoading } = useCollection(
-    databaseId,
-    "user",
-    [Query.limit(1)]
-  );
   const { data: stats, isLoading: statsLoading } = useCollection<Stat>(
     databaseId,
     "stats",
@@ -82,41 +76,9 @@ export default function Home() {
               icon={<LucideTrendingUp size={16} />}
               loading={statsLoading}
             >
-              {year_to_date?.reduce((a, b) => a + b.plays, 0).toLocaleString()}
-              <ResponsiveContainer width={"100%"} height={100}>
-                <AreaChart data={year_to_date}>
-                  <Tooltip content={<CustomTooltip />} />
-                  <defs>
-                    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                      <stop
-                        offset="5%"
-                        stopColor={theme == "dark" ? "#dbeafe" : "#2563eb"}
-                        stopOpacity={0.8}
-                      />
-                      <stop
-                        offset="95%"
-                        stopColor={theme == "dark" ? "#dbeafe" : "#2563eb"}
-                        stopOpacity={0}
-                      />
-                    </linearGradient>
-                  </defs>
-                  <Area
-                    unit={"Scrobbles"}
-                    type="basis"
-                    dataKey="plays"
-                    stroke={theme == "dark" ? "#dbeafe" : "#2563eb"}
-                    fill="url(#colorUv)"
-                    strokeWidth={5}
-                    dot={false}
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
-            </StatsCard>
-            <StatsCard
-              title="Year To Date Time spent listening"
-              icon={<LucideClock5 size={16} />}
-              loading={statsLoading}
-            >
+              {year_to_date?.reduce((a, b) => a + b.plays, 0).toLocaleString() +
+                " Scrobbles"}
+              <br />
               {year_to_date
                 ?.reduce((a, b) => a + Number(b.duration), 0)
                 .toLocaleString() + " Hours"}
@@ -138,9 +100,9 @@ export default function Home() {
                     </linearGradient>
                   </defs>
                   <Area
-                    unit={"Hours"}
+                    unit={"Scrobbles"}
                     type="basis"
-                    dataKey="duration"
+                    dataKey="plays"
                     stroke={theme == "dark" ? "#dbeafe" : "#2563eb"}
                     fill="url(#colorUv)"
                     strokeWidth={5}

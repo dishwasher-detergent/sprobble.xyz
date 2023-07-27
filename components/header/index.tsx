@@ -31,12 +31,7 @@ export function Header({
       )}
       {...props}
       style={{
-        background:
-          data &&
-          `radial-gradient(circle farthest-corner at top left, ${getHSL(
-            data,
-            0.3
-          )} 0%, transparent 50%)`,
+        background: data && getHSL(data, 0.3),
       }}
     >
       {artwork && artwork_name && (
