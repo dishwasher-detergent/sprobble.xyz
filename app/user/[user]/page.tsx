@@ -25,6 +25,19 @@ export async function generateMetadata({
       siteName: "sprobble.xyz",
       locale: "en_US",
       type: "website",
+      images: [
+        {
+          url: `https://api.dicebear.com/6.x/thumbs/svg?seed=${user.$id}`,
+          width: 800,
+          height: 800,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: user.name,
+      description: `Stats for ${user.name}`,
+      images: [`https://api.dicebear.com/6.x/thumbs/svg?seed=${user.$id}`],
     },
   };
 }

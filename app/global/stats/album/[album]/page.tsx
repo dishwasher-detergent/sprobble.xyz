@@ -36,6 +36,14 @@ export async function generateMetadata({
       locale: "en_US",
       type: "website",
     },
+    twitter: {
+      card: "summary_large_image",
+      title: album.name,
+      description: `Stats for ${album.name} by ${album.artist
+        .map((x: Artist) => x.name)
+        .join(", ")}`,
+      images: [album.images[0]],
+    },
   };
 }
 

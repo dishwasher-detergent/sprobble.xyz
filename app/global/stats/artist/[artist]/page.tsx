@@ -25,6 +25,10 @@ export async function generateMetadata({
       locale: "en_US",
       type: "website",
     },
+    twitter: {
+      title: artist.name,
+      description: `Stats for ${artist.name}`,
+    },
   };
 }
 
