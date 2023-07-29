@@ -32,12 +32,12 @@ export default function UserStats({ user }: { user?: string }) {
   return (
     <div className="flex flex-col gap-4">
       <StatsCard
-        title="Year To Date Scrobbles"
+        title="Year To Date Sprobbles"
         icon={<LucideTrendingUp size={16} />}
         loading={statsLoading}
       >
         {year_to_date?.reduce((a, b) => a + b.plays, 0).toLocaleString() +
-          " Scrobbles"}
+          " Sprobbles"}
         <br />
         {year_to_date
           ?.reduce((a, b) => a + Number(b.duration), 0)
@@ -60,7 +60,7 @@ export default function UserStats({ user }: { user?: string }) {
               </linearGradient>
             </defs>
             <Area
-              unit={"Scrobbles"}
+              unit={"Sprobbles"}
               type="basis"
               dataKey="plays"
               stroke={theme == "dark" ? "#dbeafe" : "#2563eb"}
