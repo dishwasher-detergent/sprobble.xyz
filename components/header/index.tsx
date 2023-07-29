@@ -1,7 +1,7 @@
 "use client";
 
 import { cn, getHSL } from "@/lib/utils";
-import { useColor } from "color-thief-react";
+import { usePalette } from "color-thief-react";
 
 interface HeaderProps extends React.AllHTMLAttributes<HTMLDivElement> {
   title: string;
@@ -23,37 +23,41 @@ export function Header({
   listen,
   ...props
 }: HeaderProps) {
-  const { data } = useColor(artwork ?? "", "hslString", {
+  const { data } = usePalette(artwork ?? "", 2, "hslString", {
     crossOrigin: "Anonymous",
   });
 
   return (
-    <div
-      className={cn(
-        "relative flex flex-col gap-6 rounded-lg p-2 md:flex-row",
-        className
-      )}
-      {...props}
-      style={{
-        background: data && getHSL(data, 0.3),
-      }}
-    >
-      {artwork && artwork_name && (
-        <div className="relative aspect-square w-full overflow-hidden rounded-lg bg-slate-300 md:h-64 md:w-64">
-          <img
-            src={artwork}
-            alt={artwork_name}
-            sizes="(max-width: 256px) 100vw"
-          />
+    <div className={cn("relative", className)} {...props}>
+      <div
+        className="h-36 w-full rounded-lg md:h-52"
+        style={{
+          background:
+            data &&
+            `linear-gradient(45deg, ${getHSL(data[0], 1)} 0%, ${getHSL(
+              data[1],
+              1
+            )} 100%)`,
+        }}
+      />
+      <div className="-mt-24 ml-8 md:-mt-36 md:ml-16">
+        {artwork && artwork_name && (
+          <div className="relative aspect-square h-32 w-32 overflow-hidden rounded-lg bg-slate-300 ring-4 ring-background md:h-60 md:w-60">
+            <img
+              src={artwork}
+              alt={artwork_name}
+              sizes="(max-width: 256px) 100vw"
+            />
+          </div>
+        )}
+        <div className="flex-1">
+          <h2 className="text-xl font-black dark:text-white md:text-3xl">
+            {title}
+          </h2>
+          <p>{subTitle}</p>
+          <div>{description}</div>
+          <p>{listen}</p>
         </div>
-      )}
-      <div className="flex-1">
-        <p className="text-lg font-bold">{subTitle}</p>
-        <h2 className="text-5xl font-black dark:text-white md:text-8xl">
-          {title}
-        </h2>
-        <div>{description}</div>
-        <p className="absolute bottom-0 right-0">{listen}</p>
       </div>
     </div>
   );

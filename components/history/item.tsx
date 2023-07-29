@@ -18,7 +18,7 @@ export default function HistoryItem({ track }: HistoryItemProps) {
 
   return (
     <Card
-      className="w-full rounded-lg border-none p-2 text-slate-900 dark:text-white md:w-72"
+      className="grid w-full grid-cols-2 gap-4 rounded-lg border-none p-2 text-slate-900 dark:text-white md:block md:w-72"
       style={{
         background:
           data &&
@@ -100,7 +100,7 @@ export default function HistoryItem({ track }: HistoryItemProps) {
           </span>
         </a>
       </div>
-      <div className="flex flex-col items-end text-sm">
+      <div className="col-span-2 flex flex-col text-sm md:items-end">
         {track.user_id && <UserTag userId={track.user_id} />}
         <p className="text-sm">
           {new Date(track.played_at).toLocaleDateString("en-us", {
