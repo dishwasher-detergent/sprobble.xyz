@@ -1,7 +1,17 @@
-export const databaseId = "645c032960cb9f95212b";
-export const trackCollectionId = "track";
-export const artistCollectionId = "artist";
-export const albumCollectionId = "album";
-export const userCollectionId = "user";
-export const statsCollectionId = "stats";
-export const playsCollectionId = "plays";
+const databaseId = "645c032960cb9f95212b";
+const trackCollectionId = "track";
+const artistCollectionId = "artist";
+const albumCollectionId = "album";
+const userCollectionId = "user";
+const statsCollectionId = "stats";
+const playsCollectionId = "plays";
+
+module.exports = {
+  databaseId,
+  trackCollectionId,
+  artistCollectionId,
+  albumCollectionId,
+  userCollectionId,
+  statsCollectionId,
+  playsCollectionId,
+};

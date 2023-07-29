@@ -26,6 +26,7 @@ module.exports = async function (req, res) {
 
     if (!data) {
       console.log("No data found in event.");
+      res.send("No data found in event.");
       return;
     }
 
@@ -62,7 +63,7 @@ module.exports = async function (req, res) {
       // if it doesn't, add it to the database
       await database.createDocument(
         dataIds.databaseId,
-        "stats",
+        dataIds.statsCollectionId,
         sdk.ID.unique(),
         {
           user: data.user_id,

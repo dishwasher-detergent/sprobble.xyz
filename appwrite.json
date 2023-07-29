@@ -63,6 +63,21 @@
             "events": [],
             "schedule": "",
             "timeout": 15
+        },
+        {
+            "$id": "64c57de8ed640542f909",
+            "name": "new_user",
+            "runtime": "node-18.0",
+            "path": "functions/new_user",
+            "entrypoint": "src/index.js",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
+            "execute": [],
+            "events": ["users.*.create"],
+            "schedule": "",
+            "timeout": 15
         }
     ]
 }
