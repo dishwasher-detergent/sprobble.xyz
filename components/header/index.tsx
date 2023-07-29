@@ -6,6 +6,8 @@ import { useColor } from "color-thief-react";
 interface HeaderProps extends React.AllHTMLAttributes<HTMLDivElement> {
   title: string;
   subTitle?: string;
+  description?: string | React.ReactNode;
+  listen?: string | React.ReactNode;
   artwork?: string;
   artwork_name?: string;
   className?: string;
@@ -17,6 +19,8 @@ export function Header({
   artwork_name,
   title,
   subTitle,
+  description,
+  listen,
   ...props
 }: HeaderProps) {
   const { data } = useColor(artwork ?? "", "hslString", {
@@ -48,6 +52,8 @@ export function Header({
         <h2 className="text-5xl font-black dark:text-white md:text-8xl">
           {title}
         </h2>
+        <div>{description}</div>
+        <p className="absolute bottom-0 right-0">{listen}</p>
       </div>
     </div>
   );

@@ -77,6 +77,27 @@ export default async function AlbumStatsPage({
       <Header
         title={document.name}
         subTitle="Album"
+        listen={
+          <a
+            href={document.href}
+            target="_blank"
+            className="flex flex-row items-center gap-2 text-sm"
+          >
+            Listen on Spotify
+            <span className="relative h-4 w-4 flex-none">
+              <img
+                className="block h-4 w-4 dark:hidden"
+                src="/spotify/icon/Spotify_Icon_RGB_Black.png"
+                alt="Spotify Icon Logo"
+              />
+              <img
+                className="hidden h-4 w-4 dark:block"
+                src="/spotify/icon/Spotify_Icon_RGB_White.png"
+                alt="Spotify Icon Logo"
+              />
+            </span>
+          </a>
+        }
         artwork={document.images[0]}
         artwork_name={document.name}
       />
