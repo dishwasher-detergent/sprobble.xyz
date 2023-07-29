@@ -1,13 +1,11 @@
 "use client";
 
 import { History } from "@/components/history";
+import { artistCollectionId, databaseId } from "@/lib/appwrite";
 import { custom_sort } from "@/lib/utils";
 import { Query } from "appwrite";
 import { useState } from "react";
 import { useCollection } from "react-appwrite";
-
-const databaseId = "645c032960cb9f95212b";
-const collectionId = "artist";
 
 export function ArtistsRecentlyPlayed({ artist }: { artist: string }) {
   const itemCount = 10;
@@ -17,7 +15,7 @@ export function ArtistsRecentlyPlayed({ artist }: { artist: string }) {
 
   const { data: plays, isLoading } = useCollection(
     databaseId,
-    collectionId,
+    artistCollectionId,
     queries,
     {
       keepPreviousData: true,

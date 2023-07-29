@@ -1,5 +1,6 @@
 const sdk = require("node-appwrite");
 const utils = require("./lib/utils");
+const dataIds = require("./lib/appwrite");
 require("./lib/console")();
 const date = require("date-fns");
 
@@ -57,8 +58,8 @@ module.exports = async function (req, res) {
     if (lastId) queries.push(sdk.Query.cursorAfter(lastId));
 
     const data = await database.listDocuments(
-      "645c032960cb9f95212b",
-      "plays",
+      dataIds.databaseId,
+      dataIds.playsCollectionId,
       queries
     );
 
@@ -78,7 +79,7 @@ module.exports = async function (req, res) {
       console.log("Checking if stat exists in the database.");
       // check if the item already exists in the database
       const response = await database
-        .listDocuments("645c032960cb9f95212b", "stats", [
+        .listDocuments(dataIds.databaseId, dataIds.statsCollectionId, [
           sdk.Query.equal("user_id", data.documents[i].user_id),
           sdk.Query.equal("week_of_year", week_of_year),
         ])
@@ -90,8 +91,8 @@ module.exports = async function (req, res) {
         // if it does, update the count
         await database
           .updateDocument(
-            "645c032960cb9f95212b",
-            "stats",
+            dataIds.databaseId,
+            dataIds.statsCollectionId,
             response.documents[0].$id,
             {
               number_of_plays: response.documents[0].number_of_plays + 1,
@@ -107,13 +108,18 @@ module.exports = async function (req, res) {
         console.log("Creating new stat.");
         // if it doesn't, add it to the database
         await database
-          .createDocument("645c032960cb9f95212b", "stats", sdk.ID.unique(), {
-            user: data.documents[i].user_id,
-            user_id: data.documents[i].user_id,
-            number_of_plays: 1,
-            time_spent_listening: data.documents[i].track?.duration ?? 0,
-            week_of_year: week_of_year,
-          })
+          .createDocument(
+            dataIds.databaseId,
+            dataIds.statsCollectionId,
+            sdk.ID.unique(),
+            {
+              user: data.documents[i].user_id,
+              user_id: data.documents[i].user_id,
+              number_of_plays: 1,
+              time_spent_listening: data.documents[i].track?.duration ?? 0,
+              week_of_year: week_of_year,
+            }
+          )
           .then((response) => console.log("Created stat."))
           .catch((error) => console.log("Error Creating: ", error));
       }

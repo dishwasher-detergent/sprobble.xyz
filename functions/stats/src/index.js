@@ -1,5 +1,6 @@
 const sdk = require("node-appwrite");
 const utils = require("./lib/utils");
+const dataIds = require("./lib/appwrite");
 require("./lib/console")();
 const date = require("date-fns");
 
@@ -33,8 +34,8 @@ module.exports = async function (req, res) {
     console.log("Checking if stat exists in the database.");
     // check if the item already exists in the database
     const fetched_items = await database.listDocuments(
-      "645c032960cb9f95212b",
-      "stats",
+      dataIds.databaseId,
+      dataIds.statsCollectionId,
       [
         sdk.Query.equal("user_id", data.user_id),
         sdk.Query.equal("week_of_year", week_of_year),
@@ -45,8 +46,8 @@ module.exports = async function (req, res) {
       console.log("Updating stats.");
       // if it does, update the count
       await database.updateDocument(
-        "645c032960cb9f95212b",
-        "stats",
+        dataIds.databaseId,
+        dataIds.statsCollectionId,
         fetched_items.documents[0].$id,
         {
           number_of_plays: fetched_items.documents[0].number_of_plays + 1,
@@ -60,7 +61,7 @@ module.exports = async function (req, res) {
       console.log("Creating new stat.");
       // if it doesn't, add it to the database
       await database.createDocument(
-        "645c032960cb9f95212b",
+        dataIds.databaseId,
         "stats",
         sdk.ID.unique(),
         {

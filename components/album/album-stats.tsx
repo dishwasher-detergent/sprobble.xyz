@@ -4,6 +4,7 @@ import { Pagination } from "@/components/history/pagination";
 import { Loader } from "@/components/loading/loader";
 import { DataTable } from "@/components/ui/data-table";
 import { Input } from "@/components/ui/input";
+import { albumCollectionId, databaseId } from "@/lib/appwrite";
 import { Album } from "@/types/Types";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { ColumnDef } from "@tanstack/react-table";
@@ -13,9 +14,6 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useCollection } from "react-appwrite";
-
-const databaseId = "645c032960cb9f95212b";
-const collectionId = "album";
 
 const columns: ColumnDef<any>[] = [
   {
@@ -94,7 +92,7 @@ export function AlbumStats() {
     data: plays,
     isLoading,
     isError,
-  } = useCollection(databaseId, collectionId, queries, {
+  } = useCollection(databaseId, albumCollectionId, queries, {
     keepPreviousData: true,
   });
 

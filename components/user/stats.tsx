@@ -1,6 +1,7 @@
 "use client";
 
 import StatsCard from "@/components/stats/card";
+import { databaseId, statsCollectionId } from "@/lib/appwrite";
 import { Stat } from "@/types/Types";
 import { Query } from "appwrite";
 import { LucideTrendingUp } from "lucide-react";
@@ -9,14 +10,12 @@ import { useCollection } from "react-appwrite";
 import { Area, AreaChart, ResponsiveContainer, Tooltip } from "recharts";
 import CustomTooltip from "../stats/tooltips";
 
-const databaseId = "645c032960cb9f95212b";
-
 export default function UserStats({ user }: { user?: string }) {
   const { theme, setTheme } = useTheme();
 
   const { data: stats, isLoading: statsLoading } = useCollection<Stat>(
     databaseId,
-    "stats",
+    statsCollectionId,
     [
       Query.orderAsc("week_of_year"),
       ...(user ? [Query.equal("user_id", user)] : []),

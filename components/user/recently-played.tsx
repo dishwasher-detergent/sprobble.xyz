@@ -1,14 +1,12 @@
 "use client";
 
 import { History } from "@/components/history";
+import { databaseId, playsCollectionId } from "@/lib/appwrite";
 import { groupByDate } from "@/lib/utils";
 import { Query } from "appwrite";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useCollection } from "react-appwrite";
-
-const databaseId = "645c032960cb9f95212b";
-const collectionId = "plays";
 
 export function UserRecentlyPlayed({ user }: { user: string }) {
   const query = useSearchParams();
@@ -30,7 +28,7 @@ export function UserRecentlyPlayed({ user }: { user: string }) {
 
   const { data: plays, isLoading } = useCollection(
     databaseId,
-    collectionId,
+    playsCollectionId,
     queries
   );
 
