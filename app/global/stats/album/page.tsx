@@ -1,4 +1,5 @@
 import { AlbumStats } from "@/components/album/album-stats";
+import AlbumCount from "@/components/album/count";
 import { Header } from "@/components/header";
 import { Album } from "@/types/Types";
 import { Models } from "appwrite";
@@ -36,6 +37,7 @@ export default async function AlbumPage() {
         artwork={documents[0].images[0]}
         artwork_name={documents[0].name}
       />
+      <AlbumCount />
       <AlbumStats />
     </section>
   );

@@ -1,4 +1,5 @@
 import { Header } from "@/components/header";
+import TrackCount from "@/components/track/count";
 import TrackStats from "@/components/track/track-stats";
 import { Track } from "@/types/Types";
 import { Models } from "appwrite";
@@ -31,6 +32,7 @@ export default async function TrackPage() {
   return (
     <section className="space-y-6">
       <Header subTitle="Global" title="Track Statistics" />
+      <TrackCount />
       <TrackStats />
     </section>
   );
