@@ -54,7 +54,7 @@ export default function Search({
       </Select>
       <Input
         placeholder="search..."
-        className="truncate pl-28 pr-10"
+        className="truncate bg-background pl-28 pr-10"
         onChange={(e) => setSearch(e.target.value)}
         defaultValue={params.get("search") || searchInit || ""}
       />

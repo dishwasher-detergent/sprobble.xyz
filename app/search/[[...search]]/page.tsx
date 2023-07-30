@@ -1,5 +1,6 @@
 "use client";
 
+import { Header } from "@/components/header";
 import Search from "@/components/search";
 import AlbumSearch from "@/components/search/albumSearch";
 import ArtistSearch from "@/components/search/artistSearch";
@@ -17,21 +18,27 @@ export default function SearchPage({
     return (
       <>
         <section className="flex flex-col gap-4 pb-4">
-          <Search
-            categoryInit={params.search[0]}
-            searchInit={params.search[1]}
+          <Header
+            title="Find whatever your heart desires."
+            subTitle="Search for tracks, artists, albums, and users."
+            description={
+              <div className="w-96 max-w-full">
+                <Search
+                  categoryInit={params.search[0]}
+                  searchInit={params.search[1]}
+                />
+              </div>
+            }
           />
-          <p>
-            <span className="mr-2 font-bold">Searched:</span>
-            <span className="space-x-1">
-              <Badge className="text-sm" variant="secondary">
-                {decodeURI(params.search[0])}
-              </Badge>
-              <Badge className="text-sm" variant="secondary">
-                {decodeURI(params.search[1])}
-              </Badge>
-            </span>
-          </p>
+          <div className="rounded-lg bg-slate-100 px-4 py-2 dark:bg-slate-800">
+            <p>
+              <span className="mr-2 font-bold">Searched:</span>
+              <span className="space-x-1">
+                <Badge className="text-sm">{decodeURI(params.search[0])}</Badge>
+                <Badge className="text-sm">{decodeURI(params.search[1])}</Badge>
+              </span>
+            </p>
+          </div>
         </section>
         {(params.search[0] == "track" && <TrackSearch params={params} />) ||
           (params.search[0] == "artist" && <ArtistSearch params={params} />) ||
@@ -43,8 +50,18 @@ export default function SearchPage({
 
   return (
     <section className="flex flex-col gap-4 pb-4">
-      <Search />
-      <p>No searches yet...</p>
+      <Header
+        title="Find whatever your heart desires."
+        subTitle="Search for tracks, artists, albums, and users."
+        description={
+          <div className="w-96 max-w-full">
+            <Search />
+          </div>
+        }
+      />
+      <div className="w-full text-center font-bold">
+        <p>You've not searched for anything yet /:</p>
+      </div>
     </section>
   );
 }

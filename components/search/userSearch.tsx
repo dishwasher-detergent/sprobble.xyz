@@ -17,20 +17,20 @@ export default function UserSearch({
 
   return (
     <section>
-      {isLoading && <Loader />}
+      {isLoading && <Loader className="grid w-full place-items-center" />}
       {!isLoading && data?.documents.length == 0 && <p>No results found.</p>}
       <ul className="flex w-full flex-col gap-4">
         {data?.documents.map((user: User) => (
           <li key={user.$id} className="flex w-full flex-row gap-4">
             <img
               src={`https://api.dicebear.com/6.x/thumbs/svg?seed=${user.$id}`}
-              className="h-16 w-16 flex-none rounded-xl"
+              className="h-16 w-16 flex-none rounded-lg"
             />
             <div className="overflow-hidden">
               <div className="flex flex-row items-center gap-4">
                 <a
                   href={`/user//${user.$id}`}
-                  className="truncate text-xl font-bold hover:text-blue-500"
+                  className="truncate text-xl font-bold hover:text-blue-600"
                 >
                   {user.name}
                 </a>

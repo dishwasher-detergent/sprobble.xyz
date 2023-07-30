@@ -60,7 +60,7 @@ export default function HistoryItem({ track }: HistoryItemProps) {
         </div>
         <a
           href={`/global/stats/album/${track.album.$id}`}
-          className="truncate text-sm hover:text-blue-500"
+          className="truncate text-sm hover:text-blue-600"
         >
           {track.album.name}
         </a>
@@ -70,7 +70,7 @@ export default function HistoryItem({ track }: HistoryItemProps) {
               <a
                 key={item.$id}
                 href={`/global/stats/artist/${item.$id}`}
-                className="hover:text-blue-500"
+                className="hover:text-blue-600"
               >
                 {item.name}
                 {track.artist.length > 1 && index != track.artist.length - 1

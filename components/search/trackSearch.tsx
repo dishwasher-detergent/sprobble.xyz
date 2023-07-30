@@ -17,14 +17,14 @@ export default function TrackSearch({
 
   return (
     <section>
-      {isLoading && <Loader />}
+      {isLoading && <Loader className="grid w-full place-items-center" />}
       {!isLoading && data?.documents.length == 0 && <p>No results found.</p>}
       <ul className="flex w-full flex-col gap-4">
         {data?.documents.map((track: Track) => (
           <li key={track.$id} className="flex w-full flex-row gap-4">
             <img
               src={track.album.images[0]}
-              className="h-16 w-16 flex-none rounded-xl"
+              className="h-16 w-16 flex-none rounded-lg"
             />
             <div className="overflow-hidden">
               <div className="flex flex-row items-center gap-4">
@@ -40,7 +40,7 @@ export default function TrackSearch({
               </div>
               <a
                 href={`/global/stats/album/${track.album.$id}`}
-                className="truncate text-sm hover:text-blue-500"
+                className="truncate text-sm hover:text-blue-600"
               >
                 {track.album.name}
               </a>
@@ -50,7 +50,7 @@ export default function TrackSearch({
                     <a
                       key={item.$id}
                       href={`/global/stats/artist/${item.$id}`}
-                      className="hover:text-blue-500"
+                      className="hover:text-blue-600"
                     >
                       {item.name}
                       {track.artist.length > 1 &&

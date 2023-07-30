@@ -61,11 +61,11 @@ export function Header({
           </div>
         </>
       ) : (
-        <div className="flex-1">
-          <h2 className="text-3xl font-black dark:text-white md:text-6xl">
+        <div className="flex-1 rounded-lg bg-blue-600 p-8">
+          <h2 className="text-3xl font-black text-white dark:text-white md:text-6xl">
             {title}
           </h2>
-          <p>{subTitle}</p>
+          <p className="pb-2 text-white">{subTitle}</p>
           <div>{description}</div>
           <p>{listen}</p>
         </div>
