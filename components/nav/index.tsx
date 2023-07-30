@@ -8,6 +8,7 @@ import { NavMenu } from "@/components/nav/menu";
 import Search from "@/components/search";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { LucideSearch } from "lucide-react";
 import Link from "next/link";
 
 export function Nav() {
@@ -38,7 +39,9 @@ export function Nav() {
           <DarkToggle />
         </div>
         <div className="order-3 flex justify-end gap-1 md:hidden">
-          <Search />
+          <Button size="icon" variant="ghost">
+            <LucideSearch className="h-5 w-5" />
+          </Button>
           <NavMenu />
         </div>
       </div>
