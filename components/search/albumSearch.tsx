@@ -1,0 +1,60 @@
+import { Loader } from "@/components/loading/loader";
+import { albumCollectionId, databaseId } from "@/lib/appwrite";
+import { Album, Artist } from "@/types/Types";
+import { Query } from "appwrite";
+import { useCollection } from "react-appwrite";
+
+export default function AlbumSearch({
+  params,
+}: {
+  params: { search: string[] };
+}) {
+  const { data, isLoading } = useCollection<Album>(
+    databaseId,
+    albumCollectionId,
+    [Query.search("name", params.search[1])]
+  );
+
+  return (
+    <section>
+      {isLoading && <Loader />}
+      {!isLoading && data?.documents.length == 0 && <p>No results found.</p>}
+      <ul className="flex w-full flex-col gap-4">
+        {data?.documents.map((album: Album) => (
+          <li key={album.$id} className="flex w-full flex-row gap-4">
+            <div>
+              <img src={album.images[0]} className="h-16 w-16 rounded-xl" />
+            </div>
+            <div>
+              <div className="flex flex-row items-center gap-4">
+                <a
+                  href={`/global/stats/album/${album.$id}`}
+                  className="truncate text-xl font-bold"
+                >
+                  {album.name}
+                </a>
+              </div>
+              {album.artist && (
+                <p className="truncate text-sm">
+                  {album.artist.map((item: Artist, index: number) => (
+                    <a
+                      key={item.$id}
+                      href={`/global/stats/artist/${item.$id}`}
+                      className="hover:text-blue-500"
+                    >
+                      {item.name}
+                      {album.artist.length > 1 &&
+                      index != album.artist.length - 1
+                        ? ", "
+                        : ""}
+                    </a>
+                  ))}
+                </p>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}

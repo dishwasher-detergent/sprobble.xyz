@@ -1,6 +1,7 @@
 "use client";
 
 import StatsCard from "@/components/stats/card";
+import CustomTooltip from "@/components/stats/tooltips";
 import { databaseId, statsCollectionId } from "@/lib/appwrite";
 import { Stat } from "@/types/Types";
 import { Query } from "appwrite";
@@ -8,7 +9,6 @@ import { LucideTrendingUp } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useCollection } from "react-appwrite";
 import { Area, AreaChart, ResponsiveContainer, Tooltip } from "recharts";
-import CustomTooltip from "../stats/tooltips";
 
 export default function UserStats({ user }: { user?: string }) {
   const { theme, setTheme } = useTheme();

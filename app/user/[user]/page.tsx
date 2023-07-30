@@ -68,7 +68,7 @@ export default async function UserPage({
     <>
       <Header
         title={user.name}
-        subTitle={`Created ${new Date(user.created_at).toLocaleDateString(
+        subTitle={`Joined ${new Date(user.created_at).toLocaleDateString(
           "en-us",
           {
             month: "long",

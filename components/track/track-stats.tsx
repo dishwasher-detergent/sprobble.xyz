@@ -134,6 +134,7 @@ export default function TrackStats() {
     : [];
 
   const pageCount = plays ? Math.ceil(plays.total / limit) : 1;
+  const params = new URLSearchParams(Array.from(query.entries()));
 
   useEffect(() => {
     const queries = Array.from(query.entries());
@@ -159,13 +160,12 @@ export default function TrackStats() {
   }, [query]);
 
   const setSearch = (search: string) => {
-    const params = new URLSearchParams(Array.from(query.entries()));
     if (search.length > 0) {
       params.set("search", search);
     } else {
       params.delete("search");
     }
-    router.push(`${pathname}?${params.toString()}`);
+    router.replace(`${pathname}?${params.toString()}`);
   };
 
   if (isError) return <div>Something went wrong</div>;
@@ -179,6 +179,7 @@ export default function TrackStats() {
           className="max-w-xs"
           placeholder="Search Tracks"
           onChange={(e) => setSearch(e.target.value)}
+          value={params.get("search") || ""}
         />
       </nav>
       <DataTable columns={columns} data={data} />

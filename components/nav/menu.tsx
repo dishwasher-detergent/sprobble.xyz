@@ -1,5 +1,7 @@
 "use client";
 
+import DarkToggle from "@/components/darkToggle";
+import { LoginWithSpotify } from "@/components/login-with-spotify";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -23,7 +25,7 @@ export function NavMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="md:hidden">
+        <Button variant="ghost" size="icon" className="flex-none md:hidden">
           <LucideMoreVertical className="h-5 w-5" />
           <span className="sr-only">Toggle Menu</span>
         </Button>
@@ -69,6 +71,10 @@ export function NavMenu() {
             </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <LoginWithSpotify />
+        <DropdownMenuSeparator />
+        <DarkToggle />
       </DropdownMenuContent>
     </DropdownMenu>
   );

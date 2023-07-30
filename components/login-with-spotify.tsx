@@ -20,7 +20,7 @@ export function LoginWithSpotify() {
     <UserDropDown userId={account.$id} />
   ) : (
     <Button
-      className="flex flex-row items-center gap-4"
+      className="flex flex-none flex-row items-center gap-4 px-4"
       variant="ghost"
       size="sm"
       onClick={() =>

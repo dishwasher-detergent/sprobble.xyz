@@ -108,6 +108,7 @@ export function AlbumStats() {
     : [];
 
   const pageCount = plays ? Math.ceil(plays.total / limit) : 1;
+  const params = new URLSearchParams(Array.from(query.entries()));
 
   useEffect(() => {
     const queries = Array.from(query.entries());
@@ -153,6 +154,7 @@ export function AlbumStats() {
           className="max-w-xs"
           placeholder="Search Albums"
           onChange={(e) => setSearch(e.target.value)}
+          value={params.get("search") || ""}
         />
       </nav>
       <DataTable columns={columns} data={data} />

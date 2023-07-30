@@ -5,7 +5,9 @@ import DarkToggle from "@/components/darkToggle";
 import { LoginWithSpotify } from "@/components/login-with-spotify";
 import { Logo } from "@/components/logo";
 import { NavMenu } from "@/components/nav/menu";
+import Search from "@/components/search";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 
 export function Nav() {
@@ -29,10 +31,15 @@ export function Nav() {
         <div className="order-1 lg:order-2">
           <Logo className="flex gap-4 md:flex-row md:items-center md:justify-center " />
         </div>
-        <div className="order-3 flex justify-end">
+        <div className="order-3 hidden h-full items-center justify-end gap-1 md:flex">
+          <Search />
           <LoginWithSpotify />
-          <NavMenu />
+          <Separator orientation="vertical" className="h-1/2" />
           <DarkToggle />
+        </div>
+        <div className="order-3 flex justify-end gap-1 md:hidden">
+          <Search />
+          <NavMenu />
         </div>
       </div>
       <AudioPlayer />

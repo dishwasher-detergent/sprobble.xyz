@@ -9,6 +9,7 @@ export default function DarkToggle() {
       variant={"ghost"}
       size={"icon"}
       onClick={() => setTheme(theme == "dark" ? "light" : "dark")}
+      className="flex-none"
     >
       {theme == "dark" ? (
         <LucideSun className="h-5 w-5" />

@@ -1,10 +1,10 @@
 "use client";
 
+import StatsCard from "@/components/stats/card";
 import { databaseId, trackCollectionId } from "@/lib/appwrite";
 import { Query } from "appwrite";
 import { LucideDisc2 } from "lucide-react";
 import { useCollection } from "react-appwrite";
-import StatsCard from "../stats/card";
 
 export default function TrackCount() {
   const { data: tracks, isLoading: trackLoading } = useCollection(
