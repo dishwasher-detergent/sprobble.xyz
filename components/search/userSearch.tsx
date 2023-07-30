@@ -22,13 +22,11 @@ export default function UserSearch({
       <ul className="flex w-full flex-col gap-4">
         {data?.documents.map((user: User) => (
           <li key={user.$id} className="flex w-full flex-row gap-4">
-            <div>
-              <img
-                src={`https://api.dicebear.com/6.x/thumbs/svg?seed=${user.$id}`}
-                className="h-16 w-16 rounded-xl"
-              />
-            </div>
-            <div>
+            <img
+              src={`https://api.dicebear.com/6.x/thumbs/svg?seed=${user.$id}`}
+              className="h-16 w-16 flex-none rounded-xl"
+            />
+            <div className="overflow-hidden">
               <div className="flex flex-row items-center gap-4">
                 <a
                   href={`/user//${user.$id}`}

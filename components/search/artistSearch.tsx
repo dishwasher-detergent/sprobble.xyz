@@ -24,14 +24,12 @@ export default function ArtistSearch({
         {data?.documents.map((artist: Artist, index: number) => (
           <li key={artist.$id}>
             <div className="flex flex-row justify-start gap-4">
-              <div>
-                <img
-                  src={artist.album[0].images[0]}
-                  className="h-16 w-16 rounded-xl"
-                />
-              </div>
+              <img
+                src={artist.album[0].images[0]}
+                className="h-16 w-16 flex-none rounded-xl"
+              />
               <a
-                className="text-3xl font-bold hover:text-blue-500"
+                className="truncate text-3xl font-bold hover:text-blue-500"
                 href={`/global/stats/artist/${artist.$id}`}
               >
                 {artist.name}

@@ -22,10 +22,11 @@ export default function AlbumSearch({
       <ul className="flex w-full flex-col gap-4">
         {data?.documents.map((album: Album) => (
           <li key={album.$id} className="flex w-full flex-row gap-4">
-            <div>
-              <img src={album.images[0]} className="h-16 w-16 rounded-xl" />
-            </div>
-            <div>
+            <img
+              src={album.images[0]}
+              className="h-16 w-16 flex-none rounded-xl"
+            />
+            <div className="overflow-hidden">
               <div className="flex flex-row items-center gap-4">
                 <a
                   href={`/global/stats/album/${album.$id}`}
