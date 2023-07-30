@@ -1,3 +1,5 @@
+"use client";
+
 import { Loader } from "@/components/loading/loader";
 import { databaseId, userCollectionId } from "@/lib/appwrite";
 import { User } from "@/types/Types";

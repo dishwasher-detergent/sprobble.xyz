@@ -1,5 +1,3 @@
-"use client";
-
 import { Header } from "@/components/header";
 import Search from "@/components/search";
 import AlbumSearch from "@/components/search/albumSearch";

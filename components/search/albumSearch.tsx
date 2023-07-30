@@ -1,3 +1,5 @@
+"use client";
+
 import { Loader } from "@/components/loading/loader";
 import { albumCollectionId, databaseId } from "@/lib/appwrite";
 import { Album, Artist } from "@/types/Types";

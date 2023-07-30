@@ -1,3 +1,5 @@
+"use client";
+
 import { Loader } from "@/components/loading/loader";
 import { databaseId, trackCollectionId } from "@/lib/appwrite";
 import { Artist, Track } from "@/types/Types";

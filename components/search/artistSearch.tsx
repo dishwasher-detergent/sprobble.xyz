@@ -1,3 +1,5 @@
+"use client";
+
 import { Loader } from "@/components/loading/loader";
 import { Badge } from "@/components/ui/badge";
 import { artistCollectionId, databaseId } from "@/lib/appwrite";
