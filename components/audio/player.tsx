@@ -18,7 +18,7 @@ export function AudioPlayer() {
   if (!song) return null;
 
   return (
-    <div className="flex w-full items-center gap-6 bg-blue-600 px-2 py-1 text-white backdrop-blur-md">
+    <div className="flex w-full items-center gap-6 bg-blue-500 px-2 py-1 text-white backdrop-blur-md">
       <p className="flex flex-nowrap items-center gap-4 text-sm">
         <Badge variant="outline" className="text-white">
           Preview

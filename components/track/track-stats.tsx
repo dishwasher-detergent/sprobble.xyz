@@ -51,7 +51,7 @@ const columns: ColumnDef<any>[] = [
       return (
         <Link
           href={`/global/stats/album/${props.row.original.album.$id}`}
-          className="flex flex-row items-center gap-4 hover:text-blue-600"
+          className="flex flex-row items-center gap-4 hover:text-blue-500"
         >
           <LucideDisc2 size={16} className="flex-none" />
           {props.row.original.album.name}
@@ -71,7 +71,7 @@ const columns: ColumnDef<any>[] = [
               <Link
                 key={artist.$id}
                 href={`/global/stats/artist/${artist.$id}`}
-                className="flex flex-row items-center gap-4 hover:text-blue-600"
+                className="flex flex-row items-center gap-4 hover:text-blue-500"
               >
                 {artist.name}
                 {index < props.row.original.artists.length - 1 && ", "}

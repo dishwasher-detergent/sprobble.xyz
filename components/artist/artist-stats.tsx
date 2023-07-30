@@ -29,7 +29,7 @@ const columns: ColumnDef<any>[] = [
           <LucidePersonStanding className="flex-none" size={16} />
           <Link
             href={`/global/stats/artist/${props.row.original.id}`}
-            className="flex flex-row items-center gap-4 hover:text-blue-600"
+            className="flex flex-row items-center gap-4 hover:text-blue-500"
           >
             {props.row.original.name}
           </Link>

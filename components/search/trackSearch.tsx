@@ -40,7 +40,7 @@ export default function TrackSearch({
               </div>
               <a
                 href={`/global/stats/album/${track.album.$id}`}
-                className="truncate text-sm hover:text-blue-600"
+                className="truncate text-sm hover:text-blue-500"
               >
                 {track.album.name}
               </a>
@@ -50,7 +50,7 @@ export default function TrackSearch({
                     <a
                       key={item.$id}
                       href={`/global/stats/artist/${item.$id}`}
-                      className="hover:text-blue-600"
+                      className="hover:text-blue-500"
                     >
                       {item.name}
                       {track.artist.length > 1 &&

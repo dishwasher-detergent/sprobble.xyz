@@ -30,7 +30,7 @@ export default function AlbumSearch({
               <div className="flex flex-row items-center gap-4">
                 <a
                   href={`/global/stats/album/${album.$id}`}
-                  className="truncate text-xl font-bold hover:text-blue-600"
+                  className="truncate text-xl font-bold hover:text-blue-500"
                 >
                   {album.name}
                 </a>
@@ -41,7 +41,7 @@ export default function AlbumSearch({
                     <a
                       key={item.$id}
                       href={`/global/stats/artist/${item.$id}`}
-                      className="hover:text-blue-600"
+                      className="hover:text-blue-500"
                     >
                       {item.name}
                       {album.artist.length > 1 &&

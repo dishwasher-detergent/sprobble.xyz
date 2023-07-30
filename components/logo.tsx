@@ -5,7 +5,7 @@ export function Logo({ className }: { className?: string }) {
   return (
     <Link href={"/"}>
       <h1
-        className={cn("text-xl font-black uppercase text-blue-600", className)}
+        className={cn("text-xl font-black uppercase text-blue-500", className)}
       >
         Sprobble
       </h1>

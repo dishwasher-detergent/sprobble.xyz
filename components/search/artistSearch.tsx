@@ -29,7 +29,7 @@ export default function ArtistSearch({
                 className="h-16 w-16 flex-none rounded-lg"
               />
               <a
-                className="truncate text-3xl font-bold hover:text-blue-600"
+                className="truncate text-3xl font-bold hover:text-blue-500"
                 href={`/global/stats/artist/${artist.$id}`}
               >
                 {artist.name}
