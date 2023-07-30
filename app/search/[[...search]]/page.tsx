@@ -12,7 +12,7 @@ export default function SearchPage({
 }: {
   params: { search: string[] };
 }) {
-  if (params.search.length == 2) {
+  if (params.search && params.search.length == 2) {
     return (
       <>
         <section className="flex flex-col gap-4 pb-4">
@@ -39,4 +39,11 @@ export default function SearchPage({
       </>
     );
   }
+
+  return (
+    <section className="flex flex-col gap-4 pb-4">
+      <Search />
+      <p>No searches yet...</p>
+    </section>
+  );
 }

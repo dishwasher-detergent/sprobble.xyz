@@ -32,7 +32,7 @@ export default function UserSearch({
               <div className="flex flex-row items-center gap-4">
                 <a
                   href={`/user//${user.$id}`}
-                  className="truncate text-xl font-bold"
+                  className="truncate text-xl font-bold hover:text-blue-500"
                 >
                   {user.name}
                 </a>

@@ -30,6 +30,8 @@ export default function Search({
     e.preventDefault();
     if (search.length > 0) {
       router.push(`/search/${category}/${search}`);
+    } else {
+      router.push(`/search/`);
     }
   };
 

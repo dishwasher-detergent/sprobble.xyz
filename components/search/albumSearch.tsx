@@ -29,7 +29,7 @@ export default function AlbumSearch({
               <div className="flex flex-row items-center gap-4">
                 <a
                   href={`/global/stats/album/${album.$id}`}
-                  className="truncate text-xl font-bold"
+                  className="truncate text-xl font-bold hover:text-blue-500"
                 >
                   {album.name}
                 </a>

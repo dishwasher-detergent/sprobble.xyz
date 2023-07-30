@@ -27,13 +27,13 @@ export default function ArtistSearch({
             {index != 0 && <Separator />}
             <li key={artist.$id}>
               <a
-                className="text-3xl font-bold"
+                className="text-3xl font-bold hover:text-blue-500"
                 href={`/global/stats/artist/${artist.$id}`}
               >
                 {artist.name}
               </a>
               <div>
-                <p className="text-sm">Tracks:</p>
+                <p className="pt-2 text-sm">Tracks:</p>
                 <ul className="flex flex-wrap gap-1">
                   {artist.track.map((track: Track) => (
                     <Badge>
