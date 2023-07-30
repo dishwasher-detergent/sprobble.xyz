@@ -61,7 +61,7 @@ export function Header({
           </div>
         </>
       ) : (
-        <div className="flex-1 rounded-lg bg-blue-500 p-8 dark:bg-slate-800">
+        <div className="flex-1 rounded-lg border bg-blue-500 p-8 dark:bg-slate-900">
           <h2 className="text-3xl font-black text-white dark:text-white md:text-6xl">
             {title}
           </h2>
