@@ -37,7 +37,7 @@ export function LoginWithSpotify() {
         })
       }
     >
-      Login
+      Sign In
       <img
         className="block dark:hidden"
         src="/spotify/icon/Spotify_Icon_RGB_Black.png"
@@ -83,7 +83,7 @@ function UserDropDown({ userId }: { userId: string }) {
               signOut.mutateAsync();
             }}
           >
-            Logout
+            Sign Out
             <LucideLogIn className="mr-2 h-4 w-4" />
           </button>
         </DropdownMenuItem>
