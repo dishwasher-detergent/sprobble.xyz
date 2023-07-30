@@ -60,7 +60,7 @@ export default function SearchPage({
         }
       />
       <div className="w-full text-center font-bold">
-        <p>You've not searched for anything yet /:</p>
+        <p>You&apos;ve not searched for anything yet /:</p>
       </div>
     </section>
   );
