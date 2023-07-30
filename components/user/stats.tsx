@@ -22,11 +22,37 @@ export default function UserStats({ user }: { user?: string }) {
     ]
   );
 
-  const year_to_date = stats?.documents.map((stat: Stat) => ({
-    name: `Week ${stat.week_of_year}`,
-    plays: stat.number_of_plays,
-    duration: (Number(stat.time_spent_listening) / 1000 / 60 / 60).toFixed(2),
-  }));
+  function combineAndSumPlays(arr: Stat[]): any {
+    if (!arr) return [];
+
+    const combinedData: Stat[] = [];
+
+    arr.forEach((item) => {
+      const existingItem = combinedData.find(
+        (i) => i.week_of_year === item.week_of_year
+      );
+
+      if (existingItem) {
+        existingItem.number_of_plays += item.number_of_plays;
+        existingItem.time_spent_listening = (
+          Number(existingItem.time_spent_listening) +
+          Number(item.time_spent_listening)
+        ).toString();
+      } else {
+        combinedData.push({ ...item });
+      }
+    });
+
+    return combinedData;
+  }
+
+  const year_to_date = combineAndSumPlays(stats?.documents as Stat[]).map(
+    (stat: Stat) => ({
+      name: `Week ${stat.week_of_year}`,
+      plays: stat.number_of_plays,
+      duration: (Number(stat.time_spent_listening) / 1000 / 60 / 60).toFixed(2),
+    })
+  );
 
   return (
     <div className="flex flex-col gap-4">
@@ -35,11 +61,12 @@ export default function UserStats({ user }: { user?: string }) {
         icon={<LucideTrendingUp size={16} />}
         loading={statsLoading}
       >
-        {year_to_date?.reduce((a, b) => a + b.plays, 0).toLocaleString() +
-          " Sprobbles"}
+        {year_to_date
+          ?.reduce((a: any, b: any) => a + b.plays, 0)
+          .toLocaleString() + " Sprobbles"}
         <br />
         {year_to_date
-          ?.reduce((a, b) => a + Number(b.duration), 0)
+          ?.reduce((a: any, b: any) => a + Number(b.duration), 0)
           .toLocaleString() + " Hours"}
         <ResponsiveContainer width={"100%"} height={100}>
           <AreaChart data={year_to_date}>
