@@ -12,6 +12,7 @@ export default function SearchPage({
 }: {
   params: { search: string[] };
 }) {
+  console.log(params.search);
   if (params.search && params.search.length == 2) {
     return (
       <>
