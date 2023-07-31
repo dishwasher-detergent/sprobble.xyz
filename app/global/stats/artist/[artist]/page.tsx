@@ -22,12 +22,20 @@ export async function generateMetadata({
       description: `Stats for ${artist.name}`,
       url: "https://sprobble.xyz/global/stats/artist/" + artist.$id,
       siteName: "sprobble.xyz",
+            images: [
+        {
+          url: artist.album[0].images[0],
+          width: 800,
+          height: 800,
+        },
+      ],
       locale: "en_US",
       type: "website",
     },
     twitter: {
       title: artist.name,
       description: `Stats for ${artist.name}`,
+      images: [artist.album[0].images[0]],
     },
   };
 }
