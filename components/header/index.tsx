@@ -5,7 +5,7 @@ import { usePalette } from "color-thief-react";
 
 interface HeaderProps extends React.AllHTMLAttributes<HTMLDivElement> {
   title: string;
-  subTitle?: string;
+  subTitle?: string | React.ReactNode;
   description?: string | React.ReactNode;
   listen?: string | React.ReactNode;
   artwork?: string;

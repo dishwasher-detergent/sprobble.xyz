@@ -37,10 +37,13 @@ const columns: ColumnDef<any>[] = [
     header: "Name",
     cell(props) {
       return (
-        <span className="flex flex-row items-center gap-4">
+        <Link
+          href={`/global/stats/track/${props.row.original.id}`}
+          className="flex flex-row items-center gap-4 hover:text-blue-500"
+        >
           <LucideCassetteTape className="flex-none" size={16} />
           {props.row.original.name}
-        </span>
+        </Link>
       );
     },
   },

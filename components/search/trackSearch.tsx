@@ -4,6 +4,7 @@ import { Loader } from "@/components/loading/loader";
 import { databaseId, trackCollectionId } from "@/lib/appwrite";
 import { Artist, Track } from "@/types/Types";
 import { Query } from "appwrite";
+import Link from "next/link";
 import { useCollection } from "react-appwrite";
 
 export default function TrackSearch({
@@ -40,16 +41,16 @@ export default function TrackSearch({
                   </div>
                 )}
               </div>
-              <a
+              <Link
                 href={`/global/stats/album/${track.album.$id}`}
                 className="truncate text-sm hover:text-blue-500"
               >
                 {track.album.name}
-              </a>
+              </Link>
               {track.artist && (
                 <p className="truncate text-sm">
                   {track.artist.map((item: Artist, index: number) => (
-                    <a
+                    <Link
                       key={item.$id}
                       href={`/global/stats/artist/${item.$id}`}
                       className="hover:text-blue-500"
@@ -59,7 +60,7 @@ export default function TrackSearch({
                       index != track.artist.length - 1
                         ? ", "
                         : ""}
-                    </a>
+                    </Link>
                   ))}
                 </p>
               )}

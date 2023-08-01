@@ -4,6 +4,7 @@ import { Loader } from "@/components/loading/loader";
 import { albumCollectionId, databaseId } from "@/lib/appwrite";
 import { Album, Artist } from "@/types/Types";
 import { Query } from "appwrite";
+import Link from "next/link";
 import { useCollection } from "react-appwrite";
 
 export default function AlbumSearch({
@@ -30,17 +31,17 @@ export default function AlbumSearch({
             />
             <div className="overflow-hidden">
               <div className="flex flex-row items-center gap-4">
-                <a
+                <Link
                   href={`/global/stats/album/${album.$id}`}
                   className="truncate text-xl font-bold hover:text-blue-500"
                 >
                   {album.name}
-                </a>
+                </Link>
               </div>
               {album.artist && (
                 <p className="truncate text-sm">
                   {album.artist.map((item: Artist, index: number) => (
-                    <a
+                    <Link
                       key={item.$id}
                       href={`/global/stats/artist/${item.$id}`}
                       className="hover:text-blue-500"
@@ -50,7 +51,7 @@ export default function AlbumSearch({
                       index != album.artist.length - 1
                         ? ", "
                         : ""}
-                    </a>
+                    </Link>
                   ))}
                 </p>
               )}

@@ -4,6 +4,7 @@ import { Loader } from "@/components/loading/loader";
 import { databaseId, userCollectionId } from "@/lib/appwrite";
 import { User } from "@/types/Types";
 import { Query } from "appwrite";
+import Link from "next/link";
 import { useCollection } from "react-appwrite";
 
 export default function UserSearch({
@@ -30,12 +31,12 @@ export default function UserSearch({
             />
             <div className="overflow-hidden">
               <div className="flex flex-row items-center gap-4">
-                <a
-                  href={`/user//${user.$id}`}
+                <Link
+                  href={`/user/${user.$id}`}
                   className="truncate text-xl font-bold hover:text-blue-500"
                 >
                   {user.name}
-                </a>
+                </Link>
               </div>
               <p>
                 Joined{" "}

@@ -6,6 +6,7 @@ import UserTag from "@/components/user/tag";
 import { getHSL } from "@/lib/utils";
 import { Artist, Play } from "@/types/Types";
 import { useColor } from "color-thief-react";
+import Link from "next/link";
 
 interface HistoryItemProps {
   track: Play;
@@ -48,7 +49,11 @@ export default function HistoryItem({ track }: HistoryItemProps) {
       )}
       <div className="flex flex-1 flex-col overflow-hidden pb-6 pt-2">
         <div className="flex flex-row items-center gap-4">
-          <p className="truncate text-xl font-bold">{track.track.name}</p>
+          <p className="truncate text-xl font-bold hover:text-blue-500">
+            <Link href={`/global/stats/track/${track.track.$id}`}>
+              {track.track.name}
+            </Link>
+          </p>
           {track.track.explicit && (
             <div
               className="grid h-5 w-5 place-items-center rounded-md border border-destructive text-xs text-destructive"
@@ -58,16 +63,16 @@ export default function HistoryItem({ track }: HistoryItemProps) {
             </div>
           )}
         </div>
-        <a
+        <Link
           href={`/global/stats/album/${track.album.$id}`}
           className="truncate text-sm hover:text-blue-500"
         >
           {track.album.name}
-        </a>
+        </Link>
         {track.artist && (
           <p className="truncate text-sm">
             {track.artist.map((item: Artist, index: number) => (
-              <a
+              <Link
                 key={item.$id}
                 href={`/global/stats/artist/${item.$id}`}
                 className="hover:text-blue-500"
@@ -76,7 +81,7 @@ export default function HistoryItem({ track }: HistoryItemProps) {
                 {track.artist.length > 1 && index != track.artist.length - 1
                   ? ", "
                   : ""}
-              </a>
+              </Link>
             ))}
           </p>
         )}

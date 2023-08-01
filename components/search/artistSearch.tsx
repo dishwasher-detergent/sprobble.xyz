@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { artistCollectionId, databaseId } from "@/lib/appwrite";
 import { Artist, Track } from "@/types/Types";
 import { Query } from "appwrite";
+import Link from "next/link";
 import { useCollection } from "react-appwrite";
 
 export default function ArtistSearch({
@@ -30,21 +31,21 @@ export default function ArtistSearch({
                 src={artist.album[0].images[0]}
                 className="h-16 w-16 flex-none rounded-lg"
               />
-              <a
+              <Link
                 className="truncate text-3xl font-bold hover:text-blue-500"
                 href={`/global/stats/artist/${artist.$id}`}
               >
                 {artist.name}
-              </a>
+              </Link>
             </div>
             <div>
               <p className="ml-1 pb-1 pt-2 text-sm">Tracks:</p>
               <ul className="flex flex-wrap gap-1">
                 {artist.track.map((track: Track) => (
                   <Badge key={track.$id} variant="secondary">
-                    <a href={`/global/stats/track?search=${track.name}`}>
+                    <Link href={`/global/stats/track?search=${track.name}`}>
                       {track.name}
-                    </a>
+                    </Link>
                   </Badge>
                 ))}
               </ul>
