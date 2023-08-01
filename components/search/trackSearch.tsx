@@ -27,11 +27,16 @@ export default function TrackSearch({
           <li key={track.$id} className="flex w-full flex-row gap-4">
             <img
               src={track.album.images[0]}
-              className="h-16 w-16 flex-none rounded-lg"
+              className="h-24 w-24 flex-none rounded-lg"
             />
             <div className="overflow-hidden">
               <div className="flex flex-row items-center gap-4">
-                <p className="truncate text-xl font-bold">{track.name}</p>
+                <Link
+                  href={`/global/stats/track/${track.$id}`}
+                  className="truncate text-xl font-bold hover:text-blue-500"
+                >
+                  {track.name}
+                </Link>
                 {track.explicit && (
                   <div
                     className="grid h-5 w-5 place-items-center rounded-md border border-destructive text-xs text-destructive"
@@ -43,12 +48,12 @@ export default function TrackSearch({
               </div>
               <Link
                 href={`/global/stats/album/${track.album.$id}`}
-                className="truncate text-sm hover:text-blue-500"
+                className="truncate text-base hover:text-blue-500"
               >
                 {track.album.name}
               </Link>
               {track.artist && (
-                <p className="truncate text-sm">
+                <p className="truncate text-base">
                   {track.artist.map((item: Artist, index: number) => (
                     <Link
                       key={item.$id}

@@ -2,10 +2,11 @@
 
 import { Loader } from "@/components/loading/loader";
 import { albumCollectionId, databaseId } from "@/lib/appwrite";
-import { Album, Artist } from "@/types/Types";
+import { Album, Artist, Track } from "@/types/Types";
 import { Query } from "appwrite";
 import Link from "next/link";
 import { useCollection } from "react-appwrite";
+import { Badge } from "../ui/badge";
 
 export default function AlbumSearch({
   params,
@@ -27,19 +28,17 @@ export default function AlbumSearch({
           <li key={album.$id} className="flex w-full flex-row gap-4">
             <img
               src={album.images[0]}
-              className="h-16 w-16 flex-none rounded-lg"
+              className="h-24 w-24 flex-none rounded-lg"
             />
             <div className="overflow-hidden">
-              <div className="flex flex-row items-center gap-4">
-                <Link
-                  href={`/global/stats/album/${album.$id}`}
-                  className="truncate text-xl font-bold hover:text-blue-500"
-                >
-                  {album.name}
-                </Link>
-              </div>
+              <Link
+                href={`/global/stats/album/${album.$id}`}
+                className="truncate text-3xl font-bold hover:text-blue-500"
+              >
+                {album.name}
+              </Link>
               {album.artist && (
-                <p className="truncate text-sm">
+                <p className="truncate text-base">
                   {album.artist.map((item: Artist, index: number) => (
                     <Link
                       key={item.$id}
@@ -55,6 +54,18 @@ export default function AlbumSearch({
                   ))}
                 </p>
               )}
+              <div>
+                <p className="pb-1 text-sm">Tracks:</p>
+                <ul className="flex flex-wrap gap-1">
+                  {album.track.map((track: Track) => (
+                    <Badge key={track.$id}>
+                      <Link href={`/global/stats/track/${track.$id}`}>
+                        {track.name}
+                      </Link>
+                    </Badge>
+                  ))}
+                </ul>
+              </div>
             </div>
           </li>
         ))}

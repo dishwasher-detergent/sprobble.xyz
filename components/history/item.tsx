@@ -65,12 +65,12 @@ export default function HistoryItem({ track }: HistoryItemProps) {
         </div>
         <Link
           href={`/global/stats/album/${track.album.$id}`}
-          className="truncate text-sm hover:text-blue-500"
+          className="truncate text-base hover:text-blue-500"
         >
           {track.album.name}
         </Link>
         {track.artist && (
-          <p className="truncate text-sm">
+          <p className="truncate text-base">
             {track.artist.map((item: Artist, index: number) => (
               <Link
                 key={item.$id}
