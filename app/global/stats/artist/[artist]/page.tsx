@@ -22,7 +22,7 @@ export async function generateMetadata({
       description: `Stats for ${artist.name}`,
       url: "https://sprobble.xyz/global/stats/artist/" + artist.$id,
       siteName: "sprobble.xyz",
-            images: [
+      images: [
         {
           url: artist.album[0].images[0],
           width: 800,
@@ -35,6 +35,7 @@ export async function generateMetadata({
     twitter: {
       title: artist.name,
       description: `Stats for ${artist.name}`,
+      card: "summary_large_image",
       images: [artist.album[0].images[0]],
     },
   };

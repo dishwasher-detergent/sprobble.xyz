@@ -36,6 +36,7 @@ export async function generateMetadata({
     twitter: {
       title: track.name,
       description: `Stats for ${track.name}`,
+      card: "summary_large_image",
       images: [track.album.images[0]],
     },
   };
