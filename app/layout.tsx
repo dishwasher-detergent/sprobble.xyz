@@ -11,6 +11,7 @@ const font = Cabin({ subsets: ["latin"] });
 export const metadata = {
   title: "Sprobble",
   description: "Track your Spotify plays.",
+  image: "/favicon/cassette-tape.svg",
 };
 
 export default function RootLayout({
