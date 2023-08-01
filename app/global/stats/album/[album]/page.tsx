@@ -15,15 +15,15 @@ export async function generateMetadata({
   const album = await getData(id);
 
   return {
-    title: album.name,
-    description: `Stats for ${album.name} by ${album.artist
+    title: `${album.name} by ${album.artist
       .map((x: Artist) => x.name)
       .join(", ")}`,
+    description: `${album.plays.length} Scrobbles`,
     openGraph: {
-      title: album.name,
-      description: `Stats for ${album.name} by ${album.artist
+      title: `${album.name} by ${album.artist
         .map((x: Artist) => x.name)
         .join(", ")}`,
+      description: `${album.plays.length} Scrobbles`,
       url: "https://sprobble.xyz/global/stats/album/" + album.$id,
       siteName: "sprobble.xyz",
       images: [
@@ -38,10 +38,10 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: album.name,
-      description: `Stats for ${album.name} by ${album.artist
+      title: `${album.name} by ${album.artist
         .map((x: Artist) => x.name)
         .join(", ")}`,
+      description: `${album.plays.length} Scrobbles`,
       images: [album.images[0]],
     },
   };

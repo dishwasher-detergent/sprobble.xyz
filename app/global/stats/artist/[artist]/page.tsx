@@ -16,10 +16,10 @@ export async function generateMetadata({
 
   return {
     title: artist.name,
-    description: `Stats for ${artist.name}`,
+    description: `${artist.plays.length} Scrobbles`,
     openGraph: {
       title: artist.name,
-      description: `Stats for ${artist.name}`,
+      description: `${artist.plays.length} Scrobbles`,
       url: "https://sprobble.xyz/global/stats/artist/" + artist.$id,
       siteName: "sprobble.xyz",
       images: [
@@ -34,7 +34,7 @@ export async function generateMetadata({
     },
     twitter: {
       title: artist.name,
-      description: `Stats for ${artist.name}`,
+      description: `${artist.plays.length} Scrobbles`,
       card: "summary_large_image",
       images: [artist.album[0].images[0]],
     },

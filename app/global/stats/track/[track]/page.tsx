@@ -16,11 +16,11 @@ export async function generateMetadata({
   const track = await getData(id);
 
   return {
-    title: track.name,
-    description: `Stats for ${track.name}`,
+    title: `${track.name} by ${track.artist.map((x) => x.name).join(", ")}`,
+    description: `${track.plays.length} Scrobbles`,
     openGraph: {
-      title: track.name,
-      description: `Stats for ${track.name}`,
+      title: `${track.name} by ${track.artist.map((x) => x.name).join(", ")}`,
+      description: `${track.plays.length} Scrobbles`,
       url: "https://sprobble.xyz/global/stats/track/" + track.$id,
       siteName: "sprobble.xyz",
       images: [
@@ -34,8 +34,8 @@ export async function generateMetadata({
       type: "website",
     },
     twitter: {
-      title: track.name,
-      description: `Stats for ${track.name}`,
+      title: `${track.name} by ${track.artist.map((x) => x.name).join(", ")}`,
+      description: `${track.plays.length} Scrobbles`,
       card: "summary_large_image",
       images: [track.album.images[0]],
     },
