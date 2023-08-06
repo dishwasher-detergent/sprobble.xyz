@@ -74,6 +74,8 @@ module.exports = async function (req, res) {
 
     console.log("User history fetched");
 
+    if (!history?.items) continue;
+
     for (let j = 0; j < history.items.length; j++) {
       await utils.addToDatabase(history.items[j], database);
 

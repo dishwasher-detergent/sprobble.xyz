@@ -52,9 +52,12 @@ module.exports = async function (req, res) {
         fetched_items.documents[0].$id,
         {
           number_of_plays: fetched_items.documents[0].number_of_plays + 1,
-          time_spent_listening: (
-            Number(fetched_items.documents[0].time_spent_listening) +
-            data.track.duration
+          time_spent_listening: (isNaN(
+            fetched_items.documents[0].time_spent_listening
+          )
+            ? 0
+            : Number(fetched_items.documents[0].time_spent_listening) +
+              data.track.duration
           ).toString(),
         }
       );
