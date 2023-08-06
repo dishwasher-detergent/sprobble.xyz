@@ -15,8 +15,8 @@ You will also need a Spotify app setup. [Sign up here.](developer.spotify.com)
 Once everything above is done, you can run these commands below.
 1. appwrite login
 2. appwrite deploy collection
-  a. use **space** to select all collections
+   - use **space** to select all collections
 4. appwrite deploy function
-  a. use **space** to select all functions
+   - use **space** to select all functions
 
 ## Congrats, you're done!
