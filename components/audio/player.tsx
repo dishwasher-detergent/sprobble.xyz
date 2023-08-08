@@ -18,14 +18,14 @@ export function AudioPlayer() {
   if (!song) return null;
 
   return (
-    <div className="flex w-full items-center gap-6 bg-blue-600 px-2 py-1 text-white backdrop-blur-md">
-      <p className="flex flex-nowrap items-center gap-2 text-sm">
+    <div className="flex w-full items-center gap-6 bg-blue-500 px-2 py-1 text-white backdrop-blur-md">
+      <p className="flex flex-nowrap items-center gap-4 text-sm">
         <Badge variant="outline" className="text-white">
           Preview
         </Badge>
         {song?.title}{" "}
       </p>
-      <div className="flex flex-1 items-center gap-2">
+      <div className="flex flex-1 items-center gap-4">
         <p className="text-xs font-semibold text-white">
           {formatTimeForAudioPlayer(time)}
         </p>

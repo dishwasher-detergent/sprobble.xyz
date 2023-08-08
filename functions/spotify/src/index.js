@@ -61,7 +61,7 @@ module.exports = async function (req, res) {
       fetched_users.users[i].prefs.refresh_token
     );
 
-    if (!spotifyAccessToken.access_token) {
+    if (!spotifyAccessToken) {
       console.log(`No access token for ${fetched_users.users[i].name}`);
       continue;
     }
@@ -72,9 +72,9 @@ module.exports = async function (req, res) {
       spotifyAccessToken.access_token
     );
 
-    console.log(history);
-
     console.log("User history fetched");
+
+    if (!history?.items) continue;
 
     for (let j = 0; j < history.items.length; j++) {
       await utils.addToDatabase(history.items[j], database);

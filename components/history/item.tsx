@@ -6,7 +6,7 @@ import UserTag from "@/components/user/tag";
 import { getHSL } from "@/lib/utils";
 import { Artist, Play } from "@/types/Types";
 import { useColor } from "color-thief-react";
-import Image from "next/image";
+import Link from "next/link";
 
 interface HistoryItemProps {
   track: Play;
@@ -19,7 +19,7 @@ export default function HistoryItem({ track }: HistoryItemProps) {
 
   return (
     <Card
-      className="w-full rounded-lg border-none p-2 text-slate-900 dark:text-white md:w-72"
+      className="grid w-full grid-cols-2 gap-4 rounded-lg border-none p-2 text-slate-900 dark:text-white md:block md:w-72"
       style={{
         background:
           data &&
@@ -31,12 +31,10 @@ export default function HistoryItem({ track }: HistoryItemProps) {
     >
       {track.album?.images && (
         <div className="relative aspect-square w-full overflow-hidden rounded-lg">
-          <Image
+          <img
             alt={track.album.name}
             src={track.album.images[1]}
-            fill
-            sizes="(max-width: 256px) 100vw"
-            priority={true}
+            className="absolute inset-0 h-full w-full object-cover"
           />
           <Audio
             file={{
@@ -50,8 +48,12 @@ export default function HistoryItem({ track }: HistoryItemProps) {
         </div>
       )}
       <div className="flex flex-1 flex-col overflow-hidden pb-6 pt-2">
-        <div className="flex flex-row items-center gap-2">
-          <p className="truncate text-xl font-bold">{track.track.name}</p>
+        <div className="flex flex-row items-center gap-4">
+          <p className="truncate text-xl font-bold hover:text-blue-500">
+            <Link href={`/global/stats/track/${track.track.$id}`}>
+              {track.track.name}
+            </Link>
+          </p>
           {track.track.explicit && (
             <div
               className="grid h-5 w-5 place-items-center rounded-md border border-destructive text-xs text-destructive"
@@ -61,16 +63,16 @@ export default function HistoryItem({ track }: HistoryItemProps) {
             </div>
           )}
         </div>
-        <a
+        <Link
           href={`/global/stats/album/${track.album.$id}`}
-          className="truncate text-sm hover:text-blue-500"
+          className="truncate text-base hover:text-blue-500"
         >
           {track.album.name}
-        </a>
+        </Link>
         {track.artist && (
-          <p className="truncate text-sm">
+          <p className="truncate text-base">
             {track.artist.map((item: Artist, index: number) => (
-              <a
+              <Link
                 key={item.$id}
                 href={`/global/stats/artist/${item.$id}`}
                 className="hover:text-blue-500"
@@ -79,7 +81,7 @@ export default function HistoryItem({ track }: HistoryItemProps) {
                 {track.artist.length > 1 && index != track.artist.length - 1
                   ? ", "
                   : ""}
-              </a>
+              </Link>
             ))}
           </p>
         )}
@@ -90,16 +92,20 @@ export default function HistoryItem({ track }: HistoryItemProps) {
         >
           Listen on Spotify
           <span className="relative h-4 w-4 flex-none">
-            <Image
+            <img
+              className="block h-4 w-4 dark:hidden"
               src="/spotify/icon/Spotify_Icon_RGB_Black.png"
               alt="Spotify Icon Logo"
-              fill
-              sizes="(max-width: 16px) 100vw"
+            />
+            <img
+              className="hidden h-4 w-4 dark:block"
+              src="/spotify/icon/Spotify_Icon_RGB_White.png"
+              alt="Spotify Icon Logo"
             />
           </span>
         </a>
       </div>
-      <div className="flex flex-col items-end text-sm">
+      <div className="col-span-2 flex flex-col text-sm md:items-end">
         {track.user_id && <UserTag userId={track.user_id} />}
         <p className="text-sm">
           {new Date(track.played_at).toLocaleDateString("en-us", {

@@ -5,6 +5,7 @@ import { Loader } from "@/components/loading/loader";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { DataTable } from "@/components/ui/data-table";
 import { Input } from "@/components/ui/input";
+import { databaseId, trackCollectionId } from "@/lib/appwrite";
 import { Artist, Track } from "@/types/Types";
 import { ColumnDef } from "@tanstack/react-table";
 import { Query } from "appwrite";
@@ -18,9 +19,6 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useCollection } from "react-appwrite";
-
-const databaseId = "645c032960cb9f95212b";
-const collectionId = "track";
 
 const columns: ColumnDef<any>[] = [
   {
@@ -39,10 +37,13 @@ const columns: ColumnDef<any>[] = [
     header: "Name",
     cell(props) {
       return (
-        <span className="flex flex-row items-center gap-2">
+        <Link
+          href={`/global/stats/track/${props.row.original.id}`}
+          className="flex flex-row items-center gap-4 hover:text-blue-500"
+        >
           <LucideCassetteTape className="flex-none" size={16} />
           {props.row.original.name}
-        </span>
+        </Link>
       );
     },
   },
@@ -53,7 +54,7 @@ const columns: ColumnDef<any>[] = [
       return (
         <Link
           href={`/global/stats/album/${props.row.original.album.$id}`}
-          className="flex flex-row items-center gap-2 hover:text-blue-600"
+          className="flex flex-row items-center gap-4 hover:text-blue-500"
         >
           <LucideDisc2 size={16} className="flex-none" />
           {props.row.original.album.name}
@@ -66,14 +67,14 @@ const columns: ColumnDef<any>[] = [
     header: "Artist",
     cell(props) {
       return (
-        <span className="flex flex-row items-center gap-2">
+        <span className="flex flex-row items-center gap-4">
           <LucidePersonStanding size={16} className="flex-none" />
           {props.row.original.artists.map((artist: Artist, index: number) => {
             return (
               <Link
                 key={artist.$id}
                 href={`/global/stats/artist/${artist.$id}`}
-                className="flex flex-row items-center gap-2 hover:text-blue-600"
+                className="flex flex-row items-center gap-4 hover:text-blue-500"
               >
                 {artist.name}
                 {index < props.row.original.artists.length - 1 && ", "}
@@ -89,7 +90,7 @@ const columns: ColumnDef<any>[] = [
     header: "Number of Plays",
     cell(props) {
       return (
-        <span className="flex flex-row items-center gap-2">
+        <span className="flex flex-row items-center gap-4">
           <LucideMusic2 size={16} className="flex-none" />
           {props.row.original.plays}
         </span>
@@ -114,13 +115,12 @@ export default function TrackStats() {
     Query.limit(limit),
     Query.offset(0),
   ]);
-  const [pageCount, setPageCount] = useState<number>(0);
 
   const {
     data: plays,
     isLoading,
     isError,
-  } = useCollection(databaseId, collectionId, queries, {
+  } = useCollection(databaseId, trackCollectionId, queries, {
     keepPreviousData: true,
   });
 
@@ -136,11 +136,8 @@ export default function TrackStats() {
       }))
     : [];
 
-  useEffect(() => {
-    if (isLoading) return;
-    if (!plays) return;
-    setPageCount(Math.ceil(plays.total / limit));
-  }, [plays]);
+  const pageCount = plays ? Math.ceil(plays.total / limit) : 1;
+  const params = new URLSearchParams(Array.from(query.entries()));
 
   useEffect(() => {
     const queries = Array.from(query.entries());
@@ -166,13 +163,12 @@ export default function TrackStats() {
   }, [query]);
 
   const setSearch = (search: string) => {
-    const params = new URLSearchParams(Array.from(query.entries()));
     if (search.length > 0) {
       params.set("search", search);
     } else {
       params.delete("search");
     }
-    router.push(`${pathname}?${params.toString()}`);
+    router.replace(`${pathname}?${params.toString()}`);
   };
 
   if (isError) return <div>Something went wrong</div>;
@@ -186,6 +182,7 @@ export default function TrackStats() {
           className="max-w-xs"
           placeholder="Search Tracks"
           onChange={(e) => setSearch(e.target.value)}
+          value={params.get("search") || ""}
         />
       </nav>
       <DataTable columns={columns} data={data} />

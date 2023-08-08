@@ -5,8 +5,8 @@ interface LoaderProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function Loader({ className, ...props }: LoaderProps) {
   return (
-    <div className={cn("text-blue-600", className)} {...props}>
-      <Loader2 className="animate-spin max-h-16 aspect-square" />
+    <div className={cn("text-blue-500", className)} {...props}>
+      <Loader2 className="aspect-square max-h-16 animate-spin" />
       <p className="sr-only">Loading</p>
     </div>
   );

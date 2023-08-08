@@ -1,29 +1,33 @@
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface StatsCardProps {
-  children: React.ReactElement;
-  value?: string | number;
+  children: React.ReactNode;
+  title: string | number | undefined;
+  icon?: React.ReactNode;
   loading?: boolean;
 }
 
 export default function StatsCard({
   children,
-  value,
+  title,
+  icon,
   loading,
 }: StatsCardProps) {
   return (
-    <Card className="min-w-[20rem] flex-1">
-      <CardHeader>
-        <CardTitle className="flex h-6 flex-row items-center gap-2 text-sm font-medium tracking-tight">
-          {children}
+    <Card className="min-w-[20rem] flex-1 bg-slate-100 dark:bg-slate-900 dark:text-white">
+      <CardHeader className="px-4 pb-0 pt-2">
+        <CardTitle className="flex h-6 flex-row items-center gap-4 text-xs font-medium tracking-tight">
+          {title} {icon}
         </CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="px-4 pb-2 pt-0">
         {loading ? (
-          <Skeleton className="h-10 w-full" />
+          <Skeleton className="h-6 w-full bg-slate-200 dark:bg-slate-800" />
         ) : (
-          <p className="text-4xl font-bold">{value}</p>
+          <div className="text-xl font-bold">{children}</div>
         )}
       </CardContent>
     </Card>

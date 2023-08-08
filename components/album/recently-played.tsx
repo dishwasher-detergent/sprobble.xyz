@@ -1,24 +1,21 @@
 "use client";
 
 import { History } from "@/components/history";
+import { albumCollectionId, databaseId } from "@/lib/appwrite";
 import { custom_sort } from "@/lib/utils";
 import { Query } from "appwrite";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useCollection } from "react-appwrite";
-
-const databaseId = "645c032960cb9f95212b";
-const collectionId = "album";
 
 export function AlbumRecentlyPlayed({ album }: { album: string }) {
   const itemCount = 10;
   const query = [Query.limit(itemCount), Query.equal("$id", album)];
 
-  const [formattedPlays, setFormattedPlays] = useState<any>([]);
   const [queries, setQueries] = useState<any>(query);
 
   const { data: plays, isLoading } = useCollection(
     databaseId,
-    collectionId,
+    albumCollectionId,
     queries,
     {
       keepPreviousData: true,
@@ -62,12 +59,7 @@ export function AlbumRecentlyPlayed({ album }: { album: string }) {
     return formatted.sort(custom_sort).reverse();
   };
 
-  useEffect(() => {
-    if (isLoading) return;
-    if (!plays) return;
-
-    setFormattedPlays(groupByDate(plays.documents[0].plays));
-  }, [plays]);
+  const formattedPlays = groupByDate(plays?.documents[0].plays);
 
   return (
     <History

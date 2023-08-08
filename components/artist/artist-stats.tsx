@@ -4,6 +4,7 @@ import { Pagination } from "@/components/history/pagination";
 import { Loader } from "@/components/loading/loader";
 import { DataTable } from "@/components/ui/data-table";
 import { Input } from "@/components/ui/input";
+import { artistCollectionId, databaseId } from "@/lib/appwrite";
 import { Artist } from "@/types/Types";
 import { ColumnDef } from "@tanstack/react-table";
 import { Query } from "appwrite";
@@ -18,20 +19,17 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useCollection } from "react-appwrite";
 
-const databaseId = "645c032960cb9f95212b";
-const collectionId = "artist";
-
 const columns: ColumnDef<any>[] = [
   {
     accessorKey: "name",
     header: "Name",
     cell(props) {
       return (
-        <span className="flex flex-row items-center gap-2">
+        <span className="flex flex-row items-center gap-4">
           <LucidePersonStanding className="flex-none" size={16} />
           <Link
             href={`/global/stats/artist/${props.row.original.id}`}
-            className="flex flex-row items-center gap-2 hover:text-blue-600"
+            className="flex flex-row items-center gap-4 hover:text-blue-500"
           >
             {props.row.original.name}
           </Link>
@@ -44,7 +42,7 @@ const columns: ColumnDef<any>[] = [
     header: "Number of Albums",
     cell(props) {
       return (
-        <span className="flex flex-row items-center gap-2">
+        <span className="flex flex-row items-center gap-4">
           <LucideDisc2 className="flex-none" size={16} />
           {props.row.original.albums}
         </span>
@@ -56,7 +54,7 @@ const columns: ColumnDef<any>[] = [
     header: "Number of Songs",
     cell(props) {
       return (
-        <span className="flex flex-row items-center gap-2">
+        <span className="flex flex-row items-center gap-4">
           <LucideCassetteTape className="flex-none" size={16} />
           {props.row.original.songs}
         </span>
@@ -68,7 +66,7 @@ const columns: ColumnDef<any>[] = [
     header: "Number of Plays",
     cell(props) {
       return (
-        <span className="flex flex-row items-center gap-2">
+        <span className="flex flex-row items-center gap-4">
           <LucideMusic2 className="flex-none" size={16} />
           {props.row.original.plays}
         </span>
@@ -93,13 +91,12 @@ export function ArtistStats() {
     Query.limit(limit),
     Query.offset(0),
   ]);
-  const [pageCount, setPageCount] = useState<number>(0);
 
   const {
     data: plays,
     isLoading,
     isError,
-  } = useCollection(databaseId, collectionId, queries, {
+  } = useCollection(databaseId, artistCollectionId, queries, {
     keepPreviousData: true,
   });
 
@@ -114,11 +111,8 @@ export function ArtistStats() {
       }))
     : [];
 
-  useEffect(() => {
-    if (isLoading) return;
-    if (!plays) return;
-    setPageCount(Math.ceil(plays.total / limit));
-  }, [plays]);
+  const pageCount = plays ? Math.ceil(plays.total / limit) : 1;
+  const params = new URLSearchParams(Array.from(query.entries()));
 
   useEffect(() => {
     const queries = Array.from(query.entries());
@@ -164,6 +158,7 @@ export function ArtistStats() {
           className="max-w-xs"
           placeholder="Search Artists"
           onChange={(e) => setSearch(e.target.value)}
+          value={params.get("search") || ""}
         />
       </nav>
       <DataTable columns={columns} data={data} />

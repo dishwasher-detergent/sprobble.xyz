@@ -26,6 +26,8 @@ export type Album = {
   href: string;
   popularity: number;
   images: string[];
+  track: Track[];
+  artist: Artist[];
 } & Models.Document;
 
 export type Artist = {
@@ -35,6 +37,8 @@ export type Artist = {
   popularity: number;
   images: string[];
   genres: string[];
+  track: Track[];
+  album: Album[];
 } & Models.Document;
 
 export type Stat = {

@@ -4,6 +4,7 @@ import { Pagination } from "@/components/history/pagination";
 import { Loader } from "@/components/loading/loader";
 import { DataTable } from "@/components/ui/data-table";
 import { Input } from "@/components/ui/input";
+import { albumCollectionId, databaseId } from "@/lib/appwrite";
 import { Album } from "@/types/Types";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { ColumnDef } from "@tanstack/react-table";
@@ -13,9 +14,6 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useCollection } from "react-appwrite";
-
-const databaseId = "645c032960cb9f95212b";
-const collectionId = "album";
 
 const columns: ColumnDef<any>[] = [
   {
@@ -39,7 +37,7 @@ const columns: ColumnDef<any>[] = [
       return (
         <Link
           href={`/global/stats/album/${props.row.original.id}`}
-          className="flex flex-row items-center gap-2 hover:text-blue-600"
+          className="flex flex-row items-center gap-4 hover:text-blue-500"
         >
           <LucideDisc2 className="flex-none" size={16} />
           {props.row.original.name}
@@ -52,7 +50,7 @@ const columns: ColumnDef<any>[] = [
     header: "Number of Songs",
     cell(props) {
       return (
-        <span className="flex flex-row items-center gap-2">
+        <span className="flex flex-row items-center gap-4">
           <LucideCassetteTape className="flex-none" size={16} />
           {props.row.original.songs}
         </span>
@@ -64,7 +62,7 @@ const columns: ColumnDef<any>[] = [
     header: "Number of Plays",
     cell(props) {
       return (
-        <span className="flex flex-row items-center gap-2">
+        <span className="flex flex-row items-center gap-4">
           <LucideMusic2 className="flex-none" size={16} />
           {props.row.original.plays}
         </span>
@@ -89,13 +87,12 @@ export function AlbumStats() {
     Query.limit(limit),
     Query.offset(0),
   ]);
-  const [pageCount, setPageCount] = useState<number>(0);
 
   const {
     data: plays,
     isLoading,
     isError,
-  } = useCollection(databaseId, collectionId, queries, {
+  } = useCollection(databaseId, albumCollectionId, queries, {
     keepPreviousData: true,
   });
 
@@ -110,11 +107,8 @@ export function AlbumStats() {
       }))
     : [];
 
-  useEffect(() => {
-    if (isLoading) return;
-    if (!plays) return;
-    setPageCount(Math.ceil(plays.total / limit));
-  }, [plays]);
+  const pageCount = plays ? Math.ceil(plays.total / limit) : 1;
+  const params = new URLSearchParams(Array.from(query.entries()));
 
   useEffect(() => {
     const queries = Array.from(query.entries());
@@ -160,6 +154,7 @@ export function AlbumStats() {
           className="max-w-xs"
           placeholder="Search Albums"
           onChange={(e) => setSearch(e.target.value)}
+          value={params.get("search") || ""}
         />
       </nav>
       <DataTable columns={columns} data={data} />

@@ -1,9 +1,12 @@
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 
-export function Logo() {
+export function Logo({ className }: { className?: string }) {
   return (
     <Link href={"/"}>
-      <h1 className="flex flex-row items-center justify-center gap-2 text-xl font-black uppercase text-blue-600">
+      <h1
+        className={cn("text-xl font-black uppercase text-blue-500", className)}
+      >
         Sprobble
       </h1>
     </Link>

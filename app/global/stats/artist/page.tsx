@@ -1,4 +1,5 @@
 import { ArtistStats } from "@/components/artist/artist-stats";
+import ArtistCount from "@/components/artist/count";
 import { Header } from "@/components/header";
 import { Artist } from "@/types/Types";
 import { Models } from "appwrite";
@@ -31,6 +32,7 @@ export default async function ArtistPage() {
   return (
     <section className="space-y-6">
       <Header subTitle="Global" title="Artist Statistics" />
+      <ArtistCount />
       <ArtistStats />
     </section>
   );
