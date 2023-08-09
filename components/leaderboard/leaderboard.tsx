@@ -4,16 +4,17 @@ import { Pagination } from "@/components/history/pagination";
 import { Loader } from "@/components/loading/loader";
 import { DataTable } from "@/components/ui/data-table";
 import { Input } from "@/components/ui/input";
-import { artistCollectionId, databaseId } from "@/lib/appwrite";
-import { Artist } from "@/types/Types";
+import {
+  avatarBucketId,
+  databaseId,
+  projectId,
+  userCollectionId,
+} from "@/lib/appwrite";
+import { User } from "@/types/Types";
+import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { ColumnDef } from "@tanstack/react-table";
 import { Query } from "appwrite";
-import {
-  LucideCassetteTape,
-  LucideDisc2,
-  LucideMusic2,
-  LucidePersonStanding,
-} from "lucide-react";
+import { LucideClock2, LucideMusic2 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -21,43 +22,38 @@ import { useCollection } from "react-appwrite";
 
 const columns: ColumnDef<any>[] = [
   {
+    accessorKey: "avatar",
+    header: "Avatar",
+    cell(props) {
+      return (
+        <Avatar className="block h-14 w-14 flex-none overflow-hidden rounded-lg">
+          <AvatarImage
+            src={`https://data.kennethbass.com/v1/storage/buckets/${avatarBucketId}/files/${props.row.original.id}/preview?project=${projectId}&width=100&height=100&quality=75`}
+            alt={`${props.row.original.name}'s Avatar`}
+          />
+        </Avatar>
+      );
+    },
+  },
+  {
     accessorKey: "name",
     header: "Name",
     cell(props) {
       return (
-        <span className="flex flex-row items-center gap-4">
-          <LucidePersonStanding className="flex-none" size={16} />
-          <Link
-            href={`/global/stats/artist/${props.row.original.id}`}
-            className="flex flex-row items-center gap-4 hover:text-blue-500"
-          >
-            {props.row.original.name}
-          </Link>
-        </span>
-      );
-    },
-  },
-  {
-    accessorKey: "albums",
-    header: "Number of Albums",
-    cell(props) {
-      return (
-        <span className="flex flex-row items-center gap-4">
-          <LucideDisc2 className="flex-none" size={16} />
-          {props.row.original.albums}
-        </span>
-      );
-    },
-  },
-  {
-    accessorKey: "songs",
-    header: "Number of Songs",
-    cell(props) {
-      return (
-        <span className="flex flex-row items-center gap-4">
-          <LucideCassetteTape className="flex-none" size={16} />
-          {props.row.original.songs}
-        </span>
+        <Link
+          href={`/user/${props.row.original.id}`}
+          className="hover:text-blue-500"
+        >
+          <p className="text-lg">{props.row.original.name}</p>
+          <p>{`Joined ${new Date(props.row.original.joined).toLocaleDateString(
+            "en-us",
+            {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            }
+          )}`}</p>
+        </Link>
       );
     },
   },
@@ -68,14 +64,26 @@ const columns: ColumnDef<any>[] = [
       return (
         <span className="flex flex-row items-center gap-4">
           <LucideMusic2 className="flex-none" size={16} />
-          {props.row.original.plays}
+          {props.row.original.plays.toLocaleString()}
+        </span>
+      );
+    },
+  },
+  {
+    accessorKey: "duration",
+    header: "Time Spent Listening",
+    cell(props) {
+      return (
+        <span className="flex flex-row items-center gap-4">
+          <LucideClock2 className="flex-none" size={16} />
+          {props.row.original.duration.toLocaleString()} Hours
         </span>
       );
     },
   },
 ];
 
-export function ArtistStats() {
+export function Leaderboard() {
   const query = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -85,7 +93,7 @@ export function ArtistStats() {
     ? parseInt(query.get("limit") as string)
     : 12;
 
-  const baseQuery = [Query.orderDesc("$createdAt")];
+  const baseQuery = [Query.orderAsc("name")];
   const [queries, setQueries] = useState<any>([
     ...baseQuery,
     Query.limit(limit),
@@ -93,25 +101,37 @@ export function ArtistStats() {
   ]);
 
   const {
-    data: plays,
+    data: users,
     isLoading,
     isError,
-  } = useCollection(databaseId, artistCollectionId, queries, {
+  } = useCollection(databaseId, userCollectionId, queries, {
     keepPreviousData: true,
   });
 
-  const data = plays
-    ? plays?.documents.map((artist: Artist) => ({
-        name: artist.name,
-        id: artist.$id,
-        url: artist.href,
-        plays: artist.plays.length,
-        songs: artist.track.length,
-        albums: artist.album.length,
-      }))
+  const data = users
+    ? users?.documents.map((user: User) => {
+        return {
+          name: user.name,
+          joined: user.created_at,
+          id: user.$id,
+          plays: user.stats.reduce(
+            (acc, stat) => acc + stat.number_of_plays,
+            0
+          ),
+          duration: (
+            user.stats.reduce(
+              (acc, stat) => acc + Number(stat.time_spent_listening),
+              0
+            ) /
+            1000 /
+            60 /
+            60
+          ).toFixed(2),
+        };
+      })
     : [];
 
-  const pageCount = plays ? Math.ceil(plays.total / limit) : 1;
+  const pageCount = users ? Math.ceil(users.total / limit) : 1;
   const params = new URLSearchParams(Array.from(query.entries()));
 
   useEffect(() => {
@@ -132,7 +152,8 @@ export function ArtistStats() {
           newQueries.push(Query.limit(parseInt(query[1])));
           break;
         case "search":
-          newQueries.push(Query.search("name", query[1]));
+          if (query[1].length > 0)
+            newQueries.push(Query.search("name", query[1]));
           break;
       }
     });
@@ -159,7 +180,7 @@ export function ArtistStats() {
       <nav>
         <Input
           className="max-w-xs"
-          placeholder="Search Artists"
+          placeholder="Search Users"
           onChange={(e) => setSearch(e.target.value)}
           value={params.get("search") || ""}
         />

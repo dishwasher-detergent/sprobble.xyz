@@ -26,7 +26,7 @@ export function Nav() {
             <Link href="/global/stats/track">Tracks</Link>
           </Button>
           <Button variant="ghost" asChild>
-            <Link href="/global/history">History</Link>
+            <Link href="/global/leaderboard">Leaderboard</Link>
           </Button>
         </nav>
         <div className="order-1 lg:order-2">

@@ -36,11 +36,11 @@ export function NavMenu() {
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
             <Link
-              href={"/global/history"}
+              href={"/global/leaderboard"}
               className="flex w-full flex-row items-center gap-4 text-base"
             >
               <LucideFileClock size={16} />
-              History
+              Leaderboard
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>

@@ -1,3 +1,4 @@
+import { Stat } from "@/types/Types";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
  
@@ -60,4 +61,28 @@ export function getHSL(color: string, alpha: number = 1) {
   const lightness = color.match(/\d+/g)?.[2];
   // return the hsl string with the lightness increased by 10%
   return `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`;
+}
+
+export function combineAndSumPlays(arr: Stat[]): Stat[] {
+  if (!arr) return [];
+
+  const combinedData: Stat[] = [];
+
+  arr.forEach((item) => {
+    const existingItem = combinedData.find(
+      (i) => i.week_of_year === item.week_of_year
+    );
+
+    if (existingItem) {
+      existingItem.number_of_plays += item.number_of_plays;
+      existingItem.time_spent_listening = (
+        Number(existingItem.time_spent_listening) +
+        Number(item.time_spent_listening)
+      ).toString();
+    } else {
+      combinedData.push({ ...item });
+    }
+  });
+
+  return combinedData;
 }

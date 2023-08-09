@@ -6,6 +6,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import { avatarBucketId, projectId } from "@/lib/appwrite";
 import { User } from "@/types/Types";
 import { getISOWeek } from "date-fns";
 import { LucideCalendarDays } from "lucide-react";
@@ -41,7 +42,7 @@ export default function UserTag({ userId, hover = true }: UserTagProps) {
         <Link href={`/user/${userId}`} className="flex items-center gap-2">
           <Avatar className="h-6 w-6">
             <AvatarImage
-              src={`https://api.dicebear.com/6.x/thumbs/svg?seed=${userId}`}
+              src={`https://data.kennethbass.com/v1/storage/buckets/${avatarBucketId}/files/${userId}/preview?project=${projectId}&width=100&height=100&quality=50`}
               alt={`@${profile.name}`}
             />
             <AvatarFallback>{profile.name.slice(0, 2)}</AvatarFallback>
@@ -54,7 +55,7 @@ export default function UserTag({ userId, hover = true }: UserTagProps) {
           <div className="flex space-x-4">
             <Avatar className="h-10 w-10">
               <AvatarImage
-                src={`https://api.dicebear.com/6.x/thumbs/svg?seed=${userId}`}
+                src={`https://data.kennethbass.com/v1/storage/buckets/${avatarBucketId}/files/${userId}/preview?project=${projectId}&width=100&height=100&quality=50`}
                 alt={`@${profile.name}`}
               />
               <AvatarFallback>{profile.name.slice(0, 2)}</AvatarFallback>
