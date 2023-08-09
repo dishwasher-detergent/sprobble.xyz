@@ -26,7 +26,7 @@ export async function generateMetadata({
       type: "website",
       images: [
         {
-          url: `https://data.kennethbass.com/v1/storage/buckets/${avatarBucketId}/files/${user.$id}/preview?project=${projectId}&width=800&height=800&quality=100`,
+          url: `/api/og?id=${user.$id}`,
           width: 800,
           height: 800,
         },
@@ -36,9 +36,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: user.name,
       description: `Stats for ${user.name}`,
-      images: [
-        `https://data.kennethbass.com/v1/storage/buckets/${avatarBucketId}/files/${user.$id}/preview?project=${projectId}&width=400&height=400&quality=100`,
-      ],
+      images: [`/api/og?id=${user.$id}`],
     },
   };
 }
