@@ -42,11 +42,13 @@ export default function ArtistSearch({
                   <p className="pb-1 text-sm">Tracks:</p>
                   <ul className="flex flex-wrap gap-1">
                     {artist.track.map((track: Track) => (
-                      <Badge key={track.$id}>
-                        <Link href={`/global/stats/track/${track.$id}`}>
-                          {track.name}
-                        </Link>
-                      </Badge>
+                      <li>
+                        <Badge key={track.$id}>
+                          <Link href={`/global/stats/track/${track.$id}`}>
+                            {track.name}
+                          </Link>
+                        </Badge>
+                      </li>
                     ))}
                   </ul>
                 </div>

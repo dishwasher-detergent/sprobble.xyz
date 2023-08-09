@@ -6,6 +6,7 @@ export default function DarkToggle() {
   const { theme, setTheme } = useTheme();
   return (
     <Button
+      aria-label="Toggle between dark and light mode"
       variant={"ghost"}
       size={"icon"}
       onClick={() => setTheme(theme == "dark" ? "light" : "dark")}

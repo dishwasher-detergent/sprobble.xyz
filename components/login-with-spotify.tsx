@@ -20,6 +20,7 @@ export function LoginWithSpotify() {
     <UserDropDown userId={account.$id} />
   ) : (
     <Button
+      aria-label="Sign in with Spotify"
       className="flex flex-none flex-row items-center gap-4 px-4"
       variant="ghost"
       size="sm"
@@ -78,6 +79,7 @@ function UserDropDown({ userId }: { userId: string }) {
         </DropdownMenuItem>
         <DropdownMenuItem>
           <button
+            aria-label="Sign out of account"
             className="flex w-full flex-row items-center justify-between text-base"
             onClick={() => {
               signOut.mutateAsync();

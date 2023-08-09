@@ -8,7 +8,7 @@ export function HistoryLoading() {
   return (
     <ul className="flex flex-col gap-10">
       {[...new Array(2)].map((val: any, index: number) => (
-        <div key={index}>
+        <li key={index}>
           <h3 className="flex items-center pb-4 text-base font-bold text-slate-500">
             <LucideCalendarClock size={16} className="mr-2" />
             <Skeleton className="h-6 w-full max-w-[150px]" />
@@ -18,7 +18,7 @@ export function HistoryLoading() {
               <HistoryItemLoading key={index} />
             ))}
           </ul>
-        </div>
+        </li>
       ))}
     </ul>
   );

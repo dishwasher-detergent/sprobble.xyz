@@ -40,7 +40,7 @@ export function Nav() {
         </div>
         <div className="order-3 flex justify-end gap-1 md:hidden">
           <Button size="icon" variant="ghost" asChild>
-            <Link href="/search">
+            <Link href="/search" aria-label="Go to search page">
               <LucideSearch className="h-5 w-5" />
             </Link>
           </Button>

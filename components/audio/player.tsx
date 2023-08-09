@@ -37,7 +37,7 @@ export function AudioPlayer() {
           {formatTimeForAudioPlayer(song?.duration)}
         </p>
       </div>
-      <Button variant="ghost" size="icon" onClick={() => setSong(null)}>
+      <Button variant="ghost" size="icon" onClick={() => setSong(null)} aria-label="Stop song preview">
         <LucideX size={16} />
       </Button>
     </div>

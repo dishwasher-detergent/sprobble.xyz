@@ -34,6 +34,7 @@ export function Audio({ file }: { file: SongType }) {
 
   return (
     <button
+      aria-label="Play song preview"
       className="absolute inset-0 z-10 flex cursor-pointer items-center justify-center bg-slate-900/40 text-white opacity-0 transition-opacity hover:opacity-100"
       onClick={() => toggleSong()}
     >
