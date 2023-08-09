@@ -3,6 +3,7 @@
 import StatsCard from "@/components/stats/card";
 import CustomTooltip from "@/components/stats/tooltips";
 import { databaseId, statsCollectionId } from "@/lib/appwrite";
+import { combineAndSumPlays } from "@/lib/utils";
 import { Stat } from "@/types/Types";
 import { Query } from "appwrite";
 import { LucideTrendingUp } from "lucide-react";
@@ -21,30 +22,6 @@ export default function UserStats({ user }: { user?: string }) {
       ...(user ? [Query.equal("user_id", user)] : []),
     ]
   );
-
-  function combineAndSumPlays(arr: Stat[]): any {
-    if (!arr) return [];
-
-    const combinedData: Stat[] = [];
-
-    arr.forEach((item) => {
-      const existingItem = combinedData.find(
-        (i) => i.week_of_year === item.week_of_year
-      );
-
-      if (existingItem) {
-        existingItem.number_of_plays += item.number_of_plays;
-        existingItem.time_spent_listening = (
-          Number(existingItem.time_spent_listening) +
-          Number(item.time_spent_listening)
-        ).toString();
-      } else {
-        combinedData.push({ ...item });
-      }
-    });
-
-    return combinedData;
-  }
 
   const year_to_date = combineAndSumPlays(stats?.documents as Stat[]).map(
     (stat: Stat) => ({

@@ -1,6 +1,7 @@
 import { RecentlyPlayed } from "@/components/global/recently-played";
 import { Header } from "@/components/header";
 import UserStats from "@/components/user/stats";
+import { avatarBucketId, projectId } from "@/lib/appwrite";
 import { User } from "@/types/Types";
 
 export async function generateMetadata({
@@ -25,7 +26,7 @@ export async function generateMetadata({
       type: "website",
       images: [
         {
-          url: `https://api.dicebear.com/6.x/thumbs/svg?seed=${user.$id}`,
+          url: `https://data.kennethbass.com/v1/storage/buckets/${avatarBucketId}/files/${user.$id}/preview?project=${projectId}&width=800&height=800&quality=100`,
           width: 800,
           height: 800,
         },
@@ -35,7 +36,9 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: user.name,
       description: `Stats for ${user.name}`,
-      images: [`https://api.dicebear.com/6.x/thumbs/svg?seed=${user.$id}`],
+      images: [
+        `https://data.kennethbass.com/v1/storage/buckets/${avatarBucketId}/files/${user.$id}/preview?project=${projectId}&width=400&height=400&quality=100`,
+      ],
     },
   };
 }
@@ -76,7 +79,7 @@ export default async function UserPage({
             year: "numeric",
           }
         )}`}
-        artwork={`https://api.dicebear.com/6.x/thumbs/svg?seed=${user.$id}`}
+        artwork={`https://data.kennethbass.com/v1/storage/buckets/${avatarBucketId}/files/${user.$id}/preview?project=${projectId}&width=400&height=400&quality=100`}
         artwork_name={user.name + "'s avatar"}
       />
       <section className="py-4">
