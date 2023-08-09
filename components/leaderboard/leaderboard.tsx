@@ -137,7 +137,10 @@ export function Leaderboard() {
   useEffect(() => {
     const queries = Array.from(query.entries());
 
-    if (queries.length == 0) return;
+    if (queries.length == 0) {
+      setQueries(baseQuery);
+      return;
+    }
 
     const newQueries = [...baseQuery];
     queries.forEach((query) => {
@@ -149,7 +152,8 @@ export function Leaderboard() {
           newQueries.push(Query.limit(parseInt(query[1])));
           break;
         case "search":
-          newQueries.push(Query.search("name", query[1]));
+          if (query[1].length > 0)
+            newQueries.push(Query.search("name", query[1]));
           break;
       }
     });

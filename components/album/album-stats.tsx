@@ -113,7 +113,10 @@ export function AlbumStats() {
   useEffect(() => {
     const queries = Array.from(query.entries());
 
-    if (queries.length == 0) return;
+    if (queries.length == 0) {
+      setQueries(baseQuery);
+      return;
+    }
 
     const newQueries = [...baseQuery];
     queries.forEach((query) => {
