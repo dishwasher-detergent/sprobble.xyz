@@ -30,9 +30,9 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const id = searchParams.get("id");
   if (!id) {
-    return new ImageResponse(<>Visit with &quot;?username=vercel&quot;</>, {
-      width: 1200,
-      height: 630,
+    return new ImageResponse(<>Missing id param.</>, {
+      width: 1080,
+      height: 1080,
     });
   }
 
@@ -91,7 +91,7 @@ export async function GET(request: Request) {
               width: "100%",
               overflow: "hidden",
               textOverflow: "ellipsis",
-              fontSize: 100,
+              fontSize: 156,
               fontWeight: 900,
             }}
           >
@@ -108,9 +108,9 @@ export async function GET(request: Request) {
           >
             <p
               style={{
-                fontSize: 32,
+                fontSize: 64,
                 margin: 0,
-                padding: 20,
+                padding: "24px 48px",
                 width: "100%",
                 borderRadius: 9999,
                 backgroundColor: "#000000",
@@ -124,9 +124,9 @@ export async function GET(request: Request) {
             </p>
             <p
               style={{
-                fontSize: 32,
+                fontSize: 64,
                 margin: 0,
-                padding: 20,
+                padding: "24px 48px",
                 width: "100%",
                 borderRadius: 9999,
                 backgroundColor: "#000000",
