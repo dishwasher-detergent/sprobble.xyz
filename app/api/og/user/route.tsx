@@ -7,8 +7,6 @@ import {
 import { User } from "@/types/Types";
 import { Models } from "appwrite";
 import { ImageResponse } from "next/server";
-// App router includes @vercel/og.
-// No need to install it.
 
 export const runtime = "edge";
 
@@ -37,7 +35,7 @@ export async function GET(request: Request) {
   }
 
   const fontData = await fetch(
-    new URL("../../../assets/Cabin-Regular.ttf", import.meta.url)
+    new URL("../../../../assets/Cabin-Regular.ttf", import.meta.url)
   ).then((res) => res.arrayBuffer());
 
   const user = await fetchUser(id);
@@ -47,8 +45,7 @@ export async function GET(request: Request) {
       <div
         style={{
           display: "flex",
-          color: "black",
-          background: "#f6f6f6",
+          color: "#020617",
           width: "100%",
           height: "100%",
           paddingTop: 50,
@@ -57,8 +54,8 @@ export async function GET(request: Request) {
           alignItems: "flex-start",
           padding: "10px",
           margin: 0,
-          backgroundColor: "#f8fafc",
-          fontFamily: '"Typewriter"',
+          backgroundColor: "#020617",
+          fontFamily: '"Cabin"',
           position: "relative",
         }}
       >
@@ -78,9 +75,10 @@ export async function GET(request: Request) {
             flexDirection: "column",
             position: "absolute",
             bottom: 16,
+            left: 16,
             right: 16,
             padding: 20,
-            backgroundColor: "rgba(203, 213, 225, .5)",
+            backgroundColor: "rgba(2, 6, 23, .65)",
             borderRadius: 16,
           }}
         >
@@ -93,6 +91,7 @@ export async function GET(request: Request) {
               textOverflow: "ellipsis",
               fontSize: 156,
               fontWeight: 900,
+              color: "#ffffff",
             }}
           >
             {user.name}
@@ -101,35 +100,35 @@ export async function GET(request: Request) {
             style={{
               width: "100%",
               display: "flex",
-              flexDirection: "column",
+              flexDirection: "row",
               gap: 10,
               color: "#ffffff",
             }}
           >
             <p
               style={{
-                fontSize: 64,
+                fontSize: 32,
                 margin: 0,
                 padding: "24px 48px",
-                width: "100%",
                 borderRadius: 9999,
-                backgroundColor: "#000000",
+                backgroundColor: "#020617",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
               }}
             >
-              {user.stats.reduce((acc, stat) => acc + stat.number_of_plays, 0)}{" "}
+              {user.stats
+                .reduce((acc, stat) => acc + stat.number_of_plays, 0)
+                .toLocaleString()}{" "}
               Tracks Played
             </p>
             <p
               style={{
-                fontSize: 64,
+                fontSize: 32,
                 margin: 0,
                 padding: "24px 48px",
-                width: "100%",
                 borderRadius: 9999,
-                backgroundColor: "#000000",
+                backgroundColor: "#020617",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
