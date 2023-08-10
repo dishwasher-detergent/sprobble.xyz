@@ -18,15 +18,15 @@ export async function generateMetadata({
     title: user.name + "'s Listen History",
     description: `Listen history for ${user.name}`,
     openGraph: {
-      title: user.name,
-      description: `Stats for ${user.name}`,
+      title: `Stats for ${user.name}`,
+      description: `${user.stats[0].number_of_plays}s this week!`,
       url: `https://sprobble.xyz/user/${user.$id}`,
       siteName: "sprobble.xyz",
       locale: "en_US",
       type: "website",
       images: [
         {
-          url: `/api/og?id=${user.$id}`,
+          url: `/api/og/user?id=${user.$id}`,
           width: 800,
           height: 800,
         },
@@ -36,7 +36,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: user.name,
       description: `Stats for ${user.name}`,
-      images: [`/api/og?id=${user.$id}`],
+      images: [`/api/og/user?id=${user.$id}`],
     },
   };
 }
