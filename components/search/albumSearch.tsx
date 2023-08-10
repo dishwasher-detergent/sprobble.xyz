@@ -58,8 +58,8 @@ export default function AlbumSearch({
                 <p className="pb-1 text-sm">Tracks:</p>
                 <ul className="flex flex-wrap gap-1">
                   {album.track.map((track: Track) => (
-                    <li>
-                      <Badge key={track.$id}>
+                    <li key={track.$id}>
+                      <Badge>
                         <Link href={`/global/stats/track/${track.$id}`}>
                           {track.name}
                         </Link>
