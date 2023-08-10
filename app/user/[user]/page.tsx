@@ -18,8 +18,8 @@ export async function generateMetadata({
     title: user.name + "'s Listen History",
     description: `Listen history for ${user.name}`,
     openGraph: {
-      title: `Stats for ${user.name}`,
-      description: `${user.stats[0].number_of_plays}s this week!`,
+      title: user.name + "'s Listen History",
+      description: `${user.stats.pop()?.number_of_plays} Sprobbles this week!`,
       url: `https://sprobble.xyz/user/${user.$id}`,
       siteName: "sprobble.xyz",
       locale: "en_US",
@@ -35,7 +35,7 @@ export async function generateMetadata({
     twitter: {
       card: "summary_large_image",
       title: user.name,
-      description: `Stats for ${user.name}`,
+      description: `${user.stats.pop()?.number_of_plays} Sprobbles this week!`,
       images: [`/api/og/user?id=${user.$id}`],
     },
   };
