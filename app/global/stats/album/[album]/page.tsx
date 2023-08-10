@@ -18,12 +18,12 @@ export async function generateMetadata({
     title: `${album.name} by ${album.artist
       .map((x: Artist) => x.name)
       .join(", ")}`,
-    description: `${album.plays.length} Scrobbles`,
+    description: `${album.plays.length} sprobbles`,
     openGraph: {
       title: `${album.name} by ${album.artist
         .map((x: Artist) => x.name)
         .join(", ")}`,
-      description: `${album.plays.length} Scrobbles`,
+      description: `${album.plays.length} sprobbles`,
       url: "https://sprobble.xyz/global/stats/album/" + album.$id,
       siteName: "sprobble.xyz",
       images: [
@@ -41,7 +41,7 @@ export async function generateMetadata({
       title: `${album.name} by ${album.artist
         .map((x: Artist) => x.name)
         .join(", ")}`,
-      description: `${album.plays.length} Scrobbles`,
+      description: `${album.plays.length} sprobbles`,
       images: [album.images[0]],
     },
   };

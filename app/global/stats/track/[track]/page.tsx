@@ -17,10 +17,10 @@ export async function generateMetadata({
 
   return {
     title: `${track.name} by ${track.artist.map((x) => x.name).join(", ")}`,
-    description: `${track.plays.length} Scrobbles`,
+    description: `${track.plays.length} sprobbles`,
     openGraph: {
       title: `${track.name} by ${track.artist.map((x) => x.name).join(", ")}`,
-      description: `${track.plays.length} Scrobbles`,
+      description: `${track.plays.length} sprobbles`,
       url: "https://sprobble.xyz/global/stats/track/" + track.$id,
       siteName: "sprobble.xyz",
       images: [
@@ -35,7 +35,7 @@ export async function generateMetadata({
     },
     twitter: {
       title: `${track.name} by ${track.artist.map((x) => x.name).join(", ")}`,
-      description: `${track.plays.length} Scrobbles`,
+      description: `${track.plays.length} sprobbles`,
       card: "summary_large_image",
       images: [track.album.images[0]],
     },
