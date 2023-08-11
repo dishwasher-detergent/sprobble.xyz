@@ -18,15 +18,15 @@ export async function generateMetadata({
     title: user.name + "'s Listen History",
     description: `Listen history for ${user.name}`,
     openGraph: {
-      title: user.name,
-      description: `Stats for ${user.name}`,
+      title: user.name + "'s Listen History",
+      description: `${user.stats.pop()?.number_of_plays} Sprobbles this week!`,
       url: `https://sprobble.xyz/user/${user.$id}`,
       siteName: "sprobble.xyz",
       locale: "en_US",
       type: "website",
       images: [
         {
-          url: `https://data.kennethbass.com/v1/storage/buckets/${avatarBucketId}/files/${user.$id}/preview?project=${projectId}&width=800&height=800&quality=100`,
+          url: `/api/og/user?id=${user.$id}`,
           width: 800,
           height: 800,
         },
@@ -35,10 +35,8 @@ export async function generateMetadata({
     twitter: {
       card: "summary_large_image",
       title: user.name,
-      description: `Stats for ${user.name}`,
-      images: [
-        `https://data.kennethbass.com/v1/storage/buckets/${avatarBucketId}/files/${user.$id}/preview?project=${projectId}&width=400&height=400&quality=100`,
-      ],
+      description: `${user.stats.pop()?.number_of_plays} Sprobbles this week!`,
+      images: [`/api/og/user?id=${user.$id}`],
     },
   };
 }
