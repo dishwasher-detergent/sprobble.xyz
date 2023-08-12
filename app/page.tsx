@@ -8,11 +8,11 @@ export default function Home() {
   return (
     <>
       <section className="flex flex-col gap-10 pb-10">
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-4">
           <h2 className="text-xl font-black md:text-3xl">Users Stats</h2>
-          <UserStats />
+          <UserStats user="global" />
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-4">
           <h2 className="text-xl font-black md:text-3xl">Music Stats</h2>
           <div className="flex w-full flex-row flex-nowrap gap-4 overflow-x-auto">
             <ArtistCount />
