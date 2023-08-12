@@ -93,7 +93,7 @@ export function Leaderboard() {
     ? parseInt(query.get("limit") as string)
     : 12;
 
-  const baseQuery = [Query.orderAsc("name")];
+  const baseQuery = [Query.orderAsc("name"), Query.notEqual("$id", "global")];
   const [queries, setQueries] = useState<any>([
     ...baseQuery,
     Query.limit(limit),
