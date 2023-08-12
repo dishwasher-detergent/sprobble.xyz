@@ -80,6 +80,21 @@
             ],
             "schedule": "",
             "timeout": 15
+        },
+        {
+            "$id": "64d575ed9fb811aa7a70",
+            "name": "top",
+            "runtime": "node-18.0",
+            "path": "functions/top",
+            "entrypoint": "src/index.js",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
+            "execute": [],
+            "events": [],
+            "schedule": "",
+            "timeout": 15
         }
     ],
     "databases": [
