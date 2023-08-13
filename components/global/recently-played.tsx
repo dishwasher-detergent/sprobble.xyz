@@ -60,6 +60,7 @@ export function RecentlyPlayed({ user }: { user?: string }) {
 
   return (
     <History
+      title="Recently Played"
       isLoading={isLoading}
       formattedPlays={formattedPlays}
       paginationProps={{

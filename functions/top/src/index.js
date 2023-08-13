@@ -1,9 +1,25 @@
 const sdk = require("node-appwrite");
 const utils = require("./lib/utils");
+const dataIds = require("./lib/appwrite");
 require("./lib/console")();
+const date = require("date-fns");
+
+/*
+  'req' variable has:
+    'headers' - object with request headers
+    'payload' - request body data as a string
+    'variables' - object with function variables
+
+  'res' variable has:
+    'send(text, status)' - function to return text response. Status code defaults to 200
+    'json(obj, status)' - function to return JSON response. Status code defaults to 200
+
+  If an error is thrown, a response with code 500 will be returned.
+*/
 
 module.exports = async function (req, res) {
   const client = new sdk.Client();
+
   const database = new sdk.Databases(client);
 
   if (
@@ -19,17 +35,6 @@ module.exports = async function (req, res) {
       .setProject(req.variables["APPWRITE_FUNCTION_PROJECT_ID"])
       .setKey(req.variables["APPWRITE_FUNCTION_API_KEY"])
       .setSelfSigned(true);
-
-    const data = JSON.parse(req.variables["APPWRITE_FUNCTION_EVENT_DATA"]);
-
-    if (!data) {
-      console.log("No data found in event.");
-      res.send("No data found in event.");
-      return;
-    }
-
-    await utils.addStat(database, data, data.user_id);
-    await utils.addStat(database, data, "global");
   }
 
   res.send("Complete!");
