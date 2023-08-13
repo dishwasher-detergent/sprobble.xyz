@@ -5,7 +5,7 @@ import { Pagination } from "@/components/history/pagination";
 import { HistoryLoading } from "@/components/loading/history";
 import { DatePickerWithRange } from "@/components/ui/date-range-picker";
 import { Play } from "@/types/Types";
-import { LucideCalendarClock, LucideHistory } from "lucide-react";
+import { LucideCalendarClock } from "lucide-react";
 import { DateRange, SelectRangeEventHandler } from "react-day-picker";
 import Title from "../layout/title";
 
@@ -35,12 +35,9 @@ export function History({
   return (
     <section>
       {title && (
-        <Title
-          icon={<LucideHistory size={18} />}
-          className="pb-4 text-2xl text-slate-700 md:text-3xl"
-        >
+        <h2 className="flex flex-row items-center gap-2 pb-4 text-xl font-black text-slate-700 md:text-3xl">
           {title}
-        </Title>
+        </h2>
       )}
       {isLoading ? (
         <HistoryLoading />
