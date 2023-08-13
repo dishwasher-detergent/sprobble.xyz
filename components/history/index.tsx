@@ -35,7 +35,7 @@ export function History({
   return (
     <section>
       {title && (
-        <h2 className="flex flex-row items-center gap-2 pb-4 text-xl font-black text-slate-700 md:text-3xl">
+        <h2 className="flex flex-row items-center gap-2 pb-4 text-xl font-black text-slate-700 dark:text-slate-50 md:text-3xl">
           {title}
         </h2>
       )}
