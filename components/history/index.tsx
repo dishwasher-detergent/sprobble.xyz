@@ -5,8 +5,9 @@ import { Pagination } from "@/components/history/pagination";
 import { HistoryLoading } from "@/components/loading/history";
 import { DatePickerWithRange } from "@/components/ui/date-range-picker";
 import { Play } from "@/types/Types";
-import { LucideCalendarClock } from "lucide-react";
+import { LucideCalendarClock, LucideHistory } from "lucide-react";
 import { DateRange, SelectRangeEventHandler } from "react-day-picker";
+import Title from "../layout/title";
 
 interface HistoryProps {
   title?: string;
@@ -34,9 +35,12 @@ export function History({
   return (
     <section>
       {title && (
-        <div>
-          <h2 className="mb-4 text-xl font-black md:text-3xl">{title}</h2>
-        </div>
+        <Title
+          icon={<LucideHistory size={18} />}
+          className="pb-4 text-2xl text-slate-700 md:text-3xl"
+        >
+          {title}
+        </Title>
       )}
       {isLoading ? (
         <HistoryLoading />
@@ -53,15 +57,17 @@ export function History({
           <ul className="flex flex-col gap-10">
             {formattedPlays.map((play: any) => (
               <li key={play.date}>
-                <h3 className="flex items-center pb-4 text-base font-bold text-slate-500 dark:text-slate-300">
-                  <LucideCalendarClock size={16} className="mr-2" />
+                <Title
+                  className="pb-4"
+                  icon={<LucideCalendarClock size={16} />}
+                >
                   {new Date(play.date).toLocaleDateString("en-us", {
                     weekday: "long",
                     year: "numeric",
                     month: "short",
                     day: "numeric",
                   })}
-                </h3>
+                </Title>
                 <ul className="flex flex-row flex-wrap gap-4">
                   {play.tracks.map(
                     (item: Play) =>
