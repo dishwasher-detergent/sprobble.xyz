@@ -44,7 +44,7 @@ export default function AccountPage() {
 
       if (!existingUser) {
         const image = await fetchAndSaveImage(
-          `https://api.dicebear.com/6.x/thumbs/svg?seed=${account.$id}`,
+          `https://api.dicebear.com/6.x/thumbs/png?seed=${account.$id}`,
           `${account.$id}.svg`
         );
 
