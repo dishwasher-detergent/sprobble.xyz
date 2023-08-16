@@ -67,8 +67,17 @@ export default function AccountPage() {
             refresh_token: session.providerRefreshToken
           }
         );
+      } else {
+        const user = await databaseService.updateDocument(
+          databaseId,
+          userCollectionId,
+          account.$id,
+          {
+            refresh_token: session.providerRefreshToken
+          }
+        );
       }
-
+      
       router.push("/");
     }
   }
