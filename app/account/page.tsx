@@ -30,11 +30,17 @@ export default function AccountPage() {
         refresh_token: session.providerRefreshToken,
       });
 
-      const existingUser = await databaseService.getDocument(
-        databaseId,
-        userCollectionId,
-        account.$id
-      );
+      let existingUser = null 
+        
+      try {
+        existingUser = await databaseService.getDocument(
+          databaseId,
+          userCollectionId,
+          account.$id
+        );
+      } catch (error) {
+        console.log(error)
+      }
 
       if (!existingUser) {
         const image = await fetchAndSaveImage(
