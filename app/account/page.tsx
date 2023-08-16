@@ -5,6 +5,7 @@ import { avatarBucketId, databaseId, userCollectionId } from "@/lib/appwrite";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useAccount, useAppwrite } from "react-appwrite";
+import { ID } from "appwrite";
 
 export default function AccountPage() {
   const { data: account, status } = useAccount();
@@ -50,7 +51,7 @@ export default function AccountPage() {
 
         const avatar = await storageService.createFile(
           avatarBucketId,
-          `${account.$id}`,
+          ID.unique(),
           image
         );
 
@@ -63,6 +64,7 @@ export default function AccountPage() {
             name: account.name,
             created_at: account.$createdAt,
             avatar: avatar.$id,
+            refresh_token: session.providerRefreshToken
           }
         );
       }
