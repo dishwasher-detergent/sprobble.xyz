@@ -23,6 +23,7 @@ export default function UserPodium() {
               (acc, stat) => acc + stat.number_of_plays,
               0
             ),
+            unit: "Plays",
           };
         })
         .sort((a, b) => b.plays - a.plays)

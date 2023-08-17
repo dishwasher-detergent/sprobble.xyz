@@ -22,6 +22,7 @@ export default function Podium({ data }: PodiumProps) {
           image={`https://data.kennethbass.com/v1/storage/buckets/${avatarBucketId}/files/${item.id}/preview?project=${projectId}`}
           title={item.name}
           value={item.plays}
+          unit={item.unit}
           max={data[0].plays}
         />
       ))}

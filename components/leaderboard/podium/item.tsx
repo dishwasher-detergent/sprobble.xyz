@@ -7,6 +7,7 @@ interface PodiumItemProps {
   title: string;
   max: number;
   value: number;
+  unit?: string;
 }
 
 export default function PodiumItem({
@@ -14,6 +15,7 @@ export default function PodiumItem({
   title,
   max,
   value,
+  unit,
 }: PodiumItemProps) {
   const { data } = useColor(image, "hslString", {
     crossOrigin: "Anonymous",
@@ -30,11 +32,15 @@ export default function PodiumItem({
           className="aspect-square h-full rounded-lg "
         />
       </div>
-      <div className="w-24 flex-none overflow-hidden">
-        <p className="truncate font-bold">{title}</p>
-        <p className="truncate">{value.toLocaleString()} Plays</p>
+      <div className="flex-1 overflow-hidden">
+        <p className="mb-1 truncate text-lg font-bold">{title}</p>
+        <div
+          style={{ width: width }}
+          className="flex h-8 items-center justify-end rounded-lg bg-foreground px-2 font-bold text-background"
+        >
+          {value.toLocaleString()} {unit}
+        </div>
       </div>
-      <div style={{ width: width }} className="rounded-lg bg-foreground" />
     </div>
   );
 }
