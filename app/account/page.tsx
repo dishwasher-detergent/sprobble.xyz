@@ -2,13 +2,12 @@
 
 import { Loader } from "@/components/loading/loader";
 import { avatarBucketId, databaseId, userCollectionId } from "@/lib/appwrite";
+import { ID } from "appwrite";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useAccount, useAppwrite } from "react-appwrite";
-import { ID } from "appwrite";
+import { useAppwrite } from "react-appwrite";
 
 export default function AccountPage() {
-  const { data: account, status } = useAccount();
   const storageService = useAppwrite().storage;
   const accountService = useAppwrite().account;
   const databaseService = useAppwrite().databases;
@@ -24,15 +23,16 @@ export default function AccountPage() {
     return file;
   }
 
-  async function createUser(account: any) {
+  async function createUser() {
     const session = await accountService.getSession("current");
+    const account = await accountService.get();
     if (session.provider == "spotify") {
       await accountService.updatePrefs({
         refresh_token: session.providerRefreshToken,
       });
 
-      let existingUser = null 
-        
+      let existingUser = null;
+
       try {
         existingUser = await databaseService.getDocument(
           databaseId,
@@ -40,7 +40,7 @@ export default function AccountPage() {
           account.$id
         );
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
 
       if (!existingUser) {
@@ -55,38 +55,44 @@ export default function AccountPage() {
           image
         );
 
-        const user = await databaseService.createDocument(
-          databaseId,
-          userCollectionId,
-          account.$id,
-          {
-            user_id: account.$id,
-            name: account.name,
-            created_at: account.$createdAt,
-            avatar: avatar.$id,
-            refresh_token: session.providerRefreshToken
-          }
-        );
+        try {
+          await databaseService.createDocument(
+            databaseId,
+            userCollectionId,
+            account.$id,
+            {
+              user_id: account.$id,
+              name: account.name,
+              created_at: account.$createdAt,
+              avatar: avatar.$id,
+              refresh_token: session.providerRefreshToken,
+            }
+          );
+        } catch (error) {
+          console.log(error);
+        }
       } else {
-        const user = await databaseService.updateDocument(
-          databaseId,
-          userCollectionId,
-          account.$id,
-          {
-            refresh_token: session.providerRefreshToken
-          }
-        );
+        try {
+          await databaseService.updateDocument(
+            databaseId,
+            userCollectionId,
+            account.$id,
+            {
+              refresh_token: session.providerRefreshToken,
+            }
+          );
+        } catch (error) {
+          console.log(error);
+        }
       }
-      
+
       router.push("/");
     }
   }
 
   useEffect(() => {
-    if (account?.name) {
-      createUser(account);
-    }
-  }, [account]);
+    createUser();
+  }, []);
 
   return (
     <section className="flex flex-row items-center gap-2">
