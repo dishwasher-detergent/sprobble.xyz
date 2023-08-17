@@ -9,7 +9,7 @@ export function HistoryLoading() {
     <ul className="flex flex-col gap-10">
       {[...new Array(2)].map((val: any, index: number) => (
         <li key={index}>
-          <h3 className="flex items-center pb-4 text-base font-bold text-slate-500">
+          <h3 className="flex items-center pb-4 text-base font-bold text-muted-foreground">
             <LucideCalendarClock size={16} className="mr-2" />
             <Skeleton className="h-6 w-full max-w-[150px]" />
           </h3>

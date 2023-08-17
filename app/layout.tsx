@@ -1,5 +1,6 @@
 import Footer from "@/components/footer";
 import { Nav } from "@/components/nav";
+import { Toaster } from "@/components/ui/toaster";
 import AppWriteWrapper from "@/context/appwriteWrapper";
 import { AudioProvider } from "@/context/audioWrapper";
 import { ThemeWrapper } from "@/context/themeWrapper";
@@ -36,6 +37,7 @@ export default function RootLayout({
                   <Footer />
                 </div>
               </main>
+              <Toaster />
             </ThemeWrapper>
           </body>
         </html>

@@ -7,14 +7,54 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useToast } from "@/components/ui/use-toast";
 import UserTag from "@/components/user/tag";
+import { databaseId, userCollectionId } from "@/lib/appwrite";
+import { User } from "@/types/Types";
 import { LucideLogIn, LucideUser } from "lucide-react";
 import Link from "next/link";
-import { useAccount, useOAuth2SignIn, useSignOut } from "react-appwrite";
+import { useEffect } from "react";
+import {
+  useAccount,
+  useAppwrite,
+  useOAuth2SignIn,
+  useSignOut,
+} from "react-appwrite";
 
 export function LoginWithSpotify() {
   const oAuthSignIn = useOAuth2SignIn();
   const { data: account, status } = useAccount();
+  const databaseService = useAppwrite().databases;
+  const accountService = useAppwrite().account;
+  const { toast } = useToast();
+
+  const checkAccount = async () => {
+    const account = await accountService.get();
+
+    try {
+      const user = await databaseService.getDocument<User>(
+        databaseId,
+        userCollectionId,
+        account.$id
+      );
+
+      if (!user.authorized) {
+        toast({
+          title: "Unauthorized",
+          description:
+            "Your account has not been authorized yet, you can view sprobbles but not create them.",
+          variant: "destructive",
+        });
+        await accountService.deleteSession("current");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    checkAccount();
+  }, []);
 
   return account?.name ? (
     <UserDropDown userId={account.$id} />

@@ -9,13 +9,13 @@ export default function Home() {
     <>
       <section className="flex flex-col gap-10 pb-10">
         <div className="flex flex-col gap-4">
-          <h2 className="flex flex-row items-center gap-2 text-xl font-black text-slate-700 dark:text-slate-50 md:text-3xl">
+          <h2 className="flex flex-row items-center gap-2 text-xl font-black text-muted-foreground md:text-3xl">
             Users Stats
           </h2>
           <UserStats user="global" />
         </div>
         <div className="flex flex-col gap-4">
-          <h2 className="flex flex-row items-center gap-2 text-xl font-black text-slate-700 dark:text-slate-50 md:text-3xl">
+          <h2 className="flex flex-row items-center gap-2 text-xl font-black text-muted-foreground md:text-3xl">
             Music Stats
           </h2>
           <div className="flex w-full flex-row flex-nowrap gap-4 overflow-x-auto">

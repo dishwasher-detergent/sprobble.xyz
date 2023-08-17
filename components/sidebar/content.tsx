@@ -23,7 +23,7 @@ export function SidebarContent({ onOpenChange }: SidebarContentProps) {
         <nav className="flex flex-col gap-4">
           <ul>
             <li className="w-full px-0 py-2">
-              <p className="text-sm font-bold uppercase text-slate-500">
+              <p className="text-sm font-bold uppercase text-muted-foreground">
                 Global
               </p>
             </li>
@@ -37,7 +37,7 @@ export function SidebarContent({ onOpenChange }: SidebarContentProps) {
             </li>
             <ul>
               <li className="w-full px-1 py-2">
-                <p className="text-xs font-bold uppercase text-slate-500">
+                <p className="text-xs font-bold uppercase text-muted-foreground">
                   Stats
                 </p>
               </li>
@@ -70,7 +70,7 @@ export function SidebarContent({ onOpenChange }: SidebarContentProps) {
           {account?.name && (
             <ul>
               <li className="w-full px-0 py-2">
-                <p className="text-sm font-bold uppercase text-slate-500">
+                <p className="text-sm font-bold uppercase text-muted-foreground">
                   {account.name}
                 </p>
               </li>
@@ -88,7 +88,9 @@ export function SidebarContent({ onOpenChange }: SidebarContentProps) {
       </ScrollArea>
       <ul>
         <li className="w-full px-4 py-2">
-          <p className="text-sm font-bold uppercase text-slate-500">General</p>
+          <p className="text-sm font-bold uppercase text-muted-foreground">
+            General
+          </p>
         </li>
         <li>
           <LoginWithSpotify />

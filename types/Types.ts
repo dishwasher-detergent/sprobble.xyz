@@ -54,4 +54,6 @@ export type User = {
   name: string;
   stats: Stat[];
   created_at: string;
+  authorized: boolean;
+  refresh_token: string;
 } & Models.Document;

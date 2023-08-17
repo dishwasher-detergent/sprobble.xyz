@@ -11,11 +11,11 @@ export default function Title({ children, icon, className }: TitleProps) {
   return (
     <h2
       className={cn(
-        "flex items-center gap-4 text-base font-bold text-slate-500 dark:text-slate-300",
+        "flex items-center gap-4 text-base font-bold text-muted-foreground",
         className
       )}
     >
-      <span className="flex flex-none flex-row items-center gap-2 rounded-lg bg-slate-100 px-4 py-1 dark:bg-slate-900">
+      <span className="flex flex-none flex-row items-center gap-2 rounded-lg bg-background px-4 py-1">
         {icon}
         {children}
       </span>
