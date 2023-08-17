@@ -97,7 +97,7 @@ export default function AccountPage() {
   return (
     <section className="flex flex-row items-center gap-2">
       <Loader />
-      <h1 className="text-3xl font-bold">
+      <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
         Getting everything setup just for you!
       </h1>
     </section>

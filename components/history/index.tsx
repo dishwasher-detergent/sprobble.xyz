@@ -35,7 +35,7 @@ export function History({
   return (
     <section>
       {title && (
-        <h2 className="flex flex-row items-center gap-2 pb-4 text-xl font-black text-muted-foreground md:text-3xl">
+        <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
           {title}
         </h2>
       )}

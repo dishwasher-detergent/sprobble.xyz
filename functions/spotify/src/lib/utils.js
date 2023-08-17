@@ -11,7 +11,7 @@ const checkAuthorization = async (database, userId) => {
     dataIds.userCollectionId,
     userId
   );
-  return user.authorization;
+  return user.authorized;
 };
 
 const getAccessToken = async (
