@@ -4,6 +4,16 @@ const dataIds = require("./appwrite");
 const PLAYER_HISTORY_ENDPOINT = `https://api.spotify.com/v1/me/player/recently-played`;
 const REFRESH_TOKEN_ENDPOINT = "https://accounts.spotify.com/api/token";
 
+const checkAuthorization = async (database, userId) => {
+  console.log(`Checking authorization for ${userId}`);
+  const user = await database.getDocument(
+    dataIds.databaseId,
+    dataIds.userCollectionId,
+    userId
+  );
+  return user.authorization;
+};
+
 const getAccessToken = async (
   SPOTIFY_CLIENT_ID,
   SPOTIFY_CLIENT_SECRET,
@@ -234,6 +244,7 @@ const addListenToDatabase = async (user_id, item, database) => {
 };
 
 module.exports = {
+  checkAuthorization,
   getAccessToken,
   getPlayerHistory,
   addToDatabase,

@@ -55,6 +55,13 @@ module.exports = async function (req, res) {
       continue;
     }
 
+    const authorization = await utils.checkAuthorization(
+      database,
+      fetched_users.users[i].$id
+    );
+
+    if (!authorization) continue;
+
     const spotifyAccessToken = await utils.getAccessToken(
       req.variables["SPOTIFY_CLIENT_ID"],
       req.variables["SPOTIFY_CLIENT_SECRET"],
