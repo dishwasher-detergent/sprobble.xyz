@@ -15,7 +15,7 @@ export default function Title({ children, icon, className }: TitleProps) {
         className
       )}
     >
-      <span className="flex flex-none flex-row items-center gap-2 rounded-lg bg-background px-4 py-1">
+      <span className="flex flex-none flex-row items-center gap-2 rounded-lg bg-muted px-4 py-1">
         {icon}
         {children}
       </span>

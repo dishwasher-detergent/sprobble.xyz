@@ -8,13 +8,13 @@ export default function Home() {
   return (
     <>
       <section className="flex flex-col gap-10 pb-10">
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
           <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
             Users Stats
           </h2>
           <UserStats user="global" />
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
           <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
             Music Stats
           </h2>
