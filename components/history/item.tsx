@@ -20,7 +20,7 @@ export default function HistoryItem({ track }: HistoryItemProps) {
   return (
     <li className="w-full md:w-auto">
       <Card
-        className="grid w-full grid-cols-2 gap-4 rounded-lg border-none p-2 text-slate-900 dark:text-white md:block md:w-72"
+        className="grid w-full grid-cols-2 gap-4 rounded-lg border-none p-2 text-slate-900 dark:text-white md:block"
         style={{
           background:
             data &&

@@ -37,7 +37,9 @@ export default async function AlbumPage() {
         artwork={documents[0].images[0]}
         artwork_name={documents[0].name}
       />
-      <AlbumCount />
+      <section className="my-6 grid w-full grid-cols-1 gap-4 rounded-lg bg-slate-100 p-4 dark:bg-slate-900 md:grid-cols-3">
+        <AlbumCount />
+      </section>
       <AlbumStats />
     </section>
   );

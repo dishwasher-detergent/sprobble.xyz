@@ -60,7 +60,7 @@ export function RecentlyPlayed({ user }: { user?: string }) {
 
   return (
     <History
-      title="Recently Played"
+      title="See what everyone is listening to"
       isLoading={isLoading}
       formattedPlays={formattedPlays}
       paginationProps={{

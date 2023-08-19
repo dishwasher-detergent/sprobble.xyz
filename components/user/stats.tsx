@@ -32,7 +32,7 @@ export default function UserStats({ user }: { user?: string }) {
   );
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="z-10 flex flex-col gap-4">
       <StatsCard
         title="Year To Date Sprobbles"
         icon={<LucideTrendingUp size={16} />}

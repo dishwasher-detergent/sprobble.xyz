@@ -17,7 +17,7 @@ export default function StatsCard({
   loading,
 }: StatsCardProps) {
   return (
-    <Card className="min-w-[20rem] flex-1 bg-slate-100 dark:bg-slate-900 dark:text-white">
+    <Card className="min-w-[20rem] flex-1">
       <CardHeader className="px-4 pb-0 pt-2">
         <CardTitle className="flex h-6 flex-row items-center gap-4 text-xs font-medium tracking-tight">
           {title} {icon}
