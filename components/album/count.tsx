@@ -1,17 +1,18 @@
 "use client";
 
 import StatsCard from "@/components/stats/card";
-import { Query } from "appwrite";
+import { totalStatsCollectionId } from "@/lib/appwrite";
+import { TotalStats } from "@/types/Types";
 import { LucideDisc2 } from "lucide-react";
-import { useCollection } from "react-appwrite";
+import { useDocument } from "react-appwrite";
 
 const databaseId = "645c032960cb9f95212b";
 
 export default function AlbumCount() {
-  const { data: albums, isLoading: albumLoading } = useCollection(
+  const { data: albums, isLoading: albumLoading } = useDocument<TotalStats>(
     databaseId,
-    "album",
-    [Query.limit(1)]
+    totalStatsCollectionId,
+    "album"
   );
   return (
     <StatsCard
@@ -19,7 +20,7 @@ export default function AlbumCount() {
       icon={<LucideDisc2 size={16} />}
       loading={albumLoading}
     >
-      {albums?.total.toLocaleString()}
+      {albums?.count.toLocaleString()}
     </StatsCard>
   );
 }

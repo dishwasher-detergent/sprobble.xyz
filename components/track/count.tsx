@@ -1,16 +1,16 @@
 "use client";
 
 import StatsCard from "@/components/stats/card";
-import { databaseId, trackCollectionId } from "@/lib/appwrite";
-import { Query } from "appwrite";
+import { databaseId, totalStatsCollectionId } from "@/lib/appwrite";
+import { TotalStats } from "@/types/Types";
 import { LucideDisc2 } from "lucide-react";
-import { useCollection } from "react-appwrite";
+import { useDocument } from "react-appwrite";
 
 export default function TrackCount() {
-  const { data: tracks, isLoading: trackLoading } = useCollection(
+  const { data: tracks, isLoading: trackLoading } = useDocument<TotalStats>(
     databaseId,
-    trackCollectionId,
-    [Query.limit(1)]
+    totalStatsCollectionId,
+    "track"
   );
   return (
     <StatsCard
@@ -18,7 +18,7 @@ export default function TrackCount() {
       icon={<LucideDisc2 size={16} />}
       loading={trackLoading}
     >
-      {tracks?.total.toLocaleString()}
+      {tracks?.count.toLocaleString()}
     </StatsCard>
   );
 }

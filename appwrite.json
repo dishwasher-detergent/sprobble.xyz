@@ -95,6 +95,40 @@
             "events": [],
             "schedule": "",
             "timeout": 15
+        },
+        {
+            "$id": "64e00a97a3ccaec4e802",
+            "name": "total_stats",
+            "runtime": "node-18.0",
+            "path": "functions/total_stats",
+            "entrypoint": "src/index.js",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
+            "execute": [],
+            "events": [
+                "databases.*.collections.album.documents.*.create",
+                "databases.*.collections.artist.documents.*.create",
+                "databases.*.collections.track.documents.*.create"
+            ],
+            "schedule": "",
+            "timeout": 15
+        },
+        {
+            "$id": "64e011015f6595196b47",
+            "name": "total_stats-backlog",
+            "runtime": "node-18.0",
+            "path": "functions/total_stats-backlog",
+            "entrypoint": "src/index.js",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
+            "execute": [],
+            "events": [],
+            "schedule": "",
+            "timeout": 600
         }
     ],
     "databases": [
@@ -589,7 +623,7 @@
             "databaseId": "645c032960cb9f95212b",
             "name": "user",
             "enabled": true,
-            "documentSecurity": false,
+            "documentSecurity": true,
             "attributes": [
                 {
                     "key": "user_id",
@@ -630,14 +664,53 @@
                     "array": false,
                     "format": "",
                     "default": null
+                },
+                {
+                    "key": "avatar",
+                    "type": "string",
+                    "status": "available",
+                    "required": false,
+                    "array": false,
+                    "size": 128,
+                    "default": ""
+                },
+                {
+                    "key": "authorized",
+                    "type": "boolean",
+                    "status": "available",
+                    "required": false,
+                    "array": false,
+                    "default": false
+                },
+                {
+                    "key": "refresh_token",
+                    "type": "string",
+                    "status": "available",
+                    "required": false,
+                    "array": false,
+                    "size": 512,
+                    "default": null
                 }
             ],
-            "indexes": []
+            "indexes": [
+                {
+                    "key": "name",
+                    "type": "fulltext",
+                    "status": "available",
+                    "attributes": [
+                        "name"
+                    ],
+                    "orders": [
+                        "ASC"
+                    ]
+                }
+            ]
         },
         {
             "$id": "stats",
             "$permissions": [
-                "read(\"any\")"
+                "read(\"any\")",
+                "update(\"users\")"
             ],
             "databaseId": "645c032960cb9f95212b",
             "name": "stats",
@@ -694,6 +767,38 @@
                     "twoWayKey": "stats",
                     "onDelete": "setNull",
                     "side": "child"
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "total_stats",
+            "$permissions": [
+                "read(\"any\")"
+            ],
+            "databaseId": "645c032960cb9f95212b",
+            "name": "total_stats",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "title",
+                    "type": "string",
+                    "status": "available",
+                    "required": false,
+                    "array": false,
+                    "size": 512,
+                    "default": null
+                },
+                {
+                    "key": "count",
+                    "type": "integer",
+                    "status": "available",
+                    "required": false,
+                    "array": false,
+                    "min": -9223372036854775808,
+                    "max": 9223372036854775807,
+                    "default": null
                 }
             ],
             "indexes": []

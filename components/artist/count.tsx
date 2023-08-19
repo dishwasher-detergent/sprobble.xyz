@@ -1,16 +1,16 @@
 "use client";
 
 import StatsCard from "@/components/stats/card";
-import { artistCollectionId, databaseId } from "@/lib/appwrite";
-import { Query } from "appwrite";
+import { databaseId, totalStatsCollectionId } from "@/lib/appwrite";
+import { TotalStats } from "@/types/Types";
 import { LucideDisc2 } from "lucide-react";
-import { useCollection } from "react-appwrite";
+import { useDocument } from "react-appwrite";
 
 export default function ArtistCount() {
-  const { data: artists, isLoading: artistLoading } = useCollection(
+  const { data: artists, isLoading: artistLoading } = useDocument<TotalStats>(
     databaseId,
-    artistCollectionId,
-    [Query.limit(1)]
+    totalStatsCollectionId,
+    "artist"
   );
   return (
     <StatsCard
@@ -18,7 +18,7 @@ export default function ArtistCount() {
       icon={<LucideDisc2 size={16} />}
       loading={artistLoading}
     >
-      {artists?.total.toLocaleString()}
+      {artists?.count.toLocaleString()}
     </StatsCard>
   );
 }

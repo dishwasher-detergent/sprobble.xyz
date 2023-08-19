@@ -57,3 +57,8 @@ export type User = {
   authorized: boolean;
   refresh_token: string;
 } & Models.Document;
+
+export type TotalStats = {
+  title: string;
+  count: number;
+} & Models.Document;
