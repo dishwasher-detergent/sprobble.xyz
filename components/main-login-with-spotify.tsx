@@ -28,14 +28,14 @@ export function MainLoginWithSpotify() {
     >
       Get started by signing in with Spotify
       <img
-        className="block dark:hidden"
+        className="hidden dark:block"
         src="/spotify/icon/Spotify_Icon_RGB_Black.png"
         alt="Spotify Icon Logo"
         width={16}
         height={16}
       />
       <img
-        className="hidden dark:block"
+        className="block dark:hidden"
         src="/spotify/icon/Spotify_Icon_RGB_White.png"
         alt="Spotify Icon Logo"
         width={16}

@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <section className="mb-10 flex flex-col gap-10 rounded-lg bg-slate-100 p-4 dark:bg-slate-900">
-        <div className="flex flex-col gap-4 py-10">
+        <div className="relative z-10 flex flex-col gap-4 py-10">
           <div className="flex w-full flex-col items-center gap-6">
             <h1 className="max-w-4xl scroll-m-20 pb-4 text-center text-5xl font-bold tracking-tight transition-colors first:mt-0 md:text-7xl">
               The best place to keep track of all your Spotify plays.
