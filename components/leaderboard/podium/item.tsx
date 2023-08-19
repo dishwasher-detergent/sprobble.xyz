@@ -34,11 +34,16 @@ export default function PodiumItem({
       </div>
       <div className="flex-1 overflow-hidden">
         <p className="mb-1 truncate text-lg font-bold">{title}</p>
-        <div
-          style={{ width: width }}
-          className="flex h-8 items-center justify-end rounded-lg bg-foreground px-2 font-bold text-background"
-        >
-          {value.toLocaleString()} {unit}
+        <div className="flex flex-row">
+          <div className="flex w-24 flex-none items-center justify-start rounded-l-lg bg-foreground px-2 text-background md:w-36">
+            <p className="truncate">
+              {value.toLocaleString()} {unit}
+            </p>
+          </div>
+          <div
+            style={{ width: width }}
+            className="flex h-8 items-center justify-end rounded-r-lg bg-foreground px-2 font-bold text-background"
+          />
         </div>
       </div>
     </div>
