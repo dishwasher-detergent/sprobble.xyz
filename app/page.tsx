@@ -24,13 +24,6 @@ export default function Home() {
             <AlbumCount />
             <TrackCount />
           </div>
-          <div
-            className="absolute -top-2/3 left-0 right-0 z-0 h-96"
-            style={{
-              background:
-                "radial-gradient(at bottom, hsl(var(--primary)) 0%, transparent 50%)",
-            }}
-          />
         </div>
       </section>
       <RecentlyPlayed />
