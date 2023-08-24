@@ -43,7 +43,7 @@ export function Header({
                 )} 100%)`,
             }}
           />
-          <div className="-mt-24 ml-8 pb-16 md:-mt-36 md:ml-16">
+          <div className="-mt-24 ml-8 pb-8 md:-mt-36">
             <div className="relative aspect-square h-32 w-32 overflow-hidden rounded-full bg-slate-300 ring-4 ring-background md:h-60 md:w-60">
               <img
                 src={artwork}
