@@ -36,7 +36,6 @@ export default function UserStats({ user }: { user?: string }) {
       <StatsCard
         title="Year To Date Sprobbles"
         icon={<LucideTrendingUp size={16} />}
-        loading={statsLoading}
       >
         {year_to_date
           ?.reduce((a: any, b: any) => a + b.plays, 0)

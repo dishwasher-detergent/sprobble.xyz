@@ -25,9 +25,9 @@ export default function StatsCard({
       </CardHeader>
       <CardContent className="px-4 pb-2 pt-0">
         {loading ? (
-          <Skeleton className="h-6 w-full bg-slate-200 dark:bg-slate-800" />
+          <Skeleton className="h-12 w-full bg-slate-200 dark:bg-slate-800" />
         ) : (
-          <div className="text-xl font-bold">{children}</div>
+          <div className="text-3xl font-bold">{children}</div>
         )}
       </CardContent>
     </Card>
