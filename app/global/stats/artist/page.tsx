@@ -32,7 +32,7 @@ export default async function ArtistPage() {
   return (
     <>
       <Header subTitle="Global" title="Artist Statistics" />
-      <section className="grid w-full grid-cols-1 gap-4 rounded-lg bg-slate-100 p-4 dark:bg-slate-900 md:grid-cols-3">
+      <section className="grid w-full grid-cols-1 gap-4 rounded-lg border bg-slate-100 p-4 dark:bg-slate-900 md:grid-cols-3">
         <ArtistCount />
       </section>
       <ArtistStats />

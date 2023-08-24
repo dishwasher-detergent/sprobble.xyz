@@ -116,7 +116,7 @@ export default async function TrackStatsPage({
         artwork={document.album.images[0]}
         artwork_name={document.album.name}
       />
-      <section className="my-6 grid w-full grid-cols-1 gap-4 rounded-lg bg-slate-100 p-4 dark:bg-slate-900 md:grid-cols-3">
+      <section className="my-6 grid w-full grid-cols-1 gap-4 rounded-lg border bg-slate-100 p-4 dark:bg-slate-900 md:grid-cols-3">
         <StatsCard title="Total Listens">{document.plays.length}</StatsCard>
       </section>
 

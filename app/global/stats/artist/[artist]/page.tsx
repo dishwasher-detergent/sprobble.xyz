@@ -94,7 +94,7 @@ export default async function ArtistStatsPage({
         artwork={document.album[0].images[0]}
         artwork_name={document.album[0].name}
       />
-      <section className="my-6 grid w-full grid-cols-1 gap-4 rounded-lg bg-slate-100 p-4 dark:bg-slate-900 md:grid-cols-3">
+      <section className="my-6 grid w-full grid-cols-1 gap-4 rounded-lg border bg-slate-100 p-4 dark:bg-slate-900 md:grid-cols-3">
         <StatsCard title="Total Listens">{document.plays.length}</StatsCard>
         <StatsCard title="Total Unique Tracks Listened To">
           {document.track.length}
