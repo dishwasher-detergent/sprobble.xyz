@@ -53,11 +53,11 @@ const columns: ColumnDef<any>[] = [
     cell(props) {
       return (
         <Link
-          href={`/global/stats/album/${props.row.original.album.$id}`}
+          href={`/global/stats/album/${props.row.original.album?.$id}`}
           className="flex flex-row items-center gap-4 hover:text-blue-500"
         >
           <LucideDisc2 size={16} className="flex-none" />
-          {props.row.original.album.name}
+          {props.row.original.album?.name}
         </Link>
       );
     },
@@ -126,7 +126,7 @@ export default function TrackStats() {
 
   const data = plays
     ? plays?.documents.map((track: Track) => ({
-        album_art: track.album.images[1],
+        album_art: track.album?.images[1],
         name: track.name,
         id: track.$id,
         url: track.href,
@@ -179,7 +179,7 @@ export default function TrackStats() {
   return isLoading ? (
     <Loader className="grid h-48 w-full place-items-center" />
   ) : (
-    <>
+    <section className="flex flex-col gap-2">
       <nav>
         <Input
           className="max-w-xs"
@@ -190,6 +190,6 @@ export default function TrackStats() {
       </nav>
       <DataTable columns={columns} data={data} />
       <Pagination page={page} pageCount={pageCount} isLoading={isLoading} />
-    </>
+    </section>
   );
 }

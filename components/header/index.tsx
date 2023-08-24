@@ -2,6 +2,7 @@
 
 import { cn, getHSL } from "@/lib/utils";
 import { usePalette } from "color-thief-react";
+import { Card } from "../ui/card";
 
 interface HeaderProps extends React.AllHTMLAttributes<HTMLDivElement> {
   title: string;
@@ -28,11 +29,11 @@ export function Header({
   });
 
   return (
-    <div className={cn("relative", className)} {...props}>
+    <Card className={cn("relative overflow-hidden", className)} {...props}>
       {artwork ? (
         <>
           <div
-            className="h-36 w-full rounded-lg md:h-52"
+            className="h-36 w-full md:h-52"
             style={{
               background:
                 data &&
@@ -42,8 +43,8 @@ export function Header({
                 )} 100%)`,
             }}
           />
-          <div className="-mt-24 ml-8 md:-mt-36 md:ml-16">
-            <div className="relative aspect-square h-32 w-32 overflow-hidden rounded-lg bg-slate-300 ring-4 ring-background md:h-60 md:w-60">
+          <div className="-mt-24 ml-8 pb-16 md:-mt-36 md:ml-16">
+            <div className="relative aspect-square h-32 w-32 overflow-hidden rounded-full bg-slate-300 ring-4 ring-background md:h-60 md:w-60">
               <img
                 src={artwork}
                 alt={artwork_name}
@@ -70,6 +71,6 @@ export function Header({
           <p>{listen}</p>
         </div>
       )}
-    </div>
+    </Card>
   );
 }

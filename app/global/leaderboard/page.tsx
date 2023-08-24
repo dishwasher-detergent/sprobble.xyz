@@ -9,10 +9,10 @@ export const metadata = {
 
 export default function LeaderboardPage() {
   return (
-    <section className="space-y-6">
+    <>
       <Header subTitle="Global" title="Leaderboard" />
       <UserPodium />
       <Leaderboard />
-    </section>
+    </>
   );
 }

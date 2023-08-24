@@ -80,7 +80,7 @@ export default async function UserPage({
         artwork={`https://data.kennethbass.com/v1/storage/buckets/${avatarBucketId}/files/${user.$id}/preview?project=${projectId}&width=400&height=400&quality=100`}
         artwork_name={user.name + "'s avatar"}
       />
-      <section className="py-4">
+      <section>
         <UserStats user={params.user} />
       </section>
       <RecentlyPlayed user={params.user} />

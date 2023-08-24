@@ -30,7 +30,7 @@ export default async function AlbumPage() {
   const { documents } = await getTop();
 
   return (
-    <section className="space-y-6">
+    <>
       <Header
         subTitle="Global"
         title="Album Statistics"
@@ -41,6 +41,6 @@ export default async function AlbumPage() {
         <AlbumCount />
       </section>
       <AlbumStats />
-    </section>
+    </>
   );
 }

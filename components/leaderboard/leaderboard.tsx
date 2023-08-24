@@ -176,7 +176,7 @@ export function Leaderboard() {
   return isLoading ? (
     <Loader className="grid h-48 w-full place-items-center" />
   ) : (
-    <>
+    <section className="flex flex-col gap-2">
       <nav>
         <Input
           className="max-w-xs"
@@ -187,6 +187,6 @@ export function Leaderboard() {
       </nav>
       <DataTable columns={columns} data={data} />
       <Pagination page={page} pageCount={pageCount} isLoading={isLoading} />
-    </>
+    </section>
   );
 }
