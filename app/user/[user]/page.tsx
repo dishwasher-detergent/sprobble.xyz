@@ -77,7 +77,7 @@ export default async function UserPage({
             year: "numeric",
           }
         )}`}
-        artwork={`https://data.kennethbass.com/v1/storage/buckets/${avatarBucketId}/files/${user.$id}/preview?project=${projectId}&width=400&height=400&quality=100`}
+        artwork={`https://data.kennethbass.com/v1/storage/buckets/${avatarBucketId}/files/${user.avatar}/view?project=${projectId}&width=400&height=400&quality=100`}
         artwork_name={user.name + "'s avatar"}
       />
       <section>
