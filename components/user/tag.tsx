@@ -42,7 +42,7 @@ export default function UserTag({ userId, hover = true }: UserTagProps) {
         <Link href={`/user/${userId}`} className="flex items-center gap-2">
           <Avatar className="h-6 w-6">
             <AvatarImage
-              src={`https://data.kennethbass.com/v1/storage/buckets/${avatarBucketId}/files/${userId}/preview?project=${projectId}&width=100&height=100&quality=50`}
+              src={`https://data.kennethbass.com/v1/storage/buckets/${avatarBucketId}/files/${profile.avatar}/view?project=${projectId}&width=100&height=100&quality=50`}
               alt={`@${profile.name}`}
             />
             <AvatarFallback>{profile.name.slice(0, 2)}</AvatarFallback>
@@ -55,7 +55,7 @@ export default function UserTag({ userId, hover = true }: UserTagProps) {
           <div className="flex space-x-4">
             <Avatar className="h-10 w-10">
               <AvatarImage
-                src={`https://data.kennethbass.com/v1/storage/buckets/${avatarBucketId}/files/${userId}/preview?project=${projectId}&width=100&height=100&quality=50`}
+                src={`https://data.kennethbass.com/v1/storage/buckets/${avatarBucketId}/files/${profile.avatar}/view?project=${projectId}&width=100&height=100&quality=50`}
                 alt={`@${profile.name}`}
               />
               <AvatarFallback>{profile.name.slice(0, 2)}</AvatarFallback>
