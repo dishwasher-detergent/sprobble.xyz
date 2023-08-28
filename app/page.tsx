@@ -8,7 +8,7 @@ import UserStats from "@/components/user/stats";
 export default function Home() {
   return (
     <>
-      <section className="mb-10 flex justify-between gap-10 rounded-lg p-4 flex-row">
+      <section className="mb-10 flex justify-between gap-10 rounded-lg p-4 flex-col">
         <div className="relative z-10 flex flex-col gap-4">
           <div className="flex w-full flex-col items-start gap-6">
             <h1 className="max-w-4xl scroll-m-20 pb-4 text-left text-5xl font-bold tracking-tight transition-colors first:mt-0 md:text-7xl">
