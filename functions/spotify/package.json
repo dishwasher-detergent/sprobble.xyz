@@ -1,15 +1,19 @@
 {
-  "name": "appwrite-function",
+  "name": "spotify-scrape",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "dist/main.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "format": "prettier --write .",
+    "build": "tsc"
   },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
   "dependencies": {
-    "node-appwrite": "^8.0.0"
+    "node-appwrite": "^9.0.0",
+    "typescript": "^5.1.6"
+  },
+  "devDependencies": {
+    "@types/node": "^20.4.7",
+    "prettier": "^3.0.0"
   }
 }
