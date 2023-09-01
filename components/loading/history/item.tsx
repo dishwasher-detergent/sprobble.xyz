@@ -2,9 +2,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function HistoryItemLoading() {
   return (
-    <article className="w-full rounded-lg border-none p-2 text-slate-900 md:w-72">
+    <article className="w-full rounded-xl border-none p-2 text-slate-900 md:w-72">
       <div className="pb-6">
-        <Skeleton className="aspect-square w-full rounded-lg" />
+        <Skeleton className="aspect-square w-full rounded-xl" />
         <div className="flex h-24 flex-col gap-4 pt-2">
           <Skeleton className="h-7 w-full max-w-[200px] flex-none" />
           <Skeleton className="h-4 w-full max-w-[150px] flex-none" />

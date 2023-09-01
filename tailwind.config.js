@@ -15,10 +15,9 @@ module.exports = {
       },
     },
     extend: {
-      extend: {
-        backgroundImage: {
-          "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        },
+      backgroundImage: {
+        "gradient-radial":
+          "radial-gradient(140% 107.13% at 50% 10%,transparent 37.41%,hsl(var(--primary)) 69.27%,hsl(var(--foreground)) 100%)",
       },
       colors: {
         border: "hsl(var(--border))",

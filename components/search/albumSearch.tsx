@@ -28,7 +28,7 @@ export default function AlbumSearch({
           <li key={album.$id} className="flex w-full flex-row gap-4">
             <img
               src={album.images[0]}
-              className="h-24 w-24 flex-none rounded-lg"
+              className="h-24 w-24 flex-none rounded-xl"
             />
             <div className="overflow-hidden">
               <Link

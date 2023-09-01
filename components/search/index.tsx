@@ -40,7 +40,7 @@ export default function Search({
   return (
     <form className="relative" onSubmit={(e) => handleSumbit(e)}>
       <Select onValueChange={(e) => setCategory(e)} defaultValue={category}>
-        <SelectTrigger className="absolute top-1/2 ml-2 h-auto w-24 -translate-y-1/2 truncate rounded-lg bg-slate-200 px-2 py-1 text-xs font-bold dark:bg-slate-800 dark:text-white">
+        <SelectTrigger className="absolute top-1/2 ml-2 h-auto w-24 -translate-y-1/2 truncate rounded-xl bg-slate-200 px-2 py-1 text-xs font-bold dark:bg-slate-800 dark:text-white">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>

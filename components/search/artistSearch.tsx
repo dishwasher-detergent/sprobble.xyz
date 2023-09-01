@@ -29,7 +29,7 @@ export default function ArtistSearch({
             <div className="flex flex-row justify-start gap-4">
               <img
                 src={artist.album[0].images[0]}
-                className="h-24 w-24 flex-none rounded-lg"
+                className="h-24 w-24 flex-none rounded-xl"
               />
               <div>
                 <Link

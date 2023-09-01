@@ -27,7 +27,7 @@ export default function TrackSearch({
           <li key={track.$id} className="flex w-full flex-row gap-4">
             <img
               src={track.album.images[0]}
-              className="h-24 w-24 flex-none rounded-lg"
+              className="h-24 w-24 flex-none rounded-xl"
             />
             <div className="overflow-hidden">
               <div className="flex flex-row items-center gap-4">

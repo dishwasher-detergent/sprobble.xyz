@@ -28,7 +28,7 @@ export default function SearchPage({
               </div>
             }
           />
-          <div className="rounded-lg bg-slate-100 px-4 py-2 dark:bg-slate-800">
+          <div className="rounded-xl bg-slate-100 px-4 py-2 dark:bg-slate-800">
             <p>
               <span className="mr-2 font-bold">Searched:</span>
               <span className="space-x-1">

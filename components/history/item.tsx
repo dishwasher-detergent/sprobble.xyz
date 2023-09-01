@@ -20,7 +20,7 @@ export default function HistoryItem({ track }: HistoryItemProps) {
   return (
     <li className="w-full md:w-auto">
       <Card
-        className="grid w-full grid-cols-2 gap-4 rounded-lg border-none p-2 text-slate-900 dark:text-white md:block"
+        className="grid w-full grid-cols-2 gap-4 rounded-xl border-none p-2 text-slate-900 dark:text-white md:block"
         style={{
           background:
             data &&
@@ -31,7 +31,7 @@ export default function HistoryItem({ track }: HistoryItemProps) {
         }}
       >
         {track.album?.images && (
-          <div className="relative aspect-square w-full overflow-hidden rounded-lg">
+          <div className="relative aspect-square w-full overflow-hidden rounded-xl">
             <img
               alt={track.album.name}
               src={track.album.images[1]}

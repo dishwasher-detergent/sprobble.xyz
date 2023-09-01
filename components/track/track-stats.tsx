@@ -26,7 +26,7 @@ const columns: ColumnDef<any>[] = [
     header: "Album Cover",
     cell(props) {
       return (
-        <Avatar className="block h-14 w-14 flex-none overflow-hidden rounded-lg">
+        <Avatar className="block h-14 w-14 flex-none overflow-hidden rounded-xl">
           <AvatarImage src={props.row.original.album_art} />
         </Avatar>
       );

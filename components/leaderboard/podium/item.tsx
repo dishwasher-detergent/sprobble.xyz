@@ -29,7 +29,7 @@ export default function PodiumItem({
         <img
           src={image}
           alt={title}
-          className="aspect-square h-full rounded-lg "
+          className="aspect-square h-full rounded-xl "
         />
       </div>
       <div className="flex-1 overflow-hidden">

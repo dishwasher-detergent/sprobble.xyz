@@ -32,7 +32,7 @@ export default function UserSearch({
           <li key={user.$id} className="flex w-full flex-row gap-4">
             <img
               src={`https://data.kennethbass.com/v1/storage/buckets/${avatarBucketId}/files/${user.$id}/preview?project=${projectId}&width=100&height=100&quality=60`}
-              className="h-16 w-16 flex-none rounded-lg"
+              className="h-16 w-16 flex-none rounded-xl"
             />
             <div className="overflow-hidden">
               <div className="flex flex-row items-center gap-4">
