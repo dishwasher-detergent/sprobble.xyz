@@ -64,7 +64,7 @@ export function Header({
       ) : (
         <div className="flex-1 rounded-xl bg-gradient-radial px-4 py-12 md:px-24 md:py-48">
           <p className="pb-2">{subTitle}</p>
-          <h2 className="text-3xl font-black dark:text-white md:text-6xl">
+          <h2 className="text-3xl font-black dark:text-white md:text-6xl lg:text-8xl">
             {title}
           </h2>
           <div>{description}</div>
