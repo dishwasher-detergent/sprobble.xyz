@@ -41,10 +41,10 @@ export const addArtistToDatabase = async (
       .getDocument<Artist>(databaseId, artistCollectionId, artists[i].id)
       .then(
         async (response) => {
-          const albums = [...response.album.map((x) => x.$id)];
+          const albums = [...response.album.map((x: any) => x.$id)];
           if (albums.length == 1 && albums[0] == album.id) return;
 
-          if (response.album.some((x) => x.$id == album.id)) {
+          if (response.album.some((x: any) => x.$id == album.id)) {
             await database.updateDocument(
               databaseId,
               artistCollectionId,
