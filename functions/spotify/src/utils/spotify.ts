@@ -39,7 +39,9 @@ export const getAccessToken = async (
 
   const body = await response.json();
   if (!response.ok) {
-    throw new Error("Spotify fetcher response was not ok");
+    throw new Error(
+      `Spotify fetcher response was not ok.\nError: ${body.error}`
+    );
   }
 
   return body;
@@ -62,7 +64,9 @@ export const getPlayerHistory = async (ACCESS_TOKEN: string) => {
 
   const body = await response.json();
   if (!response.ok) {
-    throw new Error("Spotify history fetcher response was not ok");
+    throw new Error(
+      `Spotify history fetcher response was not ok.\nError: ${body.error}`
+    );
   }
 
   return body;
