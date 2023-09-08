@@ -5,3 +5,4 @@ export const albumCollectionId = "album";
 export const userCollectionId = "user";
 export const statsCollectionId = "stats";
 export const playsCollectionId = "plays";
+export const totalStatsCollectionId = "total_stats";
