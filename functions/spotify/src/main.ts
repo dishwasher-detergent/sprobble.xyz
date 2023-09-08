@@ -83,7 +83,10 @@ export default async ({ req, res, log, error }: Context) => {
       continue;
     }
 
-    if (spotifyHistory != null && spotifyHistory.items) continue;
+    if (spotifyHistory == null || spotifyHistory.items.length == 0) {
+      log('No history items.')
+      continue;
+    };
 
     for (let j = 0; j < spotifyHistory.items.length; j++) {
       const spotifyItem = spotifyHistory.items[j];
