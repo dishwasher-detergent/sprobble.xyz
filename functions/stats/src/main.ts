@@ -30,14 +30,14 @@ export default async ({ req, res, log, error }: Context) => {
   try {
     await addStat(database, data, data.user_id);
   } catch (err) {
-    error("Error adding user stat");
+    log("Error adding user stat");
     error(err);
   }
 
   try {
     await addStat(database, data, "global");
   } catch (err) {
-    error("Error adding global stat");
+    log("Error adding global stat");
     error(err);
   }
 

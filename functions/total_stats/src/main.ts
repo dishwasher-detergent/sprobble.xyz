@@ -30,7 +30,7 @@ export default async ({ req, res, log, error }: Context) => {
   try {
     await addStat(database, data.$collectionId);
   } catch (err) {
-    error("Error adding total stat");
+    log("Error adding total stat");
     error(err);
   }
 
