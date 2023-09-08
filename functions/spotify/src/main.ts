@@ -83,13 +83,17 @@ export default async ({ req, res, log, error }: Context) => {
       continue;
     }
 
-    if (spotifyHistory != null && spotifyHistory.items) continue;
+    if (spotifyHistory == null || spotifyHistory.items.length == 0) {
+      log('No history items.')
+      continue;
+    };
 
     for (let j = 0; j < spotifyHistory.items.length; j++) {
       const spotifyItem = spotifyHistory.items[j];
       const track = spotifyItem.track;
 
       try {
+        log(`Adding album`);
         await addAlbumToDatabase(track, database);
       } catch (err) {
         error(`Error adding album to database for ${user.name}`);
@@ -97,6 +101,7 @@ export default async ({ req, res, log, error }: Context) => {
       }
 
       try {
+        log(`Adding artist`);
         await addArtistToDatabase(track, database);
       } catch (err) {
         error(`Error adding artist to database for ${user.name}`);
@@ -104,6 +109,7 @@ export default async ({ req, res, log, error }: Context) => {
       }
 
       try {
+        log(`Adding track`);
         await addTrackToDatabase(track, database);
       } catch (err) {
         error(`Error adding track to database for ${user.name}`);
@@ -111,6 +117,7 @@ export default async ({ req, res, log, error }: Context) => {
       }
 
       try {
+        log(`Adding listen`);
         await addListenToDatabase(user.$id, spotifyItem, database);
       } catch (err) {
         error(`Error adding listen to database for ${user.name}`);

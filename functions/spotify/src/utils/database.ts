@@ -16,7 +16,6 @@ export const addAlbumToDatabase = async (
 
   await database.getDocument(databaseId, albumCollectionId, album.id).then(
     () => {
-      console.log("Album already exists.");
       return;
     },
     async () => {
