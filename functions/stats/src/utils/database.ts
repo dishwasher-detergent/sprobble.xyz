@@ -1,5 +1,5 @@
 import { Databases, Query } from "node-appwrite";
-import { Stat } from "../types/Types";
+import { Stat } from "../types/Types.js";
 
 const sdk = require("node-appwrite");
 const dataIds = require("./appwrite");

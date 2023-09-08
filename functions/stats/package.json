@@ -1,5 +1,5 @@
 {
-  "name": "spotify-scrape",
+  "name": "stats",
   "version": "1.0.0",
   "description": "",
   "main": "dist/main.js",

@@ -1,5 +1,5 @@
 import { Client, Databases } from "node-appwrite";
-import { addStat } from "./utils/database";
+import { addStat } from "./utils/database.js";
 
 type Context = {
   req: any;
