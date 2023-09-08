@@ -1,4 +1,4 @@
-import { Models } from "appwrite";
+import { Models } from "node-appwrite";
 
 export type Play = {
   user_id: string;
