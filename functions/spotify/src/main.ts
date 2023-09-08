@@ -53,7 +53,7 @@ export default async ({ req, res, log, error }: Context) => {
       authorization = await checkAuthorization(database, user.$id);
     } catch (err) {
       log(`Error checking authorization for ${user.name}`);
-      error(err);
+      error((err as Error).message);
       continue;
     }
 
@@ -68,7 +68,7 @@ export default async ({ req, res, log, error }: Context) => {
       );
     } catch (err) {
       log(`Error getting access token for ${user.name}`);
-      error(err);
+      error((err as Error).message);
       continue;
     }
 
@@ -82,7 +82,7 @@ export default async ({ req, res, log, error }: Context) => {
       spotifyHistory = await getPlayerHistory(spotifyAccessToken.access_token);
     } catch (err) {
       log(`Error getting player history for ${user.name}`);
-      error(err);
+      error((err as Error).message);
       continue;
     }
 
@@ -100,7 +100,7 @@ export default async ({ req, res, log, error }: Context) => {
         await addAlbumToDatabase(track, database);
       } catch (err) {
         log(`Error adding album to database for ${user.name}`);
-        error(err);
+        error((err as Error).message);
         continue;
       }
 
@@ -109,7 +109,7 @@ export default async ({ req, res, log, error }: Context) => {
         await addArtistToDatabase(track, database);
       } catch (err) {
         log(`Error adding artist to database for ${user.name}`);
-        error(err);
+        error((err as Error).message);
         continue;
       }
 
@@ -118,7 +118,7 @@ export default async ({ req, res, log, error }: Context) => {
         await addTrackToDatabase(track, database);
       } catch (err) {
         log(`Error adding track to database for ${user.name}`);
-        error(err);
+        error((err as Error).message);
         continue;
       }
 
@@ -127,7 +127,7 @@ export default async ({ req, res, log, error }: Context) => {
         await addListenToDatabase(user.$id, spotifyItem, database);
       } catch (err) {
         log(`Error adding listen to database for ${user.name}`);
-        error(err);
+        error((err as Error).message);
         continue;
       }
     }
