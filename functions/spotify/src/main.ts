@@ -4,12 +4,12 @@ import {
   addArtistToDatabase,
   addListenToDatabase,
   addTrackToDatabase,
-} from "./utils/database";
+} from "./utils/database.js";
 import {
   checkAuthorization,
   getAccessToken,
   getPlayerHistory,
-} from "./utils/spotify";
+} from "./utils/spotify.js";
 
 type Context = {
   req: any;

@@ -1,5 +1,5 @@
 import { Databases } from "node-appwrite";
-import { databaseId, userCollectionId } from "./appwrite";
+import { databaseId, userCollectionId } from "./appwrite.js";
 
 const PLAYER_HISTORY_ENDPOINT = `https://api.spotify.com/v1/me/player/recently-played`;
 const REFRESH_TOKEN_ENDPOINT = "https://accounts.spotify.com/api/token";

@@ -1,12 +1,12 @@
 import { Databases, ID, Query } from "node-appwrite";
-import { Artist, SpotifyItem, SpotifyTrack } from "../types/Types";
+import { Artist, SpotifyItem, SpotifyTrack } from "../types/Types.js";
 import {
   albumCollectionId,
   artistCollectionId,
   databaseId,
   playsCollectionId,
   trackCollectionId,
-} from "./appwrite";
+} from "./appwrite.js";
 
 export const addAlbumToDatabase = async (
   item: SpotifyTrack,
