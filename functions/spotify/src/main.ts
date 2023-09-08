@@ -119,5 +119,5 @@ export default async ({ req, res, log, error }: Context) => {
     }
   }
 
-  res.send("Complete");
+  return res.send("Complete");
 };
