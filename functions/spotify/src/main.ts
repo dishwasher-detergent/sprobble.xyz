@@ -52,7 +52,8 @@ export default async ({ req, res, log, error }: Context) => {
       log(`Checking authorization for ${user.name}`);
       authorization = await checkAuthorization(database, user.$id);
     } catch (err) {
-      error(`Error checking authorization for ${user.name}`);
+      log(`Error checking authorization for ${user.name}`);
+      error(err);
       continue;
     }
 
@@ -66,7 +67,8 @@ export default async ({ req, res, log, error }: Context) => {
         user.prefs.refresh_token
       );
     } catch (err) {
-      error(`Error getting access token for ${user.name}`);
+      log(`Error getting access token for ${user.name}`);
+      error(err);
       continue;
     }
 
@@ -79,14 +81,15 @@ export default async ({ req, res, log, error }: Context) => {
       log(`Fetching history for ${user.name}`);
       spotifyHistory = await getPlayerHistory(spotifyAccessToken.access_token);
     } catch (err) {
-      error(`Error getting player history for ${user.name}`);
+      log(`Error getting player history for ${user.name}`);
+      error(err);
       continue;
     }
 
     if (spotifyHistory == null || spotifyHistory.items.length == 0) {
-      log('No history items.')
+      log("No history items.");
       continue;
-    };
+    }
 
     for (let j = 0; j < spotifyHistory.items.length; j++) {
       const spotifyItem = spotifyHistory.items[j];
@@ -96,7 +99,8 @@ export default async ({ req, res, log, error }: Context) => {
         log(`Adding album`);
         await addAlbumToDatabase(track, database);
       } catch (err) {
-        error(`Error adding album to database for ${user.name}`);
+        log(`Error adding album to database for ${user.name}`);
+        error(err);
         continue;
       }
 
@@ -104,7 +108,8 @@ export default async ({ req, res, log, error }: Context) => {
         log(`Adding artist`);
         await addArtistToDatabase(track, database);
       } catch (err) {
-        error(`Error adding artist to database for ${user.name}`);
+        log(`Error adding artist to database for ${user.name}`);
+        error(err);
         continue;
       }
 
@@ -112,7 +117,8 @@ export default async ({ req, res, log, error }: Context) => {
         log(`Adding track`);
         await addTrackToDatabase(track, database);
       } catch (err) {
-        error(`Error adding track to database for ${user.name}`);
+        log(`Error adding track to database for ${user.name}`);
+        error(err);
         continue;
       }
 
@@ -120,7 +126,8 @@ export default async ({ req, res, log, error }: Context) => {
         log(`Adding listen`);
         await addListenToDatabase(user.$id, spotifyItem, database);
       } catch (err) {
-        error(`Error adding listen to database for ${user.name}`);
+        log(`Error adding listen to database for ${user.name}`);
+        error(err);
         continue;
       }
     }
