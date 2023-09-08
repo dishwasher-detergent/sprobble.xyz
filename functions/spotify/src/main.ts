@@ -90,6 +90,7 @@ export default async ({ req, res, log, error }: Context) => {
       const track = spotifyItem.track;
 
       try {
+        log(`Adding album`);
         await addAlbumToDatabase(track, database);
       } catch (err) {
         error(`Error adding album to database for ${user.name}`);
@@ -97,6 +98,7 @@ export default async ({ req, res, log, error }: Context) => {
       }
 
       try {
+        log(`Adding artist`);
         await addArtistToDatabase(track, database);
       } catch (err) {
         error(`Error adding artist to database for ${user.name}`);
@@ -104,6 +106,7 @@ export default async ({ req, res, log, error }: Context) => {
       }
 
       try {
+        log(`Adding track`);
         await addTrackToDatabase(track, database);
       } catch (err) {
         error(`Error adding track to database for ${user.name}`);
@@ -111,6 +114,7 @@ export default async ({ req, res, log, error }: Context) => {
       }
 
       try {
+        log(`Adding listen`);
         await addListenToDatabase(user.$id, spotifyItem, database);
       } catch (err) {
         error(`Error adding listen to database for ${user.name}`);
