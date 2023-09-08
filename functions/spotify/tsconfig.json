@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
-    "module": "NodeNext",
+    "target": "es5",
+    "module": "ESNext",
     "moduleResolution": "node",
     "rootDir": "src",
     "resolveJsonModule": true,
