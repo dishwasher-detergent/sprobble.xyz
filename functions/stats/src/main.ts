@@ -41,5 +41,5 @@ export default async ({ req, res, log, error }: Context) => {
     error(err);
   }
 
-  res.send("Complete");
+  return res.send("Complete");
 };
