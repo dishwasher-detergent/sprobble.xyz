@@ -21,6 +21,8 @@ export default async ({ req, res, log, error }: Context) => {
 
   const data = req.body;
 
+  log(req);
+
   if (!data) {
     error("No data found in event.");
     res.send("No data found in event.");
