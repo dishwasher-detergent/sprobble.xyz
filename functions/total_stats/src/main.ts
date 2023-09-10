@@ -19,9 +19,8 @@ export default async ({ req, res, log, error }: Context) => {
     .setKey(process.env.APPWRITE_FUNCTION_API_KEY as string)
     .setSelfSigned(true);
 
-  const data = req.body;
-
-  log(req);
+  const body = req.body;
+  const data = JSON.parse(body);
 
   if (!data) {
     error("No data found in event.");
