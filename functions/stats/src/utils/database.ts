@@ -36,7 +36,7 @@ export const addStat = async (database: Databases, data: any, user: string) => {
       }
     );
   } else {
-    await database.createDocument(databaseId, statsCollectionId, "ID.unique()", {
+    await database.createDocument(databaseId, statsCollectionId, ID.unique(), {
       user: user,
       user_id: user,
       number_of_plays: 1,
