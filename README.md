@@ -1,4 +1,4 @@
-# [Sprobble.xyz](sprobble.xyz)
+# [Sprobble.xyz](https://sprobble.xyz)
 ![Sprobble.xyz Screenshot](/docs/sprobble.xyz.png)
 
 Track your spotify plays with Sprobble!
