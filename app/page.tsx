@@ -9,13 +9,11 @@ export default function Home() {
   return (
     <>
       <section className="mb-10 flex flex-col justify-between gap-10 rounded-xl bg-gradient-radial px-4 py-12 md:px-24 md:py-48">
-        <div className="relative z-10 flex flex-col gap-4">
-          <div className="flex w-full flex-col items-start gap-6">
-            <h1 className="max-w-4xl scroll-m-20 pb-4 text-left text-5xl font-bold tracking-tight transition-colors first:mt-0 md:text-7xl">
-              The best place to keep track of all your Spotify plays.
-            </h1>
-            <MainLoginWithSpotify />
-          </div>
+        <h1 className="w-full scroll-m-20 pb-4 text-center text-5xl font-bold tracking-tight transition-colors first:mt-0 md:text-7xl">
+          The best place to keep track of all your Spotify plays.
+        </h1>
+        <div className="flex flex-row justify-center">
+          <MainLoginWithSpotify />
         </div>
       </section>
       <section className="relative flex w-full flex-col gap-4">

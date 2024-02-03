@@ -29,9 +29,9 @@ export function Header({
   });
 
   return (
-    <Card className={cn("relative overflow-hidden", className)} {...props}>
+    <div>
       {artwork ? (
-        <>
+        <Card className={cn("relative overflow-hidden", className)} {...props}>
           <div
             className="h-36 w-full md:h-52"
             style={{
@@ -56,9 +56,9 @@ export function Header({
               <p>{listen}</p>
             </div>
           </div>
-        </>
+        </Card>
       ) : (
-        <div className="flex-1 rounded-xl bg-gradient-radial px-12 py-12 md:px-24 md:py-24">
+        <div className="py-6">
           <p className="pb-2">{subTitle}</p>
           <h2 className="text-4xl font-black dark:text-white md:text-6xl lg:text-8xl">
             {title}
@@ -67,6 +67,6 @@ export function Header({
           <p>{listen}</p>
         </div>
       )}
-    </Card>
+    </div>
   );
 }
