@@ -1,9 +1,9 @@
 import { Stat } from "@/types/Types";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
- 
+
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 export function formatTimeForAudioPlayer(time: number) {
@@ -43,7 +43,7 @@ export function groupByDate(data: any) {
 
     return acc;
   }, []);
-};
+}
 
 export function custom_sort(a: any, b: any) {
   return new Date(a.date).getTime() - new Date(b.date).getTime();
@@ -51,8 +51,8 @@ export function custom_sort(a: any, b: any) {
 
 export function textColorBasedOnBackground(color: string) {
   const lightness = color.match(/\d+/g)?.[2];
-  if(Number(lightness) > 50) return "hsl(0,0%,0%)";
-  else return "hsl(0,0%,100%)"
+  if (Number(lightness) > 50) return "hsl(0,0%,0%)";
+  else return "hsl(0,0%,100%)";
 }
 
 export function getHSL(color: string, alpha: number = 1) {

@@ -42,8 +42,6 @@ export const addStat = async (database: Databases, data: any, user: string) => {
       number_of_plays: 1,
       time_spent_listening: data.track.duration.toString(),
       week_of_year: week_of_year,
-      track: data.track.$id,
-      album: data.album.$id,
     });
   }
 };
