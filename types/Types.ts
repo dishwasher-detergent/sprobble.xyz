@@ -56,6 +56,7 @@ export type User = {
   created_at: string;
   authorized: boolean;
   refresh_token: string;
+  avatar: string;
 } & Models.Document;
 
 export type TotalStats = {

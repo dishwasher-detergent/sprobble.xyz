@@ -8,6 +8,7 @@
             "runtime": "node-18.0",
             "path": "functions/total_stats",
             "entrypoint": "dist/main.js",
+            "commands": "npm install && npm run build",
             "ignore": [
                 "node_modules",
                 ".npm"
@@ -27,6 +28,7 @@
             "runtime": "node-18.0",
             "path": "functions/stats",
             "entrypoint": "dist/main.js",
+            "commands": "npm install && npm run build",
             "ignore": [
                 "node_modules",
                 ".npm"
@@ -44,6 +46,7 @@
             "runtime": "node-18.0",
             "path": "functions/spotify",
             "entrypoint": "dist/main.js",
+            "commands": "npm install && npm run build",
             "ignore": [
                 "node_modules",
                 ".npm"

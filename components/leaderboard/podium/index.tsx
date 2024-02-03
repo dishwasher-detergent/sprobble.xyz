@@ -19,7 +19,7 @@ export default function Podium({ data }: PodiumProps) {
       {data.map((item: any, index: number) => (
         <PodiumItem
           key={index}
-          image={`${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${avatarBucketId}/files/${item.id}/preview?project=${projectId}`}
+          image={`${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${avatarBucketId}/files/${item.avatar}/preview?project=${projectId}`}
           title={item.name}
           value={item.plays}
           unit={item.unit}

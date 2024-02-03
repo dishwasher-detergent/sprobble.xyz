@@ -20,25 +20,24 @@ export default async ({ req, res, log, error }: Context) => {
     .setSelfSigned(true);
 
   const body = req.body;
-  const data = JSON.parse(body);
 
-  log(data)
+  log(body);
 
-  if (!data) {
+  if (!body) {
     error("No data found in event.");
     res.send("No data found in event.");
     return;
   }
 
   try {
-    await addStat(database, data, data.user_id);
+    await addStat(database, body, body.user_id);
   } catch (err) {
     log("Error adding user stat");
     error(err);
   }
 
   try {
-    await addStat(database, data, "global");
+    await addStat(database, body, "global");
   } catch (err) {
     log("Error adding global stat");
     error(err);

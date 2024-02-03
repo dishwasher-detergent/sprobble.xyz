@@ -3,13 +3,14 @@ import { TotalStats } from "../types/Types.js";
 import { databaseId, totalStatsCollectionId } from "./appwrite.js";
 
 export const addStat = async (database: Databases, title: string) => {
-  const fetched_items = await database.getDocument<TotalStats>(
-    databaseId,
-    totalStatsCollectionId,
-    title
-  );
+  let fetched_items = null;
+  try {
+    fetched_items = await database.getDocument<TotalStats>(
+      databaseId,
+      totalStatsCollectionId,
+      title
+    );
 
-  if (fetched_items) {
     await database.updateDocument(
       databaseId,
       totalStatsCollectionId,
@@ -18,7 +19,7 @@ export const addStat = async (database: Databases, title: string) => {
         count: fetched_items.count + 1,
       }
     );
-  } else {
+  } catch (err) {
     await database.createDocument(databaseId, totalStatsCollectionId, title, {
       title: title,
       count: 1,

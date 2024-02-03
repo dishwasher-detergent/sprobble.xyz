@@ -19,6 +19,7 @@ export default function UserPodium() {
           return {
             id: user.$id,
             name: user.name,
+            avatar: user.avatar,
             plays: user.stats.reduce(
               (acc, stat) => acc + stat.number_of_plays,
               0

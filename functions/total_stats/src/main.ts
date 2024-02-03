@@ -20,18 +20,17 @@ export default async ({ req, res, log, error }: Context) => {
     .setSelfSigned(true);
 
   const body = req.body;
-  const data = JSON.parse(body);
 
-  log(data)
+  log(body);
 
-  if (!data) {
+  if (!body) {
     error("No data found in event.");
     res.send("No data found in event.");
     return;
   }
 
   try {
-    await addStat(database, data.$collectionId);
+    await addStat(database, body.$collectionId);
   } catch (err) {
     log("Error adding total stat");
     error(err);
