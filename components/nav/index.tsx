@@ -14,7 +14,7 @@ import Link from "next/link";
 export function Nav() {
   return (
     <header className="border-b shadow-sm">
-      <div className="mx-auto grid h-16 w-full max-w-screen-2xl grid-cols-[10rem_1fr_auto] grid-rows-1 items-center gap-4 px-4 lg:grid-cols-[1fr_10rem_1fr]">
+      <div className="mx-auto grid h-16 w-full max-w-7xl grid-cols-[10rem_1fr_auto] grid-rows-1 items-center gap-4 px-4 lg:grid-cols-[1fr_10rem_1fr]">
         <nav className="order-2 hidden flex-row md:flex lg:order-1">
           <Button variant="ghost" asChild>
             <Link href="/global/stats/album">Albums</Link>
