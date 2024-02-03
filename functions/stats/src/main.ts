@@ -22,6 +22,8 @@ export default async ({ req, res, log, error }: Context) => {
   const body = req.body;
   const data = JSON.parse(body);
 
+  log(data)
+
   if (!data) {
     error("No data found in event.");
     res.send("No data found in event.");
