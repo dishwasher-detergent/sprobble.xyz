@@ -45,11 +45,7 @@ export function Header({
           />
           <div className="-mt-24 ml-8 pb-8 md:-mt-36">
             <div className="relative aspect-square h-32 w-32 overflow-hidden rounded-full bg-slate-300 ring-4 ring-background md:h-60 md:w-60">
-              <img
-                src={artwork}
-                alt={artwork_name}
-                sizes="(max-width: 256px) 100vw"
-              />
+              <img src={artwork} alt={artwork_name} className="h-full w-full" />
             </div>
             <div className="mt-2 flex-1">
               <h2 className="text-xl font-black dark:text-white md:text-3xl">
