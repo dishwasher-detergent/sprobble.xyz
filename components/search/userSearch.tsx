@@ -31,7 +31,7 @@ export default function UserSearch({
         {data?.documents.map((user: User) => (
           <li key={user.$id} className="flex w-full flex-row gap-4">
             <img
-              src={`https://data.kennethbass.com/v1/storage/buckets/${avatarBucketId}/files/${user.$id}/preview?project=${projectId}&width=100&height=100&quality=60`}
+              src={`${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${avatarBucketId}/files/${user.$id}/preview?project=${projectId}&width=100&height=100&quality=60`}
               className="h-16 w-16 flex-none rounded-xl"
             />
             <div className="overflow-hidden">

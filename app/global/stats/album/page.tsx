@@ -34,8 +34,8 @@ export default async function AlbumPage() {
       <Header
         subTitle="Global"
         title="Album Statistics"
-        artwork={documents[0].images[0]}
-        artwork_name={documents[0].name}
+        artwork={documents[0]?.images[0]}
+        artwork_name={documents[0]?.name}
       />
       <section className="grid w-full grid-cols-1 gap-4 rounded-xl border bg-slate-100 p-4 dark:bg-slate-900 dark:text-white md:grid-cols-3">
         <AlbumCount />

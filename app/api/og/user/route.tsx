@@ -62,7 +62,7 @@ export async function GET(request: Request) {
         <img
           width="100%"
           height="100%"
-          src={`https://data.kennethbass.com/v1/storage/buckets/${avatarBucketId}/files/${id}/preview?project=${projectId}&width=800&height=800&quality=100`}
+          src={`${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${avatarBucketId}/files/${id}/preview?project=${projectId}&width=800&height=800&quality=100`}
           style={{
             borderRadius: 16,
             objectFit: "cover",

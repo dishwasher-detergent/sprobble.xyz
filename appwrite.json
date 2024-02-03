@@ -1,107 +1,13 @@
 {
-    "projectId": "645c030f40139ed1edbb",
-    "projectName": "spotify",
+    "projectId": "sprobble",
+    "projectName": "Sprobble",
     "functions": [
         {
-            "$id": "645d657ac813f9c519d0",
-            "name": "spotify",
-            "runtime": "node-18.0",
-            "path": "functions/spotify",
-            "entrypoint": "src/index.js",
-            "ignore": [
-                "node_modules",
-                ".npm"
-            ],
-            "execute": [],
-            "events": [],
-            "schedule": "*/10 * * * *",
-            "timeout": 120
-        },
-        {
-            "$id": "64a0668240fd417ee848",
-            "name": "stats",
-            "runtime": "node-18.0",
-            "path": "functions/stats",
-            "entrypoint": "src/index.js",
-            "ignore": [
-                "node_modules",
-                ".npm"
-            ],
-            "execute": [],
-            "events": [
-                "databases.*.collections.plays.documents.*.create"
-            ],
-            "schedule": "",
-            "timeout": 15
-        },
-        {
-            "$id": "64a0a0f7f0c45b6f61b6",
-            "name": "stats-backlog",
-            "runtime": "node-18.0",
-            "path": "functions/stats-backlog",
-            "entrypoint": "src/index.js",
-            "ignore": [
-                "node_modules",
-                ".npm"
-            ],
-            "execute": [],
-            "events": [],
-            "schedule": "",
-            "timeout": 600
-        },
-        {
-            "$id": "64b2f36d7fe9a6a4889c",
-            "name": "clear",
-            "runtime": "node-18.0",
-            "path": "functions/clear",
-            "entrypoint": "src/index.js",
-            "ignore": [
-                "node_modules",
-                ".npm"
-            ],
-            "execute": [],
-            "events": [],
-            "schedule": "",
-            "timeout": 15
-        },
-        {
-            "$id": "64c57de8ed640542f909",
-            "name": "new_user",
-            "runtime": "node-18.0",
-            "path": "functions/new_user",
-            "entrypoint": "src/index.js",
-            "ignore": [
-                "node_modules",
-                ".npm"
-            ],
-            "execute": [],
-            "events": [
-                "users.*.create"
-            ],
-            "schedule": "",
-            "timeout": 15
-        },
-        {
-            "$id": "64d575ed9fb811aa7a70",
-            "name": "top",
-            "runtime": "node-18.0",
-            "path": "functions/top",
-            "entrypoint": "src/index.js",
-            "ignore": [
-                "node_modules",
-                ".npm"
-            ],
-            "execute": [],
-            "events": [],
-            "schedule": "",
-            "timeout": 15
-        },
-        {
-            "$id": "64e00a97a3ccaec4e802",
-            "name": "total_stats",
+            "$id": "total-stats",
+            "name": "total-stats-new",
             "runtime": "node-18.0",
             "path": "functions/total_stats",
-            "entrypoint": "src/index.js",
+            "entrypoint": "dist/main.js",
             "ignore": [
                 "node_modules",
                 ".npm"
@@ -116,19 +22,36 @@
             "timeout": 15
         },
         {
-            "$id": "64e011015f6595196b47",
-            "name": "total_stats-backlog",
+            "$id": "spotify-stats",
+            "name": "spotify-stats-new",
             "runtime": "node-18.0",
-            "path": "functions/total_stats-backlog",
-            "entrypoint": "src/index.js",
+            "path": "functions/stats",
+            "entrypoint": "dist/main.js",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
+            "execute": [],
+            "events": [
+                "databases.*.collections.plays.documents.*.create"
+            ],
+            "schedule": "",
+            "timeout": 15
+        },
+        {
+            "$id": "spotify",
+            "name": "spotify-new",
+            "runtime": "node-18.0",
+            "path": "functions/spotify",
+            "entrypoint": "dist/main.js",
             "ignore": [
                 "node_modules",
                 ".npm"
             ],
             "execute": [],
             "events": [],
-            "schedule": "",
-            "timeout": 600
+            "schedule": "*/10 * * * *",
+            "timeout": 120
         }
     ],
     "databases": [

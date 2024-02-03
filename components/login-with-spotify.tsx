@@ -67,8 +67,8 @@ export function LoginWithSpotify() {
       onClick={() =>
         oAuthSignIn.mutateAsync({
           provider: "spotify",
-          successUrl: `https://sprobble.xyz/account`,
-          failureUrl: `https://sprobble.xyz`,
+          successUrl: `${process.env.NEXT_PUBLIC_DOMAIN}/account`,
+          failureUrl: `${process.env.NEXT_PUBLIC_DOMAIN}`,
           scopes: [
             "user-read-currently-playing",
             "user-read-recently-played",
