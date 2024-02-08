@@ -1,7 +1,7 @@
 "use client";
 
 import { Loader } from "@/components/loading/loader";
-import { databaseId, trackCollectionId } from "@/lib/appwrite";
+import { DATABASE_ID, TRACK_COLLECTION_ID } from "@/lib/constants";
 import { Artist, Track } from "@/types/Types";
 import { Query } from "appwrite";
 import Link from "next/link";
@@ -13,8 +13,8 @@ export default function TrackSearch({
   params: { search: string[] };
 }) {
   const { data, isLoading } = useCollection<Track>(
-    databaseId,
-    trackCollectionId,
+    DATABASE_ID,
+    TRACK_COLLECTION_ID,
     [Query.search("name", params.search[1])]
   );
 

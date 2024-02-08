@@ -4,7 +4,7 @@ import { Pagination } from "@/components/history/pagination";
 import { Loader } from "@/components/loading/loader";
 import { DataTable } from "@/components/ui/data-table";
 import { Input } from "@/components/ui/input";
-import { albumCollectionId, databaseId } from "@/lib/appwrite";
+import { ALBUM_COLLECTION_ID, DATABASE_ID } from "@/lib/constants";
 import { Album } from "@/types/Types";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { ColumnDef } from "@tanstack/react-table";
@@ -92,7 +92,7 @@ export function AlbumStats() {
     data: plays,
     isLoading,
     isError,
-  } = useCollection(databaseId, albumCollectionId, queries, {
+  } = useCollection(DATABASE_ID, ALBUM_COLLECTION_ID, queries, {
     keepPreviousData: true,
   });
 

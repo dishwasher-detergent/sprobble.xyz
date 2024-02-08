@@ -5,7 +5,7 @@ import { Loader } from "@/components/loading/loader";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { DataTable } from "@/components/ui/data-table";
 import { Input } from "@/components/ui/input";
-import { databaseId, trackCollectionId } from "@/lib/appwrite";
+import { DATABASE_ID, TRACK_COLLECTION_ID } from "@/lib/constants";
 import { Artist, Track } from "@/types/Types";
 import { ColumnDef } from "@tanstack/react-table";
 import { Query } from "appwrite";
@@ -120,7 +120,7 @@ export default function TrackStats() {
     data: plays,
     isLoading,
     isError,
-  } = useCollection(databaseId, trackCollectionId, queries, {
+  } = useCollection(DATABASE_ID, TRACK_COLLECTION_ID, queries, {
     keepPreviousData: true,
   });
 

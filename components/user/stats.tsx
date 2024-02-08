@@ -2,34 +2,46 @@
 
 import StatsCard from "@/components/stats/card";
 import CustomTooltip from "@/components/stats/tooltips";
-import { databaseId, statsCollectionId } from "@/lib/appwrite";
+import { client, database_service } from "@/lib/appwrite";
+import { DATABASE_ID, STATS_COLLECTION_ID } from "@/lib/constants";
 import { combineAndSumPlays } from "@/lib/utils";
 import { Stat } from "@/types/Types";
 import { Query } from "appwrite";
 import { LucideTrendingUp } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useCollection } from "react-appwrite";
+import { useEffect, useState } from "react";
 import { Area, AreaChart, ResponsiveContainer, Tooltip } from "recharts";
 
 export default function UserStats({ user }: { user?: string }) {
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
+  const [stats, setStats] = useState<Stat[]>();
 
-  const { data: stats, isLoading: statsLoading } = useCollection<Stat>(
-    databaseId,
-    statsCollectionId,
-    [
+  async function init() {
+    const response = await database_service.list<Stat>(STATS_COLLECTION_ID, [
       Query.orderAsc("week_of_year"),
       ...(user ? [Query.equal("user_id", user)] : []),
-    ]
-  );
+    ]);
+    setStats(response.documents);
+  }
 
-  const year_to_date = combineAndSumPlays(stats?.documents as Stat[]).map(
-    (stat: Stat) => ({
-      name: `Week ${stat.week_of_year}`,
-      plays: stat.number_of_plays,
-      duration: (Number(stat.time_spent_listening) / 1000 / 60 / 60).toFixed(2),
-    })
-  );
+  useEffect(() => {
+    init();
+
+    const unsubscribe = client.subscribe(
+      `databases.${DATABASE_ID}.collections.${STATS_COLLECTION_ID}.documents`,
+      (response) => {
+        console.log("test", response);
+      }
+    );
+
+    return unsubscribe();
+  }, []);
+
+  const year_to_date = combineAndSumPlays(stats).map((stat: Stat) => ({
+    name: `Week ${stat.week_of_year}`,
+    plays: stat.number_of_plays,
+    duration: (Number(stat.time_spent_listening) / 1000 / 60 / 60).toFixed(2),
+  }));
 
   return (
     <div className="z-10 flex flex-col gap-4">

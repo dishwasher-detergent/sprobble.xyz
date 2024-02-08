@@ -1,11 +1,37 @@
-import AlbumCount from "@/components/album/count";
-import ArtistCount from "@/components/artist/count";
-import { RecentlyPlayed } from "@/components/global/recently-played";
-import { MainLoginWithSpotify } from "@/components/main-login-with-spotify";
-import TrackCount from "@/components/track/count";
-import UserStats from "@/components/user/stats";
+"use client";
+
+import { History } from "@/components/history";
+import { client, database_service } from "@/lib/appwrite";
+import { DATABASE_ID, PLAYS_COLLECTION_ID } from "@/lib/constants";
+import { groupByDate } from "@/lib/utils";
+import { Play } from "@/types/Types";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [plays, setPlays] = useState<Play[]>();
+  const [loading, setLoading] = useState<boolean>(true);
+
+  async function init() {
+    setLoading(true);
+    const response = await database_service.list<Play>(PLAYS_COLLECTION_ID);
+    const formattedPlays = groupByDate(response.documents);
+    setPlays(formattedPlays);
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    // init();
+
+    const unsubscribe = client.subscribe(
+      `databases.${DATABASE_ID}.collections.${PLAYS_COLLECTION_ID}.documents`,
+      (response) => {
+        console.log("test", response);
+      }
+    );
+
+    return unsubscribe();
+  }, []);
+
   return (
     <>
       <section className="mb-10 flex flex-col justify-between gap-10 rounded-xl bg-gradient-radial px-4 py-12 md:px-24 md:py-48">
@@ -13,18 +39,22 @@ export default function Home() {
           The best place to keep track of all your Spotify plays.
         </h1>
         <div className="flex flex-row justify-center">
-          <MainLoginWithSpotify />
+          {/* <MainLoginWithSpotify /> */}
         </div>
       </section>
       <section className="relative flex w-full flex-col gap-4">
-        <UserStats user="global" />
+        {/* <UserStats user="global" /> */}
         <div className="flex w-full flex-row flex-nowrap gap-4 overflow-x-auto pb-2">
-          <ArtistCount />
-          <AlbumCount />
-          <TrackCount />
+          {/* <ArtistCount /> */}
+          {/* <AlbumCount /> */}
+          {/* <TrackCount /> */}
         </div>
       </section>
-      <RecentlyPlayed />
+      <History
+        title="See what everyone is listening to"
+        isLoading={loading}
+        formattedPlays={plays}
+      />
     </>
   );
 }

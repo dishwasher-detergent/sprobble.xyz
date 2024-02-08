@@ -63,7 +63,7 @@ export function getHSL(color: string, alpha: number = 1) {
   return `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`;
 }
 
-export function combineAndSumPlays(arr: Stat[]): Stat[] {
+export function combineAndSumPlays(arr: Stat[] | undefined): Stat[] {
   if (!arr) return [];
 
   const combinedData: Stat[] = [];

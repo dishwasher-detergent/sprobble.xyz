@@ -1,9 +1,9 @@
 import {
-  avatarBucketId,
-  databaseId,
-  projectId,
-  userCollectionId,
-} from "@/lib/appwrite";
+  AVATAR_BUCKET_ID,
+  DATABASE_ID,
+  PROJECT_ID,
+  USER_COLLECTION_ID,
+} from "@/lib/constants";
 import { User } from "@/types/Types";
 import { Models } from "appwrite";
 import { ImageResponse } from "next/server";
@@ -12,11 +12,10 @@ export const runtime = "edge";
 
 const fetchUser = async (id: string) => {
   const user: Models.Document & User = await fetch(
-    `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/databases/${databaseId}/collections/${userCollectionId}/documents/${id}`,
+    `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/databases/${DATABASE_ID}/collections/${USER_COLLECTION_ID}/documents/${id}`,
     {
       headers: {
-        "X-Appwrite-Project": process.env
-          .NEXT_PUBLIC_APPWRITE_PROJECT_ID as string,
+        "X-Appwrite-Project": PROJECT_ID,
       },
     }
   ).then((res) => res.json());
@@ -62,7 +61,7 @@ export async function GET(request: Request) {
         <img
           width="100%"
           height="100%"
-          src={`${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${avatarBucketId}/files/${id}/preview?project=${projectId}&width=800&height=800&quality=100`}
+          src={`${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${AVATAR_BUCKET_ID}/files/${id}/preview?project=${PROJECT_ID}&width=800&height=800&quality=100`}
           style={{
             borderRadius: 16,
             objectFit: "cover",

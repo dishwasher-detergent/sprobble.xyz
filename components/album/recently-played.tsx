@@ -1,7 +1,7 @@
 "use client";
 
 import { History } from "@/components/history";
-import { albumCollectionId, databaseId } from "@/lib/appwrite";
+import { ALBUM_COLLECTION_ID, DATABASE_ID } from "@/lib/constants";
 import { custom_sort } from "@/lib/utils";
 import { Query } from "appwrite";
 import { useState } from "react";
@@ -14,8 +14,8 @@ export function AlbumRecentlyPlayed({ album }: { album: string }) {
   const [queries, setQueries] = useState<any>(query);
 
   const { data: plays, isLoading } = useCollection(
-    databaseId,
-    albumCollectionId,
+    DATABASE_ID,
+    ALBUM_COLLECTION_ID,
     queries,
     {
       keepPreviousData: true,

@@ -4,7 +4,7 @@ import { Pagination } from "@/components/history/pagination";
 import { Loader } from "@/components/loading/loader";
 import { DataTable } from "@/components/ui/data-table";
 import { Input } from "@/components/ui/input";
-import { artistCollectionId, databaseId } from "@/lib/appwrite";
+import { ARTIST_COLLECTION_ID, DATABASE_ID } from "@/lib/constants";
 import { Artist } from "@/types/Types";
 import { ColumnDef } from "@tanstack/react-table";
 import { Query } from "appwrite";
@@ -96,7 +96,7 @@ export function ArtistStats() {
     data: plays,
     isLoading,
     isError,
-  } = useCollection(databaseId, artistCollectionId, queries, {
+  } = useCollection(DATABASE_ID, ARTIST_COLLECTION_ID, queries, {
     keepPreviousData: true,
   });
 

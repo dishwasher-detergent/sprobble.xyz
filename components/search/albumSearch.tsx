@@ -1,7 +1,7 @@
 "use client";
 
 import { Loader } from "@/components/loading/loader";
-import { albumCollectionId, databaseId } from "@/lib/appwrite";
+import { ALBUM_COLLECTION_ID, DATABASE_ID } from "@/lib/constants";
 import { Album, Artist, Track } from "@/types/Types";
 import { Query } from "appwrite";
 import Link from "next/link";
@@ -14,8 +14,8 @@ export default function AlbumSearch({
   params: { search: string[] };
 }) {
   const { data, isLoading } = useCollection<Album>(
-    databaseId,
-    albumCollectionId,
+    DATABASE_ID,
+    ALBUM_COLLECTION_ID,
     [Query.search("name", params.search[1])]
   );
 

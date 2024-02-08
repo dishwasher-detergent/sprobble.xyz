@@ -1,7 +1,7 @@
 "use client";
 
 import { History } from "@/components/history";
-import { databaseId, trackCollectionId } from "@/lib/appwrite";
+import { DATABASE_ID, TRACK_COLLECTION_ID } from "@/lib/constants";
 import { custom_sort } from "@/lib/utils";
 import { Query } from "appwrite";
 import { useState } from "react";
@@ -14,8 +14,8 @@ export function TracksRecentlyPlayed({ track }: { track: string }) {
   const [queries, setQueries] = useState<any>(query);
 
   const { data: plays, isLoading } = useCollection(
-    databaseId,
-    trackCollectionId,
+    DATABASE_ID,
+    TRACK_COLLECTION_ID,
     queries,
     {
       keepPreviousData: true,

@@ -1,7 +1,7 @@
 import { RecentlyPlayed } from "@/components/global/recently-played";
 import { Header } from "@/components/header";
 import UserStats from "@/components/user/stats";
-import { avatarBucketId, projectId } from "@/lib/appwrite";
+import { AVATAR_BUCKET_ID, PROJECT_ID } from "@/lib/constants";
 import { User } from "@/types/Types";
 
 export async function generateMetadata({
@@ -77,7 +77,7 @@ export default async function UserPage({
             year: "numeric",
           }
         )}`}
-        artwork={`${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${avatarBucketId}/files/${user.avatar}/view?project=${projectId}&width=400&height=400&quality=100`}
+        artwork={`${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${AVATAR_BUCKET_ID}/files/${user.avatar}/view?project=${PROJECT_ID}&width=400&height=400&quality=100`}
         artwork_name={user.name + "'s avatar"}
       />
       <section>

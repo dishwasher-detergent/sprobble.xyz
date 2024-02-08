@@ -1,7 +1,7 @@
 "use client";
 
 import { History } from "@/components/history";
-import { databaseId, playsCollectionId } from "@/lib/appwrite";
+import { DATABASE_ID, PLAYS_COLLECTION_ID } from "@/lib/constants";
 import { groupByDate } from "@/lib/utils";
 import { Query } from "appwrite";
 import { useSearchParams } from "next/navigation";
@@ -27,8 +27,8 @@ export function RecentlyPlayed({ user }: { user?: string }) {
   ]);
 
   const { data: plays, isLoading } = useCollection(
-    databaseId,
-    playsCollectionId,
+    DATABASE_ID,
+    PLAYS_COLLECTION_ID,
     queries
   );
 

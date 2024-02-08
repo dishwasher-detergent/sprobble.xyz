@@ -1,7 +1,11 @@
 "use client";
 
 import { Loader } from "@/components/loading/loader";
-import { avatarBucketId, databaseId, userCollectionId } from "@/lib/appwrite";
+import {
+  AVATAR_BUCKET_ID,
+  DATABASE_ID,
+  USER_COLLECTION_ID,
+} from "@/lib/constants";
 import { ID } from "appwrite";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -35,8 +39,8 @@ export default function AccountPage() {
 
       try {
         existingUser = await databaseService.getDocument(
-          databaseId,
-          userCollectionId,
+          DATABASE_ID,
+          USER_COLLECTION_ID,
           account.$id
         );
       } catch (error) {
@@ -50,15 +54,15 @@ export default function AccountPage() {
         );
 
         const avatar = await storageService.createFile(
-          avatarBucketId,
+          AVATAR_BUCKET_ID,
           ID.unique(),
           image
         );
 
         try {
           await databaseService.createDocument(
-            databaseId,
-            userCollectionId,
+            DATABASE_ID,
+            USER_COLLECTION_ID,
             account.$id,
             {
               user_id: account.$id,
@@ -74,8 +78,8 @@ export default function AccountPage() {
       } else {
         try {
           await databaseService.updateDocument(
-            databaseId,
-            userCollectionId,
+            DATABASE_ID,
+            USER_COLLECTION_ID,
             account.$id,
             {
               refresh_token: session.providerRefreshToken,

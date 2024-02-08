@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/components/ui/use-toast";
 import UserTag from "@/components/user/tag";
-import { databaseId, userCollectionId } from "@/lib/appwrite";
+import { DATABASE_ID, USER_COLLECTION_ID } from "@/lib/constants";
 import { User } from "@/types/Types";
 import { LucideLogIn, LucideUser } from "lucide-react";
 import Link from "next/link";
@@ -33,8 +33,8 @@ export function LoginWithSpotify() {
 
     try {
       const user = await databaseService.getDocument<User>(
-        databaseId,
-        userCollectionId,
+        DATABASE_ID,
+        USER_COLLECTION_ID,
         account.$id
       );
 

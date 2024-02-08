@@ -1,24 +1,46 @@
 "use client";
 
 import StatsCard from "@/components/stats/card";
-import { databaseId, totalStatsCollectionId } from "@/lib/appwrite";
+import { client, database_service } from "@/lib/appwrite";
+import { DATABASE_ID, TOTAL_STATS_COLLECTION_ID } from "@/lib/constants";
 import { TotalStats } from "@/types/Types";
 import { LucideDisc2 } from "lucide-react";
-import { useDocument } from "react-appwrite";
+import { useEffect, useState } from "react";
 
 export default function ArtistCount() {
-  const { data: artists, isLoading: artistLoading } = useDocument<TotalStats>(
-    databaseId,
-    totalStatsCollectionId,
-    "artist"
-  );
+  const [stat, setStat] = useState<TotalStats>();
+  const [loading, setLoading] = useState<boolean>(true);
+
+  async function init() {
+    setLoading(true);
+    const response = await database_service.get<TotalStats>(
+      TOTAL_STATS_COLLECTION_ID,
+      "artist"
+    );
+    setStat(response);
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    init();
+
+    const unsubscribe = client.subscribe(
+      `databases.${DATABASE_ID}.collections.${TOTAL_STATS_COLLECTION_ID}.documents`,
+      (response) => {
+        console.log("test", response);
+      }
+    );
+
+    return unsubscribe();
+  }, []);
+
   return (
     <StatsCard
       title="Total Unique Artists"
       icon={<LucideDisc2 size={16} />}
-      loading={artistLoading}
+      loading={loading}
     >
-      {artists?.count.toLocaleString()}
+      {stat?.count.toLocaleString()}
     </StatsCard>
   );
 }

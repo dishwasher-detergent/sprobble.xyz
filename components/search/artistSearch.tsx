@@ -2,7 +2,7 @@
 
 import { Loader } from "@/components/loading/loader";
 import { Badge } from "@/components/ui/badge";
-import { artistCollectionId, databaseId } from "@/lib/appwrite";
+import { ARTIST_COLLECTION_ID, DATABASE_ID } from "@/lib/constants";
 import { Artist, Track } from "@/types/Types";
 import { Query } from "appwrite";
 import Link from "next/link";
@@ -14,8 +14,8 @@ export default function ArtistSearch({
   params: { search: string[] };
 }) {
   const { data, isLoading } = useCollection<Artist>(
-    databaseId,
-    artistCollectionId,
+    DATABASE_ID,
+    ARTIST_COLLECTION_ID,
     [Query.search("name", params.search[1])]
   );
 

@@ -2,11 +2,11 @@
 
 import { Loader } from "@/components/loading/loader";
 import {
-  avatarBucketId,
-  databaseId,
-  projectId,
-  userCollectionId,
-} from "@/lib/appwrite";
+  AVATAR_BUCKET_ID,
+  DATABASE_ID,
+  PROJECT_ID,
+  USER_COLLECTION_ID,
+} from "@/lib/constants";
 import { User } from "@/types/Types";
 import { Query } from "appwrite";
 import Link from "next/link";
@@ -18,8 +18,8 @@ export default function UserSearch({
   params: { search: string[] };
 }) {
   const { data, isLoading } = useCollection<User>(
-    databaseId,
-    userCollectionId,
+    DATABASE_ID,
+    USER_COLLECTION_ID,
     [Query.startsWith("name", params.search[1])]
   );
 
@@ -31,7 +31,7 @@ export default function UserSearch({
         {data?.documents.map((user: User) => (
           <li key={user.$id} className="flex w-full flex-row gap-4">
             <img
-              src={`${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${avatarBucketId}/files/${user.$id}/preview?project=${projectId}&width=100&height=100&quality=60`}
+              src={`${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${AVATAR_BUCKET_ID}/files/${user.$id}/preview?project=${PROJECT_ID}&width=100&height=100&quality=60`}
               className="h-16 w-16 flex-none rounded-xl"
             />
             <div className="overflow-hidden">

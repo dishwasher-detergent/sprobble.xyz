@@ -5,11 +5,11 @@ import { Loader } from "@/components/loading/loader";
 import { DataTable } from "@/components/ui/data-table";
 import { Input } from "@/components/ui/input";
 import {
-  avatarBucketId,
-  databaseId,
-  projectId,
-  userCollectionId,
-} from "@/lib/appwrite";
+  AVATAR_BUCKET_ID,
+  DATABASE_ID,
+  PROJECT_ID,
+  USER_COLLECTION_ID,
+} from "@/lib/constants";
 import { User } from "@/types/Types";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { ColumnDef } from "@tanstack/react-table";
@@ -28,7 +28,7 @@ const columns: ColumnDef<any>[] = [
       return (
         <Avatar className="block h-14 w-14 flex-none overflow-hidden rounded-xl">
           <AvatarImage
-            src={`${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${avatarBucketId}/files/${props.row.original.avatar}/view?project=${projectId}&width=100&height=100&quality=75`}
+            src={`${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${AVATAR_BUCKET_ID}/files/${props.row.original.avatar}/view?project=${PROJECT_ID}&width=100&height=100&quality=75`}
             alt={`${props.row.original.name}'s Avatar`}
           />
         </Avatar>
@@ -104,7 +104,7 @@ export function Leaderboard() {
     data: users,
     isLoading,
     isError,
-  } = useCollection(databaseId, userCollectionId, queries, {
+  } = useCollection(DATABASE_ID, USER_COLLECTION_ID, queries, {
     keepPreviousData: true,
   });
 

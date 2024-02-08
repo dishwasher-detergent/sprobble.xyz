@@ -1,4 +1,4 @@
-import { avatarBucketId, projectId } from "@/lib/appwrite";
+import { AVATAR_BUCKET_ID, PROJECT_ID } from "@/lib/constants";
 import PodiumItem from "./item";
 
 interface PodiumProps {
@@ -19,7 +19,7 @@ export default function Podium({ data }: PodiumProps) {
       {data.map((item: any, index: number) => (
         <PodiumItem
           key={index}
-          image={`${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${avatarBucketId}/files/${item.avatar}/preview?project=${projectId}`}
+          image={`${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${AVATAR_BUCKET_ID}/files/${item.avatar}/preview?project=${PROJECT_ID}`}
           title={item.name}
           value={item.plays}
           unit={item.unit}

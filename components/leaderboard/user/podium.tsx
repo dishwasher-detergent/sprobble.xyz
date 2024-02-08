@@ -1,15 +1,15 @@
 "use client";
 
 import Podium from "@/components/leaderboard/podium";
-import { databaseId, userCollectionId } from "@/lib/appwrite";
+import { DATABASE_ID, USER_COLLECTION_ID } from "@/lib/constants";
 import { User } from "@/types/Types";
 import { Query } from "appwrite";
 import { useCollection } from "react-appwrite";
 
 export default function UserPodium() {
   const { data: users, isLoading } = useCollection(
-    databaseId,
-    userCollectionId,
+    DATABASE_ID,
+    USER_COLLECTION_ID,
     [Query.notEqual("$id", "global")]
   );
 

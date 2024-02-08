@@ -6,7 +6,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { avatarBucketId, projectId } from "@/lib/appwrite";
+import { AVATAR_BUCKET_ID, PROJECT_ID } from "@/lib/constants";
 import { User } from "@/types/Types";
 import { getISOWeek } from "date-fns";
 import { LucideCalendarDays } from "lucide-react";
@@ -42,7 +42,7 @@ export default function UserTag({ userId, hover = true }: UserTagProps) {
         <Link href={`/user/${userId}`} className="flex items-center gap-2">
           <Avatar className="h-6 w-6">
             <AvatarImage
-              src={`${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${avatarBucketId}/files/${profile.avatar}/view?project=${projectId}&width=100&height=100&quality=50`}
+              src={`${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${AVATAR_BUCKET_ID}/files/${profile.avatar}/view?project=${PROJECT_ID}&width=100&height=100&quality=50`}
               alt={`@${profile.name}`}
             />
             <AvatarFallback>{profile.name.slice(0, 2)}</AvatarFallback>
@@ -55,7 +55,7 @@ export default function UserTag({ userId, hover = true }: UserTagProps) {
           <div className="flex space-x-4">
             <Avatar className="h-10 w-10">
               <AvatarImage
-                src={`${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${avatarBucketId}/files/${profile.avatar}/view?project=${projectId}&width=100&height=100&quality=50`}
+                src={`${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${AVATAR_BUCKET_ID}/files/${profile.avatar}/view?project=${PROJECT_ID}&width=100&height=100&quality=50`}
                 alt={`@${profile.name}`}
               />
               <AvatarFallback>{profile.name.slice(0, 2)}</AvatarFallback>
