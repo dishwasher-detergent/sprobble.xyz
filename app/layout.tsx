@@ -1,4 +1,4 @@
-import { Noto_Sans as FontSans } from "next/font/google";
+import { Outfit as FontSans } from "next/font/google";
 import "./globals.css";
 
 import { cn } from "@/lib/utils";
