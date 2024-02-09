@@ -1,3 +1,4 @@
+import { User } from "@/functions/spotify/src/types/Types";
 import { Album } from "@/interfaces/album.interface";
 import { Artist } from "@/interfaces/artist.interface";
 import { Track } from "@/interfaces/track.interface";
@@ -9,4 +10,5 @@ export interface Play extends Models.Document {
   track: Track;
   album: Album;
   artist: Artist[];
+  user: User;
 }

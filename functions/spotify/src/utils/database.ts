@@ -116,6 +116,6 @@ export const addListenToDatabase = async (
     track: track.id,
     artist: [...track.artists.map((x) => x.id)],
     album: track.album.id,
-    user: [user_id],
+    user: user_id,
   });
 };

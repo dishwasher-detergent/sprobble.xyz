@@ -1,12 +1,26 @@
 import { MusicCard } from "@/components/ui/music-card";
 import { StatCard } from "@/components/ui/stat-card";
 import { Play } from "@/interfaces/plays.interface";
+import { TotalStat } from "@/interfaces/total-stats.interface";
 import { database_service } from "@/lib/appwrite";
-import { PLAYS_COLLECTION_ID } from "@/lib/constants";
+import {
+  ALBUM_COLLECTION_ID,
+  ARTIST_COLLECTION_ID,
+  PLAYS_COLLECTION_ID,
+  TOTAL_STATS_COLLECTION_ID,
+  TRACK_COLLECTION_ID,
+} from "@/lib/constants";
+import { Query } from "appwrite";
 import { LucideDisc3, LucideMusic3, LucidePersonStanding } from "lucide-react";
 
 export default async function Home() {
-  const music = await database_service.list<Play>(PLAYS_COLLECTION_ID);
+  const music = await database_service.list<Play>(PLAYS_COLLECTION_ID, [
+    Query.orderDesc("played_at"),
+  ]);
+
+  const stats = await database_service.list<TotalStat>(
+    TOTAL_STATS_COLLECTION_ID,
+  );
 
   return (
     <>
@@ -18,17 +32,26 @@ export default async function Home() {
         <div className="flex w-full flex-col gap-4">
           <StatCard
             title="Unique Songs"
-            stat="300"
+            stat={
+              stats.documents.filter((x) => x.title === TRACK_COLLECTION_ID)[0]
+                .count
+            }
             icon={<LucideMusic3 className="h-12 w-12" />}
           />
           <StatCard
             title="Unique Albums"
-            stat="300"
+            stat={
+              stats.documents.filter((x) => x.title === ALBUM_COLLECTION_ID)[0]
+                .count
+            }
             icon={<LucideDisc3 className="h-12 w-12" />}
           />
           <StatCard
             title="Unique Artists"
-            stat="300"
+            stat={
+              stats.documents.filter((x) => x.title === ARTIST_COLLECTION_ID)[0]
+                .count
+            }
             icon={<LucidePersonStanding className="h-12 w-12" />}
           />
         </div>
@@ -45,6 +68,10 @@ export default async function Home() {
             album={x.album.name}
             artists={x.artist.map((y) => ({ name: y.name, href: y.href }))}
             played_at={x.played_at}
+            user={{
+              name: x?.user?.name,
+              avatar: x?.user?.avatar,
+            }}
           />
         ))}
       </section>

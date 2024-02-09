@@ -1,4 +1,5 @@
-import { LucideDot } from "lucide-react";
+import { AVATARS_BUCKET_ID, ENDPOINT, PROJECT_ID } from "@/lib/constants";
+import { LucideCalendar, LucideDot } from "lucide-react";
 import { Button } from "./button";
 
 interface MusicCardProps {
@@ -13,6 +14,10 @@ interface MusicCardProps {
   }[];
   album: string;
   played_at: Date;
+  user: {
+    name: string;
+    avatar: string;
+  };
 }
 
 export function MusicCard({
@@ -21,6 +26,7 @@ export function MusicCard({
   artists,
   album,
   played_at,
+  user,
 }: MusicCardProps) {
   const date = new Date(played_at).toLocaleDateString("en-us", {
     year: "numeric",
@@ -58,16 +64,24 @@ export function MusicCard({
       <div className="w-full flex-row overflow-hidden rounded-full bg-slate-100 p-1 text-slate-800">
         <div className="flex flex-row items-center text-xs md:text-sm">
           <div className="flex flex-none flex-row flex-nowrap items-center gap-2">
-            <div className="aspect-square h-6 w-6 flex-none overflow-hidden rounded-full md:h-8 md:w-8">
-              <img
-                className="h-full w-full object-cover object-center"
-                src="https://plus.unsplash.com/premium_photo-1675881736199-7737a3e6b140?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                alt="Temp Image"
-              />
-            </div>
-            <p className="text-nowrap font-semibold">Kenny Bass</p>
+            {user.avatar && (
+              <div className="aspect-square h-6 w-6 flex-none overflow-hidden rounded-full md:h-8 md:w-8">
+                <img
+                  className="h-full w-full object-cover object-center"
+                  src={`${ENDPOINT}/storage/buckets/${AVATARS_BUCKET_ID}/files/${user.avatar}/view?project=${PROJECT_ID}`}
+                  alt="Temp Image"
+                />
+              </div>
+            )}
+            {user.name && (
+              <p className="text-nowrap font-semibold">{user.name}</p>
+            )}
           </div>
-          <LucideDot className="h-6 w-6 flex-none" />
+          {user.avatar || user.name ? (
+            <LucideDot className="h-6 w-6 flex-none" />
+          ) : (
+            <LucideCalendar className="h-6 w-6 flex-none px-1" />
+          )}
           <p className="truncate text-nowrap font-semibold">{date}</p>
         </div>
       </div>
