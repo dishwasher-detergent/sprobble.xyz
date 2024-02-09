@@ -1,13 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  webpack: (config, { webpack }) => {
-    config.plugins.push(new webpack.IgnorePlugin({
-      checkResource: resource => {
-        return /\/functions\//.test(resource);
-      },
-    }));
-    return config;
-  },
   images: {
     remotePatterns: [
       {
