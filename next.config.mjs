@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  exclude: ['functions'],
+  exclude: ['**/functions/**'],
   images: {
     remotePatterns: [
       {
