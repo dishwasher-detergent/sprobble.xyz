@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  exclude: ['**/functions/**'],
+  webpack: (config) => {
+    config.plugins.push(new webpack.IgnorePlugin("/functions/**"));
+    return config;
+  },
   images: {
     remotePatterns: [
       {
