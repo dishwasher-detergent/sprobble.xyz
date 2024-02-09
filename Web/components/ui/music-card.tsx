@@ -14,7 +14,7 @@ interface MusicCardProps {
   }[];
   album: string;
   played_at: Date;
-  user: {
+  user?: {
     name: string;
     avatar: string;
   };
@@ -73,11 +73,11 @@ export function MusicCard({
                 />
               </div>
             )}
-            {user.name && (
+            {user?.name && (
               <p className="text-nowrap font-semibold">{user.name}</p>
             )}
           </div>
-          {user.avatar || user.name ? (
+          {user?.avatar || user?.name ? (
             <LucideDot className="h-6 w-6 flex-none" />
           ) : (
             <LucideCalendar className="h-6 w-6 flex-none px-1" />
