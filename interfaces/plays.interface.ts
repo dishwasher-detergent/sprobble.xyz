@@ -1,4 +1,4 @@
-import { User } from "@/functions/spotify/src/types/Types";
+import { User } from "@/interfaces/user.interface";
 import { Album } from "@/interfaces/album.interface";
 import { Artist } from "@/interfaces/artist.interface";
 import { Track } from "@/interfaces/track.interface";

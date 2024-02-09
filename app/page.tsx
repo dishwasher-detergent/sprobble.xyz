@@ -69,8 +69,8 @@ export default async function Home() {
             artists={x.artist.map((y) => ({ name: y.name, href: y.href }))}
             played_at={x.played_at}
             user={{
-              name: x?.user?.name,
-              avatar: x?.user?.avatar,
+              name: x?.user.name,
+              avatar: x?.user.avatar,
             }}
           />
         ))}

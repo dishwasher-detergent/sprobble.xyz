@@ -1,7 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  webpack: (config) => {
-    config.plugins.push(new webpack.IgnorePlugin("/functions/**"));
+  webpack: (config, { webpack }) => {
+    config.plugins.push(new webpack.IgnorePlugin({
+      checkResource: resource => {
+        return /\/functions\//.test(resource);
+      },
+    }));
     return config;
   },
   images: {
@@ -26,3 +30,4 @@ const nextConfig = {
 };
 
 export default nextConfig;
+
