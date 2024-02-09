@@ -14,7 +14,7 @@ export function StatCard({ title, stat, icon }: StatCardProps) {
       )}
       <div>
         <h3 className="text-sm font-semibold text-slate-600">{title}</h3>
-        <p className="text-5xl font-black">{stat}</p>
+        <p className="text-primary text-5xl font-black">{stat}</p>
       </div>
     </div>
   );

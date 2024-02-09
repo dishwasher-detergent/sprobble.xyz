@@ -48,8 +48,8 @@ export function MusicCard({
           <h1 className="truncate text-xl font-bold">{track.name}</h1>
           <p className="truncate text-sm font-semibold">{album}</p>
           <p className="text-sm font-semibold">
-            {artists.map((x) => (
-              <a key={x.name} href={x.href}>
+            {artists.map((x, index) => (
+              <a key={index} href={x.href}>
                 {x.name}
               </a>
             ))}

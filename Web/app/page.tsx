@@ -2,25 +2,52 @@ import { MusicCard } from "@/components/ui/music-card";
 import { StatCard } from "@/components/ui/stat-card";
 import { Play } from "@/interfaces/plays.interface";
 import { TotalStat } from "@/interfaces/total-stats.interface";
-import { database_service } from "@/lib/appwrite";
 import {
   ALBUM_COLLECTION_ID,
   ARTIST_COLLECTION_ID,
+  DATABASE_ID,
+  ENDPOINT,
   PLAYS_COLLECTION_ID,
+  PROJECT_ID,
   TOTAL_STATS_COLLECTION_ID,
   TRACK_COLLECTION_ID,
 } from "@/lib/constants";
-import { Query } from "appwrite";
+import { Models, Query } from "appwrite";
 import { LucideDisc3, LucideMusic3, LucidePersonStanding } from "lucide-react";
 
-export default async function Home() {
-  const music = await database_service.list<Play>(PLAYS_COLLECTION_ID, [
-    Query.orderDesc("played_at"),
-  ]);
-
-  const stats = await database_service.list<TotalStat>(
-    TOTAL_STATS_COLLECTION_ID,
+async function fetchPlays() {
+  const response = await fetch(
+    `${ENDPOINT}/databases/${DATABASE_ID}/collections/${PLAYS_COLLECTION_ID}/documents?queries[]=${Query.orderDesc("played_at")}`,
+    {
+      headers: {
+        "X-Appwrite-Project": PROJECT_ID,
+      },
+    },
   );
+
+  const result: Models.DocumentList<Play> = await response.json();
+
+  return result;
+}
+
+async function fetchStats() {
+  const response = await fetch(
+    `${ENDPOINT}/databases/${DATABASE_ID}/collections/${TOTAL_STATS_COLLECTION_ID}/documents`,
+    {
+      headers: {
+        "X-Appwrite-Project": PROJECT_ID,
+      },
+    },
+  );
+
+  const result: Models.DocumentList<TotalStat> = await response.json();
+
+  return result;
+}
+
+export default async function Home() {
+  const music = await fetchPlays();
+  const stats = await fetchStats();
 
   return (
     <>
