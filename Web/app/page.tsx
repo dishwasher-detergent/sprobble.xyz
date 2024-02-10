@@ -136,7 +136,7 @@ export default async function Home() {
         <div className="flex flex-row flex-nowrap items-center justify-center gap-4 pb-4">
           <LucidePartyPopper className="text-primary bg-primary-foreground h-10 w-10 rounded-xl p-2" />
           <h3 className="text-secondary-foreground text-xl font-bold">
-            Lets' See What Everyone Else Is Listening To
+            Lets`&apos; See What Everyone Else Is Listening To
           </h3>
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
