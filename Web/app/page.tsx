@@ -62,7 +62,7 @@ export default function Home() {
           </h3>
         </div>
         <div className="grid grid-cols-1 gap-4 pb-4 md:grid-cols-3">
-          <div className="md:col-span-2">
+          <div className="h-56 md:col-span-2 md:h-96">
             {/* <StatsGraph stats={stats} /> */}
             {!stats_loading ? (
               <StatsGraph stats={yearToDate} />
