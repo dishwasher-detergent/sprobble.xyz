@@ -1,6 +1,7 @@
 import { Outfit as FontSans } from "next/font/google";
 import "./globals.css";
 
+import { Nav } from "@/components/ui/nav";
 import { cn } from "@/lib/utils";
 
 const fontSans = FontSans({
@@ -13,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="light">
       <head />
       <body
         className={cn(
@@ -21,15 +22,7 @@ export default function RootLayout({
           fontSans.className,
         )}
       >
-        <header className="w-full border-b">
-          <div className="mx-auto w-full max-w-7xl p-4">
-            <nav>
-              <ul className="flex flex-row gap-4">
-                <li>Sprobble</li>
-              </ul>
-            </nav>
-          </div>
-        </header>
+        <Nav />
         <main className="mx-auto w-full max-w-7xl p-4">{children}</main>
       </body>
     </html>
