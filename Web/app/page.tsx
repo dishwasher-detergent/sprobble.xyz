@@ -1,140 +1,59 @@
 "use client";
 
+import { MusicCardLoading } from "@/components/loading/music-card";
+import StatsGraphLoading from "@/components/loading/stats-graph";
+import { Header } from "@/components/ui/header";
 import { MusicCard } from "@/components/ui/music-card";
 import { StatCard } from "@/components/ui/stat-card";
 import StatsGraph from "@/components/ui/stats-graph";
-import { Play } from "@/interfaces/plays.interface";
-import { Stat } from "@/interfaces/stats.interface";
-import { TotalStat } from "@/interfaces/total-stats.interface";
-import client, { database_service } from "@/lib/appwrite";
+import usePlays from "@/hooks/use-plays";
+import useStats from "@/hooks/use-stats";
+import useTotalStats from "@/hooks/use-total-stats";
 import {
   ALBUM_COLLECTION_ID,
   ARTIST_COLLECTION_ID,
-  DATABASE_ID,
-  PLAYS_COLLECTION_ID,
-  STATS_COLLECTION_ID,
-  TOTAL_STATS_COLLECTION_ID,
   TRACK_COLLECTION_ID,
 } from "@/lib/constants";
-import { combineAndSumPlays } from "@/lib/utils";
 import { Query } from "appwrite";
 import {
   LucideDisc3,
+  LucideGhost,
   LucideLineChart,
   LucideMusic3,
   LucidePartyPopper,
   LucidePersonStanding,
 } from "lucide-react";
-import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [plays, setPlays] = useState<Play[]>();
-  const [total_stats, setTotalStats] = useState<TotalStat[]>();
-  const [stats, setStats] = useState<any[]>();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await database_service.list<Play>(PLAYS_COLLECTION_ID, [
-        Query.orderDesc("played_at"),
-      ]);
-
-      setPlays(response.documents);
-    };
-
-    fetchData();
-
-    const unsubscribe = client.subscribe(
-      `databases.${DATABASE_ID}.collections.${STATS_COLLECTION_ID}.documents`,
-      () => {
-        fetchData();
-      },
-    );
-
-    return () => {
-      unsubscribe();
-    };
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await database_service.list<TotalStat>(
-        TOTAL_STATS_COLLECTION_ID,
-      );
-
-      setTotalStats(response.documents);
-    };
-
-    fetchData();
-
-    const unsubscribe = client.subscribe(
-      `databases.${DATABASE_ID}.collections.${TOTAL_STATS_COLLECTION_ID}.documents`,
-      () => {
-        fetchData();
-      },
-    );
-
-    return () => {
-      unsubscribe();
-    };
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await database_service.list<Stat>(STATS_COLLECTION_ID, [
-        Query.orderAsc("week_of_year"),
-        Query.equal("user_id", "global"),
-        Query.select([
-          "number_of_plays",
-          "user_id",
-          "time_spent_listening",
-          "week_of_year",
-        ]),
-      ]);
-
-      const year_to_date = combineAndSumPlays(response.documents).map(
-        (stat) => ({
-          name: `Week ${stat.week_of_year}`,
-          plays: stat.number_of_plays,
-          duration: (
-            Number(stat.time_spent_listening) /
-            1000 /
-            60 /
-            60
-          ).toFixed(2),
-        }),
-      );
-
-      setStats(year_to_date);
-    };
-
-    fetchData();
-
-    const unsubscribe = client.subscribe(
-      `databases.${DATABASE_ID}.collections.${STATS_COLLECTION_ID}.documents`,
-      () => {
-        fetchData();
-      },
-    );
-
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+  const { data: plays, loading: plays_loading } = usePlays([
+    Query.orderDesc("played_at"),
+    Query.limit(12),
+  ]);
+  const { data: total_stats, loading: total_stats_loading } = useTotalStats();
+  const { yearToDate, loading: stats_loading } = useStats([
+    Query.orderAsc("week_of_year"),
+    Query.equal("user_id", "global"),
+    Query.select([
+      "number_of_plays",
+      "user_id",
+      "time_spent_listening",
+      "week_of_year",
+    ]),
+  ]);
 
   return (
     <>
-      <section className="relative mb-12 rounded-3xl px-4 pb-36 pt-24 xl:pb-64">
-        <p className="text-primary relative z-10 text-center text-xl font-bold md:text-3xl">
-          Sprobble
-        </p>
-        <h1 className="flex flex-col text-center text-6xl font-black mix-blend-multiply md:text-7xl lg:text-8xl">
-          The Best <br className="md:hidden" />
-          Place To
-          <br />
-          Track Your Music
-        </h1>
-        <div className="aurora absolute inset-0 rounded-3xl opacity-30 xl:-ml-[5%] xl:w-[110%]" />
-      </section>
+      <Header
+        title={
+          <>
+            The Best <br className="md:hidden" />
+            Place To
+            <br />
+            Track Your Music
+          </>
+        }
+        sub="Sprobble"
+      />
       <section className="relative z-10 pb-12 xl:-mt-48">
         <div className="flex flex-row flex-nowrap gap-4 pb-4 md:items-center md:justify-center">
           <LucideLineChart className="text-primary bg-primary-foreground h-10 w-10 flex-none rounded-xl p-2" />
@@ -143,8 +62,13 @@ export default function Home() {
           </h3>
         </div>
         <div className="grid grid-cols-1 gap-4 pb-4 md:grid-cols-3">
-          <div className="bg-background min-h-24 rounded-3xl border p-2 md:col-span-2">
-            <StatsGraph stats={stats} />
+          <div className="md:col-span-2">
+            {/* <StatsGraph stats={stats} /> */}
+            {!stats_loading ? (
+              <StatsGraph stats={yearToDate} />
+            ) : (
+              <StatsGraphLoading />
+            )}
           </div>
           <div className="flex w-full flex-col gap-4">
             <StatCard
@@ -154,6 +78,7 @@ export default function Home() {
                   .count
               }
               icon={<LucideMusic3 className="h-12 w-12" />}
+              loading={total_stats_loading}
             />
             <StatCard
               title="Unique Albums"
@@ -162,6 +87,7 @@ export default function Home() {
                   .count
               }
               icon={<LucideDisc3 className="h-12 w-12" />}
+              loading={total_stats_loading}
             />
             <StatCard
               title="Unique Artists"
@@ -170,6 +96,7 @@ export default function Home() {
                   .count
               }
               icon={<LucidePersonStanding className="h-12 w-12" />}
+              loading={total_stats_loading}
             />
           </div>
         </div>
@@ -182,24 +109,37 @@ export default function Home() {
           </h3>
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {plays?.map((x) => (
-            <MusicCard
-              key={x.$id}
-              track={{
-                name: x.track.name,
-                href: x.track.href,
-              }}
-              image={x.album.images[0]}
-              album={x.album.name}
-              artists={x.artist.map((y) => ({ name: y.name, href: y.href }))}
-              played_at={x.played_at}
-              user={{
-                name: x?.user?.name,
-                avatar: x?.user?.avatar,
-              }}
-            />
-          ))}
+          {!plays_loading
+            ? plays?.map((x) => (
+                <MusicCard
+                  key={x.$id}
+                  track={{
+                    name: x.track_name,
+                    href: x.track_href,
+                  }}
+                  image={x.album_image}
+                  album={x.album_name}
+                  artists={JSON.parse(x.artist_name).map((y: any) => ({
+                    name: y.name,
+                    href: y.href,
+                  }))}
+                  played_at={x.played_at}
+                  user={{
+                    name: x?.user_name,
+                    avatar: x?.user_avatar,
+                  }}
+                />
+              ))
+            : [...Array(10)].map((x, index) => (
+                <MusicCardLoading key={index} />
+              ))}
         </div>
+        {!plays_loading && plays && plays.length == 0 && (
+          <div className="bg-secondary flex h-24 w-full flex-row items-center justify-center gap-4 rounded-3xl">
+            <LucideGhost className="text-primary bg-primary-foreground h-10 w-10 flex-none rounded-xl p-2" />
+            <p>Looks like no one has listened to anything!</p>
+          </div>
+        )}
       </section>
     </>
   );

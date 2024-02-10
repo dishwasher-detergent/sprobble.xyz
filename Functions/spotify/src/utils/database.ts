@@ -1,5 +1,5 @@
 import { Databases, ID, Query } from "node-appwrite";
-import { Artist, SpotifyItem, SpotifyTrack } from "../types/Types.js";
+import { Artist, Play, SpotifyItem, SpotifyTrack } from "../types/Types.js";
 import {
   albumCollectionId,
   artistCollectionId,
@@ -11,7 +11,7 @@ import {
 
 export const addAlbumToDatabase = async (
   item: SpotifyTrack,
-  database: Databases,
+  database: Databases
 ) => {
   const { album } = item;
 
@@ -26,13 +26,13 @@ export const addAlbumToDatabase = async (
         popularity: album.popularity,
         images: album.images?.map((image) => image.url) ?? [],
       });
-    },
+    }
   );
 };
 
 export const addArtistToDatabase = async (
   item: SpotifyTrack,
-  database: Databases,
+  database: Databases
 ) => {
   const { artists, album } = item;
 
@@ -51,7 +51,7 @@ export const addArtistToDatabase = async (
               artists[i].id,
               {
                 album: albums,
-              },
+              }
             );
           }
         },
@@ -67,16 +67,16 @@ export const addArtistToDatabase = async (
               images: artists[i].images?.map((image) => image.url) ?? [],
               genres: artists[i].genres ?? [],
               album: [album.id],
-            },
+            }
           );
-        },
+        }
       );
   }
 };
 
 export const addTrackToDatabase = async (
   item: SpotifyTrack,
-  database: Databases,
+  database: Databases
 ) => {
   const { artists, album } = item;
 
@@ -93,14 +93,14 @@ export const addTrackToDatabase = async (
         album: album.id,
         artist: [...artists.map((x) => x.id)],
       });
-    },
+    }
   );
 };
 
 export const addListenToDatabase = async (
   user_id: string,
   item: SpotifyItem,
-  database: Databases,
+  database: Databases
 ) => {
   const { played_at, track } = item;
 
@@ -111,33 +111,33 @@ export const addListenToDatabase = async (
 
   if (existing.total >= 1) return;
 
-  const play = await database.createDocument(databaseId, playsCollectionId, ID.unique(), {
-    user_id: user_id,
-    played_at: played_at,
-    track: track.id,
-    artist: [...track.artists.map((x) => x.id)],
-    album: track.album.id,
-    user: user_id,
-  });
-
-  await database.createDocument(
+  const play = await database.createDocument<Play>(
     databaseId,
-    playsSmallCollectionId,
-    play.$id,
+    playsCollectionId,
+    ID.unique(),
     {
-      track_name: play.track.name,
-      track_href: play.track.href,
-      track_id: play.track.$id,
-      album_image: play.album.images[0],
-      album_name: play.album.name,
-      album_id: play.album.$id,
-      artist_name: JSON.stringify(
-        play.artist.map((y: any) => ({ name: y.name, href: y.href }))
-      ),
-      user_name: play?.user?.name,
-      user_avatar: play?.user?.avatar,
-      user_id: play?.user?.$id,
-      played_at: play.played_at,
+      user_id: user_id,
+      played_at: played_at,
+      track: track.id,
+      artist: [...track.artists.map((x) => x.id)],
+      album: track.album.id,
+      user: user_id,
     }
-  )
+  );
+
+  await database.createDocument(databaseId, playsSmallCollectionId, play.$id, {
+    track_name: play.track.name,
+    track_href: play.track.href,
+    track_id: play.track.$id,
+    album_image: play.album.images[0],
+    album_name: play.album.name,
+    album_id: play.album.$id,
+    artist_name: JSON.stringify(
+      play.artist.map((y: any) => ({ name: y.name, href: y.href }))
+    ),
+    user_name: play?.user?.name,
+    user_avatar: play?.user?.avatar,
+    user_id: play?.user?.$id,
+    played_at: play.played_at,
+  });
 };

@@ -6,6 +6,7 @@ export type Play = {
   track: Track;
   album: Album;
   artist: Artist[];
+  user?: User;
 } & Models.Document;
 
 export type Track = {
@@ -56,6 +57,7 @@ export type User = {
   created_at: string;
   authorized: boolean;
   refresh_token: string;
+  avatar?: string;
 } & Models.Document;
 
 export type TotalStats = {

@@ -11,17 +11,17 @@ export function Nav() {
         <nav>
           <ul className="flex flex-row">
             <li>
-              <Button variant="ghost">
+              <Button variant="ghost" asChild>
                 <Link href="/songs">Songs</Link>
               </Button>
             </li>
             <li>
-              <Button variant="ghost">
+              <Button variant="ghost" asChild>
                 <Link href="albums">Albums</Link>
               </Button>
             </li>
             <li>
-              <Button variant="ghost">
+              <Button variant="ghost" asChild>
                 <Link href="/artists">Artists</Link>
               </Button>
             </li>

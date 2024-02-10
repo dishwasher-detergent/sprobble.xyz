@@ -2,6 +2,9 @@
 
 import { TableRowsLoading } from "@/components/loading/table-rows";
 import { Button } from "@/components/ui/button";
+import { Header } from "@/components/ui/header";
+import { Input } from "@/components/ui/input";
+import { StatCard } from "@/components/ui/stat-card";
 import {
   Table,
   TableBody,
@@ -10,10 +13,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import useTotalStats from "@/hooks/use-total-stats";
 import { Track } from "@/interfaces/track.interface";
 import { database_service } from "@/lib/appwrite";
 import { ARTIST_COLLECTION_ID } from "@/lib/constants";
 import {
+  ColumnFiltersState,
   PaginationState,
   flexRender,
   getCoreRowModel,
@@ -23,10 +28,14 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { Query } from "appwrite";
+import { LucidePersonStanding } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { COLUMNS, Data } from "./columns";
 
 export default function ArtistsPage() {
+  const { data: total_stats, loading: total_stats_loading } = useTotalStats([
+    Query.equal("title", "artist"),
+  ]);
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<Data[]>([]);
   const [total, setTotal] = useState<number>(0);
@@ -34,6 +43,7 @@ export default function ArtistsPage() {
     pageIndex: 0,
     pageSize: 12,
   });
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const columns = useMemo(() => COLUMNS, []);
 
   useEffect(() => {
@@ -47,6 +57,7 @@ export default function ArtistsPage() {
             Query.select(["name"]),
             Query.limit(pageSize),
             Query.offset(pageSize * pageIndex),
+            ...columnFilters.map((x) => Query.search(x.id, String(x.value))),
           ],
         );
 
@@ -63,7 +74,7 @@ export default function ArtistsPage() {
     };
 
     fetchData();
-  }, [pagination.pageIndex, pagination.pageSize]);
+  }, [pagination.pageIndex, pagination.pageSize, columnFilters]);
 
   const table = useReactTable({
     data,
@@ -71,89 +82,114 @@ export default function ArtistsPage() {
     manualFiltering: true,
     manualPagination: true,
     onPaginationChange: setPagination,
+    onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
+    state: {
+      columnFilters,
+    },
   });
 
   return (
-    <div className="w-full">
-      <div className="rounded-md border">
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
-                    </TableHead>
-                  );
-                })}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id}>
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  ))}
+    <>
+      <Header
+        title="Artists"
+        sub="Sprobble"
+        className="mb-4 xl:mb-12 xl:pb-36"
+      />
+      <section className="relative z-10 grid grid-cols-3 pb-4 xl:-mt-24 xl:pb-12">
+        <StatCard
+          title="Unique Artists"
+          stat={total_stats?.[0].count}
+          icon={<LucidePersonStanding className="h-12 w-12" />}
+          loading={total_stats_loading}
+        />
+      </section>
+      <section>
+        <Input
+          placeholder="Filter by Name..."
+          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("name")?.setFilterValue(event.target.value)
+          }
+          className="mb-4 max-w-sm"
+        />
+        <div className="bg-background overflow-hidden rounded-xl border">
+          <Table>
+            <TableHeader className="bg-primary-foreground">
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => {
+                    return (
+                      <TableHead key={header.id}>
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext(),
+                            )}
+                      </TableHead>
+                    );
+                  })}
                 </TableRow>
-              ))
-            ) : !loading ? (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  No results.
-                </TableCell>
-              </TableRow>
-            ) : (
-              <TableRowsLoading
-                rows={pagination.pageSize}
-                columns={columns.length}
-              />
-            )}
-          </TableBody>
-        </Table>
-      </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="text-muted-foreground flex-1 text-sm">
-          {total < 5000 ? total : `${total}+`} Document(s)
+              ))}
+            </TableHeader>
+            <TableBody>
+              {table.getRowModel().rows?.length ? (
+                table.getRowModel().rows.map((row) => (
+                  <TableRow key={row.id}>
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : !loading ? (
+                <TableRow>
+                  <TableCell
+                    colSpan={columns.length}
+                    className="h-24 text-center"
+                  >
+                    No results.
+                  </TableCell>
+                </TableRow>
+              ) : (
+                <TableRowsLoading
+                  rows={pagination.pageSize}
+                  columns={columns.length}
+                />
+              )}
+            </TableBody>
+          </Table>
         </div>
-        <div className="space-x-2">
-          <Button
-            variant="outline"
-            size="sm"
-            disabled={pagination.pageIndex == 0 || loading}
-            onClick={() => table.previousPage()}
-          >
-            Previous
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            disabled={data.length < pagination.pageSize || loading}
-            onClick={() => table.nextPage()}
-          >
-            Next
-          </Button>
+        <div className="flex items-center justify-end space-x-2 py-4">
+          <div className="text-muted-foreground flex-1 text-sm">
+            {total < 5000 ? total : `${total}+`} Artist(s)
+          </div>
+          <div className="space-x-2">
+            <Button
+              variant="outline"
+              disabled={pagination.pageIndex == 0 || loading}
+              onClick={() => table.previousPage()}
+            >
+              Previous
+            </Button>
+            <Button
+              variant="outline"
+              disabled={data.length < pagination.pageSize || loading}
+              onClick={() => table.nextPage()}
+            >
+              Next
+            </Button>
+          </div>
         </div>
-      </div>
-    </div>
+      </section>
+    </>
   );
 }

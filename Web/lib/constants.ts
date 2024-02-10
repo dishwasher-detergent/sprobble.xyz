@@ -14,6 +14,8 @@ export const USER_COLLECTION_ID = process.env
   .NEXT_PUBLIC_USER_COLLECTION_ID as string;
 export const PLAYS_COLLECTION_ID = process.env
   .NEXT_PUBLIC_PLAYS_COLLECTION_ID as string;
+export const PLAYS_SMALL_COLLECTION_ID = process.env
+  .NEXT_PUBLIC_PLAYS_SMALL_COLLECTION_ID as string;
 export const TRACK_COLLECTION_ID = process.env
   .NEXT_PUBLIC_TRACK_COLLECTION_ID as string;
 export const ALBUM_COLLECTION_ID = process.env

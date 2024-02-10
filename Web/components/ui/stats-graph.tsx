@@ -6,7 +6,7 @@ import { Area, AreaChart, ResponsiveContainer, Tooltip } from "recharts";
 
 export default function StatsGraph({ stats }: any) {
   return (
-    <div className="z-10 flex h-full w-full flex-col gap-4">
+    <div className="bg-background z-10 flex h-full min-h-24 w-full flex-col gap-4 rounded-3xl border p-2">
       <div className="space-y-2 text-xl font-bold">
         <p className="flex flex-row items-center gap-2">
           <LucideMusic3 className="text-primary bg-primary-foreground h-10 w-10 rounded-xl p-2" />
