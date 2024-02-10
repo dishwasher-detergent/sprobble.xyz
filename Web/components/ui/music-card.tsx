@@ -50,6 +50,7 @@ export function MusicCard({
           <p className="text-sm font-semibold">
             {artists.map((x, index) => (
               <a key={index} href={x.href}>
+                {index != 0 && ", "}
                 {x.name}
               </a>
             ))}
@@ -62,7 +63,7 @@ export function MusicCard({
         </div>
       </div>
       <div className="bg-secondary text-secondary-foreground w-full flex-row overflow-hidden rounded-full p-1">
-        <div className="flex flex-row items-center text-xs md:text-sm">
+        <div className="flex flex-row items-center text-sm">
           <div className="flex flex-none flex-row flex-nowrap items-center gap-2">
             {user && user?.avatar && (
               <div className="aspect-square h-6 w-6 flex-none overflow-hidden rounded-full md:h-8 md:w-8">

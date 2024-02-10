@@ -84,16 +84,20 @@ export default async function Home() {
   return (
     <>
       <section className="pb-36 pt-24">
-        <p className="text-primary text-center text-3xl font-bold">Sprobble</p>
-        <h1 className="flex flex-col text-center text-8xl font-black">
-          <span>The Best Place To</span>
-          <span>Track Your Music</span>
+        <p className="text-primary text-center text-xl font-bold md:text-3xl">
+          Sprobble
+        </p>
+        <h1 className="flex flex-col text-center text-6xl font-black md:text-8xl">
+          The Best <br className="md:hidden" />
+          Place To
+          <br />
+          Track Your Music
         </h1>
       </section>
       <section className="pb-12">
-        <div className="flex flex-row flex-nowrap items-center justify-center gap-4 pb-4">
-          <LucideLineChart className="text-primary bg-primary-foreground h-10 w-10 rounded-xl p-2" />
-          <h3 className="text-secondary-foreground text-xl font-bold">
+        <div className="flex flex-row flex-nowrap gap-4 pb-4 md:items-center md:justify-center">
+          <LucideLineChart className="text-primary bg-primary-foreground h-10 w-10 flex-none rounded-xl p-2" />
+          <h3 className="text-secondary-foreground text-lg font-bold md:text-xl">
             Check Out Our Global Stats
           </h3>
         </div>
@@ -133,10 +137,10 @@ export default async function Home() {
         </div>
       </section>
       <section className="pb-12">
-        <div className="flex flex-row flex-nowrap items-center justify-center gap-4 pb-4">
-          <LucidePartyPopper className="text-primary bg-primary-foreground h-10 w-10 rounded-xl p-2" />
-          <h3 className="text-secondary-foreground text-xl font-bold">
-            Lets`&apos; See What Everyone Else Is Listening To
+        <div className="flex flex-row flex-nowrap gap-4 pb-4 md:items-center md:justify-center">
+          <LucidePartyPopper className="text-primary bg-primary-foreground h-10 w-10 flex-none rounded-xl p-2" />
+          <h3 className="text-secondary-foreground text-lg font-bold md:text-xl">
+            Lets&apos; See What Everyone Else Is Listening To
           </h3>
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
