@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: false,
   images: {
     remotePatterns: [
       {
@@ -16,10 +17,9 @@ const nextConfig = {
         protocol: "https",
         hostname: "cloud.appwrite.io",
         port: "",
-      }
+      },
     ],
   },
 };
 
 export default nextConfig;
-

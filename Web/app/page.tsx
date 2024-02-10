@@ -1,22 +1,23 @@
+"use client";
+
 import { MusicCard } from "@/components/ui/music-card";
 import { StatCard } from "@/components/ui/stat-card";
 import StatsGraph from "@/components/ui/stats-graph";
 import { Play } from "@/interfaces/plays.interface";
 import { Stat } from "@/interfaces/stats.interface";
 import { TotalStat } from "@/interfaces/total-stats.interface";
+import client, { database_service } from "@/lib/appwrite";
 import {
   ALBUM_COLLECTION_ID,
   ARTIST_COLLECTION_ID,
   DATABASE_ID,
-  ENDPOINT,
   PLAYS_COLLECTION_ID,
-  PROJECT_ID,
   STATS_COLLECTION_ID,
   TOTAL_STATS_COLLECTION_ID,
   TRACK_COLLECTION_ID,
 } from "@/lib/constants";
 import { combineAndSumPlays } from "@/lib/utils";
-import { Models, Query } from "appwrite";
+import { Query } from "appwrite";
 import {
   LucideDisc3,
   LucideLineChart,
@@ -24,62 +25,101 @@ import {
   LucidePartyPopper,
   LucidePersonStanding,
 } from "lucide-react";
+import { useEffect, useState } from "react";
 
-async function fetchPlays() {
-  const response = await fetch(
-    `${ENDPOINT}/databases/${DATABASE_ID}/collections/${PLAYS_COLLECTION_ID}/documents?queries[]=${Query.orderDesc("played_at")}`,
-    {
-      headers: {
-        "X-Appwrite-Project": PROJECT_ID,
+export default function Home() {
+  const [plays, setPlays] = useState<Play[]>();
+  const [total_stats, setTotalStats] = useState<TotalStat[]>();
+  const [stats, setStats] = useState<any[]>();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await database_service.list<Play>(PLAYS_COLLECTION_ID, [
+        Query.orderDesc("played_at"),
+      ]);
+
+      setPlays(response.documents);
+    };
+
+    fetchData();
+
+    const unsubscribe = client.subscribe(
+      `databases.${DATABASE_ID}.collections.${STATS_COLLECTION_ID}.documents`,
+      () => {
+        fetchData();
       },
-    },
-  );
+    );
 
-  const result: Models.DocumentList<Play> = await response.json();
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
-  return result;
-}
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await database_service.list<TotalStat>(
+        TOTAL_STATS_COLLECTION_ID,
+      );
 
-async function fetchTotalStats() {
-  const response = await fetch(
-    `${ENDPOINT}/databases/${DATABASE_ID}/collections/${TOTAL_STATS_COLLECTION_ID}/documents`,
-    {
-      headers: {
-        "X-Appwrite-Project": PROJECT_ID,
+      setTotalStats(response.documents);
+    };
+
+    fetchData();
+
+    const unsubscribe = client.subscribe(
+      `databases.${DATABASE_ID}.collections.${TOTAL_STATS_COLLECTION_ID}.documents`,
+      () => {
+        fetchData();
       },
-    },
-  );
+    );
 
-  const result: Models.DocumentList<TotalStat> = await response.json();
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
-  return result;
-}
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await database_service.list<Stat>(STATS_COLLECTION_ID, [
+        Query.orderAsc("week_of_year"),
+        Query.equal("user_id", "global"),
+        Query.select([
+          "number_of_plays",
+          "user_id",
+          "time_spent_listening",
+          "week_of_year",
+        ]),
+      ]);
 
-async function fetchStats() {
-  const response = await fetch(
-    `${ENDPOINT}/databases/${DATABASE_ID}/collections/${STATS_COLLECTION_ID}/documents?query[]=${Query.orderAsc("week_of_year")}&query[]=${Query.equal("user_id", "global")}`,
-    {
-      headers: {
-        "X-Appwrite-Project": PROJECT_ID,
+      const year_to_date = combineAndSumPlays(response.documents).map(
+        (stat) => ({
+          name: `Week ${stat.week_of_year}`,
+          plays: stat.number_of_plays,
+          duration: (
+            Number(stat.time_spent_listening) /
+            1000 /
+            60 /
+            60
+          ).toFixed(2),
+        }),
+      );
+
+      setStats(year_to_date);
+    };
+
+    fetchData();
+
+    const unsubscribe = client.subscribe(
+      `databases.${DATABASE_ID}.collections.${STATS_COLLECTION_ID}.documents`,
+      () => {
+        fetchData();
       },
-    },
-  );
+    );
 
-  const result: Models.DocumentList<Stat> = await response.json();
-
-  const year_to_date = combineAndSumPlays(result.documents).map((stat) => ({
-    name: `Week ${stat.week_of_year}`,
-    plays: stat.number_of_plays,
-    duration: (Number(stat.time_spent_listening) / 1000 / 60 / 60).toFixed(2),
-  }));
-
-  return year_to_date;
-}
-
-export default async function Home() {
-  const music = await fetchPlays();
-  const total_stats = await fetchTotalStats();
-  const stats = await fetchStats();
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   return (
     <>
@@ -110,27 +150,24 @@ export default async function Home() {
             <StatCard
               title="Unique Songs"
               stat={
-                total_stats.documents.filter(
-                  (x) => x.title === TRACK_COLLECTION_ID,
-                )[0].count
+                total_stats?.filter((x) => x.title === TRACK_COLLECTION_ID)[0]
+                  .count
               }
               icon={<LucideMusic3 className="h-12 w-12" />}
             />
             <StatCard
               title="Unique Albums"
               stat={
-                total_stats.documents.filter(
-                  (x) => x.title === ALBUM_COLLECTION_ID,
-                )[0].count
+                total_stats?.filter((x) => x.title === ALBUM_COLLECTION_ID)[0]
+                  .count
               }
               icon={<LucideDisc3 className="h-12 w-12" />}
             />
             <StatCard
               title="Unique Artists"
               stat={
-                total_stats.documents.filter(
-                  (x) => x.title === ARTIST_COLLECTION_ID,
-                )[0].count
+                total_stats?.filter((x) => x.title === ARTIST_COLLECTION_ID)[0]
+                  .count
               }
               icon={<LucidePersonStanding className="h-12 w-12" />}
             />
@@ -145,7 +182,7 @@ export default async function Home() {
           </h3>
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {music.documents.map((x) => (
+          {plays?.map((x) => (
             <MusicCard
               key={x.$id}
               track={{

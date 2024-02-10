@@ -5,6 +5,7 @@ import {
   artistCollectionId,
   databaseId,
   playsCollectionId,
+  playsSmallCollectionId,
   trackCollectionId,
 } from "./appwrite.js";
 
@@ -110,7 +111,7 @@ export const addListenToDatabase = async (
 
   if (existing.total >= 1) return;
 
-  await database.createDocument(databaseId, playsCollectionId, ID.unique(), {
+  const play = await database.createDocument(databaseId, playsCollectionId, ID.unique(), {
     user_id: user_id,
     played_at: played_at,
     track: track.id,
@@ -118,4 +119,25 @@ export const addListenToDatabase = async (
     album: track.album.id,
     user: user_id,
   });
+
+  await database.createDocument(
+    databaseId,
+    playsSmallCollectionId,
+    play.$id,
+    {
+      track_name: play.track.name,
+      track_href: play.track.href,
+      track_id: play.track.$id,
+      album_image: play.album.images[0],
+      album_name: play.album.name,
+      album_id: play.album.$id,
+      artist_name: JSON.stringify(
+        play.artist.map((y: any) => ({ name: y.name, href: y.href }))
+      ),
+      user_name: play?.user?.name,
+      user_avatar: play?.user?.avatar,
+      user_id: play?.user?.$id,
+      played_at: play.played_at,
+    }
+  )
 };
