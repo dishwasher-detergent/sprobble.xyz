@@ -99,7 +99,7 @@ export default function AlbumsPage() {
         sub="Sprobble"
         className="mb-4 xl:mb-12 xl:pb-36"
       />
-      <section className="relative z-10 grid grid-cols-3 pb-4 xl:-mt-24 xl:pb-12">
+      <section className="relative z-10 grid grid-cols-1 pb-4 md:grid-cols-2 xl:-mt-24 xl:grid-cols-3 xl:pb-12">
         <StatCard
           title="Unique Albums"
           stat={total_stats?.[0].count}
