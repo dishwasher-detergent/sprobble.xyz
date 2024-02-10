@@ -6,15 +6,17 @@ interface StatCardProps {
 
 export function StatCard({ title, stat, icon }: StatCardProps) {
   return (
-    <div className="flex h-24 w-full flex-row gap-2 rounded-3xl border p-2">
+    <div className="flex h-24 w-full flex-row gap-4 rounded-3xl border p-2">
       {icon && (
-        <div className="grid aspect-square h-full flex-nowrap place-items-center rounded-2xl bg-slate-100 text-slate-800">
+        <div className="bg-primary-foreground text-primary grid aspect-square h-full flex-nowrap place-items-center rounded-2xl">
           {icon}
         </div>
       )}
       <div>
-        <h3 className="text-sm font-semibold text-slate-600">{title}</h3>
-        <p className="text-primary text-5xl font-black">{stat}</p>
+        <h3 className="text-secondary-foreground text-sm font-semibold">
+          {title}
+        </h3>
+        <p className="text-secondary-foreground text-5xl font-black">{stat}</p>
       </div>
     </div>
   );

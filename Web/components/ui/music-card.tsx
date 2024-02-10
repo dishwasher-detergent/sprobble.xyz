@@ -61,7 +61,7 @@ export function MusicCard({
           </Button>
         </div>
       </div>
-      <div className="w-full flex-row overflow-hidden rounded-full bg-slate-100 p-1 text-slate-800">
+      <div className="bg-secondary text-secondary-foreground w-full flex-row overflow-hidden rounded-full p-1">
         <div className="flex flex-row items-center text-xs md:text-sm">
           <div className="flex flex-none flex-row flex-nowrap items-center gap-2">
             {user && user?.avatar && (

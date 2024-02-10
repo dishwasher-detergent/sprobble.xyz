@@ -17,12 +17,12 @@ export default function RootLayout({
       <head />
       <body
         className={cn(
-          "min-h-screen bg-background antialiased",
-          fontSans.className
+          "bg-background min-h-screen antialiased",
+          fontSans.className,
         )}
       >
         <header className="w-full border-b">
-          <div className="max-w-7xl mx-auto w-full p-4">
+          <div className="mx-auto w-full max-w-7xl p-4">
             <nav>
               <ul className="flex flex-row gap-4">
                 <li>Sprobble</li>
@@ -30,7 +30,7 @@ export default function RootLayout({
             </nav>
           </div>
         </header>
-        <main className="w-full max-w-7xl mx-auto p-4">{children}</main>
+        <main className="mx-auto w-full max-w-7xl p-4">{children}</main>
       </body>
     </html>
   );
