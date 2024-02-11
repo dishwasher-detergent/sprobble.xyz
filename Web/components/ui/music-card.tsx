@@ -76,7 +76,7 @@ export function MusicCard({
           </Button>
         </div>
       </div>
-      <div className="bg-secondary text-secondary-foreground w-full flex-row overflow-hidden rounded-full p-1">
+      <div className="w-full flex-row overflow-hidden rounded-full bg-secondary p-1 text-secondary-foreground">
         <div className="flex flex-row items-center text-sm">
           <div className="flex flex-none flex-row flex-nowrap items-center gap-2">
             {user && user?.avatar && (
@@ -89,7 +89,12 @@ export function MusicCard({
               </div>
             )}
             {user && user?.name && (
-              <p className="text-nowrap font-semibold">{user?.name}</p>
+              <Link
+                href={`/users/${user.id}`}
+                className="text-nowrap font-semibold hover:text-primary"
+              >
+                {user?.name}
+              </Link>
             )}
           </div>
           {user && (user?.avatar || user?.name) ? (
