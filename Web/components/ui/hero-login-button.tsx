@@ -1,0 +1,23 @@
+"use client";
+
+import { Loader } from "@/components/loading/loader";
+import { Button } from "@/components/ui/button";
+import useAccount from "@/hooks/use-account";
+import { auth_service } from "@/lib/appwrite";
+
+export function HeroLoginButton() {
+  const { data, loading } = useAccount();
+
+  return !data ? (
+    <Button
+      aria-label="Login in with Spotify"
+      size="lg"
+      className="relative z-10 flex flex-row gap-2"
+      onClick={() => auth_service.createSpotifySession()}
+      disabled={loading}
+    >
+      {loading && <Loader className="text-white" />}
+      Log In with Spotify
+    </Button>
+  ) : null;
+}

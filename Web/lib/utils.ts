@@ -29,3 +29,13 @@ export function combineAndSumPlays(arr: Stat[]): Stat[] {
 
   return combinedData;
 }
+
+export async function fetchAndSaveImage(
+  url: string,
+  filename: string
+): Promise<File> {
+  const response = await fetch(url);
+  const blob = await response.blob();
+  const file = new File([blob], filename, { type: blob.type });
+  return file;
+}

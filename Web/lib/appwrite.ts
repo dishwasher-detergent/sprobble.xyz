@@ -1,4 +1,4 @@
-import { DATABASE_ID, ENDPOINT, PROJECT_ID } from "@/lib/constants";
+import { DATABASE_ID, DOMAIN, ENDPOINT, PROJECT_ID } from "@/lib/constants";
 import {
   Account,
   Avatars,
@@ -36,6 +36,23 @@ export const auth_service = {
    */
   async createPhoneSession(phone: string) {
     return await account.createPhoneSession(ID.unique(), phone);
+  },
+
+  /**
+   * Creates a Spotify session.
+   */
+  createSpotifySession() {
+    return account.createOAuth2Session(
+      "spotify",
+      `${DOMAIN}/setup`,
+      `${DOMAIN}`,
+      [
+        "user-read-currently-playing",
+        "user-read-recently-played",
+        "user-read-email",
+        "user-read-private",
+      ],
+    );
   },
 
   /**

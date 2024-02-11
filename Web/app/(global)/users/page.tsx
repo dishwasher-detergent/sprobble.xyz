@@ -14,6 +14,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import useUsers from "@/hooks/use-users";
 import { User } from "@/interfaces/user.interface";
 import { database_service } from "@/lib/appwrite";
 import { USER_COLLECTION_ID } from "@/lib/constants";
@@ -33,6 +34,9 @@ import { useEffect, useMemo, useState } from "react";
 import { COLUMNS, Data } from "./columns";
 
 export default function SongsPage() {
+  const { total: users_total, loading: users_loading } = useUsers([
+    Query.notEqual("user_id", "global"),
+  ]);
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<Data[]>([]);
   const [total, setTotal] = useState<number>(0);
@@ -95,9 +99,9 @@ export default function SongsPage() {
       <StatCardContainer>
         <StatCard
           title="Users"
-          stat={1}
+          stat={users_total}
           icon={<LucideMusic3 className="h-12 w-12" />}
-          loading={loading}
+          loading={users_loading}
         />
       </StatCardContainer>
       <section>

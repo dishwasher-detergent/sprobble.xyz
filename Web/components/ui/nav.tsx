@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { LoginButton } from "./login-button";
 
 export function Nav() {
   return (
@@ -8,7 +9,7 @@ export function Nav() {
         <Link className="text-xl font-bold text-primary md:text-base" href="/">
           Sprobble.xyz
         </Link>
-        <nav>
+        <nav className="flex-1">
           <ul className="flex flex-row">
             <li>
               <Button variant="ghost" asChild>
@@ -32,6 +33,7 @@ export function Nav() {
             </li>
           </ul>
         </nav>
+        <LoginButton />
       </div>
     </header>
   );
