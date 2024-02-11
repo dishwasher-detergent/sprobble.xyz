@@ -1,20 +1,26 @@
 import { AVATARS_BUCKET_ID, ENDPOINT, PROJECT_ID } from "@/lib/constants";
 import { LucideCalendar, LucideDot } from "lucide-react";
+import Link from "next/link";
 import { Button } from "./button";
 
 interface MusicCardProps {
   image: string;
   track: {
+    id: string;
     name: string;
     href: string;
   };
   artists: {
+    id: string;
     name: string;
-    href: string;
   }[];
-  album: string;
+  album: {
+    id: string;
+    name: string;
+  };
   played_at: Date;
   user?: {
+    id: string;
     name: string;
     avatar: string;
   };
@@ -45,16 +51,20 @@ export function MusicCard({
           />
         </div>
         <div className="w-full overflow-hidden">
-          <h1 className="truncate text-xl font-bold">{track.name}</h1>
-          <p className="truncate text-sm font-semibold">{album}</p>
-          <p className="text-sm font-semibold">
+          <Link href={`/songs/${track.id}`}>
+            <h1 className="truncate text-xl font-bold">{track.name}</h1>
+          </Link>
+          <Link href={`/albums/${album.id}`}>
+            <p className="truncate text-sm font-semibold">{album.name}</p>
+          </Link>
+          <div className="text-sm font-semibold">
             {artists.map((x, index) => (
-              <a key={index} href={x.href}>
+              <a key={index} href={`/artists/${x.id}`}>
                 {index != 0 && ", "}
                 {x.name}
               </a>
             ))}
-          </p>
+          </div>
           <Button asChild className="p-0" variant="link">
             <a href={track.href} target="_blank">
               Listen On Spotify

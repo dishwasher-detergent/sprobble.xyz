@@ -49,17 +49,23 @@ export default function SongPage() {
                 <MusicCard
                   key={x.$id}
                   track={{
+                    id: data.$id,
                     name: data.name,
                     href: data.href,
                   }}
                   image={x.album.images[0]}
-                  album={x.album.name}
+                  album={{
+                    id: x.album.$id,
+                    name: x.album.name,
+                  }}
                   artists={x.artist.map((y: any) => ({
+                    id: y.$id,
                     name: y.name,
                     href: y.href,
                   }))}
                   played_at={x.played_at}
                   user={{
+                    id: x?.user?.$id,
                     name: x?.user?.name,
                     avatar: x?.user?.avatar,
                   }}

@@ -114,17 +114,23 @@ export default function Home() {
                 <MusicCard
                   key={x.$id}
                   track={{
+                    id: x.track_id,
                     name: x.track_name,
                     href: x.track_href,
                   }}
                   image={x.album_image}
-                  album={x.album_name}
+                  album={{
+                    id: x.album_id,
+                    name: x.album_name,
+                  }}
                   artists={JSON.parse(x.artist).map((y: any) => ({
+                    id: y.id,
                     name: y.name,
                     href: y.href,
                   }))}
                   played_at={x.played_at}
                   user={{
+                    id: x?.user_id,
                     name: x?.user_name,
                     avatar: x?.user_avatar,
                   }}
