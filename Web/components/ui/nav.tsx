@@ -17,7 +17,7 @@ export function Nav() {
             </li>
             <li>
               <Button variant="ghost" asChild>
-                <Link href="albums">Albums</Link>
+                <Link href="/albums">Albums</Link>
               </Button>
             </li>
             <li>
