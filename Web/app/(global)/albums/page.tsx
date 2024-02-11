@@ -61,11 +61,15 @@ export default function AlbumsPage() {
         );
 
         const albumData: Data[] = response.documents.map((x) => ({
-          images: x.images,
+          id: x.$id,
           name: x.name,
-          artist_name: JSON.parse(x?.artist).map((x: any) => x?.name),
+          artist: JSON.parse(x.artist).map((x: any) => ({
+            name: x.name,
+            id: x.id,
+          })),
           number_of_songs: x.number_of_songs,
           number_of_plays: x.number_of_plays,
+          images: x.images,
         }));
 
         setData(albumData);

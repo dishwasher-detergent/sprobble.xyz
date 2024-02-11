@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 
 interface HeaderProps {
   title: string | React.ReactNode;
-  sub: string;
+  sub: string | React.ReactNode;
   className?: string;
 }
 

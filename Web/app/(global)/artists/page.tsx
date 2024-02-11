@@ -61,6 +61,7 @@ export default function ArtistsPage() {
         );
 
         const artistsData: Data[] = response.documents.map((x) => ({
+          id: x.$id,
           name: x.name,
           number_of_albums: x.number_of_albums,
           number_of_plays: x.number_of_plays,

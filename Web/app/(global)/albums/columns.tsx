@@ -1,12 +1,17 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { ColumnDef } from "@tanstack/react-table";
+import Link from "next/link";
 
 export interface Data {
+  id: string;
   images: string[];
   name: string;
   number_of_plays: number;
   number_of_songs: number;
-  artist_name: string[];
+  artist: {
+    id: string;
+    name: string;
+  }[];
 }
 
 export const COLUMNS: ColumnDef<Data>[] = [
@@ -27,16 +32,23 @@ export const COLUMNS: ColumnDef<Data>[] = [
   {
     accessorKey: "name",
     header: "Name",
+    cell(props) {
+      return (
+        <Link href={`/albums/${props.row.original.id}`}>
+          {props.row.original.name}
+        </Link>
+      );
+    },
   },
   {
     accessorKey: "artist_name",
     header: "Artist",
     cell(props) {
-      return props.row.original.artist_name.map((x, index) => (
-        <a key={index}>
+      return props.row.original.artist.map((x, index) => (
+        <Link key={index} href={`/artists/${x.id}`}>
           {index > 0 && ", "}
-          {x}
-        </a>
+          {x.name}
+        </Link>
       ));
     },
   },

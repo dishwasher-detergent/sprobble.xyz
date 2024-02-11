@@ -61,11 +61,16 @@ export default function SongsPage() {
         );
 
         const songsData: Data[] = response.documents.map((x) => ({
-          images: x.images,
+          id: x.$id,
           name: x.name,
-          number_of_plays: x.number_of_plays,
+          album_id: x.album_id,
           album_name: x.album_name,
-          artist_name: JSON.parse(x.artist).map((x: any) => x.name),
+          artist: JSON.parse(x.artist).map((x: any) => ({
+            name: x.name,
+            id: x.id,
+          })),
+          images: x.images,
+          number_of_plays: x.number_of_plays,
         }));
 
         setData(songsData);
