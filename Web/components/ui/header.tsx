@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 
 interface HeaderProps {
   title: string | React.ReactNode;
-  sub: string | React.ReactNode;
+  sub?: string | React.ReactNode;
   className?: string;
 }
 
@@ -14,9 +14,11 @@ export function Header({ title, sub, className }: HeaderProps) {
         className,
       )}
     >
-      <p className="text-primary relative z-10 text-center text-xl font-bold md:text-3xl">
-        {sub}
-      </p>
+      {sub && (
+        <p className="text-primary relative z-10 text-center text-xl font-bold md:text-3xl">
+          {sub}
+        </p>
+      )}
       <h1 className="flex flex-col text-center text-6xl font-black md:text-7xl lg:text-8xl">
         {title}
       </h1>

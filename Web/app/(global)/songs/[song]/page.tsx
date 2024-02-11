@@ -62,7 +62,6 @@ export default function SongPage() {
                   artists={x.artist.map((y: any) => ({
                     id: y.$id,
                     name: y.name,
-                    href: y.href,
                   }))}
                   played_at={x.played_at}
                   user={{
