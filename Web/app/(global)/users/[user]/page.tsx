@@ -45,8 +45,8 @@ export default function UserPage() {
         <div className="flex flex-row flex-nowrap gap-4 pb-4 md:items-center md:justify-center">
           <LucideAudioLines className="h-10 w-10 flex-none rounded-xl bg-primary-foreground p-2 text-primary" />
           <h3 className="text-lg font-bold text-secondary-foreground md:text-xl">
-            See Who&apos;s Listening To{" "}
-            <span className="text-primary">{data?.name}</span>
+            See What <span className="text-primary">{data?.name}</span>{" "}
+            Listening To!
           </h3>
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

@@ -29,8 +29,8 @@ export default function AccountPage() {
           <LucideAlertTriangle className="h-10 w-10 flex-none rounded-xl bg-primary-foreground p-2 text-primary" />
         </div>
         <p className="text-xl">
-          We're getting everything setup for you, once we're done you'll
-          automatically be redirected!
+          We&apos;re getting everything setup for you, once we&apos;re done
+          you&apos;ll automatically be redirected!
         </p>
       </div>
     </section>
