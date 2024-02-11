@@ -21,7 +21,7 @@ export default function SongPage() {
       <Header
         title={data?.name}
         sub={data?.artist.map((x, index) => (
-          <Link href={`/artists/${x.$id}`}>
+          <Link key={x.$id} href={`/artists/${x.$id}`}>
             {index > 0 && ", "}
             {x.name}
           </Link>
