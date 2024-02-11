@@ -17,7 +17,7 @@ export function Header({ title, sub, className }: HeaderProps) {
       <p className="text-primary relative z-10 text-center text-xl font-bold md:text-3xl">
         {sub}
       </p>
-      <h1 className="flex flex-col text-center text-6xl font-black mix-blend-multiply md:text-7xl lg:text-8xl">
+      <h1 className="flex flex-col text-center text-6xl font-black md:text-7xl lg:text-8xl">
         {title}
       </h1>
       <div className="aurora absolute inset-0 rounded-3xl opacity-30 xl:-ml-[5%] xl:w-[110%]" />

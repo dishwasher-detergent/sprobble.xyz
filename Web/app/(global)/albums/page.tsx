@@ -121,7 +121,7 @@ export default function AlbumsPage() {
         />
         <div className="bg-background overflow-hidden rounded-xl border">
           <Table>
-            <TableHeader className="bg-primary-foreground">
+            <TableHeader className="bg-slate-100 dark:bg-slate-800">
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => {
