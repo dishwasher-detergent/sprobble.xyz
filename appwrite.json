@@ -1,858 +1,955 @@
 {
-    "projectId": "sprobble",
-    "projectName": "Sprobble",
-    "functions": [
+  "projectId": "sprobble",
+  "projectName": "Sprobble",
+  "functions": [
+    {
+      "$id": "total-stats",
+      "name": "total-stats-new",
+      "runtime": "node-18.0",
+      "path": "functions/total_stats",
+      "entrypoint": "dist/main.js",
+      "commands": "npm install && npm run build",
+      "ignore": ["node_modules", ".npm"],
+      "execute": [],
+      "events": [
+        "databases.*.collections.album.documents.*.create",
+        "databases.*.collections.artist.documents.*.create",
+        "databases.*.collections.track.documents.*.create"
+      ],
+      "schedule": "",
+      "timeout": 15
+    },
+    {
+      "$id": "spotify-stats",
+      "name": "spotify-stats-new",
+      "runtime": "node-18.0",
+      "path": "functions/stats",
+      "entrypoint": "dist/main.js",
+      "commands": "npm install && npm run build",
+      "ignore": ["node_modules", ".npm"],
+      "execute": [],
+      "events": ["databases.*.collections.plays.documents.*.create"],
+      "schedule": "",
+      "timeout": 15
+    },
+    {
+      "$id": "spotify",
+      "name": "spotify-new",
+      "runtime": "node-18.0",
+      "path": "functions/spotify",
+      "entrypoint": "dist/main.js",
+      "commands": "npm install && npm run build",
+      "ignore": ["node_modules", ".npm"],
+      "execute": [],
+      "events": [],
+      "schedule": "*/10 * * * *",
+      "timeout": 120
+    },
+    {
+      "$id": "minify",
+      "name": "minify",
+      "runtime": "node-18.0",
+      "execute": [],
+      "events": [
+        "databases.*.collections.album.documents.*",
+        "databases.*.collections.artist.documents.*",
+        "databases.*.collections.track.documents.*",
+        "databases.*.collections.plays.documents.*"
+      ],
+      "schedule": "",
+      "timeout": 15,
+      "enabled": true,
+      "logging": true,
+      "entrypoint": "src/main.js",
+      "commands": "npm install",
+      "ignore": ["node_modules", ".npm"],
+      "path": "functions/minify"
+    },
+    {
+      "$id": "minify-collection",
+      "name": "minify-collection",
+      "runtime": "node-18.0",
+      "execute": [],
+      "events": [],
+      "schedule": "",
+      "timeout": 900,
+      "enabled": true,
+      "logging": true,
+      "entrypoint": "src/main.js",
+      "commands": "npm install",
+      "ignore": ["node_modules", ".npm"],
+      "path": "functions/minify-collection"
+    }
+  ],
+  "databases": [
+    {
+      "$id": "645c032960cb9f95212b",
+      "name": "spotify",
+      "$createdAt": "2024-02-03T03:49:14.056+00:00",
+      "$updatedAt": "2024-02-03T03:49:14.056+00:00",
+      "enabled": true
+    }
+  ],
+  "collections": [
+    {
+      "$id": "track",
+      "$permissions": ["read(\"any\")", "read(\"guests\")", "read(\"users\")"],
+      "databaseId": "645c032960cb9f95212b",
+      "name": "track",
+      "enabled": true,
+      "documentSecurity": false,
+      "attributes": [
         {
-            "$id": "total-stats",
-            "name": "total-stats-new",
-            "runtime": "node-18.0",
-            "path": "functions/total_stats",
-            "entrypoint": "dist/main.js",
-            "commands": "npm install && npm run build",
-            "ignore": [
-                "node_modules",
-                ".npm"
-            ],
-            "execute": [],
-            "events": [
-                "databases.*.collections.album.documents.*.create",
-                "databases.*.collections.artist.documents.*.create",
-                "databases.*.collections.track.documents.*.create"
-            ],
-            "schedule": "",
-            "timeout": 15
+          "key": "name",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 128,
+          "default": null
         },
         {
-            "$id": "spotify-stats",
-            "name": "spotify-stats-new",
-            "runtime": "node-18.0",
-            "path": "functions/stats",
-            "entrypoint": "dist/main.js",
-            "commands": "npm install && npm run build",
-            "ignore": [
-                "node_modules",
-                ".npm"
-            ],
-            "execute": [],
-            "events": [
-                "databases.*.collections.plays.documents.*.create"
-            ],
-            "schedule": "",
-            "timeout": 15
+          "key": "href",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "format": "url",
+          "default": null
         },
         {
-            "$id": "spotify",
-            "name": "spotify-new",
-            "runtime": "node-18.0",
-            "path": "functions/spotify",
-            "entrypoint": "dist/main.js",
-            "commands": "npm install && npm run build",
-            "ignore": [
-                "node_modules",
-                ".npm"
-            ],
-            "execute": [],
-            "events": [],
-            "schedule": "*/10 * * * *",
-            "timeout": 120
+          "key": "popularity",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": 0,
+          "max": 100,
+          "default": null
+        },
+        {
+          "key": "duration",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": 0,
+          "max": 999999,
+          "default": null
+        },
+        {
+          "key": "explicit",
+          "type": "boolean",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "default": false
+        },
+        {
+          "key": "preview",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "format": "url",
+          "default": null
+        },
+        {
+          "key": "artist",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "artist",
+          "relationType": "manyToMany",
+          "twoWay": true,
+          "twoWayKey": "track",
+          "onDelete": "setNull",
+          "side": "parent"
+        },
+        {
+          "key": "album",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "album",
+          "relationType": "manyToOne",
+          "twoWay": true,
+          "twoWayKey": "track",
+          "onDelete": "setNull",
+          "side": "parent"
+        },
+        {
+          "key": "plays",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "plays",
+          "relationType": "manyToOne",
+          "twoWay": true,
+          "twoWayKey": "track",
+          "onDelete": "setNull",
+          "side": "child"
+        },
+        {
+          "key": "stats",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "stats",
+          "relationType": "manyToOne",
+          "twoWay": true,
+          "twoWayKey": "track",
+          "onDelete": "setNull",
+          "side": "child"
         }
-    ],
-    "databases": [
+      ],
+      "indexes": [
         {
-            "$id": "645c032960cb9f95212b",
-            "name": "spotify",
-            "$createdAt": "2023-05-10T20:48:41.396+00:00",
-            "$updatedAt": "2023-08-30T15:10:37.372+00:00",
-            "enabled": true
+          "key": "name",
+          "type": "fulltext",
+          "status": "available",
+          "error": "",
+          "attributes": ["name"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "id",
+          "type": "key",
+          "status": "available",
+          "error": "",
+          "attributes": ["$id"],
+          "orders": ["ASC"]
         }
-    ],
-    "collections": [
+      ]
+    },
+    {
+      "$id": "artist",
+      "$permissions": ["read(\"any\")", "read(\"guests\")", "read(\"users\")"],
+      "databaseId": "645c032960cb9f95212b",
+      "name": "artist",
+      "enabled": true,
+      "documentSecurity": false,
+      "attributes": [
         {
-            "$id": "track",
-            "$permissions": [
-                "read(\"any\")",
-                "read(\"guests\")",
-                "read(\"users\")"
-            ],
-            "databaseId": "645c032960cb9f95212b",
-            "name": "track",
-            "enabled": true,
-            "documentSecurity": false,
-            "attributes": [
-                {
-                    "key": "name",
-                    "type": "string",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "size": 128,
-                    "default": null
-                },
-                {
-                    "key": "popularity",
-                    "type": "integer",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "min": 0,
-                    "max": 100,
-                    "default": null
-                },
-                {
-                    "key": "explicit",
-                    "type": "boolean",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "default": false
-                },
-                {
-                    "key": "preview",
-                    "type": "string",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "format": "url",
-                    "default": null
-                },
-                {
-                    "key": "href",
-                    "type": "string",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "format": "url",
-                    "default": null
-                },
-                {
-                    "key": "duration",
-                    "type": "integer",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "min": 0,
-                    "max": 999999,
-                    "default": null
-                },
-                {
-                    "key": "artist",
-                    "type": "relationship",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "relatedCollection": "artist",
-                    "relationType": "manyToMany",
-                    "twoWay": true,
-                    "twoWayKey": "track",
-                    "onDelete": "setNull",
-                    "side": "parent"
-                },
-                {
-                    "key": "album",
-                    "type": "relationship",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "relatedCollection": "album",
-                    "relationType": "manyToOne",
-                    "twoWay": true,
-                    "twoWayKey": "track",
-                    "onDelete": "setNull",
-                    "side": "parent"
-                },
-                {
-                    "key": "plays",
-                    "type": "relationship",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "relatedCollection": "plays",
-                    "relationType": "manyToOne",
-                    "twoWay": true,
-                    "twoWayKey": "track",
-                    "onDelete": "setNull",
-                    "side": "child"
-                },
-                {
-                    "key": "stats",
-                    "type": "relationship",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "relatedCollection": "stats",
-                    "relationType": "manyToOne",
-                    "twoWay": true,
-                    "twoWayKey": "track",
-                    "onDelete": "setNull",
-                    "side": "child"
-                }
-            ],
-            "indexes": [
-                {
-                    "key": "id",
-                    "type": "key",
-                    "status": "available",
-                    "error": "",
-                    "attributes": [
-                        "$id"
-                    ],
-                    "orders": [
-                        "ASC"
-                    ]
-                },
-                {
-                    "key": "name",
-                    "type": "fulltext",
-                    "status": "available",
-                    "error": "",
-                    "attributes": [
-                        "name"
-                    ],
-                    "orders": [
-                        "ASC"
-                    ]
-                }
-            ]
+          "key": "href",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "format": "url",
+          "default": null
         },
         {
-            "$id": "artist",
-            "$permissions": [
-                "read(\"any\")",
-                "read(\"guests\")",
-                "read(\"users\")"
-            ],
-            "databaseId": "645c032960cb9f95212b",
-            "name": "artist",
-            "enabled": true,
-            "documentSecurity": false,
-            "attributes": [
-                {
-                    "key": "name",
-                    "type": "string",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "size": 128,
-                    "default": null
-                },
-                {
-                    "key": "href",
-                    "type": "string",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "format": "url",
-                    "default": null
-                },
-                {
-                    "key": "popularity",
-                    "type": "integer",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "min": 0,
-                    "max": 100,
-                    "default": null
-                },
-                {
-                    "key": "images",
-                    "type": "string",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": true,
-                    "format": "url",
-                    "default": null
-                },
-                {
-                    "key": "genres",
-                    "type": "string",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": true,
-                    "size": 128,
-                    "default": null
-                },
-                {
-                    "key": "track",
-                    "type": "relationship",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "relatedCollection": "track",
-                    "relationType": "manyToMany",
-                    "twoWay": true,
-                    "twoWayKey": "artist",
-                    "onDelete": "setNull",
-                    "side": "child"
-                },
-                {
-                    "key": "album",
-                    "type": "relationship",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "relatedCollection": "album",
-                    "relationType": "manyToMany",
-                    "twoWay": true,
-                    "twoWayKey": "artist",
-                    "onDelete": "setNull",
-                    "side": "child"
-                },
-                {
-                    "key": "plays",
-                    "type": "relationship",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "relatedCollection": "plays",
-                    "relationType": "manyToMany",
-                    "twoWay": true,
-                    "twoWayKey": "artist",
-                    "onDelete": "setNull",
-                    "side": "child"
-                }
-            ],
-            "indexes": [
-                {
-                    "key": "id",
-                    "type": "key",
-                    "status": "available",
-                    "error": "",
-                    "attributes": [
-                        "$id"
-                    ],
-                    "orders": [
-                        "ASC"
-                    ]
-                },
-                {
-                    "key": "name",
-                    "type": "fulltext",
-                    "status": "available",
-                    "error": "",
-                    "attributes": [
-                        "name"
-                    ],
-                    "orders": [
-                        "ASC"
-                    ]
-                }
-            ]
+          "key": "name",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 128,
+          "default": null
         },
         {
-            "$id": "album",
-            "$permissions": [
-                "read(\"any\")",
-                "read(\"guests\")",
-                "read(\"users\")"
-            ],
-            "databaseId": "645c032960cb9f95212b",
-            "name": "album",
-            "enabled": true,
-            "documentSecurity": false,
-            "attributes": [
-                {
-                    "key": "name",
-                    "type": "string",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "size": 128,
-                    "default": null
-                },
-                {
-                    "key": "href",
-                    "type": "string",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "format": "url",
-                    "default": null
-                },
-                {
-                    "key": "popularity",
-                    "type": "integer",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "min": 0,
-                    "max": 100,
-                    "default": null
-                },
-                {
-                    "key": "images",
-                    "type": "string",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": true,
-                    "format": "url",
-                    "default": null
-                },
-                {
-                    "key": "artist",
-                    "type": "relationship",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "relatedCollection": "artist",
-                    "relationType": "manyToMany",
-                    "twoWay": true,
-                    "twoWayKey": "album",
-                    "onDelete": "setNull",
-                    "side": "parent"
-                },
-                {
-                    "key": "track",
-                    "type": "relationship",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "relatedCollection": "track",
-                    "relationType": "manyToOne",
-                    "twoWay": true,
-                    "twoWayKey": "album",
-                    "onDelete": "setNull",
-                    "side": "child"
-                },
-                {
-                    "key": "plays",
-                    "type": "relationship",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "relatedCollection": "plays",
-                    "relationType": "manyToOne",
-                    "twoWay": true,
-                    "twoWayKey": "album",
-                    "onDelete": "setNull",
-                    "side": "child"
-                },
-                {
-                    "key": "genres",
-                    "type": "string",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": true,
-                    "size": 1000,
-                    "default": null
-                },
-                {
-                    "key": "stats",
-                    "type": "relationship",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "relatedCollection": "stats",
-                    "relationType": "manyToOne",
-                    "twoWay": true,
-                    "twoWayKey": "album",
-                    "onDelete": "setNull",
-                    "side": "child"
-                }
-            ],
-            "indexes": [
-                {
-                    "key": "id",
-                    "type": "key",
-                    "status": "available",
-                    "error": "",
-                    "attributes": [
-                        "$id"
-                    ],
-                    "orders": [
-                        "ASC"
-                    ]
-                },
-                {
-                    "key": "name",
-                    "type": "fulltext",
-                    "status": "available",
-                    "error": "",
-                    "attributes": [
-                        "name"
-                    ],
-                    "orders": [
-                        "ASC"
-                    ]
-                }
-            ]
+          "key": "genres",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": true,
+          "size": 128,
+          "default": null
         },
         {
-            "$id": "plays",
-            "$permissions": [
-                "read(\"any\")",
-                "read(\"guests\")",
-                "read(\"users\")"
-            ],
-            "databaseId": "645c032960cb9f95212b",
-            "name": "plays",
-            "enabled": true,
-            "documentSecurity": false,
-            "attributes": [
-                {
-                    "key": "user_id",
-                    "type": "string",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "size": 128,
-                    "default": null
-                },
-                {
-                    "key": "track",
-                    "type": "relationship",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "relatedCollection": "track",
-                    "relationType": "manyToOne",
-                    "twoWay": true,
-                    "twoWayKey": "plays",
-                    "onDelete": "setNull",
-                    "side": "parent"
-                },
-                {
-                    "key": "artist",
-                    "type": "relationship",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "relatedCollection": "artist",
-                    "relationType": "manyToMany",
-                    "twoWay": true,
-                    "twoWayKey": "plays",
-                    "onDelete": "setNull",
-                    "side": "parent"
-                },
-                {
-                    "key": "album",
-                    "type": "relationship",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "relatedCollection": "album",
-                    "relationType": "manyToOne",
-                    "twoWay": true,
-                    "twoWayKey": "plays",
-                    "onDelete": "setNull",
-                    "side": "parent"
-                },
-                {
-                    "key": "played_at",
-                    "type": "datetime",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "format": "",
-                    "default": null
-                }
-            ],
-            "indexes": [
-                {
-                    "key": "id",
-                    "type": "key",
-                    "status": "available",
-                    "error": "",
-                    "attributes": [
-                        "$id"
-                    ],
-                    "orders": [
-                        "ASC"
-                    ]
-                },
-                {
-                    "key": "add",
-                    "type": "key",
-                    "status": "available",
-                    "error": "",
-                    "attributes": [
-                        "user_id",
-                        "played_at"
-                    ],
-                    "orders": [
-                        "ASC",
-                        "ASC"
-                    ]
-                }
-            ]
+          "key": "popularity",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": 0,
+          "max": 100,
+          "default": null
         },
         {
-            "$id": "user",
-            "$permissions": [
-                "read(\"any\")",
-                "create(\"users\")"
-            ],
-            "databaseId": "645c032960cb9f95212b",
-            "name": "user",
-            "enabled": true,
-            "documentSecurity": true,
-            "attributes": [
-                {
-                    "key": "user_id",
-                    "type": "string",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "size": 128,
-                    "default": null
-                },
-                {
-                    "key": "name",
-                    "type": "string",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "size": 128,
-                    "default": null
-                },
-                {
-                    "key": "stats",
-                    "type": "relationship",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "relatedCollection": "stats",
-                    "relationType": "oneToMany",
-                    "twoWay": true,
-                    "twoWayKey": "user",
-                    "onDelete": "setNull",
-                    "side": "parent"
-                },
-                {
-                    "key": "created_at",
-                    "type": "datetime",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "format": "",
-                    "default": null
-                },
-                {
-                    "key": "avatar",
-                    "type": "string",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "size": 128,
-                    "default": ""
-                },
-                {
-                    "key": "authorized",
-                    "type": "boolean",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "default": false
-                },
-                {
-                    "key": "refresh_token",
-                    "type": "string",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "size": 512,
-                    "default": null
-                }
-            ],
-            "indexes": [
-                {
-                    "key": "name",
-                    "type": "fulltext",
-                    "status": "available",
-                    "error": "",
-                    "attributes": [
-                        "name"
-                    ],
-                    "orders": [
-                        "ASC"
-                    ]
-                }
-            ]
+          "key": "images",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": true,
+          "format": "url",
+          "default": null
         },
         {
-            "$id": "stats",
-            "$permissions": [
-                "read(\"any\")",
-                "update(\"users\")"
-            ],
-            "databaseId": "645c032960cb9f95212b",
-            "name": "stats",
-            "enabled": true,
-            "documentSecurity": false,
-            "attributes": [
-                {
-                    "key": "number_of_plays",
-                    "type": "integer",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "min": 0,
-                    "max": 9223372036854775807,
-                    "default": null
-                },
-                {
-                    "key": "time_spent_listening",
-                    "type": "string",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "size": 128,
-                    "default": null
-                },
-                {
-                    "key": "user_id",
-                    "type": "string",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "size": 128,
-                    "default": null
-                },
-                {
-                    "key": "week_of_year",
-                    "type": "integer",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "min": 0,
-                    "max": 9223372036854775807,
-                    "default": null
-                },
-                {
-                    "key": "user",
-                    "type": "relationship",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "relatedCollection": "user",
-                    "relationType": "oneToMany",
-                    "twoWay": true,
-                    "twoWayKey": "stats",
-                    "onDelete": "setNull",
-                    "side": "child"
-                },
-                {
-                    "key": "track",
-                    "type": "relationship",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "relatedCollection": "track",
-                    "relationType": "manyToOne",
-                    "twoWay": true,
-                    "twoWayKey": "stats",
-                    "onDelete": "setNull",
-                    "side": "parent"
-                },
-                {
-                    "key": "artist",
-                    "type": "relationship",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "relatedCollection": "artist",
-                    "relationType": "manyToOne",
-                    "twoWay": false,
-                    "twoWayKey": "stats",
-                    "onDelete": "setNull",
-                    "side": "parent"
-                },
-                {
-                    "key": "album",
-                    "type": "relationship",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "relatedCollection": "album",
-                    "relationType": "manyToOne",
-                    "twoWay": true,
-                    "twoWayKey": "stats",
-                    "onDelete": "setNull",
-                    "side": "parent"
-                }
-            ],
-            "indexes": []
+          "key": "track",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "track",
+          "relationType": "manyToMany",
+          "twoWay": true,
+          "twoWayKey": "artist",
+          "onDelete": "setNull",
+          "side": "child"
         },
         {
-            "$id": "total_stats",
-            "$permissions": [
-                "read(\"any\")"
-            ],
-            "databaseId": "645c032960cb9f95212b",
-            "name": "total_stats",
-            "enabled": true,
-            "documentSecurity": false,
-            "attributes": [
-                {
-                    "key": "title",
-                    "type": "string",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "size": 512,
-                    "default": null
-                },
-                {
-                    "key": "count",
-                    "type": "integer",
-                    "status": "available",
-                    "error": "",
-                    "required": false,
-                    "array": false,
-                    "min": -9223372036854775808,
-                    "max": 9223372036854775807,
-                    "default": null
-                }
-            ],
-            "indexes": []
+          "key": "album",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "album",
+          "relationType": "manyToMany",
+          "twoWay": true,
+          "twoWayKey": "artist",
+          "onDelete": "setNull",
+          "side": "child"
+        },
+        {
+          "key": "plays",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "plays",
+          "relationType": "manyToMany",
+          "twoWay": true,
+          "twoWayKey": "artist",
+          "onDelete": "setNull",
+          "side": "child"
         }
-    ]
+      ],
+      "indexes": [
+        {
+          "key": "id",
+          "type": "key",
+          "status": "available",
+          "error": "",
+          "attributes": ["$id"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "name",
+          "type": "fulltext",
+          "status": "available",
+          "error": "",
+          "attributes": ["name"],
+          "orders": ["ASC"]
+        }
+      ]
+    },
+    {
+      "$id": "album",
+      "$permissions": ["read(\"any\")", "read(\"guests\")", "read(\"users\")"],
+      "databaseId": "645c032960cb9f95212b",
+      "name": "album",
+      "enabled": true,
+      "documentSecurity": false,
+      "attributes": [
+        {
+          "key": "href",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "format": "url",
+          "default": null
+        },
+        {
+          "key": "name",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 128,
+          "default": null
+        },
+        {
+          "key": "genres",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": true,
+          "size": 1000,
+          "default": null
+        },
+        {
+          "key": "popularity",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": 0,
+          "max": 100,
+          "default": null
+        },
+        {
+          "key": "images",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": true,
+          "format": "url",
+          "default": null
+        },
+        {
+          "key": "track",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "track",
+          "relationType": "manyToOne",
+          "twoWay": true,
+          "twoWayKey": "album",
+          "onDelete": "setNull",
+          "side": "child"
+        },
+        {
+          "key": "artist",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "artist",
+          "relationType": "manyToMany",
+          "twoWay": true,
+          "twoWayKey": "album",
+          "onDelete": "setNull",
+          "side": "parent"
+        },
+        {
+          "key": "plays",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "plays",
+          "relationType": "manyToOne",
+          "twoWay": true,
+          "twoWayKey": "album",
+          "onDelete": "setNull",
+          "side": "child"
+        },
+        {
+          "key": "stats",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "stats",
+          "relationType": "manyToOne",
+          "twoWay": true,
+          "twoWayKey": "album",
+          "onDelete": "setNull",
+          "side": "child"
+        }
+      ],
+      "indexes": [
+        {
+          "key": "id",
+          "type": "key",
+          "status": "available",
+          "error": "",
+          "attributes": ["$id"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "name",
+          "type": "fulltext",
+          "status": "available",
+          "error": "",
+          "attributes": ["name"],
+          "orders": ["ASC"]
+        }
+      ]
+    },
+    {
+      "$id": "plays",
+      "$permissions": ["read(\"any\")", "read(\"guests\")", "read(\"users\")"],
+      "databaseId": "645c032960cb9f95212b",
+      "name": "plays",
+      "enabled": true,
+      "documentSecurity": false,
+      "attributes": [
+        {
+          "key": "played_at",
+          "type": "datetime",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "format": "",
+          "default": null
+        },
+        {
+          "key": "user_id",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 128,
+          "default": null
+        },
+        {
+          "key": "track",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "track",
+          "relationType": "manyToOne",
+          "twoWay": true,
+          "twoWayKey": "plays",
+          "onDelete": "setNull",
+          "side": "parent"
+        },
+        {
+          "key": "album",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "album",
+          "relationType": "manyToOne",
+          "twoWay": true,
+          "twoWayKey": "plays",
+          "onDelete": "setNull",
+          "side": "parent"
+        },
+        {
+          "key": "artist",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "artist",
+          "relationType": "manyToMany",
+          "twoWay": true,
+          "twoWayKey": "plays",
+          "onDelete": "setNull",
+          "side": "parent"
+        },
+        {
+          "key": "user",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "user",
+          "relationType": "manyToOne",
+          "twoWay": false,
+          "twoWayKey": "plays",
+          "onDelete": "setNull",
+          "side": "parent"
+        }
+      ],
+      "indexes": [
+        {
+          "key": "id",
+          "type": "key",
+          "status": "available",
+          "error": "",
+          "attributes": ["$id"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "add",
+          "type": "key",
+          "status": "available",
+          "error": "",
+          "attributes": ["user_id", "played_at"],
+          "orders": ["ASC", "ASC"]
+        }
+      ]
+    },
+    {
+      "$id": "user",
+      "$permissions": ["read(\"any\")", "create(\"users\")"],
+      "databaseId": "645c032960cb9f95212b",
+      "name": "user",
+      "enabled": true,
+      "documentSecurity": true,
+      "attributes": [
+        {
+          "key": "name",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 128,
+          "default": null
+        },
+        {
+          "key": "user_id",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 128,
+          "default": null
+        },
+        {
+          "key": "authorized",
+          "type": "boolean",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "default": false
+        },
+        {
+          "key": "avatar",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 128,
+          "default": ""
+        },
+        {
+          "key": "refresh_token",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 512,
+          "default": null
+        },
+        {
+          "key": "created_at",
+          "type": "datetime",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "format": "",
+          "default": null
+        },
+        {
+          "key": "stats",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "stats",
+          "relationType": "oneToMany",
+          "twoWay": true,
+          "twoWayKey": "user",
+          "onDelete": "setNull",
+          "side": "parent"
+        }
+      ],
+      "indexes": [
+        {
+          "key": "name",
+          "type": "fulltext",
+          "status": "available",
+          "error": "",
+          "attributes": ["name"],
+          "orders": ["ASC"]
+        }
+      ]
+    },
+    {
+      "$id": "stats",
+      "$permissions": ["read(\"any\")", "update(\"users\")"],
+      "databaseId": "645c032960cb9f95212b",
+      "name": "stats",
+      "enabled": true,
+      "documentSecurity": false,
+      "attributes": [
+        {
+          "key": "number_of_plays",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": 0,
+          "max": 9223372036854775807,
+          "default": null
+        },
+        {
+          "key": "user_id",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 128,
+          "default": null
+        },
+        {
+          "key": "time_spent_listening",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 128,
+          "default": null
+        },
+        {
+          "key": "week_of_year",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": 0,
+          "max": 9223372036854775807,
+          "default": null
+        },
+        {
+          "key": "user",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "user",
+          "relationType": "oneToMany",
+          "twoWay": true,
+          "twoWayKey": "stats",
+          "onDelete": "setNull",
+          "side": "child"
+        },
+        {
+          "key": "track",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "track",
+          "relationType": "manyToOne",
+          "twoWay": true,
+          "twoWayKey": "stats",
+          "onDelete": "setNull",
+          "side": "parent"
+        },
+        {
+          "key": "album",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "album",
+          "relationType": "manyToOne",
+          "twoWay": true,
+          "twoWayKey": "stats",
+          "onDelete": "setNull",
+          "side": "parent"
+        },
+        {
+          "key": "artist",
+          "type": "relationship",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "relatedCollection": "artist",
+          "relationType": "manyToOne",
+          "twoWay": false,
+          "twoWayKey": "stats",
+          "onDelete": "setNull",
+          "side": "parent"
+        }
+      ],
+      "indexes": []
+    },
+    {
+      "$id": "total_stats",
+      "$permissions": ["read(\"any\")"],
+      "databaseId": "645c032960cb9f95212b",
+      "name": "total_stats",
+      "enabled": true,
+      "documentSecurity": false,
+      "attributes": [
+        {
+          "key": "title",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 512,
+          "default": null
+        },
+        {
+          "key": "count",
+          "type": "integer",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "min": -9223372036854775808,
+          "max": 9223372036854775807,
+          "default": null
+        }
+      ],
+      "indexes": []
+    },
+    {
+      "$id": "plays_minified",
+      "$permissions": [],
+      "databaseId": "645c032960cb9f95212b",
+      "name": "plays_minified",
+      "enabled": true,
+      "documentSecurity": false,
+      "attributes": [
+        {
+          "key": "track_name",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 128,
+          "default": null
+        },
+        {
+          "key": "track_href",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 128,
+          "default": null
+        },
+        {
+          "key": "track_id",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 128,
+          "default": null
+        },
+        {
+          "key": "album_image",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 128,
+          "default": null
+        },
+        {
+          "key": "album_name",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 128,
+          "default": null
+        },
+        {
+          "key": "played_at",
+          "type": "datetime",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "format": "",
+          "default": null
+        },
+        {
+          "key": "user_name",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 128,
+          "default": null
+        },
+        {
+          "key": "user_avatar",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 128,
+          "default": null
+        },
+        {
+          "key": "user_id",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 128,
+          "default": null
+        },
+        {
+          "key": "album_id",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 128,
+          "default": null
+        },
+        {
+          "key": "artist_name",
+          "type": "string",
+          "status": "available",
+          "error": "",
+          "required": false,
+          "array": false,
+          "size": 512,
+          "default": null
+        }
+      ],
+      "indexes": []
+    }
+  ]
 }
