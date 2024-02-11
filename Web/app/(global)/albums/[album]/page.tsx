@@ -3,6 +3,7 @@
 import { MusicCardLoading } from "@/components/loading/music-card";
 import { Header } from "@/components/ui/header";
 import { MusicCard } from "@/components/ui/music-card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { SpotifyLink } from "@/components/ui/spotify-link";
 import { StatCard } from "@/components/ui/stat-card";
 import { StatCardContainer } from "@/components/ui/stat-card-container";
@@ -19,7 +20,13 @@ export default function AlbumPage() {
     <>
       <Header
         className="mb-4 xl:mb-12 xl:pb-36"
-        title={data?.name}
+        title={
+          !loading ? (
+            data?.name
+          ) : (
+            <Skeleton className="md:h-18 lg:h-22 relative z-10 mt-2 h-16 w-52" />
+          )
+        }
         sub="Album"
         altSub={<SpotifyLink type="album" id={album} />}
       />

@@ -16,13 +16,13 @@ export function Header({ title, sub, altSub, className }: HeaderProps) {
       )}
     >
       {sub && (
-        <p className="text-primary relative z-10 text-center text-xl font-bold md:text-3xl">
+        <div className="text-primary relative z-10 text-center text-xl font-bold md:text-3xl">
           {sub}
-        </p>
+        </div>
       )}
-      <h1 className="flex flex-col pb-4 text-center text-6xl font-black md:text-7xl lg:text-8xl">
+      <div className="flex flex-col pb-4 text-center text-6xl font-black md:text-7xl lg:text-8xl">
         {title}
-      </h1>
+      </div>
       {altSub}
       <div className="aurora absolute inset-0 rounded-3xl opacity-30 xl:-ml-[5%] xl:w-[110%]" />
     </section>

@@ -51,15 +51,19 @@ export function MusicCard({
           />
         </div>
         <div className="w-full overflow-hidden">
-          <Link href={`/songs/${track.id}`}>
+          <Link href={`/songs/${track.id}`} className="hover:text-primary">
             <h1 className="truncate text-xl font-bold">{track.name}</h1>
           </Link>
-          <Link href={`/albums/${album.id}`}>
+          <Link href={`/albums/${album.id}`} className="hover:text-primary">
             <p className="truncate text-sm font-semibold">{album.name}</p>
           </Link>
           <div className="text-sm font-semibold">
             {artists.map((x, index) => (
-              <a key={index} href={`/artists/${x.id}`}>
+              <a
+                key={index}
+                href={`/artists/${x.id}`}
+                className="hover:text-primary"
+              >
                 {index != 0 && ", "}
                 {x.name}
               </a>
