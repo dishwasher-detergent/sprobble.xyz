@@ -22,7 +22,7 @@ export default async ({ req, res, log, error }) => {
 
     response = await database.listDocuments(
       '645c032960cb9f95212b',
-      'plays',
+      'track',
       newQueries
     );
 
@@ -32,22 +32,21 @@ export default async ({ req, res, log, error }) => {
       response.documents.map((document) =>
         database.createDocument(
           '645c032960cb9f95212b',
-          'plays_small',
+          'track_minified',
           document.$id,
           {
-            track_name: document.track.name,
-            track_href: document.track.href,
-            track_id: document.track.$id,
-            album_image: document.album.images[0],
-            album_name: document.album.name,
-            album_id: document.album.$id,
-            artist_name: JSON.stringify(
-              document.artist.map((y) => ({ name: y.name, href: y.href }))
+            name: document.name,
+            artist: JSON.stringify(
+              document.artist.map((x) => ({
+                id: x.$id,
+                name: x.name,
+                href: x.href,
+              }))
             ),
-            user_name: document?.user?.name,
-            user_avatar: document?.user?.avatar,
-            user_id: document?.user?.$id,
-            played_at: document.played_at,
+            album_id: document.album.$id,
+            album_name: document.album.name,
+            images: document.album.images,
+            number_of_plays: document.plays.length,
           }
         )
       )

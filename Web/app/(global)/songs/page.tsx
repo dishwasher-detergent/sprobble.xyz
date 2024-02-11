@@ -14,9 +14,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import useTotalStats from "@/hooks/use-total-stats";
-import { Track } from "@/interfaces/track.interface";
+import { TrackMinified } from "@/interfaces/track-minified.interface";
 import { database_service } from "@/lib/appwrite";
-import { TRACK_COLLECTION_ID } from "@/lib/constants";
+import { TRACK_MINIFIED_COLLECTION_ID } from "@/lib/constants";
 import {
   ColumnFiltersState,
   PaginationState,
@@ -30,14 +30,14 @@ import {
 import { Query } from "appwrite";
 import { LucideMusic3 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { COLUMNS, SongsData } from "./columns";
+import { COLUMNS, Data } from "./columns";
 
 export default function SongsPage() {
   const { data: total_stats, loading: total_stats_loading } = useTotalStats([
     Query.equal("title", "track"),
   ]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [data, setData] = useState<SongsData[]>([]);
+  const [data, setData] = useState<Data[]>([]);
   const [total, setTotal] = useState<number>(0);
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
@@ -51,18 +51,21 @@ export default function SongsPage() {
       const { pageSize, pageIndex } = pagination;
       setLoading(true);
       try {
-        const response = await database_service.list<Track>(
-          TRACK_COLLECTION_ID,
+        const response = await database_service.list<TrackMinified>(
+          TRACK_MINIFIED_COLLECTION_ID,
           [
-            Query.select(["name"]),
             Query.limit(pageSize),
             Query.offset(pageSize * pageIndex),
             ...columnFilters.map((x) => Query.search(x.id, String(x.value))),
           ],
         );
 
-        const songsData: SongsData[] = response.documents.map((x) => ({
+        const songsData: Data[] = response.documents.map((x) => ({
+          images: x.images,
           name: x.name,
+          number_of_plays: x.number_of_plays,
+          album_name: x.album_name,
+          artist_name: JSON.parse(x.artist).map((x: any) => x.name),
         }));
 
         setData(songsData);

@@ -1,18 +1,18 @@
-import { PlaySmall } from "@/interfaces/plays-small.interface";
+import { PlayMinified } from "@/interfaces/plays-minified.interface";
 import client, { database_service } from "@/lib/appwrite";
-import { DATABASE_ID, PLAYS_SMALL_COLLECTION_ID } from "@/lib/constants";
+import { DATABASE_ID, PLAYS_MINIFIED_COLLECTION_ID } from "@/lib/constants";
 import { useEffect, useState } from "react";
 
 export default function usePlays(queries: string[] = []) {
-  const [data, setData] = useState<PlaySmall[]>();
+  const [data, setData] = useState<PlayMinified[]>();
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
 
-      const response = await database_service.list<PlaySmall>(
-        PLAYS_SMALL_COLLECTION_ID,
+      const response = await database_service.list<PlayMinified>(
+        PLAYS_MINIFIED_COLLECTION_ID,
         queries,
       );
 
@@ -23,7 +23,7 @@ export default function usePlays(queries: string[] = []) {
     fetchData();
 
     const unsubscribe = client.subscribe(
-      `databases.${DATABASE_ID}.collections.${PLAYS_SMALL_COLLECTION_ID}.documents`,
+      `databases.${DATABASE_ID}.collections.${PLAYS_MINIFIED_COLLECTION_ID}.documents`,
       () => {
         fetchData();
       },

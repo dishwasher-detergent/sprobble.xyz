@@ -14,9 +14,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import useTotalStats from "@/hooks/use-total-stats";
-import { Track } from "@/interfaces/track.interface";
+import { AlbumMinified } from "@/interfaces/album-minified.interface";
 import { database_service } from "@/lib/appwrite";
-import { ALBUM_COLLECTION_ID } from "@/lib/constants";
+import { ALBUM_MINIFIED_COLLECTION_ID } from "@/lib/constants";
 import {
   ColumnFiltersState,
   PaginationState,
@@ -51,21 +51,24 @@ export default function AlbumsPage() {
       const { pageSize, pageIndex } = pagination;
       setLoading(true);
       try {
-        const response = await database_service.list<Track>(
-          ALBUM_COLLECTION_ID,
+        const response = await database_service.list<AlbumMinified>(
+          ALBUM_MINIFIED_COLLECTION_ID,
           [
-            Query.select(["name"]),
             Query.limit(pageSize),
             Query.offset(pageSize * pageIndex),
             ...columnFilters.map((x) => Query.search(x.id, String(x.value))),
           ],
         );
 
-        const songsData: Data[] = response.documents.map((x) => ({
+        const albumData: Data[] = response.documents.map((x) => ({
+          images: x.images,
           name: x.name,
+          artist_name: JSON.parse(x?.artist).map((x: any) => x?.name),
+          number_of_songs: x.number_of_songs,
+          number_of_plays: x.number_of_plays,
         }));
 
-        setData(songsData);
+        setData(albumData);
         setTotal(response.total);
       } catch (error) {
         throw new Error("Something went wrong!");

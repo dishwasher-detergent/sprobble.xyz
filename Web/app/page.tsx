@@ -119,7 +119,7 @@ export default function Home() {
                   }}
                   image={x.album_image}
                   album={x.album_name}
-                  artists={JSON.parse(x.artist_name).map((y: any) => ({
+                  artists={JSON.parse(x.artist).map((y: any) => ({
                     name: y.name,
                     href: y.href,
                   }))}

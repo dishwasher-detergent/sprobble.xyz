@@ -46,8 +46,28 @@
       "timeout": 120
     },
     {
-      "$id": "minify-plays",
-      "name": "minify-plays",
+      "$id": "minify",
+      "name": "minify",
+      "runtime": "node-18.0",
+      "execute": [],
+      "events": [
+        "databases.*.collections.album.documents.*",
+        "databases.*.collections.artist.documents.*",
+        "databases.*.collections.track.documents.*",
+        "databases.*.collections.plays.documents.*"
+      ],
+      "schedule": "",
+      "timeout": 15,
+      "enabled": true,
+      "logging": true,
+      "entrypoint": "src/main.js",
+      "commands": "npm install",
+      "ignore": ["node_modules", ".npm"],
+      "path": "functions/minify"
+    },
+    {
+      "$id": "minify-collection",
+      "name": "minify-collection",
       "runtime": "node-18.0",
       "execute": [],
       "events": [],
@@ -58,7 +78,7 @@
       "entrypoint": "src/main.js",
       "commands": "npm install",
       "ignore": ["node_modules", ".npm"],
-      "path": "functions/minify-plays"
+      "path": "functions/minify-collection"
     }
   ],
   "databases": [
@@ -811,10 +831,10 @@
       "indexes": []
     },
     {
-      "$id": "plays_small",
+      "$id": "plays_minified",
       "$permissions": [],
       "databaseId": "645c032960cb9f95212b",
-      "name": "plays_small",
+      "name": "plays_minified",
       "enabled": true,
       "documentSecurity": false,
       "attributes": [
