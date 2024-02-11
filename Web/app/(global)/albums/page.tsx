@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Header } from "@/components/ui/header";
 import { Input } from "@/components/ui/input";
 import { StatCard } from "@/components/ui/stat-card";
+import { StatCardContainer } from "@/components/ui/stat-card-container";
 import {
   Table,
   TableBody,
@@ -106,14 +107,14 @@ export default function AlbumsPage() {
         sub="Sprobble"
         className="mb-4 xl:mb-12 xl:pb-36"
       />
-      <section className="relative z-10 grid grid-cols-1 pb-4 md:grid-cols-2 xl:-mt-24 xl:grid-cols-3 xl:pb-12">
+      <StatCardContainer>
         <StatCard
           title="Unique Albums"
           stat={total_stats?.[0].count}
           icon={<LucideDisc3 className="h-12 w-12" />}
           loading={total_stats_loading}
         />
-      </section>
+      </StatCardContainer>
       <section>
         <Input
           placeholder="Filter by Name..."
