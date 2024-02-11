@@ -5,7 +5,7 @@ export function Nav() {
   return (
     <header className="w-full border-b">
       <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-4 py-2 md:flex-row md:justify-start">
-        <Link className="text-primary text-xl font-bold md:text-base" href="/">
+        <Link className="text-xl font-bold text-primary md:text-base" href="/">
           Sprobble.xyz
         </Link>
         <nav>
@@ -23,6 +23,11 @@ export function Nav() {
             <li>
               <Button variant="ghost" asChild>
                 <Link href="/artists">Artists</Link>
+              </Button>
+            </li>
+            <li>
+              <Button variant="ghost" asChild>
+                <Link href="/users">Users</Link>
               </Button>
             </li>
           </ul>
