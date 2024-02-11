@@ -19,6 +19,7 @@ export default function SongPage() {
   return (
     <>
       <Header
+        className="mb-4 xl:mb-12 xl:pb-36"
         title={data?.name}
         sub={data?.artist.map((x, index) => (
           <Link key={x.$id} href={`/artists/${x.$id}`}>
