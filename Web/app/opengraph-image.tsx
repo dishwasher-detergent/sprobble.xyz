@@ -17,8 +17,8 @@ export const runtime = "edge";
 // Image metadata
 export const alt = "Sprobble";
 export const size = {
-  width: 1200,
-  height: 630,
+  width: 640,
+  height: 640,
 };
 
 export const contentType = "image/png";
@@ -63,23 +63,29 @@ export default async function Image() {
           fontFamily: '"Outfit"',
         }}
       >
-        <p tw="relative z-10 text-center text-2xl font-bold text-primary m-0 p-0 text-violet-600">
-          Sprobble
-        </p>
-        <h1 tw="flex flex-col pb-4 text-center text-6xl font-black md:text-7xl lg:text-8xl m-0 p-0 pb-8">
-          The Best Place To Track Your Music
-        </h1>
+        <div
+          style={{ display: "flex", flexDirection: "column" }}
+          tw="flex-1 items-center justify-center"
+        >
+          <p tw="relative z-10 text-center text-2xl font-bold text-primary m-0 p-0 text-violet-700">
+            Sprobble
+          </p>
+          <h1 tw="flex flex-col text-center text-5xl font-black m-0 p-0 flex-none truncate">
+            The Best Place To Track Your Music
+          </h1>
+        </div>
         <div
           style={{
             display: "flex",
+            flexDirection: "column",
             width: "100%",
             gap: "1rem",
             padding: "1rem",
           }}
         >
           <div
-            style={{ display: "flex", flex: "1 1 0%", gap: "1rem" }}
-            tw="h-24 flex-1 gap-4 rounded-3xl border bg-white p-2"
+            style={{ display: "flex", gap: "1rem" }}
+            tw="h-26 flex-1 rounded-3xl border bg-white p-2 flex-none"
           >
             <div
               style={{ display: "flex" }}
@@ -101,9 +107,7 @@ export default async function Image() {
               </svg>
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <h3 tw="text-sm font-semibold text-slate-600 m-0 p-0">
-                Unique Songs
-              </h3>
+              <h3 tw="font-semibold text-slate-600 m-0 p-0">Unique Songs</h3>
               <p tw="text-5xl font-black text-slate-900 m-0 p-0">
                 {
                   data.documents.filter(
@@ -114,8 +118,8 @@ export default async function Image() {
             </div>
           </div>
           <div
-            style={{ display: "flex", flex: "1 1 0%", gap: "1rem" }}
-            tw="h-24 flex-1 gap-4 rounded-3xl border bg-white p-2"
+            style={{ display: "flex", gap: "1rem" }}
+            tw="h-26 flex-1 rounded-3xl border bg-white p-2 flex-none"
           >
             <div
               style={{ display: "flex" }}
@@ -139,9 +143,7 @@ export default async function Image() {
               </svg>
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <h3 tw="text-sm font-semibold text-slate-600 m-0 p-0">
-                Unique Albums
-              </h3>
+              <h3 tw="font-semibold text-slate-600 m-0 p-0">Unique Albums</h3>
               <p tw="text-5xl font-black text-slate-900 m-0 p-0">
                 {
                   data.documents.filter(
@@ -152,8 +154,8 @@ export default async function Image() {
             </div>
           </div>
           <div
-            style={{ display: "flex", flex: "1 1 0%", gap: "1rem" }}
-            tw="h-24 flex-1 gap-4 rounded-3xl border bg-white p-2"
+            style={{ display: "flex", gap: "1rem" }}
+            tw="h-26 flex-1 rounded-3xl border bg-white p-2 flex-none"
           >
             <div
               style={{ display: "flex" }}
@@ -177,9 +179,7 @@ export default async function Image() {
               </svg>
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <h3 tw="text-sm font-semibold text-slate-600 m-0 p-0">
-                Unique Artists
-              </h3>
+              <h3 tw="font-semibold text-slate-600 m-0 p-0">Unique Artists</h3>
               <p tw="text-5xl font-black text-slate-900 m-0 p-0">
                 {
                   data.documents.filter(
