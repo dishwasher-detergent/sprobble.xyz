@@ -63,10 +63,10 @@ export default async function Image() {
           fontFamily: '"Outfit"',
         }}
       >
-        <p tw="relative z-10 text-center text-xl font-bold text-primary m-0 p-0">
+        <p tw="relative z-10 text-center text-2xl font-bold text-primary m-0 p-0 text-violet-600">
           Sprobble
         </p>
-        <h1 tw="flex flex-col pb-4 text-center text-6xl font-black md:text-7xl lg:text-8xl m-0 p-0">
+        <h1 tw="flex flex-col pb-4 text-center text-6xl font-black md:text-7xl lg:text-8xl m-0 p-0 pb-8">
           The Best Place To Track Your Music
         </h1>
         <div
