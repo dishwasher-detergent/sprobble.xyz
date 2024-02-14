@@ -54,7 +54,7 @@ export function SongHistory({ initial, id }: SongHistoryProps) {
       {data?.plays && data.plays.length == 0 && (
         <div className="flex h-24 w-full flex-row items-center justify-center gap-4 rounded-3xl bg-secondary">
           <LucideGhost className="h-10 w-10 flex-none rounded-xl bg-primary-foreground p-2 text-primary" />
-          <p>Looks like no one has listened to anything!</p>
+          <p>Looks like no one has listened to anything, yet!</p>
         </div>
       )}
     </>
