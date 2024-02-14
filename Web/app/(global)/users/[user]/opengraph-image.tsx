@@ -160,10 +160,9 @@ export default async function Image({ params }: { params: { user: string } }) {
                 stroke-linecap="round"
                 stroke-linejoin="round"
               >
-                <circle cx="12" cy="12" r="10" />
-                <path d="M6 12c0-1.7.7-3.2 1.8-4.2" />
-                <circle cx="12" cy="12" r="2" />
-                <path d="M18 12c0 1.7-.7 3.2-1.8 4.2" />
+                <line x1="10" x2="14" y1="2" y2="2" />
+                <line x1="12" x2="15" y1="14" y2="11" />
+                <circle cx="12" cy="14" r="8" />
               </svg>
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>

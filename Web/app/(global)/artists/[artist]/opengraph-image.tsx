@@ -1,9 +1,9 @@
 import { Track } from "@/interfaces/track.interface";
 import {
+  ARTIST_COLLECTION_ID,
   DATABASE_ID,
   ENDPOINT,
   PROJECT_ID,
-  TRACK_COLLECTION_ID,
 } from "@/lib/constants";
 import { ImageResponse } from "next/og";
 
@@ -11,7 +11,7 @@ import { ImageResponse } from "next/og";
 export const runtime = "edge";
 
 // Image metadata
-export const alt = "Sprobble - Song Statistics";
+export const alt = "Sprobble - Artist Statistics";
 export const size = {
   width: 640,
   height: 640,
@@ -20,9 +20,13 @@ export const size = {
 export const contentType = "image/png";
 
 // Image generation
-export default async function Image({ params }: { params: { song: string } }) {
-  const { song: id } = params;
-  const url = `${ENDPOINT}/databases/${DATABASE_ID}/collections/${TRACK_COLLECTION_ID}/documents/${id}`;
+export default async function Image({
+  params,
+}: {
+  params: { artist: string };
+}) {
+  const { artist: id } = params;
+  const url = `${ENDPOINT}/databases/${DATABASE_ID}/collections/${ARTIST_COLLECTION_ID}/documents/${id}`;
   const data: Track = await fetch(url, {
     headers: {
       "x-appwrite-project": PROJECT_ID,
@@ -64,16 +68,7 @@ export default async function Image({ params }: { params: { song: string } }) {
           style={{ display: "flex", flexDirection: "column", gap: "2rem" }}
           tw="flex-1 items-center justify-center"
         >
-          <div
-            style={{ display: "flex" }}
-            tw="items-center justify-center h-36 w-36 rounded-full overflow-hidden"
-          >
-            <img
-              tw="h-full w-full object-cover"
-              src={`${data.album.images[0]}`}
-            />
-          </div>
-          <h1 tw="flex flex-col pb-4 text-center text-5xl font-black m-0 p-0 pb-8 flex-none truncate">
+          <h1 tw="flex flex-col text-center text-5xl font-black m-0 p-0 flex-none truncate">
             {data.name}
           </h1>
         </div>
@@ -119,6 +114,72 @@ export default async function Image({ params }: { params: { song: string } }) {
               </h3>
               <p tw="text-5xl font-black text-slate-900 m-0 p-0">
                 {data.plays.length}
+              </p>
+            </div>
+          </div>
+          <div
+            style={{ display: "flex", gap: "1rem" }}
+            tw="h-24 flex-1 rounded-3xl border bg-white p-2 flex-none"
+          >
+            <div
+              style={{ display: "flex" }}
+              tw="items-center justify-center w-20 h-full flex-nowrap rounded-2xl bg-slate-200 text-slate-900"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="18" r="4" />
+                <path d="M16 18V2" />
+              </svg>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <h3 tw="text-sm font-semibold text-slate-600 m-0 p-0">
+                Total Unique Songs
+              </h3>
+              <p tw="text-5xl font-black text-slate-900 m-0 p-0">
+                {data.track.length}
+              </p>
+            </div>
+          </div>
+          <div
+            style={{ display: "flex", gap: "1rem" }}
+            tw="h-24 flex-1 rounded-3xl border bg-white p-2 flex-none"
+          >
+            <div
+              style={{ display: "flex" }}
+              tw="items-center justify-center w-20 h-full flex-nowrap rounded-2xl bg-slate-200 text-slate-900"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path d="M6 12c0-1.7.7-3.2 1.8-4.2" />
+                <circle cx="12" cy="12" r="2" />
+                <path d="M18 12c0 1.7-.7 3.2-1.8 4.2" />
+              </svg>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <h3 tw="text-sm font-semibold text-slate-600 m-0 p-0">
+                Total Unique Albums
+              </h3>
+              <p tw="text-5xl font-black text-slate-900 m-0 p-0">
+                {data.album.length}
               </p>
             </div>
           </div>
