@@ -3,7 +3,7 @@ import { ArtistStats } from "@/components/realtime/statistics/artists/stats";
 import { Header } from "@/components/ui/header";
 import { SpotifyLink } from "@/components/ui/spotify-link";
 import { Artist } from "@/interfaces/artist.interface";
-import { database_service } from "@/lib/appwrite";
+import { rest_service } from "@/lib/appwrite";
 import { ARTIST_COLLECTION_ID } from "@/lib/constants";
 import { LucideAudioLines } from "lucide-react";
 
@@ -13,7 +13,7 @@ export default async function ArtistPage({
   params: { artist: string };
 }) {
   const { artist: id } = params;
-  const artist = await database_service.get<Artist>(ARTIST_COLLECTION_ID, id);
+  const artist = await rest_service.get<Artist>(ARTIST_COLLECTION_ID, id);
 
   return (
     <>

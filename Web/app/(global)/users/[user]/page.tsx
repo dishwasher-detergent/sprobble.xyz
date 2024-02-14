@@ -4,7 +4,7 @@ import { Header } from "@/components/ui/header";
 import { PlayMinified } from "@/interfaces/plays-minified.interface";
 import { Stat } from "@/interfaces/stats.interface";
 import { User } from "@/interfaces/user.interface";
-import { database_service } from "@/lib/appwrite";
+import { rest_service } from "@/lib/appwrite";
 import {
   PLAYS_MINIFIED_COLLECTION_ID,
   STATS_COLLECTION_ID,
@@ -20,12 +20,12 @@ export default async function UserPage({
   params: { user: string };
 }) {
   const { user: id } = params;
-  const user = await database_service.get<User>(USER_COLLECTION_ID, id);
-  const plays = await database_service.list<PlayMinified>(
+  const user = await rest_service.get<User>(USER_COLLECTION_ID, id);
+  const plays = await rest_service.list<PlayMinified>(
     PLAYS_MINIFIED_COLLECTION_ID,
     [Query.equal("user_id", id), Query.orderDesc("played_at")],
   );
-  const stats = await database_service.list<Stat>(STATS_COLLECTION_ID, [
+  const stats = await rest_service.list<Stat>(STATS_COLLECTION_ID, [
     Query.equal("user_id", id),
     Query.select([
       "number_of_plays",

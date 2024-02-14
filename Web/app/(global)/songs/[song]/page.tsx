@@ -3,7 +3,7 @@ import { SongStats } from "@/components/realtime/statistics/songs/stats";
 import { Header } from "@/components/ui/header";
 import { SpotifyLink } from "@/components/ui/spotify-link";
 import { Track } from "@/interfaces/track.interface";
-import { database_service } from "@/lib/appwrite";
+import { rest_service } from "@/lib/appwrite";
 import { TRACK_COLLECTION_ID } from "@/lib/constants";
 import { LucideAudioLines } from "lucide-react";
 import Link from "next/link";
@@ -14,7 +14,7 @@ export default async function SongPage({
   params: { song: string };
 }) {
   const { song: id } = params;
-  const song = await database_service.get<Track>(TRACK_COLLECTION_ID, id);
+  const song = await rest_service.get<Track>(TRACK_COLLECTION_ID, id);
 
   return (
     <>

@@ -1,4 +1,5 @@
 import { Stat } from "@/interfaces/stats.interface";
+import { Query } from "appwrite";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -32,10 +33,20 @@ export function combineAndSumPlays(arr: Stat[]): Stat[] {
 
 export async function fetchAndSaveImage(
   url: string,
-  filename: string
+  filename: string,
 ): Promise<File> {
   const response = await fetch(url);
   const blob = await response.blob();
   const file = new File([blob], filename, { type: blob.type });
   return file;
+}
+
+export function generateQueryList(queries: Query[]) {
+  const queryList: string[] = [];
+
+  queries.forEach((x) => {
+    queryList.push(`queries[]=${x}`);
+  });
+
+  return queryList.join("&");
 }

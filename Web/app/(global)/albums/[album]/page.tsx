@@ -3,7 +3,7 @@ import { AlbumStats } from "@/components/realtime/statistics/albums/stats";
 import { Header } from "@/components/ui/header";
 import { SpotifyLink } from "@/components/ui/spotify-link";
 import { Album } from "@/interfaces/album.interface";
-import { database_service } from "@/lib/appwrite";
+import { rest_service } from "@/lib/appwrite";
 import { ALBUM_COLLECTION_ID } from "@/lib/constants";
 import { LucideAudioLines } from "lucide-react";
 
@@ -13,7 +13,7 @@ export default async function AlbumPage({
   params: { album: string };
 }) {
   const { album: id } = params;
-  const album = await database_service.get<Album>(ALBUM_COLLECTION_ID, id);
+  const album = await rest_service.get<Album>(ALBUM_COLLECTION_ID, id);
 
   return (
     <>

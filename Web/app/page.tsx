@@ -6,7 +6,7 @@ import { HeroLoginButton } from "@/components/ui/hero-login-button";
 import { PlayMinified } from "@/interfaces/plays-minified.interface";
 import { Stat } from "@/interfaces/stats.interface";
 import { TotalStat } from "@/interfaces/total-stats.interface";
-import { database_service } from "@/lib/appwrite";
+import { rest_service } from "@/lib/appwrite";
 import {
   PLAYS_MINIFIED_COLLECTION_ID,
   STATS_COLLECTION_ID,
@@ -17,7 +17,7 @@ import { Query } from "appwrite";
 import { LucideLineChart, LucidePartyPopper } from "lucide-react";
 
 export default async function Home() {
-  const weekToWeek = await database_service.list<Stat>(STATS_COLLECTION_ID, [
+  const weekToWeek = await rest_service.list<Stat>(STATS_COLLECTION_ID, [
     Query.orderAsc("week_of_year"),
     Query.equal("user_id", "global"),
     Query.select([
@@ -36,11 +36,11 @@ export default async function Home() {
     }),
   );
 
-  const totalStats = await database_service.list<TotalStat>(
+  const totalStats = await rest_service.list<TotalStat>(
     TOTAL_STATS_COLLECTION_ID,
   );
 
-  const plays = await database_service.list<PlayMinified>(
+  const plays = await rest_service.list<PlayMinified>(
     PLAYS_MINIFIED_COLLECTION_ID,
     [Query.orderDesc("played_at"), Query.limit(12)],
   );
