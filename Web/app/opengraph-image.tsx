@@ -64,7 +64,7 @@ export default async function Image() {
         }}
       >
         <div
-          style={{ display: "flex", flexDirection: "column" }}
+          style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
           tw="flex-1 items-center justify-center"
         >
           <p tw="relative z-10 text-center text-2xl font-bold text-primary m-0 p-0 text-violet-700">
@@ -89,7 +89,7 @@ export default async function Image() {
           >
             <div
               style={{ display: "flex" }}
-              tw="items-center justify-center w-20 h-full flex-nowrap rounded-2xl bg-slate-200 text-slate-900"
+              tw="items-center justify-center w-20 h-full flex-nowrap rounded-2xl bg-slate-100 text-slate-900"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -123,7 +123,7 @@ export default async function Image() {
           >
             <div
               style={{ display: "flex" }}
-              tw="items-center justify-center w-20 h-full flex-nowrap rounded-2xl bg-slate-200 text-slate-900"
+              tw="items-center justify-center w-20 h-full flex-nowrap rounded-2xl bg-slate-100 text-slate-900"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -159,7 +159,7 @@ export default async function Image() {
           >
             <div
               style={{ display: "flex" }}
-              tw="items-center justify-center w-20 h-full flex-nowrap rounded-2xl bg-slate-200 text-slate-900"
+              tw="items-center justify-center w-20 h-full flex-nowrap rounded-2xl bg-slate-100 text-slate-900"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -92,7 +92,7 @@ export default async function Image({ params }: { params: { song: string } }) {
           >
             <div
               style={{ display: "flex" }}
-              tw="items-center justify-center w-20 h-full flex-nowrap rounded-2xl bg-slate-200 text-slate-900"
+              tw="items-center justify-center w-20 h-full flex-nowrap rounded-2xl bg-slate-100 text-slate-900"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
