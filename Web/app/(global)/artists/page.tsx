@@ -34,9 +34,10 @@ import { useEffect, useMemo, useState } from "react";
 import { COLUMNS, Data } from "./columns";
 
 export default function ArtistsPage() {
-  const { data: total_stats, loading: total_stats_loading } = useTotalStats([
-    Query.equal("title", "artist"),
-  ]);
+  const { data: total_stats, loading: total_stats_loading } = useTotalStats(
+    [Query.equal("title", "artist")],
+    true,
+  );
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<Data[]>([]);
   const [total, setTotal] = useState<number>(0);
@@ -120,7 +121,7 @@ export default function ArtistsPage() {
           }
           className="mb-4 max-w-sm"
         />
-        <div className="bg-background overflow-hidden rounded-xl border">
+        <div className="overflow-hidden rounded-xl border bg-background">
           <Table>
             <TableHeader className="bg-slate-100 dark:bg-slate-800">
               {table.getHeaderGroups().map((headerGroup) => (
@@ -173,7 +174,7 @@ export default function ArtistsPage() {
           </Table>
         </div>
         <div className="flex items-center justify-end space-x-2 py-4">
-          <div className="text-muted-foreground flex-1 text-sm">
+          <div className="flex-1 text-sm text-muted-foreground">
             {total < 5000 ? total : `${total}+`} Artist(s)
           </div>
           <div className="space-x-2">

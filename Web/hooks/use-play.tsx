@@ -3,7 +3,7 @@ import client, { database_service } from "@/lib/appwrite";
 import { DATABASE_ID, PLAYS_COLLECTION_ID } from "@/lib/constants";
 import { useEffect, useState } from "react";
 
-export default function usePlay(id: string) {
+export default function usePlay(id: string, initialLoad: boolean = false) {
   const [data, setData] = useState<Play>();
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -20,7 +20,7 @@ export default function usePlay(id: string) {
       setLoading(false);
     };
 
-    fetchData();
+    if (initialLoad) fetchData();
 
     const unsubscribe = client.subscribe(
       `databases.${DATABASE_ID}.collections.${PLAYS_COLLECTION_ID}.documents`,

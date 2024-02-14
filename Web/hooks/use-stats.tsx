@@ -4,13 +4,16 @@ import { DATABASE_ID, STATS_COLLECTION_ID } from "@/lib/constants";
 import { combineAndSumPlays } from "@/lib/utils";
 import { useEffect, useState } from "react";
 
-interface YearToDate {
+export interface YearToDate {
   name: string;
   plays: number;
   duration: string;
 }
 
-export default function useStats(queries: string[] = []) {
+export default function useStats(
+  queries: string[] = [],
+  initialLoad: boolean = false,
+) {
   const [yearToDate, setYearToDate] = useState<YearToDate[]>();
   const [data, setData] = useState<Stat[]>();
   const [loading, setLoading] = useState<boolean>(true);
@@ -41,7 +44,7 @@ export default function useStats(queries: string[] = []) {
       setLoading(false);
     };
 
-    fetchData();
+    if (initialLoad) fetchData();
 
     const unsubscribe = client.subscribe(
       `databases.${DATABASE_ID}.collections.${STATS_COLLECTION_ID}.documents`,

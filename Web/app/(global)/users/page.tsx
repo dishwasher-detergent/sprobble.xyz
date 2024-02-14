@@ -34,9 +34,10 @@ import { useEffect, useMemo, useState } from "react";
 import { COLUMNS, Data } from "./columns";
 
 export default function SongsPage() {
-  const { total: users_total, loading: users_loading } = useUsers([
-    Query.notEqual("user_id", "global"),
-  ]);
+  const { total: users_total, loading: users_loading } = useUsers(
+    [Query.notEqual("user_id", "global")],
+    true,
+  );
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<Data[]>([]);
   const [total, setTotal] = useState<number>(0);

@@ -3,7 +3,10 @@ import client, { database_service } from "@/lib/appwrite";
 import { DATABASE_ID, PLAYS_MINIFIED_COLLECTION_ID } from "@/lib/constants";
 import { useEffect, useState } from "react";
 
-export default function usePlays(queries: string[] = []) {
+export default function usePlays(
+  queries: string[] = [],
+  initialLoad: boolean = false,
+) {
   const [data, setData] = useState<PlayMinified[]>();
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -20,7 +23,7 @@ export default function usePlays(queries: string[] = []) {
       setLoading(false);
     };
 
-    fetchData();
+    if (initialLoad) fetchData();
 
     const unsubscribe = client.subscribe(
       `databases.${DATABASE_ID}.collections.${PLAYS_MINIFIED_COLLECTION_ID}.documents`,

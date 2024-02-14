@@ -3,7 +3,10 @@ import client, { database_service } from "@/lib/appwrite";
 import { DATABASE_ID, TOTAL_STATS_COLLECTION_ID } from "@/lib/constants";
 import { useEffect, useState } from "react";
 
-export default function useTotalStats(queries: string[] = []) {
+export default function useTotalStats(
+  queries: string[] = [],
+  initialLoad: boolean = false,
+) {
   const [data, setData] = useState<TotalStat[]>();
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -19,7 +22,7 @@ export default function useTotalStats(queries: string[] = []) {
       setLoading(false);
     };
 
-    fetchData();
+    if (initialLoad) fetchData();
 
     const unsubscribe = client.subscribe(
       `databases.${DATABASE_ID}.collections.${TOTAL_STATS_COLLECTION_ID}.documents`,

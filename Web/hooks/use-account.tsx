@@ -9,7 +9,7 @@ import { fetchAndSaveImage } from "@/lib/utils";
 import { Permission, Role } from "appwrite";
 import { useEffect, useState } from "react";
 
-export default function useAccount() {
+export default function useAccount(initialLoad: boolean = false) {
   const [data, setData] = useState<any>();
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -28,7 +28,7 @@ export default function useAccount() {
       setLoading(false);
     };
 
-    fetchData();
+    if (initialLoad) fetchData();
 
     const unsubscribe = client.subscribe(`account`, (res) => {
       if (res.events.filter((x) => x.includes("delete")).length > 0) {

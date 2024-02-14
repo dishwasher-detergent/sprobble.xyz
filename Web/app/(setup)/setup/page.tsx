@@ -7,7 +7,7 @@ import { useEffect } from "react";
 
 export default function AccountPage() {
   const router = useRouter();
-  const { createAccount } = useAccount();
+  const { createAccount } = useAccount(true);
 
   useEffect(() => {
     const init = async () => {

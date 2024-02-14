@@ -3,7 +3,7 @@ import client, { database_service } from "@/lib/appwrite";
 import { ALBUM_COLLECTION_ID, DATABASE_ID } from "@/lib/constants";
 import { useEffect, useState } from "react";
 
-export default function useAlbum(id: string) {
+export default function useAlbum(id: string, initialLoad: boolean = false) {
   const [data, setData] = useState<Album>();
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -20,7 +20,7 @@ export default function useAlbum(id: string) {
       setLoading(false);
     };
 
-    fetchData();
+    if (initialLoad) fetchData();
 
     const unsubscribe = client.subscribe(
       `databases.${DATABASE_ID}.collections.${ALBUM_COLLECTION_ID}.documents`,

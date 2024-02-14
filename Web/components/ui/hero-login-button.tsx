@@ -6,7 +6,7 @@ import useAccount from "@/hooks/use-account";
 import { auth_service } from "@/lib/appwrite";
 
 export function HeroLoginButton() {
-  const { data, loading } = useAccount();
+  const { data, loading } = useAccount(true);
 
   return !data ? (
     <Button

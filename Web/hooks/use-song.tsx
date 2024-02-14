@@ -3,7 +3,7 @@ import client, { database_service } from "@/lib/appwrite";
 import { DATABASE_ID, TRACK_COLLECTION_ID } from "@/lib/constants";
 import { useEffect, useState } from "react";
 
-export default function useSong(id: string) {
+export default function useSong(id: string, initialLoad: boolean = false) {
   const [data, setData] = useState<Track>();
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -20,7 +20,7 @@ export default function useSong(id: string) {
       setLoading(false);
     };
 
-    fetchData();
+    if (initialLoad) fetchData();
 
     const unsubscribe = client.subscribe(
       `databases.${DATABASE_ID}.collections.${TRACK_COLLECTION_ID}.documents`,

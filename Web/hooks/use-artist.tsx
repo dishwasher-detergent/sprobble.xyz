@@ -3,12 +3,14 @@ import client, { database_service } from "@/lib/appwrite";
 import { ARTIST_COLLECTION_ID, DATABASE_ID } from "@/lib/constants";
 import { useEffect, useState } from "react";
 
-export default function useArtist(id: string) {
+export default function useArtist(id: string, initialLoad: boolean = false) {
   const [data, setData] = useState<Artist>();
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log("test");
+
       setLoading(true);
 
       const response = await database_service.get<Artist>(
@@ -20,7 +22,7 @@ export default function useArtist(id: string) {
       setLoading(false);
     };
 
-    fetchData();
+    if (initialLoad) fetchData();
 
     const unsubscribe = client.subscribe(
       `databases.${DATABASE_ID}.collections.${ARTIST_COLLECTION_ID}.documents`,
