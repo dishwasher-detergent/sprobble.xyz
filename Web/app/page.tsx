@@ -8,6 +8,7 @@ import { Stat } from "@/interfaces/stats.interface";
 import { TotalStat } from "@/interfaces/total-stats.interface";
 import { rest_service } from "@/lib/appwrite";
 import {
+  DOMAIN,
   PLAYS_MINIFIED_COLLECTION_ID,
   STATS_COLLECTION_ID,
   TOTAL_STATS_COLLECTION_ID,
@@ -15,6 +16,30 @@ import {
 import { combineAndSumPlays } from "@/lib/utils";
 import { Query } from "appwrite";
 import { LucideLineChart, LucidePartyPopper } from "lucide-react";
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    metadataBase: new URL(DOMAIN),
+    title: "Sprobble",
+    description: "The best place to track your music",
+    openGraph: {
+      title: "Sprobble",
+      description: "The best place to track your music",
+      url: DOMAIN,
+      siteName: "sprobble.xyz",
+      locale: "en_US",
+      type: "website",
+      images: ["/opengraph-image.png"],
+    },
+    twitter: {
+      card: "summary",
+      title: "Sprobble",
+      description: "The best place to track your music",
+      images: ["/opengraph-image.png"],
+    },
+  };
+}
 
 export default async function Home() {
   const weekToWeek = await rest_service.list<Stat>(STATS_COLLECTION_ID, [
