@@ -4,9 +4,38 @@ import { Header } from "@/components/ui/header";
 import { SpotifyLink } from "@/components/ui/spotify-link";
 import { Track } from "@/interfaces/track.interface";
 import { rest_service } from "@/lib/appwrite";
-import { TRACK_COLLECTION_ID } from "@/lib/constants";
+import { DOMAIN, TRACK_COLLECTION_ID } from "@/lib/constants";
 import { LucideAudioLines } from "lucide-react";
+import { Metadata } from "next";
 import Link from "next/link";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { song: string };
+}): Promise<Metadata> {
+  const { song: id } = params;
+  const song = await rest_service.get<Track>(TRACK_COLLECTION_ID, id);
+
+  return {
+    metadataBase: new URL(DOMAIN),
+    title: `Sprobble - ${song.name}`,
+    description: `${song.name}'s Sprobble Statistics.`,
+    openGraph: {
+      title: `Sprobble - ${song.name}`,
+      description: `${song.name}'s Sprobble Statistics.`,
+      url: DOMAIN,
+      siteName: "sprobble.xyz",
+      locale: "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `Sprobble - ${song.name}`,
+      description: `${song.name}'s Sprobble Statistics.`,
+    },
+  };
+}
 
 export default async function SongPage({
   params,

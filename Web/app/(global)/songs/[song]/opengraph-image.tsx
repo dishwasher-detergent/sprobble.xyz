@@ -1,22 +1,17 @@
-import { Stat } from "@/interfaces/stats.interface";
-import { User } from "@/interfaces/user.interface";
+import { Track } from "@/interfaces/track.interface";
 import {
-  AVATARS_BUCKET_ID,
   DATABASE_ID,
   ENDPOINT,
   PROJECT_ID,
-  STATS_COLLECTION_ID,
-  USER_COLLECTION_ID,
+  TRACK_COLLECTION_ID,
 } from "@/lib/constants";
-import { combineAndSumPlays } from "@/lib/utils";
-import { Models } from "appwrite";
 import { ImageResponse } from "next/og";
 
 // Route segment config
 export const runtime = "edge";
 
 // Image metadata
-export const alt = "Sprobble - User Statistics";
+export const alt = "Sprobble - Song Statistics";
 export const size = {
   width: 640,
   height: 640,
@@ -25,30 +20,14 @@ export const size = {
 export const contentType = "image/png";
 
 // Image generation
-export default async function Image({ params }: { params: { user: string } }) {
-  const { user: id } = params;
-
-  const userUrl = `${ENDPOINT}/databases/${DATABASE_ID}/collections/${USER_COLLECTION_ID}/documents/${id}`;
-  const user: User = await fetch(userUrl, {
+export default async function Image({ params }: { params: { song: string } }) {
+  const { song: id } = params;
+  const url = `${ENDPOINT}/databases/${DATABASE_ID}/collections/${TRACK_COLLECTION_ID}/documents/${id}`;
+  const data: Track = await fetch(url, {
     headers: {
       "x-appwrite-project": PROJECT_ID,
     },
   }).then((res) => res.json());
-
-  const url = `${ENDPOINT}/databases/${DATABASE_ID}/collections/${STATS_COLLECTION_ID}/documents?queries[]=equal("user_id", ["${id}"])&queries[]=select(["number_of_plays","user_id","time_spent_listening","week_of_year"])`;
-  const data: Models.DocumentList<Stat> = await fetch(url, {
-    headers: {
-      "x-appwrite-project": PROJECT_ID,
-    },
-  }).then((res) => res.json());
-
-  const weekToWeekFormatted = combineAndSumPlays(data.documents).map(
-    (stat) => ({
-      name: `Week ${stat.week_of_year}`,
-      plays: stat.number_of_plays,
-      duration: (Number(stat.time_spent_listening) / 1000 / 60 / 60).toFixed(2),
-    }),
-  );
 
   // Font
   const outfit = fetch(
@@ -91,11 +70,11 @@ export default async function Image({ params }: { params: { user: string } }) {
           >
             <img
               tw="h-full w-full object-cover"
-              src={`${ENDPOINT}/storage/buckets/${AVATARS_BUCKET_ID}/files/${user.avatar}/view?project=${PROJECT_ID}`}
+              src={`${data.album.images[0]}`}
             />
           </div>
-          <h1 tw="flex flex-col pb-4 text-center text-6xl font-black md:text-7xl lg:text-8xl m-0 p-0 pb-8 flex-none truncate">
-            {user.name}
+          <h1 tw="flex flex-col pb-4 text-center text-5xl font-black m-0 p-0 pb-8 flex-none truncate">
+            {data.name}
           </h1>
         </div>
         <div
@@ -132,48 +111,10 @@ export default async function Image({ params }: { params: { user: string } }) {
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>
               <h3 tw="text-sm font-semibold text-slate-600 m-0 p-0">
-                Total Sprobbles
+                Total Plays
               </h3>
               <p tw="text-5xl font-black text-slate-900 m-0 p-0">
-                {weekToWeekFormatted
-                  ?.reduce((a: any, b: any) => a + b.plays, 0)
-                  .toLocaleString() + " Sprobbles"}
-              </p>
-            </div>
-          </div>
-          <div
-            style={{ display: "flex", gap: "1rem" }}
-            tw="h-24 flex-1 rounded-3xl border bg-white p-2 flex-none"
-          >
-            <div
-              style={{ display: "flex" }}
-              tw="items-center justify-center w-20 h-full flex-nowrap rounded-2xl bg-slate-200 text-slate-900"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <circle cx="12" cy="12" r="10" />
-                <path d="M6 12c0-1.7.7-3.2 1.8-4.2" />
-                <circle cx="12" cy="12" r="2" />
-                <path d="M18 12c0 1.7-.7 3.2-1.8 4.2" />
-              </svg>
-            </div>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <h3 tw="text-sm font-semibold text-slate-600 m-0 p-0">
-                Total Hours
-              </h3>
-              <p tw="text-5xl font-black text-slate-900 m-0 p-0">
-                {weekToWeekFormatted
-                  ?.reduce((a: any, b: any) => a + Number(b.duration), 0)
-                  .toLocaleString() + " Hours"}
+                {data.plays.length}
               </p>
             </div>
           </div>
