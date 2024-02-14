@@ -1,6 +1,6 @@
-import { GlobalHistory } from "@/components/realtime/statistics/global/history";
-import { GlobalStats } from "@/components/realtime/statistics/global/stats";
-import { GlobalWeekToWeek } from "@/components/realtime/statistics/global/week-to-week";
+import { GlobalHistory } from "@/components/realtime/global/history";
+import { GlobalStats } from "@/components/realtime/global/stats";
+import { GlobalWeekToWeek } from "@/components/realtime/global/week-to-week";
 import { Header } from "@/components/ui/header";
 import { HeroLoginButton } from "@/components/ui/hero-login-button";
 import { PlayMinified } from "@/interfaces/plays-minified.interface";

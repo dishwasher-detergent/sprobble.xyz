@@ -1,5 +1,5 @@
-import { UserHistory } from "@/components/realtime/statistics/users/history";
-import { UserWeekToWeek } from "@/components/realtime/statistics/users/week-to-week";
+import { UserHistory } from "@/components/realtime/users/history";
+import { UserWeekToWeek } from "@/components/realtime/users/week-to-week";
 import { Header } from "@/components/ui/header";
 import { PlayMinified } from "@/interfaces/plays-minified.interface";
 import { Stat } from "@/interfaces/stats.interface";

@@ -1,5 +1,5 @@
-import { ArtistHistory } from "@/components/realtime/statistics/artists/history";
-import { ArtistStats } from "@/components/realtime/statistics/artists/stats";
+import { ArtistHistory } from "@/components/realtime/artists/history";
+import { ArtistStats } from "@/components/realtime/artists/stats";
 import { Header } from "@/components/ui/header";
 import { SpotifyLink } from "@/components/ui/spotify-link";
 import { Artist } from "@/interfaces/artist.interface";

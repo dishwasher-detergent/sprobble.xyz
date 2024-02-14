@@ -1,5 +1,5 @@
-import { SongHistory } from "@/components/realtime/statistics/songs/history";
-import { SongStats } from "@/components/realtime/statistics/songs/stats";
+import { SongHistory } from "@/components/realtime/songs/history";
+import { SongStats } from "@/components/realtime/songs/stats";
 import { Header } from "@/components/ui/header";
 import { SpotifyLink } from "@/components/ui/spotify-link";
 import { Track } from "@/interfaces/track.interface";
