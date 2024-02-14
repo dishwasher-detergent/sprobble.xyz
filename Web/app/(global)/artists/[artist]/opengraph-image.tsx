@@ -83,7 +83,7 @@ export default async function Image({
         >
           <div
             style={{ display: "flex", gap: "1rem" }}
-            tw="h-24 flex-1 rounded-3xl border bg-white p-2 flex-none"
+            tw="h-26 flex-1 rounded-3xl border bg-white p-2 flex-none"
           >
             <div
               style={{ display: "flex" }}
@@ -109,9 +109,7 @@ export default async function Image({
               </svg>
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <h3 tw="text-sm font-semibold text-slate-600 m-0 p-0">
-                Total Plays
-              </h3>
+              <h3 tw="font-semibold text-slate-600 m-0 p-0">Total Plays</h3>
               <p tw="text-5xl font-black text-slate-900 m-0 p-0">
                 {data.plays.length}
               </p>
@@ -119,7 +117,7 @@ export default async function Image({
           </div>
           <div
             style={{ display: "flex", gap: "1rem" }}
-            tw="h-24 flex-1 rounded-3xl border bg-white p-2 flex-none"
+            tw="h-26 flex-1 rounded-3xl border bg-white p-2 flex-none"
           >
             <div
               style={{ display: "flex" }}
@@ -141,7 +139,7 @@ export default async function Image({
               </svg>
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <h3 tw="text-sm font-semibold text-slate-600 m-0 p-0">
+              <h3 tw="font-semibold text-slate-600 m-0 p-0">
                 Total Unique Songs
               </h3>
               <p tw="text-5xl font-black text-slate-900 m-0 p-0">
@@ -151,7 +149,7 @@ export default async function Image({
           </div>
           <div
             style={{ display: "flex", gap: "1rem" }}
-            tw="h-24 flex-1 rounded-3xl border bg-white p-2 flex-none"
+            tw="h-26 flex-1 rounded-3xl border bg-white p-2 flex-none"
           >
             <div
               style={{ display: "flex" }}
@@ -175,7 +173,7 @@ export default async function Image({
               </svg>
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <h3 tw="text-sm font-semibold text-slate-600 m-0 p-0">
+              <h3 tw="font-semibold text-slate-600 m-0 p-0">
                 Total Unique Albums
               </h3>
               <p tw="text-5xl font-black text-slate-900 m-0 p-0">

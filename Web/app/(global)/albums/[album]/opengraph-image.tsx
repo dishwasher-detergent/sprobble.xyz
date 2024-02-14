@@ -70,7 +70,7 @@ export default async function Image({ params }: { params: { album: string } }) {
           >
             <img tw="h-full w-full object-cover" src={`${data.images[0]}`} />
           </div>
-          <h1 tw="flex flex-col pb-4 text-center text-5xl font-black m-0 p-0 pb-8 flex-none truncate">
+          <h1 tw="flex flex-col text-center text-5xl font-black m-0 p-0 flex-none truncate">
             {data.name}
           </h1>
         </div>
@@ -85,7 +85,7 @@ export default async function Image({ params }: { params: { album: string } }) {
         >
           <div
             style={{ display: "flex", gap: "1rem" }}
-            tw="h-24 flex-1 rounded-3xl border bg-white p-2 flex-none"
+            tw="h-26 flex-1 rounded-3xl border bg-white p-2 flex-none"
           >
             <div
               style={{ display: "flex" }}
@@ -111,9 +111,7 @@ export default async function Image({ params }: { params: { album: string } }) {
               </svg>
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <h3 tw="text-sm font-semibold text-slate-600 m-0 p-0">
-                Total Plays
-              </h3>
+              <h3 tw="font-semibold text-slate-600 m-0 p-0">Total Plays</h3>
               <p tw="text-5xl font-black text-slate-900 m-0 p-0">
                 {data.plays.length}
               </p>
@@ -121,7 +119,7 @@ export default async function Image({ params }: { params: { album: string } }) {
           </div>
           <div
             style={{ display: "flex", gap: "1rem" }}
-            tw="h-24 flex-1 rounded-3xl border bg-white p-2 flex-none"
+            tw="h-26 flex-1 rounded-3xl border bg-white p-2 flex-none"
           >
             <div
               style={{ display: "flex" }}
@@ -143,7 +141,7 @@ export default async function Image({ params }: { params: { album: string } }) {
               </svg>
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <h3 tw="text-sm font-semibold text-slate-600 m-0 p-0">
+              <h3 tw="font-semibold text-slate-600 m-0 p-0">
                 Total Unique Songs
               </h3>
               <p tw="text-5xl font-black text-slate-900 m-0 p-0">

@@ -94,7 +94,7 @@ export default async function Image({ params }: { params: { user: string } }) {
               src={`${ENDPOINT}/storage/buckets/${AVATARS_BUCKET_ID}/files/${user.avatar}/view?project=${PROJECT_ID}`}
             />
           </div>
-          <h1 tw="flex flex-col pb-4 text-center text-6xl font-black md:text-7xl lg:text-8xl m-0 p-0 pb-8 flex-none truncate">
+          <h1 tw="flex flex-col text-center text-5xl font-black m-0 p-0 flex-none truncate">
             {user.name}
           </h1>
         </div>
@@ -109,7 +109,7 @@ export default async function Image({ params }: { params: { user: string } }) {
         >
           <div
             style={{ display: "flex", gap: "1rem" }}
-            tw="h-24 flex-1 rounded-3xl border bg-white p-2 flex-none"
+            tw="h-26 flex-1 rounded-3xl border bg-white p-2 flex-none"
           >
             <div
               style={{ display: "flex" }}
@@ -131,9 +131,7 @@ export default async function Image({ params }: { params: { user: string } }) {
               </svg>
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <h3 tw="text-sm font-semibold text-slate-600 m-0 p-0">
-                Total Sprobbles
-              </h3>
+              <h3 tw="font-semibold text-slate-600 m-0 p-0">Total Sprobbles</h3>
               <p tw="text-5xl font-black text-slate-900 m-0 p-0">
                 {weekToWeekFormatted
                   ?.reduce((a: any, b: any) => a + b.plays, 0)
@@ -143,7 +141,7 @@ export default async function Image({ params }: { params: { user: string } }) {
           </div>
           <div
             style={{ display: "flex", gap: "1rem" }}
-            tw="h-24 flex-1 rounded-3xl border bg-white p-2 flex-none"
+            tw="h-26 flex-1 rounded-3xl border bg-white p-2 flex-none"
           >
             <div
               style={{ display: "flex" }}
@@ -166,9 +164,7 @@ export default async function Image({ params }: { params: { user: string } }) {
               </svg>
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <h3 tw="text-sm font-semibold text-slate-600 m-0 p-0">
-                Total Hours
-              </h3>
+              <h3 tw="font-semibold text-slate-600 m-0 p-0">Total Hours</h3>
               <p tw="text-5xl font-black text-slate-900 m-0 p-0">
                 {weekToWeekFormatted
                   ?.reduce((a: any, b: any) => a + Number(b.duration), 0)
