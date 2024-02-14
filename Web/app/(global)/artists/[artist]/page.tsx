@@ -4,8 +4,37 @@ import { Header } from "@/components/ui/header";
 import { SpotifyLink } from "@/components/ui/spotify-link";
 import { Artist } from "@/interfaces/artist.interface";
 import { rest_service } from "@/lib/appwrite";
-import { ARTIST_COLLECTION_ID } from "@/lib/constants";
+import { ARTIST_COLLECTION_ID, DOMAIN } from "@/lib/constants";
 import { LucideAudioLines } from "lucide-react";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { artist: string };
+}): Promise<Metadata> {
+  const { artist: id } = params;
+  const artist = await rest_service.get<Artist>(ARTIST_COLLECTION_ID, id);
+
+  return {
+    metadataBase: new URL(DOMAIN),
+    title: `Sprobble - ${artist.name}`,
+    description: `${artist.name}'s Sprobble Statistics.`,
+    openGraph: {
+      title: `Sprobble - ${artist.name}`,
+      description: `${artist.name}'s Sprobble Statistics.`,
+      url: DOMAIN,
+      siteName: "sprobble.xyz",
+      locale: "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `Sprobble - ${artist.name}`,
+      description: `${artist.name}'s Sprobble Statistics.`,
+    },
+  };
+}
 
 export default async function ArtistPage({
   params,
