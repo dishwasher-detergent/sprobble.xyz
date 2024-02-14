@@ -6,6 +6,7 @@ import { Stat } from "@/interfaces/stats.interface";
 import { User } from "@/interfaces/user.interface";
 import { rest_service } from "@/lib/appwrite";
 import {
+  DOMAIN,
   PLAYS_MINIFIED_COLLECTION_ID,
   STATS_COLLECTION_ID,
   USER_COLLECTION_ID,
@@ -13,6 +14,35 @@ import {
 import { combineAndSumPlays } from "@/lib/utils";
 import { Query } from "appwrite";
 import { LucideAudioLines } from "lucide-react";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { user: string };
+}): Promise<Metadata> {
+  const { user: id } = params;
+  const user = await rest_service.get<User>(USER_COLLECTION_ID, id);
+
+  return {
+    metadataBase: new URL(DOMAIN),
+    title: `Sprobble - ${user.name}`,
+    description: `${user.name}'s Sprobble Statistics.`,
+    openGraph: {
+      title: `Sprobble - ${user.name}`,
+      description: `${user.name}'s Sprobble Statistics.`,
+      url: DOMAIN,
+      siteName: "sprobble.xyz",
+      locale: "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `Sprobble - ${user.name}`,
+      description: `${user.name}'s Sprobble Statistics.`,
+    },
+  };
+}
 
 export default async function UserPage({
   params,

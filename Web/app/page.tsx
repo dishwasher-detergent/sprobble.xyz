@@ -30,13 +30,11 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: "sprobble.xyz",
       locale: "en_US",
       type: "website",
-      images: ["/opengraph-image"],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title: "Sprobble",
       description: "The best place to track your music",
-      images: ["/opengraph-image"],
     },
   };
 }

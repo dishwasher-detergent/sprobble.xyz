@@ -312,6 +312,7 @@ export const rest_service = {
     queries: string[] = [],
   ) {
     const queryList = generateQueryList(queries);
+
     const url = `${ENDPOINT}/databases/${DATABASE_ID}/collections/${collectionId}/documents${queries.length > 0 ? `?${queryList.toString()}` : ""}`;
 
     const response = await fetch(url, {
