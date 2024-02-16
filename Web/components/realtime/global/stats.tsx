@@ -30,17 +30,23 @@ export function GlobalStats({ initial }: GlobalStatsProps) {
     <>
       <StatCard
         title="Unique Songs"
-        stat={data?.filter((x) => x.title === TRACK_COLLECTION_ID)[0].count}
+        stat={
+          data?.filter((x) => x.title === TRACK_COLLECTION_ID)[0]?.count ?? 0
+        }
         icon={<LucideMusic3 className="h-12 w-12" />}
       />
       <StatCard
         title="Unique Albums"
-        stat={data?.filter((x) => x.title === ALBUM_COLLECTION_ID)[0].count}
+        stat={
+          data?.filter((x) => x.title === ALBUM_COLLECTION_ID)[0]?.count ?? 0
+        }
         icon={<LucideDisc3 className="h-12 w-12" />}
       />
       <StatCard
         title="Unique Artists"
-        stat={data?.filter((x) => x.title === ARTIST_COLLECTION_ID)[0].count}
+        stat={
+          data?.filter((x) => x.title === ARTIST_COLLECTION_ID)[0]?.count ?? 0
+        }
         icon={<LucidePersonStanding className="h-12 w-12" />}
       />
     </>

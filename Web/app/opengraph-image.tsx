@@ -109,11 +109,9 @@ export default async function Image() {
             <div style={{ display: "flex", flexDirection: "column" }}>
               <h3 tw="font-semibold text-slate-600 m-0 p-0">Unique Songs</h3>
               <p tw="text-5xl font-black text-slate-900 m-0 p-0">
-                {
-                  data.documents.filter(
-                    (x) => x.title === TRACK_COLLECTION_ID,
-                  )[0].count
-                }
+                {data.documents.filter(
+                  (x) => x.title === TRACK_COLLECTION_ID,
+                )[0]?.count ?? 0}
               </p>
             </div>
           </div>
@@ -145,11 +143,9 @@ export default async function Image() {
             <div style={{ display: "flex", flexDirection: "column" }}>
               <h3 tw="font-semibold text-slate-600 m-0 p-0">Unique Albums</h3>
               <p tw="text-5xl font-black text-slate-900 m-0 p-0">
-                {
-                  data.documents.filter(
-                    (x) => x.title === ALBUM_COLLECTION_ID,
-                  )[0].count
-                }
+                {data.documents.filter(
+                  (x) => x.title === ALBUM_COLLECTION_ID,
+                )[0]?.count ?? 0}
               </p>
             </div>
           </div>
@@ -181,11 +177,9 @@ export default async function Image() {
             <div style={{ display: "flex", flexDirection: "column" }}>
               <h3 tw="font-semibold text-slate-600 m-0 p-0">Unique Artists</h3>
               <p tw="text-5xl font-black text-slate-900 m-0 p-0">
-                {
-                  data.documents.filter(
-                    (x) => x.title === ARTIST_COLLECTION_ID,
-                  )[0].count
-                }
+                {data.documents.filter(
+                  (x) => x.title === ARTIST_COLLECTION_ID,
+                )[0]?.count ?? 0}
               </p>
             </div>
           </div>
