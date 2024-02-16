@@ -293,6 +293,9 @@ export const rest_service = {
       headers: {
         "x-appwrite-project": PROJECT_ID,
       },
+      next: {
+        revalidate: 0,
+      },
     });
 
     const result: T = await response.json();
@@ -318,6 +321,9 @@ export const rest_service = {
     const response = await fetch(url, {
       headers: {
         "x-appwrite-project": PROJECT_ID,
+      },
+      next: {
+        revalidate: 0,
       },
     });
 
