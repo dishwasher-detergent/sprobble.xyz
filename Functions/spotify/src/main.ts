@@ -91,45 +91,60 @@ export default async ({ req, res, log, error }: Context) => {
       continue;
     }
 
-    for (let j = 0; j < spotifyHistory.items.length; j++) {
-      const spotifyItem = spotifyHistory.items[j];
-      const track = spotifyItem.track;
+    try {
+      log(`Adding albums`);
 
-      try {
-        log(`Adding album`);
-        await addAlbumToDatabase(track, database);
-      } catch (err) {
-        log(`Error adding album to database for ${user.name}`);
-        error((err as Error).message);
-        continue;
-      }
+      await Promise.all(
+        spotifyHistory.items.map((item: any) => {
+          addAlbumToDatabase(item.track, database);
+        })
+      );
+    } catch (err) {
+      log(`Error adding albums to database for ${user.name}`);
+      error((err as Error).message);
+      continue;
+    }
 
-      try {
-        log(`Adding artist`);
-        await addArtistToDatabase(track, database);
-      } catch (err) {
-        log(`Error adding artist to database for ${user.name}`);
-        error((err as Error).message);
-        continue;
-      }
+    try {
+      log(`Adding artists`);
 
-      try {
-        log(`Adding track`);
-        await addTrackToDatabase(track, database);
-      } catch (err) {
-        log(`Error adding track to database for ${user.name}`);
-        error((err as Error).message);
-        continue;
-      }
+      await Promise.all(
+        spotifyHistory.items.map((item: any) => {
+          addArtistToDatabase(item.track, database);
+        })
+      );
+    } catch (err) {
+      log(`Error adding artists to database for ${user.name}`);
+      error((err as Error).message);
+      continue;
+    }
 
-      try {
-        log(`Adding listen`);
-        await addListenToDatabase(user.$id, spotifyItem, database);
-      } catch (err) {
-        log(`Error adding listen to database for ${user.name}`);
-        error((err as Error).message);
-        continue;
-      }
+    try {
+      log(`Adding tracks`);
+
+      await Promise.all(
+        spotifyHistory.items.map((item: any) => {
+          addTrackToDatabase(item.track, database);
+        })
+      );
+    } catch (err) {
+      log(`Error adding tracks to database for ${user.name}`);
+      error((err as Error).message);
+      continue;
+    }
+
+    try {
+      log(`Adding listens`);
+
+      await Promise.all(
+        spotifyHistory.items.map((item: any) => {
+          addListenToDatabase(user.$id, item, database);
+        })
+      );
+    } catch (err) {
+      log(`Error adding listens to database for ${user.name}`);
+      error((err as Error).message);
+      continue;
     }
   }
 
