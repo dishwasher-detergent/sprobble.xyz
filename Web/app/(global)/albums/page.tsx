@@ -111,7 +111,7 @@ export default function AlbumsPage() {
       <StatCardContainer>
         <StatCard
           title="Unique Albums"
-          stat={total_stats?.[0].count}
+          stat={total_stats?.[0]?.count ?? 0}
           icon={<LucideDisc3 className="h-12 w-12" />}
           loading={total_stats_loading}
         />

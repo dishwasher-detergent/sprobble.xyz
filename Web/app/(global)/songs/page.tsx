@@ -108,7 +108,7 @@ export default function SongsPage() {
       <StatCardContainer>
         <StatCard
           title="Unique Songs"
-          stat={total_stats?.[0].count}
+          stat={total_stats?.[0]?.count ?? 0}
           icon={<LucideMusic3 className="h-12 w-12" />}
           loading={total_stats_loading}
         />

@@ -107,7 +107,7 @@ export default function ArtistsPage() {
       <StatCardContainer>
         <StatCard
           title="Unique Artists"
-          stat={total_stats?.[0].count}
+          stat={total_stats?.[0]?.count ?? 0}
           icon={<LucidePersonStanding className="h-12 w-12" />}
           loading={total_stats_loading}
         />
