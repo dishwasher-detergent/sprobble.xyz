@@ -97,7 +97,7 @@ export default async ({ req, res, log, error }: Context) => {
     try {
       log(`Adding albums`);
 
-      await Promise.all(
+      await Promise.allSettled(
         spotifyHistory.items.map((item: any) => {
           addAlbumToDatabase(item.track, database);
         })
@@ -111,7 +111,7 @@ export default async ({ req, res, log, error }: Context) => {
     try {
       log(`Adding artists`);
 
-      await Promise.all(
+      await Promise.allSettled(
         spotifyHistory.items.map((item: any) => {
           addArtistToDatabase(item.track, database);
         })
@@ -125,7 +125,7 @@ export default async ({ req, res, log, error }: Context) => {
     try {
       log(`Adding tracks`);
 
-      await Promise.all(
+      await Promise.allSettled(
         spotifyHistory.items.map((item: any) => {
           addTrackToDatabase(item.track, database);
         })
@@ -139,7 +139,7 @@ export default async ({ req, res, log, error }: Context) => {
     try {
       log(`Creating relationships`);
 
-      await Promise.all(
+      await Promise.allSettled(
         spotifyHistory.items.map((item: any) => {
           createRelationships(item.track, database);
         })
@@ -153,7 +153,7 @@ export default async ({ req, res, log, error }: Context) => {
     try {
       log(`Adding listens`);
 
-      await Promise.all(
+      await Promise.allSettled(
         spotifyHistory.items.map((item: any) => {
           addListenToDatabase(user.$id, item, database);
         })
