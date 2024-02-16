@@ -78,22 +78,9 @@ export default function useAccount(initialLoad: boolean = false) {
               name: account.name,
               created_at: account.$createdAt,
               avatar: avatar.$id,
-              refresh_token: session.providerRefreshToken,
             },
             account.$id,
             [Permission.write(Role.user(account.$id))],
-          );
-        } catch (error) {
-          console.error(error);
-        }
-      } else {
-        try {
-          await database_service.update(
-            USER_COLLECTION_ID,
-            {
-              refresh_token: session.providerRefreshToken,
-            },
-            account.$id,
           );
         } catch (error) {
           console.error(error);
