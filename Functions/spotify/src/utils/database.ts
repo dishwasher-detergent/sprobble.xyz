@@ -41,13 +41,16 @@ export const addArtistToDatabase = async (
       .then(
         async (response) => {
           const albums = [...response.album.map((x: any) => x.$id), album.id];
+          const ablumsFiltered = albums.filter(
+            (item, index) => albums.indexOf(item) === index
+          );
 
           await database.updateDocument(
             databaseId,
             artistCollectionId,
             artists[i].id,
             {
-              album: albums,
+              album: [...ablumsFiltered],
             }
           );
         },
