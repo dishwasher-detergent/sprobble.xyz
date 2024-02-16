@@ -33,26 +33,14 @@ export const addArtistToDatabase = async (
   item: SpotifyTrack,
   database: Databases
 ) => {
-  const { artists, album } = item;
+  const { artists } = item;
 
   for (let i = 0; i < artists.length; i++) {
     await database
       .getDocument<Artist>(databaseId, artistCollectionId, artists[i].id)
       .then(
-        async (response) => {
-          const albums = [...response.album.map((x: any) => x.$id), album.id];
-          const ablumsFiltered = albums.filter(
-            (item, index) => albums.indexOf(item) === index
-          );
-
-          await database.updateDocument(
-            databaseId,
-            artistCollectionId,
-            artists[i].id,
-            {
-              album: [...ablumsFiltered],
-            }
-          );
+        () => {
+          return;
         },
         async () => {
           await database.createDocument(
@@ -65,7 +53,6 @@ export const addArtistToDatabase = async (
               popularity: artists[i].popularity,
               images: artists[i].images?.map((image) => image.url) ?? [],
               genres: artists[i].genres ?? [],
-              album: [album.id],
             }
           );
         }
@@ -89,8 +76,6 @@ export const addTrackToDatabase = async (
         preview: item.preview_url,
         explicit: item.explicit,
         duration: item.duration_ms,
-        album: album.id,
-        artist: [...artists.map((x) => x.id)],
       });
     }
   );
@@ -123,4 +108,20 @@ export const addListenToDatabase = async (
       user: user_id,
     }
   );
+};
+
+export const createRelationships = async (
+  item: SpotifyTrack,
+  database: Databases
+) => {
+  const { album, artists } = item;
+
+  await database.updateDocument(databaseId, albumCollectionId, album.id, {
+    artist: [...album.artists.map((x) => x.id)],
+  });
+
+  await database.updateDocument(databaseId, trackCollectionId, item.id, {
+    artist: [...artists.map((x) => x.id)],
+    album: album.id,
+  });
 };

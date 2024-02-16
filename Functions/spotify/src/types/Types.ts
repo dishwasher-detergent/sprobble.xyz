@@ -93,6 +93,7 @@ export type SpotifyAlbum = {
   images: {
     url: string;
   }[];
+  artists: SpotifyArtist[];
 };
 
 export type SpotifyTrack = {

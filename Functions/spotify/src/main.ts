@@ -4,6 +4,7 @@ import {
   addArtistToDatabase,
   addListenToDatabase,
   addTrackToDatabase,
+  createRelationships,
 } from "./utils/database.js";
 import {
   checkAuthorization,
@@ -131,6 +132,20 @@ export default async ({ req, res, log, error }: Context) => {
       );
     } catch (err) {
       log(`Error adding tracks to database for ${user.name}`);
+      error((err as Error).message);
+      continue;
+    }
+
+    try {
+      log(`Creating relationships`);
+
+      await Promise.all(
+        spotifyHistory.items.map((item: any) => {
+          createRelationships(item.track, database);
+        })
+      );
+    } catch (err) {
+      log(`Error creating relationships for ${user.name}`);
       error((err as Error).message);
       continue;
     }
