@@ -114,12 +114,22 @@ export const createRelationships = async (
 ) => {
   const { album, artists } = item;
 
-  await database.updateDocument(databaseId, albumCollectionId, album.id, {
-    artist: [...album.artists.map((x) => x.id)],
-  });
+  try {
+    await database.updateDocument(databaseId, albumCollectionId, album.id, {
+      artist: [...album.artists.map((x) => x.id)],
+    });
+  } catch (err) {
+    console.log(album);
+    console.log((err as Error).message);
+  }
 
-  await database.updateDocument(databaseId, trackCollectionId, item.id, {
-    artist: [...artists.map((x) => x.id)],
-    album: album.id,
-  });
+  try {
+    await database.updateDocument(databaseId, trackCollectionId, item.id, {
+      artist: [...artists.map((x) => x.id)],
+      album: album.id,
+    });
+  } catch (err) {
+    console.log(artists)
+    console.log((err as Error).message);
+  }
 };
