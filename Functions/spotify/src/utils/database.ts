@@ -40,7 +40,7 @@ export const addArtistToDatabase = async (
       .getDocument<Artist>(databaseId, artistCollectionId, artists[i].id)
       .then(
         async (response) => {
-          const albums = [...response.album.map((x: any) => x.$id), album.$id];
+          const albums = [...response.album.map((x: any) => x.$id), album.id];
 
           await database.updateDocument(
             databaseId,
