@@ -22,7 +22,7 @@ export const addAlbumToDatabase = async (
       await database.createDocument(databaseId, albumCollectionId, album.id, {
         name: album.name,
         href: album.external_urls.spotify,
-        popularity: album.popularity,
+        popularity: album.popularity ?? 0,
         images: album.images?.map((image) => image.url) ?? [],
       });
     }
@@ -33,11 +33,11 @@ export const addArtistToDatabase = async (
   item: SpotifyTrack,
   database: Databases
 ) => {
-  const { artists } = item;
+  const { album } = item;
 
-  for (let i = 0; i < artists.length; i++) {
+  for (let i = 0; i < album.artists.length; i++) {
     await database
-      .getDocument<Artist>(databaseId, artistCollectionId, artists[i].id)
+      .getDocument<Artist>(databaseId, artistCollectionId, album.artists[i].id)
       .then(
         () => {
           return;
@@ -46,13 +46,13 @@ export const addArtistToDatabase = async (
           await database.createDocument(
             databaseId,
             artistCollectionId,
-            artists[i].id,
+            album.artists[i].id,
             {
-              name: artists[i].name,
-              href: artists[i].external_urls.spotify,
-              popularity: artists[i].popularity,
-              images: artists[i].images?.map((image) => image.url) ?? [],
-              genres: artists[i].genres ?? [],
+              name: album.artists[i].name,
+              href: album.artists[i].external_urls.spotify,
+              popularity: album.artists[i].popularity ?? 0,
+              images: album.artists[i].images?.map((image) => image.url) ?? [],
+              genres: album.artists[i].genres ?? [],
             }
           );
         }
@@ -64,8 +64,6 @@ export const addTrackToDatabase = async (
   item: SpotifyTrack,
   database: Databases
 ) => {
-  const { artists, album } = item;
-
   await database.getDocument(databaseId, trackCollectionId, item.id).then(
     () => null,
     async () => {
