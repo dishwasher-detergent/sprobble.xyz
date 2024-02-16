@@ -37,10 +37,12 @@ export default async ({ req, res, log, error }: Context) => {
   const fetched_users = await users.list<{ refresh_token: string }>();
 
   for (let i = 0; i < fetched_users.users.length; i++) {
+    log("============");
+
     const user = fetched_users.users[i];
 
     if (!user.prefs.refresh_token) {
-      log(`No refresh token for ${user.name}`);
+      log(`No refresh token for ${user.name}.`);
       continue;
     }
 
@@ -52,7 +54,7 @@ export default async ({ req, res, log, error }: Context) => {
       log(`Checking authorization for ${user.name}`);
       authorization = await checkAuthorization(database, user.$id);
     } catch (err) {
-      log(`Error checking authorization for ${user.name}`);
+      log(`Error checking authorization for ${user.name}.`);
       error((err as Error).message);
       continue;
     }
@@ -67,7 +69,7 @@ export default async ({ req, res, log, error }: Context) => {
         user.prefs.refresh_token
       );
     } catch (err) {
-      log(`Error getting access token for ${user.name}`);
+      log(`Error getting access token for ${user.name}.`);
       error((err as Error).message);
       continue;
     }
@@ -81,13 +83,13 @@ export default async ({ req, res, log, error }: Context) => {
       log(`Fetching history for ${user.name}`);
       spotifyHistory = await getPlayerHistory(spotifyAccessToken.access_token);
     } catch (err) {
-      log(`Error getting player history for ${user.name}`);
+      log(`Error getting player history for ${user.name}.`);
       error((err as Error).message);
       continue;
     }
 
     if (spotifyHistory == null || spotifyHistory.items.length == 0) {
-      log("No history items.");
+      log(`No history items for ${user.name}.`);
       continue;
     }
 
