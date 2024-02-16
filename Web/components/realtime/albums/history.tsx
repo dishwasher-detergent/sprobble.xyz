@@ -38,7 +38,7 @@ export function AlbumHistory({ initial, id }: AlbumHistoryProps) {
               id: data.$id,
               name: data.name,
             }}
-            artists={x.artist.map((y: any) => ({
+            artists={x.artist?.map((y: any) => ({
               id: y.$id,
               name: y.name,
             }))}

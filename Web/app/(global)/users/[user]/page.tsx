@@ -4,17 +4,18 @@ import { Header } from "@/components/ui/header";
 import { PlayMinified } from "@/interfaces/plays-minified.interface";
 import { Stat } from "@/interfaces/stats.interface";
 import { User } from "@/interfaces/user.interface";
-import { rest_service } from "@/lib/appwrite";
 import {
   DOMAIN,
   PLAYS_MINIFIED_COLLECTION_ID,
   STATS_COLLECTION_ID,
   USER_COLLECTION_ID,
 } from "@/lib/constants";
+import { rest_service } from "@/lib/rest";
 import { combineAndSumPlays } from "@/lib/utils";
 import { Query } from "appwrite";
 import { LucideAudioLines } from "lucide-react";
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 export async function generateMetadata({
   params,
@@ -51,6 +52,11 @@ export default async function UserPage({
 }) {
   const { user: id } = params;
   const user = await rest_service.get<User>(USER_COLLECTION_ID, id);
+
+  if (user.code) {
+    redirect("/");
+  }
+
   const plays = await rest_service.list<PlayMinified>(
     PLAYS_MINIFIED_COLLECTION_ID,
     [Query.equal("user_id", id), Query.orderDesc("played_at")],

@@ -3,11 +3,12 @@ import { SongStats } from "@/components/realtime/songs/stats";
 import { Header } from "@/components/ui/header";
 import { SpotifyLink } from "@/components/ui/spotify-link";
 import { Track } from "@/interfaces/track.interface";
-import { rest_service } from "@/lib/appwrite";
 import { DOMAIN, TRACK_COLLECTION_ID } from "@/lib/constants";
+import { rest_service } from "@/lib/rest";
 import { LucideAudioLines } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export async function generateMetadata({
   params,
@@ -44,6 +45,10 @@ export default async function SongPage({
 }) {
   const { song: id } = params;
   const song = await rest_service.get<Track>(TRACK_COLLECTION_ID, id);
+
+  if (song.code) {
+    redirect("/");
+  }
 
   return (
     <>

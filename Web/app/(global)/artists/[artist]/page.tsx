@@ -3,10 +3,11 @@ import { ArtistStats } from "@/components/realtime/artists/stats";
 import { Header } from "@/components/ui/header";
 import { SpotifyLink } from "@/components/ui/spotify-link";
 import { Artist } from "@/interfaces/artist.interface";
-import { rest_service } from "@/lib/appwrite";
 import { ARTIST_COLLECTION_ID, DOMAIN } from "@/lib/constants";
+import { rest_service } from "@/lib/rest";
 import { LucideAudioLines } from "lucide-react";
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 export async function generateMetadata({
   params,
@@ -43,6 +44,10 @@ export default async function ArtistPage({
 }) {
   const { artist: id } = params;
   const artist = await rest_service.get<Artist>(ARTIST_COLLECTION_ID, id);
+
+  if (artist.code) {
+    redirect("/");
+  }
 
   return (
     <>

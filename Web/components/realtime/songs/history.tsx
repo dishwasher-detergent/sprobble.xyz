@@ -38,7 +38,7 @@ export function SongHistory({ initial, id }: SongHistoryProps) {
               id: x.album.$id,
               name: x.album.name,
             }}
-            artists={x.artist.map((y: any) => ({
+            artists={x.artist?.map((y: any) => ({
               id: y.$id,
               name: y.name,
             }))}

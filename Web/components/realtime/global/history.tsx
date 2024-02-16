@@ -41,7 +41,7 @@ export function GlobalHistory({ initial }: GlobalHistoryProps) {
               id: x.album_id,
               name: x.album_name,
             }}
-            artists={JSON.parse(x.artist).map((y: any) => ({
+            artists={JSON.parse(x.artist)?.map((y: any) => ({
               id: y.id,
               name: y.name,
               href: y.href,

@@ -59,14 +59,14 @@ export function MusicCard({
           </Link>
           <div className="text-sm font-semibold">
             {artists.map((x, index) => (
-              <a
+              <Link
                 key={index}
                 href={`/artists/${x.id}`}
                 className="hover:text-primary"
               >
                 {index != 0 && ", "}
                 {x.name}
-              </a>
+              </Link>
             ))}
           </div>
           <Button asChild className="p-0" variant="link">

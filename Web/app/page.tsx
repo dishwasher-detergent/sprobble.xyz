@@ -6,13 +6,13 @@ import { HeroLoginButton } from "@/components/ui/hero-login-button";
 import { PlayMinified } from "@/interfaces/plays-minified.interface";
 import { Stat } from "@/interfaces/stats.interface";
 import { TotalStat } from "@/interfaces/total-stats.interface";
-import { rest_service } from "@/lib/appwrite";
 import {
   DOMAIN,
   PLAYS_MINIFIED_COLLECTION_ID,
   STATS_COLLECTION_ID,
   TOTAL_STATS_COLLECTION_ID,
 } from "@/lib/constants";
+import { rest_service } from "@/lib/rest";
 import { combineAndSumPlays } from "@/lib/utils";
 import { Query } from "appwrite";
 import { LucideLineChart, LucidePartyPopper } from "lucide-react";
