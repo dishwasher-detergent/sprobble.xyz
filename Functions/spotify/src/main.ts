@@ -38,7 +38,9 @@ export default async ({ req, res, log, error }: Context) => {
   const fetched_users = await users.list<{ refresh_token: string }>();
 
   for (let i = 0; i < fetched_users.users.length; i++) {
-    log("============");
+    log(
+      "----------------------------------------------------------------------------"
+    );
 
     const user = fetched_users.users[i];
 
@@ -94,75 +96,48 @@ export default async ({ req, res, log, error }: Context) => {
       continue;
     }
 
-    try {
-      log(`Adding albums`);
+    log(`${new Date().toString()}: Adding artits, albums, and tracks`);
 
-      await Promise.allSettled(
+    try {
+      await Promise.all(
         spotifyHistory.items.map((item: any) => {
           addAlbumToDatabase(item.track, database);
-        })
-      );
-    } catch (err) {
-      log(`Error adding albums to database for ${user.name}`);
-      error((err as Error).message);
-      continue;
-    }
-
-    try {
-      log(`Adding artists`);
-
-      await Promise.allSettled(
-        spotifyHistory.items.map((item: any) => {
           addArtistToDatabase(item.track, database);
-        })
-      );
-    } catch (err) {
-      log(`Error adding artists to database for ${user.name}`);
-      error((err as Error).message);
-      continue;
-    }
-
-    try {
-      log(`Adding tracks`);
-
-      await Promise.allSettled(
-        spotifyHistory.items.map((item: any) => {
           addTrackToDatabase(item.track, database);
         })
       );
     } catch (err) {
-      log(`Error adding tracks to database for ${user.name}`);
-      error((err as Error).message);
-      continue;
-    }
-
-    try {
-      log(`Creating relationships`);
-
-      await Promise.allSettled(
-        spotifyHistory.items.map((item: any) => {
-          createRelationships(item.track, database);
-        })
+      log(
+        `${new Date().toString()}: Error adding artists, albums, or tracks database for ${user.name}`
       );
-    } catch (err) {
-      log(`Error creating relationships for ${user.name}`);
       error((err as Error).message);
-      continue;
     }
 
-    try {
-      log(`Adding listens`);
+    log(
+      `${new Date().toString()}: Creating relationships, and adding listens.`
+    );
 
-      await Promise.allSettled(
-        spotifyHistory.items.map((item: any) => {
-          addListenToDatabase(user.$id, item, database);
-        })
-      );
-    } catch (err) {
-      log(`Error adding listens to database for ${user.name}`);
-      error((err as Error).message);
-      continue;
+    for (let i = 0; i < spotifyHistory.items.length; i++) {
+      try {
+        await addListenToDatabase(user.$id, spotifyHistory.items[i], database);
+      } catch (err) {
+        log(
+          `${new Date().toString()}: Error adding listen to database for ${user.name}`
+        );
+        error((err as Error).message);
+      }
+
+      try {
+        await createRelationships(spotifyHistory.items[i].track, database);
+      } catch (err) {
+        log(
+          `${new Date().toString()}: Error creating relationships ${user.name}`
+        );
+        error((err as Error).message);
+      }
     }
+
+    log(`${new Date().toString()}: Finished for ${user.name}`);
   }
 
   return res.send("Complete");
