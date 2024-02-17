@@ -1,3 +1,9 @@
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { AVATARS_BUCKET_ID, ENDPOINT, PROJECT_ID } from "@/lib/constants";
 import { LucideCalendar, LucideDot } from "lucide-react";
 import Link from "next/link";
@@ -34,15 +40,24 @@ export function MusicCard({
   played_at,
   user,
 }: MusicCardProps) {
-  const date = new Date(played_at).toLocaleDateString("en-us", {
+  const shortDate = new Date(played_at).toLocaleDateString("en-us", {
     year: "numeric",
     month: "long",
     day: "numeric",
   });
 
+  const fullDate = new Date(played_at).toLocaleDateString("en-us", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+  });
+
   return (
     <article className="flex flex-col gap-4 rounded-3xl border p-2">
-      <div className="flex flex-row gap-4 md:flex-col">
+      <div className="flex flex-1 flex-row gap-4 md:flex-col">
         <div className="aspect-square w-36 flex-none overflow-hidden rounded-2xl md:w-full">
           <img
             className="h-full w-full object-cover object-center"
@@ -102,7 +117,18 @@ export function MusicCard({
           ) : (
             <LucideCalendar className="h-6 w-6 flex-none px-1" />
           )}
-          <p className="truncate text-nowrap font-semibold">{date}</p>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <p className="truncate text-nowrap font-semibold">
+                  {shortDate}
+                </p>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{fullDate}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
       </div>
     </article>
