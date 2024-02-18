@@ -3,40 +3,47 @@ import { Header } from "@/components/ui/header";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SpotifyLink } from "@/components/ui/spotify-link";
 import { StatCard } from "@/components/ui/stat-card";
-import { StatCardContainer } from "@/components/ui/stat-card-container";
 import { LucideAudioLines, LucideDisc3, LucideMusic3 } from "lucide-react";
 
 export default function ArtistLoading() {
   return (
     <>
       <Header
-        className="mb-4 xl:mb-12 xl:pb-36"
         title={
           <Skeleton className="md:h-18 lg:h-22 relative z-10 mt-2 h-16 w-52" />
         }
         sub="Artist"
         altSub={<SpotifyLink type="artist" id={"1bDWGdIC2hardyt55nlQgG"} />}
       />
-      <StatCardContainer>
-        <StatCard
-          title="Total Plays"
-          stat={0}
-          icon={<LucideAudioLines className="h-12 w-12" />}
-          loading={true}
-        />
-        <StatCard
-          title="Total Unique Songs"
-          stat={0}
-          icon={<LucideMusic3 className="h-12 w-12" />}
-          loading={true}
-        />
-        <StatCard
-          title="Total Unique Albums"
-          stat={0}
-          icon={<LucideDisc3 className="h-12 w-12" />}
-          loading={true}
-        />
-      </StatCardContainer>
+      <section className="relative z-10 pb-12 xl:-mt-48">
+        <div className="grid grid-cols-1 gap-4 pb-4 md:grid-cols-3">
+          <div className="h-56 md:col-span-2 md:h-96">
+            <div className="z-10 flex h-full min-h-24 w-full flex-col gap-4 rounded-3xl border bg-background p-2">
+              <Skeleton className="h-full w-full" />
+            </div>
+          </div>
+          <div className="flex w-full flex-col gap-4">
+            <StatCard
+              title="Total Plays"
+              stat={0}
+              icon={<LucideAudioLines className="h-12 w-12" />}
+              loading={true}
+            />
+            <StatCard
+              title="Total Unique Songs"
+              stat={0}
+              icon={<LucideMusic3 className="h-12 w-12" />}
+              loading={true}
+            />
+            <StatCard
+              title="Total Unique Albums"
+              stat={0}
+              icon={<LucideDisc3 className="h-12 w-12" />}
+              loading={true}
+            />
+          </div>
+        </div>
+      </section>
       <section className="pb-12">
         <div className="flex flex-row flex-nowrap gap-4 pb-4 md:items-center md:justify-center">
           <LucideAudioLines className="h-10 w-10 flex-none rounded-xl bg-primary-foreground p-2 text-primary" />

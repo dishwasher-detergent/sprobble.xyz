@@ -96,39 +96,51 @@ export default async ({ req, res, log, error }: Context) => {
       continue;
     }
 
-    log(`${new Date().toString()}: Adding artits, albums, and tracks`);
-
-    try {
-      await Promise.all(
-        spotifyHistory.items.map((item: any) => {
-          addAlbumToDatabase(item.track, database);
-          addArtistToDatabase(item.track, database);
-          addTrackToDatabase(item.track, database);
-        })
-      );
-    } catch (err) {
-      log(
-        `${new Date().toString()}: Error adding artists, albums, or tracks database for ${user.name}`
-      );
-      error((err as Error).message);
-    }
-
-    log(
-      `${new Date().toString()}: Creating relationships, and adding listens.`
-    );
+    log(`${new Date().toString()}: Adding`);
 
     for (let i = 0; i < spotifyHistory.items.length; i++) {
       try {
-        await addListenToDatabase(user.$id, spotifyHistory.items[i], database);
+        await addAlbumToDatabase(spotifyHistory.items[i].track, database);
       } catch (err) {
-        log(
-          `${new Date().toString()}: Error adding listen to database for ${user.name}`
-        );
+        log(`${new Date().toString()}: Error adding album to database.`);
         error((err as Error).message);
       }
 
       try {
-        await createRelationships(spotifyHistory.items[i].track, database);
+        await addArtistToDatabase(spotifyHistory.items[i].track, database);
+      } catch (err) {
+        log(`${new Date().toString()}: Error adding artist to database.`);
+        error((err as Error).message);
+      }
+
+      try {
+        await addTrackToDatabase(spotifyHistory.items[i].track, database);
+      } catch (err) {
+        log(`${new Date().toString()}: Error adding track to database.`);
+        error((err as Error).message);
+      }
+
+      let listenId = null;
+
+      try {
+        listenId = await addListenToDatabase(
+          user.$id,
+          spotifyHistory.items[i],
+          database
+        );
+      } catch (err) {
+        log(`${new Date().toString()}: Error adding listen to database.`);
+        error((err as Error).message);
+      }
+
+      log(listenId);
+
+      try {
+        await createRelationships(
+          spotifyHistory.items[i].track,
+          listenId,
+          database
+        );
       } catch (err) {
         log(
           `${new Date().toString()}: Error creating relationships ${user.name}`
@@ -137,7 +149,7 @@ export default async ({ req, res, log, error }: Context) => {
       }
     }
 
-    log(`${new Date().toString()}: Finished for ${user.name}`);
+    log(`${new Date().toString()}: Finished`);
   }
 
   return res.send("Complete");

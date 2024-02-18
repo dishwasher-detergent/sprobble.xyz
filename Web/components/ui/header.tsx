@@ -16,7 +16,7 @@ export function Header({ title, sub, altSub, className }: HeaderProps) {
       )}
     >
       {sub && (
-        <div className="text-primary relative z-10 text-center text-xl font-bold md:text-3xl">
+        <div className="relative z-10 text-center text-xl font-bold text-primary dark:text-primary-foreground md:text-3xl">
           {sub}
         </div>
       )}

@@ -1,5 +1,5 @@
 import { UserHistory } from "@/components/realtime/users/history";
-import { UserWeekToWeek } from "@/components/realtime/users/week-to-week";
+import { WeekToWeek } from "@/components/realtime/week-to-week";
 import { Header } from "@/components/ui/header";
 import { PlayMinified } from "@/interfaces/plays-minified.interface";
 import { Stat } from "@/interfaces/stats.interface";
@@ -87,7 +87,7 @@ export default async function UserPage({
         sub="Sprobble"
       />
       <section className="relative z-10 h-96 pb-4 md:grid-cols-2 xl:-mt-24 xl:pb-12">
-        <UserWeekToWeek initial={weekToWeekFormatted} id={id} />
+        <WeekToWeek initial={weekToWeekFormatted} id={id} />
       </section>
       <section className="pb-12">
         <div className="flex flex-row flex-nowrap gap-4 pb-4 md:items-center md:justify-center">

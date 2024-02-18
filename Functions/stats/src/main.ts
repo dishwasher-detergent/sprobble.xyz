@@ -37,10 +37,33 @@ export default async ({ req, res, log, error }: Context) => {
   }
 
   try {
-    await addStat(database, body, "global");
+    await addStat(database, body, "global", false);
   } catch (err) {
     log("Error adding global stat");
     error(err);
+  }
+
+  try {
+    await addStat(database, body, body.track.$id, false, "track");
+  } catch (err) {
+    log("Error adding track stat");
+    error(err);
+  }
+
+  try {
+    await addStat(database, body, body.album.$id, false, "album");
+  } catch (err) {
+    log("Error adding album stat");
+    error(err);
+  }
+
+  for(let i = 0; i < body.artist.length; i++) {
+    try {
+      await addStat(database, body, body.artist[i].$id, false, "artist");
+    } catch (err) {
+      log("Error adding artist stat");
+      error(err);
+    }
   }
 
   return res.send("Complete");

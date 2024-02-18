@@ -8,6 +8,7 @@ import { AVATARS_BUCKET_ID, ENDPOINT, PROJECT_ID } from "@/lib/constants";
 import { LucideCalendar, LucideDot } from "lucide-react";
 import Link from "next/link";
 import { Button } from "./button";
+import { Spotify } from "./spotify";
 
 interface MusicCardProps {
   image: string;
@@ -84,9 +85,19 @@ export function MusicCard({
               </Link>
             ))}
           </div>
-          <Button asChild className="p-0" variant="link">
-            <a href={track.href} target="_blank">
-              Listen On Spotify
+          <Button
+            asChild
+            className="p-0 font-bold text-[#1ed760]"
+            variant="link"
+            size="lg"
+          >
+            <a
+              href={track.href}
+              target="_blank"
+              className="flex flex-row items-center gap-1"
+            >
+              <Spotify />
+              Play On Spotify
             </a>
           </Button>
         </div>

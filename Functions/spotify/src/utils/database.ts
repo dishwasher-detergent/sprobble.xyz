@@ -94,23 +94,23 @@ export const addListenToDatabase = async (
 
   if (existing.total >= 1) return;
 
-  await database.createDocument<Play>(
+  const response = await database.createDocument<Play>(
     databaseId,
     playsCollectionId,
     ID.unique(),
     {
       user_id: user_id,
       played_at: played_at,
-      track: track.id,
-      artist: [...track.artists.map((x) => x.id)],
-      album: track.album.id,
       user: user_id,
     }
   );
+
+  return response.$id;
 };
 
 export const createRelationships = async (
   item: SpotifyTrack,
+  listenId: string | null | undefined,
   database: Databases
 ) => {
   const { album, artists } = item;
@@ -125,4 +125,12 @@ export const createRelationships = async (
     artist: artistList,
     album: album.id,
   });
+
+  if (listenId) {
+    await database.updateDocument(databaseId, playsCollectionId, listenId, {
+      track: item.id,
+      artist: artistList,
+      album: album.id,
+    });
+  }
 };

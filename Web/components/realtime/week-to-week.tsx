@@ -10,7 +10,7 @@ interface UserSongsProps {
   id: string;
 }
 
-export function UserWeekToWeek({ initial, id }: UserSongsProps) {
+export function WeekToWeek({ initial, id }: UserSongsProps) {
   const [data, setData] = useState<YearToDate[]>(initial);
 
   const { yearToDate, loading: stats_loading } = useStats([

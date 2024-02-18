@@ -1,7 +1,6 @@
 "use client";
 
 import { StatCard } from "@/components/ui/stat-card";
-import { StatCardContainer } from "@/components/ui/stat-card-container";
 import useAlbum from "@/hooks/use-album";
 import { Album } from "@/interfaces/album.interface";
 import { LucideAudioLines, LucideMusic3 } from "lucide-react";
@@ -24,7 +23,7 @@ export function AlbumStats({ initial, id }: AlbumStatsProps) {
   }, [album]);
 
   return (
-    <StatCardContainer>
+    <>
       <StatCard
         title="Total Plays"
         stat={data?.plays.length}
@@ -35,6 +34,6 @@ export function AlbumStats({ initial, id }: AlbumStatsProps) {
         stat={data?.track.length}
         icon={<LucideMusic3 className="h-12 w-12" />}
       />
-    </StatCardContainer>
+    </>
   );
 }

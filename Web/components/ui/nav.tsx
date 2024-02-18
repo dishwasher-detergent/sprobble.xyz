@@ -1,12 +1,16 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { LoginButton } from "./login-button";
+import { ModeToggle } from "./theme-toggle";
 
 export function Nav() {
   return (
     <header className="w-full border-b">
       <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-4 py-2 md:flex-row md:justify-start">
-        <Link className="text-xl font-bold text-primary md:text-base" href="/">
+        <Link
+          className="text-xl font-bold text-primary dark:text-primary-foreground md:text-base"
+          href="/"
+        >
           Sprobble.xyz
         </Link>
         <nav className="flex-1">
@@ -34,6 +38,7 @@ export function Nav() {
           </ul>
         </nav>
         <LoginButton />
+        <ModeToggle />
       </div>
     </header>
   );
