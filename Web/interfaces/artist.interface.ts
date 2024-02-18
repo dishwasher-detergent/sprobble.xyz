@@ -1,8 +1,8 @@
 import { Album } from "@/interfaces/album.interface";
 import { Play } from "@/interfaces/plays.interface";
+import { Stat } from "@/interfaces/stats.interface";
 import { Track } from "@/interfaces/track.interface";
 import { Models } from "appwrite";
-import { Stat } from "./stats.interface";
 
 export interface Artist extends Models.Document {
   href: string;

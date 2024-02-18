@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
+import { LoginButton } from "@/components/ui/login-button";
+import { ModeToggle } from "@/components/ui/theme-toggle";
 import Link from "next/link";
-import { LoginButton } from "./login-button";
-import { ModeToggle } from "./theme-toggle";
 
 export function Nav() {
   return (

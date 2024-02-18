@@ -1,6 +1,6 @@
+import { Button } from "@/components/ui/button";
 import { LucideGithub } from "lucide-react";
 import Link from "next/link";
-import { Button } from "./button";
 
 export function Footer() {
   return (

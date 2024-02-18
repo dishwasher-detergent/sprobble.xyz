@@ -1,3 +1,5 @@
+import { Button } from "@/components/ui/button";
+import { Spotify } from "@/components/ui/spotify";
 import {
   Tooltip,
   TooltipContent,
@@ -7,8 +9,6 @@ import {
 import { AVATARS_BUCKET_ID, ENDPOINT, PROJECT_ID } from "@/lib/constants";
 import { LucideCalendar, LucideDot } from "lucide-react";
 import Link from "next/link";
-import { Button } from "./button";
-import { Spotify } from "./spotify";
 
 interface MusicCardProps {
   image: string;

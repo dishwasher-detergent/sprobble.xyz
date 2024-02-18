@@ -1,4 +1,4 @@
-import { Spotify } from "./spotify";
+import { Spotify } from "@/components/ui/spotify";
 
 export interface SpotifyLinkProps {
   id: string;
