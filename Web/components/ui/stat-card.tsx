@@ -16,7 +16,7 @@ export function StatCard({
   return !loading ? (
     <div className="flex h-24 w-full flex-row gap-4 rounded-3xl border bg-background p-2">
       {icon && (
-        <div className="grid aspect-square h-full flex-nowrap place-items-center rounded-2xl bg-primary-foreground text-primary dark:bg-primary dark:text-primary-foreground">
+        <div className="grid aspect-square h-full flex-nowrap place-items-center rounded-2xl bg-primary-foreground text-primary dark:bg-slate-800 dark:text-primary-foreground">
           {icon}
         </div>
       )}
