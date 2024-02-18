@@ -8,7 +8,7 @@ export function Nav() {
     <header className="w-full border-b">
       <div className="mx-auto grid w-full max-w-7xl grid-cols-12 grid-rows-2 flex-col items-center justify-center gap-2 px-4 py-2 md:flex md:flex-row md:justify-start">
         <Link
-          className="col-span-6 col-start-1 row-start-1 pl-4 text-xl font-bold text-primary dark:text-primary-foreground md:p-0 md:text-base"
+          className="col-span-6 col-start-1 row-start-1 pl-4 text-xl font-bold text-primary dark:text-primary-foreground md:p-0"
           href="/"
         >
           Sprobble.xyz

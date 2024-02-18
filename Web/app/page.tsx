@@ -84,7 +84,7 @@ export default async function Home() {
       />
       <section className="relative z-10 pb-16 xl:-mt-48">
         <div className="flex flex-row flex-nowrap gap-4 pb-4 md:items-center md:justify-center">
-          <LucideLineChart className="h-10 w-10 flex-none rounded-xl bg-primary-foreground p-2 text-primary" />
+          <LucideLineChart className="h-10 w-10 flex-none rounded-xl bg-primary-foreground p-2 text-primary dark:bg-primary dark:text-primary-foreground" />
           <h3 className="text-lg font-bold text-secondary-foreground md:text-xl">
             Check Out Our Global Stats
           </h3>
@@ -100,7 +100,7 @@ export default async function Home() {
       </section>
       <section className="pb-16">
         <div className="flex flex-row flex-nowrap gap-4 pb-4 md:items-center md:justify-center">
-          <LucidePartyPopper className="h-10 w-10 flex-none rounded-xl bg-primary-foreground p-2 text-primary" />
+          <LucidePartyPopper className="h-10 w-10 flex-none rounded-xl bg-primary-foreground p-2 text-primary dark:bg-primary dark:text-primary-foreground" />
           <h3 className="text-lg font-bold text-secondary-foreground md:text-xl">
             Lets&apos; See What Everyone Else Is Listening To
           </h3>

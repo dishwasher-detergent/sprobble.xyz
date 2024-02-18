@@ -67,7 +67,7 @@ export default async function Image() {
           style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
           tw="flex-1 items-center justify-center"
         >
-          <p tw="relative z-10 text-center text-2xl font-bold text-primary m-0 p-0 text-violet-700">
+          <p tw="relative z-10 text-center text-2xl font-bold text-primary dark:text-primary-foreground m-0 p-0 text-violet-700">
             Sprobble
           </p>
           <h1 tw="flex flex-col text-center text-5xl font-black m-0 p-0 flex-none truncate">

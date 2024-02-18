@@ -14,17 +14,17 @@ export function StatCard({
   loading = false,
 }: StatCardProps) {
   return !loading ? (
-    <div className="bg-background flex h-24 w-full flex-row gap-4 rounded-3xl border p-2">
+    <div className="flex h-24 w-full flex-row gap-4 rounded-3xl border bg-background p-2">
       {icon && (
-        <div className="bg-primary-foreground text-primary grid aspect-square h-full flex-nowrap place-items-center rounded-2xl">
+        <div className="grid aspect-square h-full flex-nowrap place-items-center rounded-2xl bg-primary-foreground text-primary dark:bg-primary dark:text-primary-foreground">
           {icon}
         </div>
       )}
       <div>
-        <h3 className="text-secondary-foreground text-sm font-semibold">
+        <h3 className="text-sm font-semibold text-secondary-foreground">
           {title}
         </h3>
-        <p className="text-secondary-foreground text-5xl font-black">{stat}</p>
+        <p className="text-5xl font-black text-secondary-foreground">{stat}</p>
       </div>
     </div>
   ) : (

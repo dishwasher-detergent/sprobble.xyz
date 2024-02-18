@@ -34,7 +34,7 @@ export default function SongLoading() {
       </section>
       <section className="pb-16">
         <div className="flex flex-row flex-nowrap gap-4 pb-4 md:items-center md:justify-center">
-          <LucideAudioLines className="h-10 w-10 flex-none rounded-xl bg-primary-foreground p-2 text-primary" />
+          <LucideAudioLines className="h-10 w-10 flex-none rounded-xl bg-primary-foreground p-2 text-primary dark:bg-primary dark:text-primary-foreground" />
           <h3 className="flex items-center gap-2 text-lg font-bold text-secondary-foreground md:text-xl">
             See Who&apos;s Listening To <Skeleton className="h-8 w-24" />
           </h3>

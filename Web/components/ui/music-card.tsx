@@ -67,10 +67,16 @@ export function MusicCard({
           />
         </div>
         <div className="w-full overflow-hidden">
-          <Link href={`/songs/${track.id}`} className="hover:text-primary">
+          <Link
+            href={`/songs/${track.id}`}
+            className="hover:text-primary dark:text-primary-foreground"
+          >
             <h1 className="truncate text-xl font-bold">{track.name}</h1>
           </Link>
-          <Link href={`/albums/${album.id}`} className="hover:text-primary">
+          <Link
+            href={`/albums/${album.id}`}
+            className="hover:text-primary dark:text-primary-foreground"
+          >
             <p className="truncate text-sm font-semibold">{album.name}</p>
           </Link>
           <div className="text-sm font-semibold">
@@ -78,7 +84,7 @@ export function MusicCard({
               <Link
                 key={index}
                 href={`/artists/${x.id}`}
-                className="hover:text-primary"
+                className="hover:text-primary dark:text-primary-foreground"
               >
                 {index != 0 && ", "}
                 {x.name}
@@ -117,7 +123,7 @@ export function MusicCard({
             {user && user?.name && (
               <Link
                 href={`/users/${user.id}`}
-                className="text-nowrap font-semibold hover:text-primary"
+                className="text-nowrap font-semibold hover:text-primary dark:text-primary-foreground"
               >
                 {user?.name}
               </Link>
