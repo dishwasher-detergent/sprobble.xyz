@@ -4,6 +4,7 @@ import { Loader } from "@/components/loading/loader";
 import { Button } from "@/components/ui/button";
 import useAccount from "@/hooks/use-account";
 import { auth_service } from "@/lib/appwrite";
+import { Spotify } from "./spotify";
 
 export function HeroLoginButton() {
   const { data, loading } = useAccount(true);
@@ -17,6 +18,7 @@ export function HeroLoginButton() {
       disabled={loading}
     >
       {loading && <Loader className="text-white" />}
+      <Spotify variant="white" />
       Log In with Spotify
     </Button>
   ) : null;
