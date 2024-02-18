@@ -2,9 +2,9 @@
 
 import { Loader } from "@/components/loading/loader";
 import { Button } from "@/components/ui/button";
+import { Spotify } from "@/components/ui/spotify";
 import useAccount from "@/hooks/use-account";
 import { auth_service } from "@/lib/appwrite";
-import { Spotify } from "./spotify";
 
 export function HeroLoginButton() {
   const { data, loading } = useAccount(true);
