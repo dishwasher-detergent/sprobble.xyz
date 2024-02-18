@@ -6,14 +6,14 @@ import Link from "next/link";
 export function Nav() {
   return (
     <header className="w-full border-b">
-      <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-4 py-2 md:flex-row md:justify-start">
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-12 grid-rows-2 flex-col items-center justify-center gap-2 px-4 py-2 md:flex md:flex-row md:justify-start">
         <Link
-          className="text-xl font-bold text-primary dark:text-primary-foreground md:text-base"
+          className="col-span-6 col-start-1 row-start-1 pl-4 text-xl font-bold text-primary dark:text-primary-foreground md:p-0 md:text-base"
           href="/"
         >
           Sprobble.xyz
         </Link>
-        <nav className="flex-1">
+        <nav className="col-span-12 row-start-2 flex-1">
           <ul className="flex flex-row">
             <li>
               <Button variant="ghost" asChild>
@@ -37,8 +37,10 @@ export function Nav() {
             </li>
           </ul>
         </nav>
-        <LoginButton />
-        <ModeToggle />
+        <div className="col-span-6 col-start-7 row-start-1 flex flex-row items-center justify-end gap-2">
+          <LoginButton />
+          <ModeToggle />
+        </div>
       </div>
     </header>
   );
