@@ -20,7 +20,7 @@ export default function RootLayout({
       <head />
       <body
         className={cn(
-          "flex min-h-screen flex-col bg-background antialiased",
+          "relative flex min-h-screen flex-col bg-background antialiased",
           fontSans.className,
         )}
       >
