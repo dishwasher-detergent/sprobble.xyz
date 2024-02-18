@@ -57,7 +57,7 @@ export function MusicCard({
   });
 
   return (
-    <article className="flex flex-col gap-4 rounded-3xl border p-2">
+    <article className="flex flex-col gap-4 rounded-3xl border bg-background p-2">
       <div className="flex flex-1 flex-row gap-4 md:flex-col">
         <div className="aspect-square w-36 flex-none overflow-hidden rounded-2xl md:w-full">
           <img

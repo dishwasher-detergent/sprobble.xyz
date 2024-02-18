@@ -1,5 +1,6 @@
 "use client";
 
+import { HistoryContainer } from "@/components/ui/history-container";
 import { MusicCard } from "@/components/ui/music-card";
 import usePlays from "@/hooks/use-plays";
 import { PlayMinified } from "@/interfaces/plays-minified.interface";
@@ -27,7 +28,7 @@ export function GlobalHistory({ initial }: GlobalHistoryProps) {
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <HistoryContainer>
         {data?.map((x) => (
           <MusicCard
             key={x.$id}
@@ -54,7 +55,7 @@ export function GlobalHistory({ initial }: GlobalHistoryProps) {
             }}
           />
         ))}
-      </div>
+      </HistoryContainer>
       {data && data.length == 0 && (
         <div className="flex h-24 w-full flex-row items-center justify-center gap-4 rounded-3xl bg-secondary">
           <LucideGhost className="h-10 w-10 flex-none rounded-xl bg-primary-foreground p-2 text-primary" />

@@ -86,10 +86,10 @@ export default async function UserPage({
         title={user?.name}
         sub="Sprobble"
       />
-      <section className="relative z-10 h-96 pb-4 md:grid-cols-2 xl:-mt-24 xl:pb-12">
+      <section className="relative z-10 h-96 pb-4 md:grid-cols-2 xl:-mt-24 xl:pb-16">
         <WeekToWeek initial={weekToWeekFormatted} id={id} />
       </section>
-      <section className="pb-12">
+      <section className="pb-16">
         <div className="flex flex-row flex-nowrap gap-4 pb-4 md:items-center md:justify-center">
           <LucideAudioLines className="h-10 w-10 flex-none rounded-xl bg-primary-foreground p-2 text-primary" />
           <h3 className="text-lg font-bold text-secondary-foreground md:text-xl">

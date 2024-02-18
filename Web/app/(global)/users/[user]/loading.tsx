@@ -13,14 +13,14 @@ export default function UserLoading() {
         }
         sub="Sprobble"
       />
-      <section className="relative z-10 pb-4 xl:-mt-24 xl:pb-12">
+      <section className="relative z-10 pb-4 xl:-mt-24 xl:pb-16">
         <div className="h-56 md:col-span-2 md:h-96">
           <div className="z-10 flex h-full min-h-24 w-full flex-col gap-4 rounded-3xl border bg-background p-2">
             <Skeleton className="h-full w-full" />
           </div>
         </div>
       </section>
-      <section className="pb-12">
+      <section className="pb-16">
         <div className="flex flex-row flex-nowrap gap-4 pb-4 md:items-center md:justify-center">
           <LucideAudioLines className="h-10 w-10 flex-none rounded-xl bg-primary-foreground p-2 text-primary" />
           <h3 className="flex items-center gap-2 text-lg font-bold text-secondary-foreground md:text-xl">

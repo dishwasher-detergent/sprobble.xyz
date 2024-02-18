@@ -1,12 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { LucideGithub } from "lucide-react";
 import Link from "next/link";
-import { Separator } from "./separator";
 
 export function Footer() {
   return (
     <footer className="w-full bg-primary px-4 py-12 text-white">
-      <div className="mx-auto max-w-7xl space-y-4">
+      <div className="mx-auto max-w-7xl space-y-8">
         <div className="flex w-full flex-row items-center">
           <Link className="text-3xl font-bold" href="/">
             Sprobble.xyz
@@ -56,7 +55,6 @@ export function Footer() {
             </li>
           </ul>
         </div>
-        <Separator className="w-full bg-white" orientation="horizontal" />
         <p className="text-sm">
           All copyrighted content (i.e. album artwork) on sprobble.xyz are owned
           by their respective owners. Data is provided by Spotify AB.

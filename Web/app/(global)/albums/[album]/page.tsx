@@ -64,7 +64,7 @@ export default async function AlbumPage({
         sub="Album"
         altSub={<SpotifyLink type="album" id={id} />}
       />
-      <section className="relative z-10 pb-12 xl:-mt-48">
+      <section className="relative z-10 pb-16 xl:-mt-48">
         <div className="grid grid-cols-1 gap-4 pb-4 md:grid-cols-3">
           <div className="h-56 md:col-span-2 md:h-96">
             <WeekToWeek initial={weekToWeekFormatted} id={id} />
@@ -74,7 +74,7 @@ export default async function AlbumPage({
           </div>
         </div>
       </section>
-      <section className="pb-12">
+      <section className="pb-16">
         <div className="flex flex-row flex-nowrap gap-4 pb-4 md:items-center md:justify-center">
           <LucideAudioLines className="h-10 w-10 flex-none rounded-xl bg-primary-foreground p-2 text-primary" />
           <h3 className="text-lg font-bold text-secondary-foreground md:text-xl">

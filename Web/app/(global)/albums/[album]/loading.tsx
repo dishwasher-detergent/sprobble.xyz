@@ -15,7 +15,7 @@ export default function AlbumLoading() {
         sub="Album"
         altSub={<SpotifyLink type="album" id={"5qNws4KuryY0VNrdtcDwkR"} />}
       />
-      <section className="relative z-10 pb-12 xl:-mt-48">
+      <section className="relative z-10 pb-16 xl:-mt-48">
         <div className="grid grid-cols-1 gap-4 pb-4 md:grid-cols-3">
           <div className="h-56 md:col-span-2 md:h-96">
             <div className="z-10 flex h-full min-h-24 w-full flex-col gap-4 rounded-3xl border bg-background p-2">
@@ -38,7 +38,7 @@ export default function AlbumLoading() {
           </div>
         </div>
       </section>
-      <section className="pb-12">
+      <section className="pb-16">
         <div className="flex flex-row flex-nowrap gap-4 pb-4 md:items-center md:justify-center">
           <LucideAudioLines className="h-10 w-10 flex-none rounded-xl bg-primary-foreground p-2 text-primary" />
           <h3 className="flex items-center gap-2 text-lg font-bold text-secondary-foreground md:text-xl">

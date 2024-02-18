@@ -1,5 +1,6 @@
 "use client";
 
+import { HistoryContainer } from "@/components/ui/history-container";
 import { MusicCard } from "@/components/ui/music-card";
 import useAlbum from "@/hooks/use-album";
 import { Album } from "@/interfaces/album.interface";
@@ -24,7 +25,7 @@ export function AlbumHistory({ initial, id }: AlbumHistoryProps) {
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <HistoryContainer>
         {data?.plays?.map((x) => (
           <MusicCard
             key={x.$id}
@@ -50,7 +51,7 @@ export function AlbumHistory({ initial, id }: AlbumHistoryProps) {
             }}
           />
         ))}
-      </div>
+      </HistoryContainer>
       {data?.plays && data.plays.length == 0 && (
         <div className="flex h-24 w-full flex-row items-center justify-center gap-4 rounded-3xl bg-secondary">
           <LucideGhost className="h-10 w-10 flex-none rounded-xl bg-primary-foreground p-2 text-primary" />

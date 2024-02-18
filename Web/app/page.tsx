@@ -82,7 +82,7 @@ export default async function Home() {
         sub="Sprobble"
         altSub={<HeroLoginButton />}
       />
-      <section className="relative z-10 pb-12 xl:-mt-48">
+      <section className="relative z-10 pb-16 xl:-mt-48">
         <div className="flex flex-row flex-nowrap gap-4 pb-4 md:items-center md:justify-center">
           <LucideLineChart className="h-10 w-10 flex-none rounded-xl bg-primary-foreground p-2 text-primary" />
           <h3 className="text-lg font-bold text-secondary-foreground md:text-xl">
@@ -98,7 +98,7 @@ export default async function Home() {
           </div>
         </div>
       </section>
-      <section className="pb-12">
+      <section className="pb-16">
         <div className="flex flex-row flex-nowrap gap-4 pb-4 md:items-center md:justify-center">
           <LucidePartyPopper className="h-10 w-10 flex-none rounded-xl bg-primary-foreground p-2 text-primary" />
           <h3 className="text-lg font-bold text-secondary-foreground md:text-xl">
