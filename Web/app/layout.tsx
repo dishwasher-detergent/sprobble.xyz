@@ -20,7 +20,7 @@ export default function RootLayout({
       <head />
       <body
         className={cn(
-          "min-h-screen bg-background antialiased",
+          "flex min-h-screen flex-col bg-background antialiased",
           fontSans.className,
         )}
       >
@@ -31,7 +31,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Nav />
-          <main className="mx-auto w-full max-w-7xl p-4">{children}</main>
+          <main className="mx-auto w-full max-w-7xl flex-1 p-4">
+            {children}
+          </main>
           <Footer />
         </ThemeProvider>
       </body>
