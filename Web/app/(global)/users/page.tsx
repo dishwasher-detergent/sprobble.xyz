@@ -54,6 +54,7 @@ export default function SongsPage() {
       setLoading(true);
       try {
         const response = await database_service.list<User>(USER_COLLECTION_ID, [
+          Query.orderAsc("name"),
           Query.select(["name", "$id", "avatar"]),
           Query.notEqual("name", "global"),
           Query.limit(pageSize),

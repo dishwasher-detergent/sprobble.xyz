@@ -56,6 +56,7 @@ export default function SongsPage() {
         const response = await database_service.list<TrackMinified>(
           TRACK_MINIFIED_COLLECTION_ID,
           [
+            Query.orderAsc("name"),
             Query.limit(pageSize),
             Query.offset(pageSize * pageIndex),
             ...columnFilters.map((x) => Query.search(x.id, String(x.value))),
