@@ -20,6 +20,7 @@ export function SpotifyLink({ type, id }: SpotifyLinkProps) {
         <img
           className="h-full"
           src={`https://scannables.scdn.co/uri/plain/jpeg/7c3aed/white/640/spotify:${type}:${id}`}
+          alt="Spotify Scannable Code"
         />
       </div>
     </a>

@@ -63,7 +63,7 @@ export function MusicCard({
           <img
             className="h-full w-full object-cover object-center"
             src={image}
-            alt="Temp Image"
+            alt={`${album.name}&apos; Artwork.`}
           />
         </div>
         <div className="w-full overflow-hidden">

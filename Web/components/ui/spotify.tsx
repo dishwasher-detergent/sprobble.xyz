@@ -27,7 +27,7 @@ export function Spotify({
 
   return (
     <div className={cn("w-6 flex-none", className)}>
-      <img src={image()} className="h-full w-full" />
+      <img src={image()} className="h-full w-full" alt="Spotify Logo"/>
     </div>
   );
 }
