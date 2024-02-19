@@ -35,6 +35,11 @@ export function Nav() {
                 <Link href="/users">Users</Link>
               </Button>
             </li>
+            <li>
+              <Button variant="ghost" asChild>
+                <Link href="/account">Account</Link>
+              </Button>
+            </li>
           </ul>
         </nav>
         <div className="col-span-6 col-start-7 row-start-1 flex flex-row items-center justify-end gap-2">

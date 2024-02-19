@@ -46,6 +46,9 @@ export default function useAccount(initialLoad: boolean = false) {
     const account = await auth_service.getAccount();
     const session = await auth_service.getSession();
 
+    console.log(account);
+    console.log(session);
+
     if (session.provider == "spotify") {
       await auth_service.updatePrefs({
         refresh_token: session.providerRefreshToken,
