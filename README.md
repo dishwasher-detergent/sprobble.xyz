@@ -11,17 +11,19 @@ Track your Spotify plays with Sprobble!
 - Shadcn
 - Appwrite
 
-## Using Appwrite Cloud
+## Hosting
 
-You will need to setup an Appwrite Cloud account. [Sign up here.](https://cloud.appwrite.io/register)
-You will also need a Spotify app setup. [Sign up here.](developer.spotify.com)
+#### Using Appwrite Cloud
 
-## Self Hosting
+- You will need to setup an Appwrite Cloud account. [Sign up here.](https://cloud.appwrite.io/register)
+- You will also need a Spotify app setup. [Sign up here.](developer.spotify.com)
 
-You will need to setup your own [Appwrite](appwrite.io) instance, at this time Appwrite cloud does not support relationships so you will need to self host Appwrite version 1.3.7+ yourself. You can easily self host your own instance of Appwrite using Digital Ocean. [Find that here](https://marketplace.digitalocean.com/apps/appwrite)
-You will also need a Spotify app setup. [Sign up here.](developer.spotify.com)
+#### Self Hosting
 
-## Once everything above is done, you can run these commands below.
+- You will need to setup your own [Appwrite](appwrite.io) instance, at this time Appwrite cloud does not support relationships so you will need to self host Appwrite version 1.3.7+ yourself. You can easily self host your own instance of Appwrite using Digital Ocean. [Find that here](https://marketplace.digitalocean.com/apps/appwrite)
+- You will also need a Spotify app setup. [Sign up here.](developer.spotify.com)
+
+#### Once everything above is done, you can run these commands below.
 
 1. appwrite login
 2. appwrite deploy collection
