@@ -25,9 +25,9 @@ Once everything above is done, you can run these commands below.
 
 1. appwrite login
 2. appwrite deploy collection
-   - use **space** to select all collections
+   - use **a** to select all collections
 3. appwrite deploy function
-   - use **space** to select all functions
+   - use **a** to select all functions
    - Update env variables based on the example.env files in each function directory.
 
 ## Congrats, you're done!
