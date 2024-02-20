@@ -70,7 +70,7 @@ export default async function SongPage({
         ))}
         altSub={<SpotifyLink type="track" id={id} />}
       />
-      <section className="relative z-10 mt-4 pb-8 xl:-mt-48">
+      <section className="relative z-10 mt-4 mb-8 xl:-mt-48 p-2 bg-slate-900/10 dark:bg-slate-100/10 rounded-3xl">
         <div className="grid grid-cols-1 gap-4 pb-4 md:grid-cols-3">
           <div className="h-56 md:col-span-2 md:h-96">
             <WeekToWeek initial={weekToWeekFormatted} id={id} />

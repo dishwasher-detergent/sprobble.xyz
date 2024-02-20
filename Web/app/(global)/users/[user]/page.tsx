@@ -86,7 +86,7 @@ export default async function UserPage({
         title={user?.name}
         sub="Sprobble"
       />
-      <section className="relative z-10 mt-4 h-96 pb-8 md:grid-cols-2 xl:-mt-24 xl:pb-16">
+      <section className="relative z-10 mt-4 h-96 mb-8 md:grid-cols-2 xl:-mt-24 xl:mb-16 p-2 bg-slate-900/10 dark:bg-slate-100/10 rounded-3xl">
         <WeekToWeek initial={weekToWeekFormatted} id={id} />
       </section>
       <section className="pb-8">
