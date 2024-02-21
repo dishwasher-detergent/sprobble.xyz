@@ -89,7 +89,7 @@ export default async function Home() {
             Check Out Our Global Stats
           </h3>
         </div>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 bg-slate-400/10 dark:bg-slate-50/10 rounded-3xl">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 bg-slate-400/10 dark:bg-slate-50/10 rounded-3xl p-2">
           <div className="h-56 md:col-span-2 md:h-96">
             <GlobalWeekToWeek initial={weekToWeekFormatted} />
           </div>
