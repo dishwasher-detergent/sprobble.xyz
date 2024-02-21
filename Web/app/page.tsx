@@ -82,7 +82,7 @@ export default async function Home() {
         sub="Sprobble"
         altSub={<HeroLoginButton />}
       />
-      <section className="relative z-10 mt-4 p-2 mb-8 xl:-mt-36">
+      <section className="relative z-10 mt-4 p-2 mb-16 xl:-mt-36">
         <div className="flex flex-row flex-nowrap gap-4 pb-4 md:items-center md:justify-center">
           <LucideLineChart className="h-10 w-10 flex-none rounded-xl bg-primary-foreground p-2 text-primary dark:bg-primary dark:text-primary-foreground" />
           <h3 className="text-lg font-bold text-secondary-foreground md:text-xl">
