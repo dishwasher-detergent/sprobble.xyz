@@ -1,7 +1,5 @@
 ![Sprobble.xyz Screenshot](/docs/sprobble.png)
 
-Track your Spotify plays with Sprobble!
-
 ## Built using
 - NextJS
 - Tailwind
