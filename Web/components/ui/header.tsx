@@ -16,11 +16,11 @@ export function Header({ title, sub, altSub, className }: HeaderProps) {
       )}
     >
       {sub && (
-        <div className="relative z-10 text-center text-xl font-bold text-primary dark:text-primary-foreground md:text-3xl">
+        <div className="relative z-10 flex items-center justify-center text-center text-xl font-bold text-primary dark:text-primary-foreground md:text-3xl">
           {sub}
         </div>
       )}
-      <div className="flex w-full flex-col overflow-hidden break-words pb-4 text-center text-6xl font-black md:text-7xl lg:text-8xl">
+      <div className="jsutify-center flex w-full flex-col items-center overflow-hidden break-words pb-4 text-center text-6xl font-black md:text-7xl lg:text-8xl">
         {title}
       </div>
       {altSub}
