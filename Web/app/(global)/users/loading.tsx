@@ -1,6 +1,7 @@
 import { HistoryLoading } from "@/components/loading/history";
 import { Header } from "@/components/ui/header";
 import { Skeleton } from "@/components/ui/skeleton";
+import { StatsContainer } from "@/components/ui/stats-container";
 import { LucideAudioLines } from "lucide-react";
 
 export default function UserLoading() {
@@ -13,13 +14,13 @@ export default function UserLoading() {
         }
         sub="Sprobble"
       />
-      <section className="relative z-10 pb-4 xl:-mt-24 xl:pb-16">
-        <div className="h-56 md:col-span-2 md:h-96">
-          <div className="z-10 flex h-full min-h-24 w-full flex-col gap-4 rounded-3xl border bg-background p-2">
-            <Skeleton className="h-full w-full" />
+      <StatsContainer
+        weekToWeek={
+          <div className="h-full w-full rounded-[1.75rem] bg-background p-2">
+            <Skeleton className="h-full w-full rounded-3xl" />
           </div>
-        </div>
-      </section>
+        }
+      />
       <section className="pb-16">
         <div className="flex flex-row flex-nowrap gap-4 pb-4 md:items-center md:justify-center">
           <LucideAudioLines className="h-10 w-10 flex-none rounded-xl bg-primary-foreground p-2 text-primary dark:bg-primary dark:text-primary-foreground" />

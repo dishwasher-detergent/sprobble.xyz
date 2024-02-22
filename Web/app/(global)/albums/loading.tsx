@@ -3,6 +3,7 @@ import { Header } from "@/components/ui/header";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SpotifyLink } from "@/components/ui/spotify-link";
 import { StatCard } from "@/components/ui/stat-card";
+import { StatsContainer } from "@/components/ui/stats-container";
 import { LucideAudioLines, LucideMusic3 } from "lucide-react";
 
 export default function AlbumLoading() {
@@ -15,14 +16,14 @@ export default function AlbumLoading() {
         sub="Album"
         altSub={<SpotifyLink type="album" id={"5qNws4KuryY0VNrdtcDwkR"} />}
       />
-      <section className="relative z-10 pb-16 xl:-mt-48">
-        <div className="grid grid-cols-1 gap-4 pb-4 md:grid-cols-3">
-          <div className="h-56 md:col-span-2 md:h-96">
-            <div className="z-10 flex h-full min-h-24 w-full flex-col gap-4 rounded-3xl border bg-background p-2">
-              <Skeleton className="h-full w-full" />
-            </div>
+      <StatsContainer
+        weekToWeek={
+          <div className="h-full w-full rounded-[1.75rem] bg-background p-2">
+            <Skeleton className="h-full w-full rounded-3xl" />
           </div>
-          <div className="flex w-full flex-col gap-4">
+        }
+        stats={
+          <>
             <StatCard
               title="Total Plays"
               stat={0}
@@ -35,9 +36,9 @@ export default function AlbumLoading() {
               icon={<LucideMusic3 className="h-12 w-12" />}
               loading={true}
             />
-          </div>
-        </div>
-      </section>
+          </>
+        }
+      />
       <section className="pb-16">
         <div className="flex flex-row flex-nowrap gap-4 pb-4 md:items-center md:justify-center">
           <LucideAudioLines className="h-10 w-10 flex-none rounded-xl bg-primary-foreground p-2 text-primary dark:bg-primary dark:text-primary-foreground" />

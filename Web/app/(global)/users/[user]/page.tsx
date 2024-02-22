@@ -1,6 +1,7 @@
 import { UserHistory } from "@/components/realtime/users/history";
 import { WeekToWeek } from "@/components/realtime/week-to-week";
 import { Header } from "@/components/ui/header";
+import { StatsContainer } from "@/components/ui/stats-container";
 import { PlayMinified } from "@/interfaces/plays-minified.interface";
 import { Stat } from "@/interfaces/stats.interface";
 import { User } from "@/interfaces/user.interface";
@@ -86,9 +87,9 @@ export default async function UserPage({
         title={user?.name}
         sub="Sprobble"
       />
-      <section className="relative z-10 mt-4 h-96 md:grid-cols-2 xl:-mt-24 xl:mb-16 p-2 mb-16 bg-slate-400/10 dark:bg-slate-50/10 rounded-3xl">
-        <WeekToWeek initial={weekToWeekFormatted} id={id} />
-      </section>
+      <StatsContainer
+        weekToWeek={<WeekToWeek initial={weekToWeekFormatted} id={id} />}
+      />
       <section className="pb-8">
         <div className="flex flex-row flex-nowrap gap-4 pb-4 md:items-center md:justify-center">
           <LucideAudioLines className="h-10 w-10 flex-none rounded-xl bg-primary-foreground p-2 text-primary dark:bg-primary dark:text-primary-foreground" />

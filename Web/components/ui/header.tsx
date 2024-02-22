@@ -20,7 +20,7 @@ export function Header({ title, sub, altSub, className }: HeaderProps) {
           {sub}
         </div>
       )}
-      <div className="flex flex-col pb-4 text-center text-6xl font-black md:text-7xl lg:text-8xl">
+      <div className="flex w-full flex-col overflow-hidden break-words pb-4 text-center text-6xl font-black md:text-7xl lg:text-8xl">
         {title}
       </div>
       {altSub}
