@@ -89,5 +89,3 @@ export default async function AlbumPage({
     </>
   );
 }
-
-export const dynamic = 'force-dynamic'

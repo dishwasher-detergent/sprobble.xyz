@@ -105,5 +105,3 @@ export default async function UserPage({
     </>
   );
 }
-
-export const dynamic = 'force-dynamic'

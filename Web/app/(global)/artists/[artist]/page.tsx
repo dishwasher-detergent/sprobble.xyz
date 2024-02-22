@@ -89,5 +89,3 @@ export default async function ArtistPage({
     </>
   );
 }
-
-export const dynamic = 'force-dynamic'
