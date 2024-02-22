@@ -95,3 +95,5 @@ export default async function SongPage({
     </>
   );
 }
+
+export const dynamic = 'force-dynamic'
