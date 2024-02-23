@@ -82,11 +82,7 @@ export default async function UserPage({
 
   return (
     <>
-      <Header
-        className="mb-4 xl:mb-12 xl:pb-36"
-        title={user?.name}
-        sub="Sprobble"
-      />
+      <Header title={user?.name} sub="Sprobble" />
       <StatsContainer
         weekToWeek={<WeekToWeek initial={weekToWeekFormatted} id={id} />}
       />

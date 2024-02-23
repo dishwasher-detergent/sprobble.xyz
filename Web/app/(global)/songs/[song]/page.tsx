@@ -62,7 +62,7 @@ export default async function SongPage({
   return (
     <>
       <Header
-        className="pt-32"
+        className="pb-28 pt-16 md:pt-32"
         title={song?.name}
         sub={song?.artist.map((x, index) => (
           <Link key={x.$id} href={`/artists/${x.$id}`}>

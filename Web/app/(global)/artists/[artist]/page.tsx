@@ -61,7 +61,7 @@ export default async function ArtistPage({
   return (
     <>
       <Header
-        className="pt-32"
+        className="pb-28 pt-16 md:pt-32"
         title={artist?.name}
         sub="Artist"
         altSub={<SpotifyLink type="artist" id={id} />}

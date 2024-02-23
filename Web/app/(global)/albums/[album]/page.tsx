@@ -61,7 +61,7 @@ export default async function AlbumPage({
   return (
     <>
       <Header
-        className="pt-32"
+        className="pb-28 pt-16 md:pt-32"
         title={album?.name}
         sub="Album"
         altSub={<SpotifyLink type="album" id={id} />}

@@ -11,7 +11,7 @@ export function Header({ title, sub, altSub, className }: HeaderProps) {
   return (
     <section
       className={cn(
-        "relative flex flex-col items-center rounded-3xl px-4 pb-36 pt-24 xl:pb-56",
+        "relative flex flex-col items-center rounded-3xl px-4 pb-20 pt-16 md:pb-36 md:pt-24 xl:pb-56",
         className,
       )}
     >
