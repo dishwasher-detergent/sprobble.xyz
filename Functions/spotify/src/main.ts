@@ -54,10 +54,12 @@ export default async ({ req, res, log, error }: Context) => {
     let spotifyHistory = null;
 
     try {
-      log(`Checking authorization for ${user.name}`);
+      log(`${new Date().toString()}: Checking authorization for ${user.name}`);
       authorization = await checkAuthorization(database, user.$id);
     } catch (err) {
-      log(`Error checking authorization for ${user.name}.`);
+      log(
+        `${new Date().toString()}: Error checking authorization for ${user.name}.`
+      );
       error((err as Error).message);
       continue;
     }
@@ -65,60 +67,57 @@ export default async ({ req, res, log, error }: Context) => {
     if (!authorization) continue;
 
     try {
-      log(`Getting access token for ${user.name}`);
+      log(`${new Date().toString()}: Getting access token for ${user.name}`);
       spotifyAccessToken = await getAccessToken(
         process.env.SPOTIFY_CLIENT_ID as string,
         process.env.SPOTIFY_CLIENT_SECRET as string,
         user.prefs.refresh_token
       );
     } catch (err) {
-      log(`Error getting access token for ${user.name}.`);
+      log(
+        `${new Date().toString()}: Error getting access token for ${user.name}.`
+      );
       error((err as Error).message);
       continue;
     }
 
     if (!spotifyAccessToken) {
-      log(`No access token for ${user.name}`);
+      log(`${new Date().toString()}: No access token for ${user.name}`);
       continue;
     }
 
     try {
-      log(`Fetching history for ${user.name}`);
+      log(`${new Date().toString()}: Fetching history for ${user.name}`);
       spotifyHistory = await getPlayerHistory(spotifyAccessToken.access_token);
     } catch (err) {
-      log(`Error getting player history for ${user.name}.`);
+      log(
+        `${new Date().toString()}: Error getting player history for ${user.name}.`
+      );
       error((err as Error).message);
       continue;
     }
 
     if (spotifyHistory == null || spotifyHistory.items.length == 0) {
-      log(`No history items for ${user.name}.`);
+      log(`${new Date().toString()}: No history items for ${user.name}.`);
       continue;
     }
 
     log(`${new Date().toString()}: Adding`);
 
     for (let i = 0; i < spotifyHistory.items.length; i++) {
-      try {
-        await addAlbumToDatabase(spotifyHistory.items[i].track, database);
-      } catch (err) {
-        log(`${new Date().toString()}: Error adding album to database.`);
-        error((err as Error).message);
-      }
+      const results = await Promise.allSettled([
+        addAlbumToDatabase(spotifyHistory.items[i].track, database),
+        addArtistToDatabase(spotifyHistory.items[i].track, database),
+        addTrackToDatabase(spotifyHistory.items[i].track, database),
+      ]);
 
-      try {
-        await addArtistToDatabase(spotifyHistory.items[i].track, database);
-      } catch (err) {
-        log(`${new Date().toString()}: Error adding artist to database.`);
-        error((err as Error).message);
-      }
-
-      try {
-        await addTrackToDatabase(spotifyHistory.items[i].track, database);
-      } catch (err) {
-        log(`${new Date().toString()}: Error adding track to database.`);
-        error((err as Error).message);
-      }
+      results
+        .filter((x) => x.status === "rejected")
+        .forEach((x) => {
+          error(
+            `${new Date().toString()}: Error adding item to database. ${x.toString()}`
+          );
+        });
 
       let listenId = null;
 
@@ -132,8 +131,6 @@ export default async ({ req, res, log, error }: Context) => {
         log(`${new Date().toString()}: Error adding listen to database.`);
         error((err as Error).message);
       }
-
-      log(listenId);
 
       try {
         await createRelationships(

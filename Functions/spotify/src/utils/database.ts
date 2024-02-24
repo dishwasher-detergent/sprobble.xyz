@@ -43,6 +43,11 @@ export const addArtistToDatabase = async (
         [Query.select(["$id"])]
       );
     } catch (err) {
+      const response = await fetch(
+        `https://embed.spotify.com/oembed?url=spotify:artist:${album.artists[i].id}`
+      );
+      const result = await response.json();
+
       await database.createDocument(
         databaseId,
         artistCollectionId,
@@ -51,7 +56,7 @@ export const addArtistToDatabase = async (
           name: album.artists[i].name,
           href: album.artists[i].external_urls.spotify,
           popularity: album.artists[i].popularity ?? 0,
-          images: album.artists[i].images?.map((image) => image.url) ?? [],
+          images: [result.thumbnail_url] ?? [],
           genres: album.artists[i].genres ?? [],
         }
       );
@@ -126,7 +131,7 @@ export const createRelationships = async (
     album: album.id,
   });
 
-  if (listenId) {
+  if (listenId != undefined) {
     await database.updateDocument(databaseId, playsCollectionId, listenId, {
       track: item.id,
       artist: artistList,
