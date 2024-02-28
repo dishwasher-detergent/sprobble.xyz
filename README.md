@@ -1,4 +1,4 @@
-![Sprobble.xyz Screenshot](/docs/sprobble.png)
+![Sprobble.xyz Screenshot](https://api.jibby.space/screenshot/https%3A%2F%2Fsprobble.xyz?width=1500&height=1080&darkMode=true)
 
 ## Built using
 - NextJS
