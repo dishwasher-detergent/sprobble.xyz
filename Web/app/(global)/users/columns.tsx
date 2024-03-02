@@ -14,12 +14,21 @@ export const COLUMNS: ColumnDef<Data>[] = [
     accessorKey: "images",
     header: "Artwork",
     cell(props) {
+      const avatar = (() => {
+        if (props.row.original?.avatar) {
+          if (props.row.original.avatar.includes("https")) {
+            return props.row.original.avatar;
+          }
+
+          return `${ENDPOINT}/storage/buckets/${AVATARS_BUCKET_ID}/files/${props.row.original.avatar}/view?project=${PROJECT_ID}`;
+        } else {
+          return `${ENDPOINT}/avatars/initials?name=${props.row.original.name}`;
+        }
+      })();
+
       return (
         <Avatar className="block h-14 w-14 flex-none overflow-hidden rounded-xl">
-          <AvatarImage
-            src={`${ENDPOINT}/storage/buckets/${AVATARS_BUCKET_ID}/files/${props.row.original.avatar}/view?project=${PROJECT_ID}`}
-            alt={props.row.original.name}
-          />
+          <AvatarImage src={avatar} alt={props.row.original.name} />
         </Avatar>
       );
     },

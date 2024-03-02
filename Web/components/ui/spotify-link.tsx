@@ -2,7 +2,7 @@ import { Spotify } from "@/components/ui/spotify";
 
 export interface SpotifyLinkProps {
   id: string;
-  type: "artist" | "track" | "album";
+  type: "artist" | "track" | "album" | "user";
 }
 
 export function SpotifyLink({ type, id }: SpotifyLinkProps) {

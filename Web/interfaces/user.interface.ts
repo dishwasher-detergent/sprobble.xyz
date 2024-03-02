@@ -9,4 +9,5 @@ export interface User extends Models.Document {
   refresh_token: string;
   created_at: Date;
   stats: Stat[];
+  spotify_user_id: string;
 }

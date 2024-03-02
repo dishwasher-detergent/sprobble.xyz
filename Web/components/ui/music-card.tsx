@@ -56,6 +56,18 @@ export function MusicCard({
     second: "numeric",
   });
 
+  const avatar = (() => {
+    if (user?.avatar) {
+      if (user.avatar.includes("https")) {
+        return user.avatar;
+      }
+
+      return `${ENDPOINT}/storage/buckets/${AVATARS_BUCKET_ID}/files/${user?.avatar}/view?project=${PROJECT_ID}`;
+    } else {
+      return `${ENDPOINT}/avatars/initials?name=${user?.name}`;
+    }
+  })();
+
   return (
     <article className="flex flex-col gap-4 rounded-3xl border bg-background p-2">
       <div className="flex flex-1 flex-row gap-4 md:flex-col">
@@ -111,15 +123,13 @@ export function MusicCard({
       <div className="w-full flex-row overflow-hidden rounded-full bg-secondary p-1 text-secondary-foreground">
         <div className="flex flex-row items-center text-sm">
           <div className="flex flex-none flex-row flex-nowrap items-center gap-2">
-            {user && user?.avatar && (
-              <div className="aspect-square h-6 w-6 flex-none overflow-hidden rounded-full md:h-8 md:w-8">
-                <img
-                  className="h-full w-full object-cover object-center"
-                  src={`${ENDPOINT}/storage/buckets/${AVATARS_BUCKET_ID}/files/${user?.avatar}/view?project=${PROJECT_ID}`}
-                  alt="Temp Image"
-                />
-              </div>
-            )}
+            <div className="aspect-square h-6 w-6 flex-none overflow-hidden rounded-full md:h-8 md:w-8">
+              <img
+                className="h-full w-full object-cover object-center"
+                src={avatar}
+                alt={`${user?.name}s' Avatar`}
+              />
+            </div>
             {user && user?.name && (
               <Link
                 href={`/users/${user.id}`}

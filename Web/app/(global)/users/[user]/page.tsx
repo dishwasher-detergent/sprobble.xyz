@@ -1,6 +1,7 @@
 import { UserHistory } from "@/components/realtime/users/history";
 import { WeekToWeek } from "@/components/realtime/week-to-week";
 import { Header } from "@/components/ui/header";
+import { SpotifyLink } from "@/components/ui/spotify-link";
 import { StatsContainer } from "@/components/ui/stats-container";
 import { PlayMinified } from "@/interfaces/plays-minified.interface";
 import { Stat } from "@/interfaces/stats.interface";
@@ -82,7 +83,16 @@ export default async function UserPage({
 
   return (
     <>
-      <Header title={user?.name} sub="Sprobble" />
+      <Header
+        className="pb-28 pt-16 md:pt-32"
+        title={user?.name}
+        sub="Users"
+        altSub={
+          user?.spotify_user_id && (
+            <SpotifyLink type="user" id={user?.spotify_user_id} />
+          )
+        }
+      />
       <StatsContainer
         weekToWeek={<WeekToWeek initial={weekToWeekFormatted} id={id} />}
       />
