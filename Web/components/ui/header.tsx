@@ -24,7 +24,7 @@ export function Header({ title, sub, altSub, className }: HeaderProps) {
         {title}
       </div>
       {altSub}
-      <div className="aurora absolute inset-0 rounded-3xl opacity-30 xl:-ml-[5%] xl:w-[110%]" />
+      <div className="aurora absolute inset-0 rounded-3xl opacity-30 xl:w-[100%] mx-auto" />
     </section>
   );
 }
