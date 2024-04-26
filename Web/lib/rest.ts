@@ -19,6 +19,7 @@ export const rest_service = {
     const response = await fetch(url, {
       headers: {
         "x-appwrite-project": PROJECT_ID,
+        "x-appwrite-response-format": "1.4.0"
       },
       cache: "no-store",
     });
@@ -46,6 +47,7 @@ export const rest_service = {
     const response = await fetch(url, {
       headers: {
         "x-appwrite-project": PROJECT_ID,
+        "x-appwrite-response-format": "1.4.0"
       },
       cache: "no-store",
     });
