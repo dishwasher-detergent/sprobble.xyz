@@ -5,6 +5,7 @@ import { Footer } from "@/components/ui/footer";
 import { Nav } from "@/components/ui/nav";
 import { ThemeProvider } from "@/contexts/theme-provider";
 import { cn } from "@/lib/utils";
+import { Analytics } from "@vercel/analytics/react"
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -18,6 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
+      <Analytics />
       <body
         className={cn(
           "relative flex min-h-screen flex-col bg-background antialiased",
