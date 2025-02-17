@@ -1,5 +1,3 @@
-![Sprobble.xyz Screenshot](https://api.jibby.space/screenshot/https%3A%2F%2Fsprobble.vercel.app?width=1500&height=1080&darkMode=true)
-
 ## Built using
 - NextJS
 - Tailwind
